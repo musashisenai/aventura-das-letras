@@ -226,6 +226,8 @@ function TeacherDashboard({ state, controller }: Props) {
 
 export default function GameUI({ state, controller }: Props) {
   const content = useMemo(() => {
+    const requiresProfile = ["map", "lesson", "reward", "pets"].includes(state.screen);
+    if (requiresProfile && !state.profile) return <Welcome controller={controller} />;
     if (state.screen === "welcome") return <Welcome controller={controller} />;
     if (state.screen === "placement") return <Placement state={state} controller={controller} />;
     if (state.screen === "map") return <MapPage state={state} controller={controller} />;

@@ -115,7 +115,10 @@ export class GameController {
   private load(): GameState {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw ? (JSON.parse(raw) as GameState) : initialState();
+      if (!raw) return initialState();
+      const saved = JSON.parse(raw) as GameState;
+      const requiresProfile = ["map", "lesson", "reward", "pets"].includes(saved.screen);
+      return requiresProfile && !saved.profile ? initialState() : saved;
     } catch {
       return initialState();
     }
@@ -263,13 +266,13 @@ export class GameController {
   }
 
   goToMap() {
-    this.state.screen = "map";
+    this.state.screen = this.state.profile ? "map" : "welcome";
     this.state.feedback = null;
     this.emit();
   }
 
   openPets() {
-    this.state.screen = "pets";
+    this.state.screen = this.state.profile ? "pets" : "welcome";
     this.emit();
   }
 
