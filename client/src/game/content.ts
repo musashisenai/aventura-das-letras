@@ -33,12 +33,13 @@ export type World = {
 };
 
 export const WORLDS: World[] = [
-  { id: 0, name: "Mundo da Garatuja", shortName: "Garatuja", theme: "Ateliê das primeiras marcas", color: "#70B9E8", accent: "#EEF9FF", icon: "✎" },
-  { id: 1, name: "Mundo Pré-Silábico", shortName: "Pré-Silábico", theme: "Cidade das letras curiosas", color: "#F1A83B", accent: "#FFF5D8", icon: "A" },
-  { id: 2, name: "Mundo Silábico", shortName: "Silábico", theme: "Ilhas que cantam sílabas", color: "#E86E73", accent: "#FFF0F1", icon: "SA" },
-  { id: 3, name: "Mundo Silábico-Alfabético", shortName: "Sílaba + Letra", theme: "Montanha das palavras", color: "#9673D3", accent: "#F4F0FF", icon: "PA" },
-  { id: 4, name: "Mundo Alfabético", shortName: "Alfabético", theme: "Céu das frases leitoras", color: "#35A281", accent: "#E9FFF7", icon: "ABC" },
-  { id: 5, name: "Mundo Ortográfico", shortName: "Ortográfico", theme: "Biblioteca dos sons especiais", color: "#416DCE", accent: "#EDF3FF", icon: "CH" },
+  { id: 0, name: "Mundo do Alfabeto", shortName: "Alfabeto", theme: "Jardim das 26 chaves", color: "#2FAF88", accent: "#E7FFF6", icon: "ABC" },
+  { id: 1, name: "Mundo da Garatuja", shortName: "Garatuja", theme: "Ateliê das primeiras marcas", color: "#70B9E8", accent: "#EEF9FF", icon: "✎" },
+  { id: 2, name: "Mundo Pré-Silábico", shortName: "Pré-Silábico", theme: "Cidade das letras curiosas", color: "#F1A83B", accent: "#FFF5D8", icon: "A" },
+  { id: 3, name: "Mundo Silábico", shortName: "Silábico", theme: "Ilhas que cantam sílabas", color: "#E86E73", accent: "#FFF0F1", icon: "SA" },
+  { id: 4, name: "Mundo Silábico-Alfabético", shortName: "Sílaba + Letra", theme: "Montanha das palavras", color: "#9673D3", accent: "#F4F0FF", icon: "PA" },
+  { id: 5, name: "Mundo Alfabético", shortName: "Alfabético", theme: "Céu das frases leitoras", color: "#35A281", accent: "#E9FFF7", icon: "LÊ" },
+  { id: 6, name: "Mundo Ortográfico", shortName: "Ortográfico", theme: "Biblioteca dos sons especiais", color: "#416DCE", accent: "#EDF3FF", icon: "CH" },
 ];
 
 const choice = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string): GameQuestion => ({ id, kind: "choice", prompt, options, answer, hint, visual });
@@ -48,6 +49,28 @@ const draw = (id: string, prompt: string, hint: string, visual?: string): GameQu
 /** Cada mundo oferece 20 descobertas. Uma fase sorteia 8, sem repetir a mesma página. */
 const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
   0: [
+    choice("abc-a", "QUAL É A LETRA A?", ["A", "M", "O"], "A", "A PARECE UMA MONTANHA COM DUAS PERNAS."),
+    choice("abc-b", "QUAL LETRA COMEÇA BOLA?", ["B", "D", "P"], "B", "FAÇA O SOM BÊÊÊ."),
+    choice("abc-c", "QUAL LETRA VEM DEPOIS DE B?", ["A", "C", "D"], "C", "CANTE: A, B, C."),
+    order("abc-ordem-abc", "COLOQUE AS LETRAS NA ORDEM: A B C.", ["C", "A", "B"], "ABC", "A VEM PRIMEIRO, B VEM DEPOIS E C FECHA A FILA."),
+    choice("abc-d", "QUAL É A LETRA D?", ["O", "D", "Q"], "D", "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."),
+    choice("abc-e", "QUAL LETRA COMEÇA ELEFANTE?", ["E", "F", "L"], "E", "ELEFANTE COMEÇA COM O SOM ÊÊÊ." , "🐘"),
+    choice("abc-vogal", "QUAL DESTAS É UMA VOGAL?", ["A", "T", "R"], "A", "AS VOGAIS SÃO A, E, I, O E U."),
+    choice("abc-f", "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?", ["F", "V", "P"], "F", "FADA COMEÇA COM FFFFF." , "🧚"),
+    order("abc-gato", "MONTE A PALAVRA GATO COM AS LETRAS.", ["O", "G", "A", "T"], "GATO", "COMECE PELA LETRA G." , "🐱"),
+    choice("abc-h", "QUAL LETRA VEM ANTES DE I?", ["G", "H", "J"], "H", "Fale: G, H, I."),
+    choice("abc-i", "QUAL É A LETRA I?", ["I", "L", "T"], "I", "I É UMA LETRA RETINHA."),
+    choice("abc-j", "QUAL LETRA COMEÇA JANELA?", ["J", "G", "L"], "J", "JANELA COMEÇA COM JJJJ." , "🪟"),
+    choice("abc-k", "QUAL GRUPO ESTÁ EM ORDEM ALFABÉTICA?", ["A B C", "C B A", "B A C"], "A B C", "A FILA DO ALFABETO COMEÇA A, B, C."),
+    choice("abc-l", "QUAL LETRA COMEÇA LUZ?", ["L", "U", "Z"], "L", "LUZ COMEÇA COM LLLL." , "💡"),
+    choice("abc-m", "QUAL É A LETRA M?", ["M", "W", "N"], "M", "M PARECE DUAS MONTANHAS JUNTAS."),
+    choice("abc-n", "QUAL LETRA VEM DEPOIS DE M?", ["L", "N", "O"], "N", "Fale: L, M, N."),
+    choice("abc-o", "QUAL LETRA TEM FORMATO REDONDO?", ["O", "X", "V"], "O", "O PARECE UM CÍRCULO."),
+    choice("abc-p", "QUAL LETRA COMEÇA PATO?", ["P", "B", "T"], "P", "PATO COMEÇA COM PPPP." , "🦆"),
+    choice("abc-q", "QUAL LETRA VEM DEPOIS DE P?", ["O", "Q", "R"], "Q", "Fale: O, P, Q."),
+    draw("abc-desenhe", "DESENHE OU ESCREVA A PRIMEIRA LETRA DO SEU NOME.", "CADA LETRA É UMA CHAVE PARA UMA NOVA AVENTURA.", "✎"),
+  ],
+  1: [
     draw("g-desenhe-sol", "Desenhe um sol para iluminar a trilha.", "Use o dedo ou o mouse. O seu desenho vai para o portfólio.", "☀️"),
     choice("g-conte-3", "Quantas bolinhas azuis você vê?", ["2", "3", "4"], "3", "Aponte uma bolinha de cada vez.", "🔵 🔵 🔵"),
     choice("g-circulo", "Qual forma é redonda como uma bola?", ["△", "○", "□"], "○", "Pense em uma bola bem redondinha."),
@@ -69,7 +92,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("g-menor-grupo", "Qual grupo tem menos estrelas?", ["★★★", "★", "★★★★★"], "★", "Menos quer dizer a menor quantidade."),
     choice("g-numero-2", "Qual símbolo mostra duas coisas?", ["1", "2", "A"], "2", "Os números nos ajudam a contar."),
   ],
-  1: [
+  2: [
     choice("p-letra-numero", "Qual destes é uma letra?", ["7", "M", "◇"], "M", "Letras ajudam a formar palavras."),
     choice("p-numero", "Qual destes é um número?", ["B", "4", "☀"], "4", "Números ajudam a contar."),
     choice("p-inicial-nome", "Qual letra pode começar o nome LIA?", ["L", "I", "A"], "L", "O primeiro som é LLL."),
@@ -91,7 +114,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("p-inicial-pato", "Qual letra abre a palavra PATO?", ["P", "T", "O"], "P", "O som inicial é PPP."),
     choice("p-ordem-abc", "Qual letra vem depois de C?", ["B", "D", "E"], "D", "Fale: A, B, C, D."),
   ],
-  2: [
+  3: [
     choice("s-primeira-pato", "Qual sílaba começa PATO?", ["PA", "TO", "TA"], "PA", "Fale em duas partes: PA-TO.", "🦆"),
     choice("s-completa-bola", "Complete: BO ___", ["LA", "LI", "LU"], "LA", "O brinquedo redondo é BO-LA.", "⚽"),
     choice("s-casa-partes", "Quantas sílabas tem CA-SA?", ["1", "2", "3"], "2", "Bata duas palmas: CA / SA."),
@@ -113,7 +136,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     order("s-cama", "Forme a palavra CAMA.", ["MA", "CA"], "CAMA", "Comece por CA."),
     choice("s-silaba-ca", "Qual palavra começa com CA?", ["CASA", "BOLA", "MALA"], "CASA", "CA é a primeira parte de CASA."),
   ],
-  3: [
+  4: [
     choice("sa-casa", "Complete a palavra: CA _ A", ["S", "T", "P"], "S", "É o lugar em que moramos: CASA.", "🏠"),
     order("sa-gato", "Monte a palavra GATO.", ["T", "G", "A", "O"], "GATO", "O animal faz miau.", "🐱"),
     choice("sa-vogal", "Qual destas letras é uma vogal?", ["E", "M", "R"], "E", "As vogais fazem sons que podemos cantar."),
@@ -135,7 +158,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     order("sa-sapo", "Monte a palavra SAPO.", ["O", "S", "A", "P"], "SAPO", "O animal pula no lago."),
     choice("sa-fruta", "Qual letra falta em _VA para formar UVA?", ["U", "A", "E"], "U", "A fruta começa com U."),
   ],
-  4: [
+  5: [
     order("a-flor", "Organize as letras para formar FLOR.", ["R", "F", "O", "L"], "FLOR", "É algo que nasce no jardim.", "🌸"),
     choice("a-frase", "Qual frase está escrita do jeito certo?", ["O gato dorme.", "gato O dorme.", "Dorme gato o."], "O gato dorme.", "Frases começam com letra maiúscula e terminam com ponto."),
     choice("a-rima", "Qual palavra rima com GATO?", ["PATO", "MESA", "LUA"], "PATO", "As duas terminam com o som ATO."),
@@ -157,7 +180,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("a-soma", "Duas estrelas e quatro estrelas são quantas?", ["5", "6", "7"], "6", "Junte dois e quatro."),
     choice("a-ordem", "Qual frase está na ordem certa?", ["A bola rola.", "Rola a bola.", "Bola a rola."], "A bola rola.", "Procure quem faz a ação primeiro."),
   ],
-  5: [
+  6: [
     choice("o-ch", "Qual palavra começa com CH?", ["CHAVE", "XÍCARA", "SAPO"], "CHAVE", "Faça o som de CH em chave."),
     choice("o-rr", "Qual palavra tem som forte de R no meio?", ["RATO", "CARRO", "BOLA"], "CARRO", "No meio de CARRO aparecem dois erres."),
     choice("o-ss", "Complete: PA__ARO", ["SS", "S", "Ç"], "SS", "A palavra é PÁSSARO."),
@@ -190,10 +213,13 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
 }
 
 /**
- * O nivelamento é progressivo: os seis blocos de três perguntas percorrem
- * garatuja, pré-silábico, silábico, silábico-alfabético, alfabético e ortográfico.
+ * O nivelamento é progressivo: sete blocos curtos observam letras, marcas,
+ * sílabas, palavras, leitura e ortografia sem impedir a trilha do alfabeto.
  */
 export const PLACEMENT_QUESTIONS: GameQuestion[] = [
+  choice("nivel-abc-a", "QUAL É A LETRA A?", ["A", "M", "O"], "A", "PROCURE A LETRA A."),
+  choice("nivel-abc-ordem", "QUAL LETRA VEM DEPOIS DE C?", ["B", "D", "E"], "D", "FALE: A, B, C, D."),
+  choice("nivel-abc-inicial", "QUAL LETRA COMEÇA BOLA?", ["B", "P", "D"], "B", "O SOM INICIAL É BÊÊÊ."),
   choice("nivel-g-forma", "Qual forma é redonda?", ["○", "△", "□"], "○", "Procure a forma que parece uma bola."),
   choice("nivel-g-quantidade", "Quantas estrelas há aqui?", ["2", "3", "4"], "3", "Conte cada estrela.", "★ ★ ★"),
   choice("nivel-g-rabisco", "Qual desenho parece uma letra?", ["A", "☀", "○"], "A", "Uma letra pode fazer parte de uma palavra."),

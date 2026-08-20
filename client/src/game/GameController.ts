@@ -17,6 +17,7 @@ export type Profile = {
   petLevel: number;
   petCare: number;
   audioEnabled: boolean;
+  recommendedWorld: number;
 };
 
 export type Feedback = {
@@ -31,11 +32,17 @@ export type Completion = {
 };
 
 export type AnswerLog = {
+  questionId?: string;
   question: string;
   answer: string;
   correct: boolean;
   worldId: number;
   phase: number;
+  kind?: "choice" | "order" | "draw";
+  options?: string[];
+  correctAnswer?: string;
+  hint?: string;
+  visual?: string;
   drawing?: string;
   at: string;
 };
@@ -53,6 +60,7 @@ export type GameState = {
   placementIndex: number;
   placementScore: number;
   activeWorld: number;
+  selectedWorld: number;
   activePhase: number;
   queue: GameQuestion[];
   questionIndex: number;
@@ -65,7 +73,8 @@ export type GameState = {
   teacherAuthorized: boolean;
 };
 
-const STORAGE_KEY = "aventura-das-letras-v1";
+const STORAGE_KEY = "aventura-das-letras-v2";
+const LEGACY_STORAGE_KEY = "aventura-das-letras-v1";
 const positiveHints = ["Quase! Você está quase lá!", "Tente de novo, eu acredito em você!", "Vamos olhar com calma. A Lumi tem uma pista!"];
 
 function shuffle<T>(items: T[]): T[] {
@@ -84,6 +93,7 @@ function initialState(): GameState {
     placementIndex: 0,
     placementScore: 0,
     activeWorld: 0,
+    selectedWorld: 0,
     activePhase: 0,
     queue: [],
     questionIndex: 0,
@@ -115,11 +125,25 @@ export class GameController {
 
   private load(): GameState {
     try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
+      const rawV2 = window.localStorage.getItem(STORAGE_KEY);
+      const raw = rawV2 ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
       if (!raw) return initialState();
+      const legacy = !rawV2;
       const saved = JSON.parse(raw) as GameState;
-      const profile = saved.profile ? { ...saved.profile, audioEnabled: saved.profile.audioEnabled !== false } : null;
-      const hydrated = { ...initialState(), ...saved, profile, completions: saved.completions ?? {}, answers: saved.answers ?? [] };
+      const shiftWorld = (worldId: number) => Math.max(0, Math.min(WORLDS.length - 1, legacy ? worldId + 1 : worldId));
+      const completions = Object.fromEntries(Object.entries(saved.completions ?? {}).map(([key, completion]) => {
+        const [worldId, phase] = key.split(":");
+        return [`${shiftWorld(Number(worldId))}:${phase}`, completion];
+      }));
+      const answers = (saved.answers ?? []).map((answer) => ({ ...answer, worldId: shiftWorld(answer.worldId) }));
+      const profile = saved.profile ? {
+        ...saved.profile,
+        currentWorld: shiftWorld(saved.profile.currentWorld),
+        recommendedWorld: shiftWorld(saved.profile.recommendedWorld ?? saved.profile.currentWorld),
+        audioEnabled: saved.profile.audioEnabled !== false,
+      } : null;
+      const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
+      const hydrated = { ...initialState(), ...saved, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
       const requiresProfile = ["map", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -144,10 +168,12 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "map",
-      profile: { name: "Clara", partner: "Raposa", currentWorld: 1, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
+      profile: { name: "Clara", partner: "Raposa", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
+      selectedWorld: 1,
       completions: {
         "0:0": { score: 7, total: 8, date: new Date().toISOString() },
         "0:1": { score: 6, total: 8, date: new Date().toISOString() },
+        "1:0": { score: 7, total: 8, date: new Date().toISOString() },
       },
     };
     this.emit();
@@ -164,7 +190,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "placement",
-      profile: { name: safeName, partner, currentWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled: true },
+      profile: { name: safeName, partner, currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled: true },
     };
     this.emit();
   }
@@ -175,10 +201,14 @@ export class GameController {
     const correct = answer === question.answer;
     const nextScore = this.state.placementScore + (correct ? 1 : 0);
     if (this.state.placementIndex === PLACEMENT_QUESTIONS.length - 1) {
-      const world = nextScore <= 2 ? 0 : nextScore <= 5 ? 1 : nextScore <= 8 ? 2 : nextScore <= 11 ? 3 : nextScore <= 14 ? 4 : 5;
-      if (this.state.profile) this.state.profile.currentWorld = world;
+      const recommendedWorld = nextScore <= 3 ? 0 : nextScore <= 6 ? 1 : nextScore <= 9 ? 2 : nextScore <= 12 ? 3 : nextScore <= 15 ? 4 : nextScore <= 18 ? 5 : 6;
+      if (this.state.profile) {
+        this.state.profile.currentWorld = 0;
+        this.state.profile.recommendedWorld = recommendedWorld;
+      }
       this.state.placementScore = nextScore;
-      this.state.activeWorld = world;
+      this.state.activeWorld = 0;
+      this.state.selectedWorld = 0;
       this.state.screen = "map";
       this.state.feedback = null;
     } else {
@@ -190,6 +220,12 @@ export class GameController {
 
   isWorldOpen(worldId: number) {
     return !!this.state.profile && worldId <= this.state.profile.currentWorld;
+  }
+
+  selectWorld(worldId: number) {
+    if (!WORLDS[worldId]) return;
+    this.state.selectedWorld = worldId;
+    this.emit();
   }
 
   isPhaseOpen(worldId: number, phase: number) {
@@ -205,6 +241,7 @@ export class GameController {
       options: question.options ? shuffle(question.options) : undefined,
     }));
     this.state.activeWorld = worldId;
+    this.state.selectedWorld = worldId;
     this.state.activePhase = phase;
     this.state.queue = queue;
     this.state.questionIndex = 0;
@@ -227,7 +264,7 @@ export class GameController {
     const attempts = this.state.attempts + 1;
     this.state.answers = [
       ...this.state.answers,
-      { question: question.prompt, answer: value || "Desenho enviado", correct, worldId: this.state.activeWorld, phase: this.state.activePhase, drawing, at: new Date().toLocaleString("pt-BR") },
+      { questionId: question.id, question: question.prompt, answer: value || "DESENHO ENVIADO", correct, worldId: this.state.activeWorld, phase: this.state.activePhase, kind: question.kind, options: question.options, correctAnswer: question.answer, hint: question.hint, visual: question.visual, drawing, at: new Date().toLocaleString("pt-BR") },
     ].slice(-120);
 
     if (correct) {
@@ -273,6 +310,7 @@ export class GameController {
 
   goToMap() {
     this.state.screen = this.state.profile ? "map" : "welcome";
+    if (this.state.profile) this.state.selectedWorld = this.state.activeWorld;
     this.state.feedback = null;
     this.emit();
   }
@@ -324,7 +362,9 @@ export class GameController {
 
   releaseNextWorld(worldId: number) {
     if (!this.state.profile || this.worldAccuracy(worldId) < 70) return;
-    this.state.profile.currentWorld = Math.max(this.state.profile.currentWorld, Math.min(worldId + 1, WORLDS.length - 1));
+    const nextWorld = Math.min(worldId + 1, WORLDS.length - 1);
+    this.state.profile.currentWorld = Math.max(this.state.profile.currentWorld, nextWorld);
+    this.state.selectedWorld = nextWorld;
     this.emit();
   }
 }
