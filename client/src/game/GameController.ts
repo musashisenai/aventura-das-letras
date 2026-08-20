@@ -16,6 +16,7 @@ export type Profile = {
   eggs: number;
   petLevel: number;
   petCare: number;
+  audioEnabled: boolean;
 };
 
 export type Feedback = {
@@ -117,8 +118,10 @@ export class GameController {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (!raw) return initialState();
       const saved = JSON.parse(raw) as GameState;
-      const requiresProfile = ["map", "lesson", "reward", "pets"].includes(saved.screen);
-      return requiresProfile && !saved.profile ? initialState() : saved;
+      const profile = saved.profile ? { ...saved.profile, audioEnabled: saved.profile.audioEnabled !== false } : null;
+      const hydrated = { ...initialState(), ...saved, profile, completions: saved.completions ?? {}, answers: saved.answers ?? [] };
+      const requiresProfile = ["map", "lesson", "reward", "pets"].includes(hydrated.screen);
+      return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
       return initialState();
     }
@@ -141,7 +144,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "map",
-      profile: { name: "Clara", partner: "Raposa", currentWorld: 1, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62 },
+      profile: { name: "Clara", partner: "Raposa", currentWorld: 1, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
       completions: {
         "0:0": { score: 7, total: 8, date: new Date().toISOString() },
         "0:1": { score: 6, total: 8, date: new Date().toISOString() },
@@ -161,7 +164,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "placement",
-      profile: { name: safeName, partner, currentWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30 },
+      profile: { name: safeName, partner, currentWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled: true },
     };
     this.emit();
   }
@@ -172,7 +175,7 @@ export class GameController {
     const correct = answer === question.answer;
     const nextScore = this.state.placementScore + (correct ? 1 : 0);
     if (this.state.placementIndex === PLACEMENT_QUESTIONS.length - 1) {
-      const world = nextScore <= 1 ? 0 : nextScore === 2 ? 1 : 2;
+      const world = nextScore <= 2 ? 0 : nextScore <= 5 ? 1 : nextScore <= 8 ? 2 : nextScore <= 11 ? 3 : nextScore <= 14 ? 4 : 5;
       if (this.state.profile) this.state.profile.currentWorld = world;
       this.state.placementScore = nextScore;
       this.state.activeWorld = world;
@@ -197,7 +200,10 @@ export class GameController {
 
   startPhase(worldId: number, phase: number) {
     if (!this.isPhaseOpen(worldId, phase)) return;
-    const queue = shuffle(getQuestionBank(worldId, phase)).slice(0, 8);
+    const queue = shuffle(getQuestionBank(worldId, phase)).slice(0, 8).map((question) => ({
+      ...question,
+      options: question.options ? shuffle(question.options) : undefined,
+    }));
     this.state.activeWorld = worldId;
     this.state.activePhase = phase;
     this.state.queue = queue;
@@ -286,6 +292,12 @@ export class GameController {
       this.state.profile.petLevel = Math.min(9, this.state.profile.petLevel + 1);
       this.state.profile.petCare = 35;
     }
+    this.emit();
+  }
+
+  setStudentAudio(enabled: boolean) {
+    if (!this.state.profile) return;
+    this.state.profile.audioEnabled = enabled;
     this.emit();
   }
 
