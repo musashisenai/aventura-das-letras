@@ -42,3 +42,10 @@
 **Wordmark & Logo:** Um “A” construído como uma pequena montanha de papel, cortada por uma trilha pontilhada e encimada por uma estrela-lanterna; o nome recebe letras levemente desalinhadas como carimbos de um caderno.
 
 **Signature Brand Color:** **Verde-Pinhão — #19765C**, usado no logo, contornos, trilha principal e ações de confiança.
+
+## Style Decisions
+
+- A abertura do jogo será composta como a primeira dupla de páginas de um livro-mapa, conectando o nome, o companheiro e a ação principal por uma trilha costurada.
+- O símbolo de marca será tratado como um carimbo de papel: um “A” de montanha, com percurso pontilhado e estrela-lanterna, acompanhado de um wordmark com presença artesanal.
+- Abas de página, carimbos, pontos de trilha, pegadas e molduras de adesivo serão motivos recorrentes nas telas de entrada e atividades.
+- Os comandos visíveis adotam voz de expedição: a criança entra em uma trilha com companhia em vez de preencher um formulário comum.

@@ -1,4 +1,4 @@
-/* Design reminder — Nivelamento do Livro-Mapa: texto infantil amplo, estímulos visuais explícitos e mascote de apoio, nunca de sobreposição. */
+/* Design reminder — Nivelamento do Livro-Mapa: texto infantil amplo, estímulos visuais explícitos e mascote de apoio, nunca de sobreposição. Peças grandes e táteis mostram a trilha de encaixes, não a resposta pronta. */
 .placement-card .mini-lumi {
   width: 94px;
   height: 94px;
@@ -17,6 +17,154 @@
 .placement-card h2 {
   max-width: 100%;
   margin: 9px 0 18px;
+}
+
+.placement-question-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.placement-question-title h2 {
+  flex: 1;
+}
+
+.placement-audio {
+  flex: 0 0 auto;
+  margin-top: 8px;
+}
+
+.word-builder {
+  max-width: 760px;
+  padding: clamp(16px, 2.6vw, 24px);
+  border: 2px solid #d4ecdf;
+  border-radius: 23px 15px 22px 17px;
+  background: linear-gradient(145deg, #f7fff9, #eef9f2);
+  box-shadow: inset 0 -5px 0 rgba(25, 118, 92, .07);
+}
+
+.builder-instruction,
+.tray-label {
+  margin: 0;
+  color: #527a6d;
+  font-size: .74rem;
+  font-weight: 900;
+  letter-spacing: .055em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.builder-instruction strong,
+.tray-label {
+  color: #19765c;
+}
+
+.word-dropzone {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 112px;
+  margin: 14px 0 16px;
+  padding: 14px;
+  border: 3px dashed #88bfa6;
+  border-radius: 20px 15px 20px 15px;
+  background: #fffef8;
+  box-shadow: inset 0 -6px 0 rgba(136, 191, 166, .12);
+}
+
+.builder-slot {
+  flex: 1 1 78px;
+  min-width: 76px;
+  min-height: 76px;
+  padding: 8px 13px;
+  border: 2px dashed #b6d8c7;
+  border-bottom-width: 5px;
+  border-radius: 16px 11px 17px 12px;
+  color: #7ea898;
+  background: #f6fbf7;
+  font: 900 clamp(1.35rem, 3vw, 2rem) / 1 "Baloo 2", sans-serif;
+  letter-spacing: .08em;
+}
+
+.builder-slot:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.builder-slot.filled {
+  border-style: solid;
+  border-color: #19765c;
+  color: #fff;
+  background: #2faf88;
+  box-shadow: 0 4px 0 #19765c;
+}
+
+.slot-placeholder {
+  opacity: .43;
+  font: 900 1.35rem / 1 "Baloo 2", sans-serif;
+}
+
+.letter-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin: 9px 0 18px;
+}
+
+.letter-tray button {
+  flex: 1 1 86px;
+  min-width: 76px;
+  min-height: 70px;
+  padding: 8px 15px;
+  border: 2px solid #f2bc57;
+  border-bottom-width: 6px;
+  border-radius: 16px 12px 18px 11px;
+  color: #7a4f0d;
+  background: #fff2c8;
+  font: 900 clamp(1.4rem, 3.4vw, 1.85rem) / 1 "Baloo 2", sans-serif;
+  letter-spacing: .06em;
+  box-shadow: 0 4px 0 rgba(241, 168, 59, .11);
+}
+
+.letter-tray button:nth-child(4n + 2) {
+  border-color: #7fc9ad;
+  color: #176047;
+  background: #ddf6e9;
+}
+
+.letter-tray button:nth-child(4n + 3) {
+  border-color: #9bb7ee;
+  color: #355994;
+  background: #e5efff;
+}
+
+.letter-tray button:nth-child(4n) {
+  border-color: #ef9d9b;
+  color: #a54743;
+  background: #ffe5e2;
+}
+
+.letter-tray button.used {
+  border-bottom-width: 2px;
+  color: #7a978d;
+  background: #e4eee9;
+  border-color: #c6d7ce;
+  box-shadow: none;
+  opacity: .5;
+  transform: translateY(4px);
+}
+
+.builder-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.placement-card .word-builder {
+  margin-bottom: 8px;
 }
 
 .placement-question-visual {
@@ -54,5 +202,34 @@
     min-height: 64px;
     margin-bottom: 16px;
     font-size: 1.9rem;
+  }
+
+  .placement-question-title {
+    gap: 8px;
+  }
+
+  .placement-audio {
+    padding: 7px 8px;
+    font-size: .68rem;
+  }
+
+  .word-builder {
+    padding: 15px;
+  }
+
+  .word-dropzone {
+    min-height: 92px;
+    padding: 10px;
+  }
+
+  .builder-slot,
+  .letter-tray button {
+    flex-basis: 64px;
+    min-width: 64px;
+    min-height: 62px;
+  }
+
+  .builder-actions {
+    align-items: stretch;
   }
 }

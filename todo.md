@@ -92,3 +92,10 @@ Na nova entrada de JYCA, o nivelamento abriu em “1 DE 21” com “QUAL DESTES
 A questão “QUANTAS ESTRELAS ESTÃO NO CÉU?” foi validada visualmente: cinco estrelas douradas agora aparecem em uma faixa própria entre o enunciado e as alternativas, sem conflito com o mascote.
 
 A verificação de tipos e a compilação de produção foram concluídas com êxito. A prévia em viewport compacto também foi capturada para documentar a revisão da tela inicial.
+
+## Montagem silábica e narração por autonomia
+
+- [ ] Mapear a atividade de sílabas, os recursos visuais e a regra de áudio atual.
+- [ ] Substituir a palavra escrita por imagem e montar sílabas por clique e arraste.
+- [ ] Exibir narração somente do Mundo 1 ao Mundo do Alfabeto, respeitando o bloqueio do professor.
+- [ ] Validar a montagem, a narração e o bloqueio individual antes de salvar o checkpoint.

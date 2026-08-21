@@ -3,7 +3,7 @@
  * leitura ampla e feedback que convida a tentar em vez de rotular erros.
  */
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { ArrowLeft, BookOpen, Check, ChevronRight, CircleHelp, Coins, Gift, Heart, Lock, Paintbrush, PawPrint, Play, RotateCcw, Sparkles, Star, Volume2, VolumeX, X } from "lucide-react";
 import { PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type GameController, type GameState } from "@/game/GameController";
@@ -45,6 +45,25 @@ function speak(text: string) {
   window.speechSynthesis.speak(utterance);
 }
 
+function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean) {
+  const narration = question?.audioText ?? question?.prompt;
+  useEffect(() => {
+    if (!enabled || !narration) {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      return;
+    }
+    const timer = window.setTimeout(() => speak(narration), 260);
+    return () => {
+      window.clearTimeout(timer);
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    };
+  }, [enabled, narration, question?.id]);
+
+  return () => {
+    if (enabled && narration) speak(narration);
+  };
+}
+
 function Header({ state, controller, back = false }: { state: GameState; controller: GameController; back?: boolean }) {
   const profile = state.profile;
   return (
@@ -72,13 +91,16 @@ function Welcome({ controller }: { controller: GameController }) {
   const [animal, setAnimal] = useState("Raposa");
   return (
     <main className="welcome-page">
+      <div className="opening-book-spread" aria-hidden="true"><i className="book-spine" /><b>✦</b></div>
       <section className="welcome-copy paper-panel">
+        <span className="page-tab">PÁGINA DE PARTIDA</span>
         <p className="eyebrow"><Sparkles size={16} /> Uma expedição para aprender brincando</p>
         <h1>As letras estão<br /><em>chamando você.</em></h1>
         <p className="welcome-description">Aqui, cada pergunta abre um pedacinho de um grande livro de aventuras. Vamos descobrir letras, palavras, números e formas?</p>
-        <label className="input-label" htmlFor="child-name">Como podemos te chamar?</label>
-        <input id="child-name" className="name-input" value={name} onChange={(event) => setName(event.target.value)} maxLength={18} placeholder="Digite seu nome" />
-        <p className="input-label">Escolha quem vai caminhar com você</p>
+        <div className="page-trail" aria-hidden="true"><i>✦</i><span /><b>●</b></div>
+        <label className="input-label" htmlFor="child-name">Qual nome vai no mapa da sua expedição?</label>
+        <input id="child-name" className="name-input" value={name} onChange={(event) => setName(event.target.value)} maxLength={18} placeholder="Escreva seu nome aqui" />
+        <p className="input-label">Escolha o companheiro da sua trilha</p>
         <div className="animal-picker">
           {animals.map((item) => <button key={item.name} className={`animal-choice ${animal === item.name ? "selected" : ""}`} onClick={() => setAnimal(item.name)}><span>{item.emoji}</span><small>{item.name}</small></button>)}
         </div>
@@ -86,6 +108,8 @@ function Welcome({ controller }: { controller: GameController }) {
         <button className="teacher-entry" onClick={() => controller.openTeacher()}>Sou professor(a)</button>
       </section>
       <aside className="welcome-art" aria-label="Lumi, a raposa parceira, em uma floresta de papel">
+        <span className="diorama-tab">ROTA 01</span>
+        <div className="diorama-trail" aria-hidden="true"><i>●</i><i>●</i><i>✦</i></div>
         <div className="paper-sun">A</div>
         <div className="welcome-note"><span>“Eu vou com você!”</span><small>— Lumi, sua parceira de trilha</small></div>
         <Mascot className="welcome-mascot" />
@@ -98,6 +122,9 @@ function Welcome({ controller }: { controller: GameController }) {
 function Placement({ state, controller }: Props) {
   const placementQueue = state.placementQueue.length ? state.placementQueue : PLACEMENT_QUESTIONS;
   const question = placementQueue[state.placementIndex];
+  const audioAvailable = state.profile?.audioEnabled !== false;
+  const playNarration = useQuestionNarration(question, audioAvailable);
+  if (!question) return null;
   return (
     <main className="single-game-page">
       <section className="placement-card paper-panel">
@@ -105,11 +132,11 @@ function Placement({ state, controller }: Props) {
         <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / placementQueue.length) * 100}%` }} /></div>
         <Mascot className="mini-lumi" label="Lumi" />
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
-        <h2>{question.prompt}</h2>
+        <div className="placement-question-title"><h2>{question.prompt}</h2>{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration}><Volume2 size={20} /> Ouvir</button>}</div>
         {question.visual && <div className="placement-question-visual" role="img" aria-label={`Ilustração: ${question.visual}`}><span>{question.visual}</span></div>}
-        <div className="answer-grid placement-grid">
+        {question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
           {question.options?.map((option) => <button key={option} className="answer-tile" onClick={() => controller.submitPlacement(option)}>{option}</button>)}
-        </div>
+        </div>}
         <p className="soft-note">Não é prova. Cada resposta ajuda a Lumi a escolher a melhor trilha para você.</p>
       </section>
     </main>
@@ -167,13 +194,14 @@ function Lesson({ state, controller }: Props) {
   const question = controller.currentQuestion();
   if (!question) return null;
   const world = WORLDS[state.activeWorld];
-  const audioAvailable = state.activeWorld < 4 && state.profile?.audioEnabled !== false;
+  const audioAvailable = state.activeWorld <= 5 && state.profile?.audioEnabled !== false;
+  const playNarration = useQuestionNarration(question, audioAvailable);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
-        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={() => speak(question.prompt)}><Volume2 size={20} /> Ouvir</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration}><Volume2 size={20} /> Ouvir</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         {question.visual && <div className="question-visual">{question.visual}</div>}
         <h2>{question.prompt}</h2>
         <QuestionInteraction question={question} disabled={Boolean(state.feedback)} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
@@ -183,15 +211,51 @@ function Lesson({ state, controller }: Props) {
   </main>;
 }
 
+function WordBuilder({ question, disabled = false, onAnswer }: { question: GameQuestion; disabled?: boolean; onAnswer: (answer: string) => void }) {
+  const options = question.options ?? [];
+  const [slots, setSlots] = useState<Array<number | null>>(() => options.map(() => null));
+  useEffect(() => { setSlots(options.map(() => null)); }, [question.id, options.length]);
+
+  const pieceLabel = options.some((piece) => /\s|[.!?]$/.test(piece)) ? "PALAVRAS" : options.every((piece) => piece.length === 1) ? "LETRAS" : "SÍLABAS";
+  const choose = (pieceIndex: number) => {
+    if (disabled || slots.includes(pieceIndex)) return;
+    const firstEmpty = slots.findIndex((slot) => slot === null);
+    if (firstEmpty < 0) return;
+    setSlots((current) => current.map((slot, index) => index === firstEmpty ? pieceIndex : slot));
+  };
+  const remove = (slotIndex: number) => {
+    if (disabled || slots[slotIndex] === null) return;
+    setSlots((current) => current.map((slot, index) => index === slotIndex ? null : slot));
+  };
+  const dropInSlot = (event: DragEvent<HTMLButtonElement>, slotIndex: number) => {
+    event.preventDefault();
+    const rawPieceIndex = event.dataTransfer.getData("application/x-aventura-piece");
+    if (!rawPieceIndex) return;
+    const pieceIndex = Number(rawPieceIndex);
+    if (disabled || !Number.isInteger(pieceIndex) || !options[pieceIndex] || slots.includes(pieceIndex)) return;
+    setSlots((current) => current.map((slot, index) => index === slotIndex ? pieceIndex : slot));
+  };
+  const complete = slots.length > 0 && slots.every((slot) => slot !== null);
+  const built = slots.map((slot) => slot === null ? "" : options[slot]).join("");
+
+  return <div className="word-builder" aria-label="Montagem interativa de palavra">
+    <p className="builder-instruction"><strong>TOQUE</strong> OU <strong>ARRASTE</strong> AS {pieceLabel.toLowerCase()} PARA MONTAR A RESPOSTA.</p>
+    <div className="word-dropzone" aria-live="polite" aria-label="Espaços para montar a resposta">
+      {slots.map((pieceIndex, slotIndex) => <button key={`slot-${slotIndex}`} className={`builder-slot ${pieceIndex !== null ? "filled" : ""}`} onClick={() => remove(slotIndex)} onDragOver={(event) => event.preventDefault()} onDrop={(event) => dropInSlot(event, slotIndex)} disabled={disabled} aria-label={pieceIndex === null ? `Espaço ${slotIndex + 1} vazio` : `Remover ${options[pieceIndex]} da posição ${slotIndex + 1}`}>
+        {pieceIndex === null ? <span className="slot-placeholder">?</span> : options[pieceIndex]}
+      </button>)}
+    </div>
+    <p className="tray-label">{pieceLabel} DISPONÍVEIS</p>
+    <div className="letter-tray">
+      {options.map((piece, index) => <button key={`${piece}-${index}`} className={slots.includes(index) ? "used" : ""} draggable={!disabled && !slots.includes(index)} onDragStart={(event) => event.dataTransfer.setData("application/x-aventura-piece", String(index))} disabled={disabled || slots.includes(index)} onClick={() => choose(index)}>{piece}</button>)}
+    </div>
+    <div className="builder-actions"><button className="soft-action" onClick={() => setSlots(options.map(() => null))} disabled={disabled || !slots.some((slot) => slot !== null)}><RotateCcw size={17} /> Limpar</button><button className="primary-action compact" disabled={disabled || !complete} onClick={() => onAnswer(built)}>Conferir <Check size={19} /></button></div>
+  </div>;
+}
+
 function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string, drawing?: string) => void }) {
-  const [built, setBuilt] = useState("");
-  const [used, setUsed] = useState<string[]>([]);
-  useEffect(() => { setBuilt(""); setUsed([]); }, [question.id]);
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
-  if (question.kind === "order") {
-    const choose = (piece: string, index: number) => { if (disabled || used.includes(`${piece}-${index}`)) return; setBuilt((word) => word + piece); setUsed((items) => [...items, `${piece}-${index}`]); };
-    return <div className="word-builder"><div className="word-dropzone" onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); const piece = event.dataTransfer.getData("text/plain"); if (piece && !disabled) setBuilt((word) => word + piece); }}>{built || <span>Monte a palavra aqui</span>}</div><div className="letter-tray">{question.options?.map((piece, index) => <button key={`${piece}-${index}`} draggable={!disabled} onDragStart={(event) => event.dataTransfer.setData("text/plain", piece)} disabled={disabled || used.includes(`${piece}-${index}`)} onClick={() => choose(piece, index)}>{piece}</button>)}</div><div className="builder-actions"><button className="soft-action" onClick={() => { setBuilt(""); setUsed([]); }} disabled={disabled}><RotateCcw size={17} /> Limpar</button><button className="primary-action compact" disabled={disabled || !built} onClick={() => onAnswer(built)}>Conferir <Check size={19} /></button></div></div>;
-  }
+  if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
 }
 
