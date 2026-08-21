@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerE
 import { ArrowLeft, BookOpen, Check, ChevronRight, CircleHelp, Coins, Gift, Heart, Lock, Paintbrush, PawPrint, Play, RotateCcw, Sparkles, Star, Volume2, VolumeX, X } from "lucide-react";
 import { PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type GameController, type GameState } from "@/game/GameController";
+import "./placement-fixes.css";
 
 type Props = { state: GameState; controller: GameController };
 type Animal = { name: string; emoji: string; note: string };
@@ -95,15 +96,17 @@ function Welcome({ controller }: { controller: GameController }) {
 }
 
 function Placement({ state, controller }: Props) {
-  const question = PLACEMENT_QUESTIONS[state.placementIndex];
+  const placementQueue = state.placementQueue.length ? state.placementQueue : PLACEMENT_QUESTIONS;
+  const question = placementQueue[state.placementIndex];
   return (
     <main className="single-game-page">
       <section className="placement-card paper-panel">
-        <div className="placement-topline"><span>Nivelamento inteligente</span><span>{state.placementIndex + 1} de {PLACEMENT_QUESTIONS.length}</span></div>
-        <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / PLACEMENT_QUESTIONS.length) * 100}%` }} /></div>
+        <div className="placement-topline"><span>Nivelamento inteligente</span><span>{state.placementIndex + 1} de {placementQueue.length}</span></div>
+        <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / placementQueue.length) * 100}%` }} /></div>
         <Mascot className="mini-lumi" label="Lumi" />
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
         <h2>{question.prompt}</h2>
+        {question.visual && <div className="placement-question-visual" role="img" aria-label={`Ilustração: ${question.visual}`}><span>{question.visual}</span></div>}
         <div className="answer-grid placement-grid">
           {question.options?.map((option) => <button key={option} className="answer-tile" onClick={() => controller.submitPlacement(option)}>{option}</button>)}
         </div>

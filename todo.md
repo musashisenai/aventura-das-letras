@@ -74,3 +74,21 @@ O ciclo avançou para a terceira descoberta, “QUANTAS ESTRELAS ESTÃO NO CÉU?
 O portfólio visual está conectado ao desenho real da criança: o canvas é salvo como imagem no registro da resposta e o inspetor docente mostra a pergunta, a ilustração de apoio e a imagem enviada. As abas de visão geral, perfil, respostas e desenhos foram verificadas como navegáveis.
 
 A compilação de produção foi concluída com êxito. As capturas em desktop e em 375 px confirmaram que os mundos seguem uma trilha horizontal e as fases do mundo escolhido se reorganizam em uma grade legível na parte inferior.
+
+## Correções do nivelamento inicial
+
+- [x] Mapear a posição do mascote, a questão de estrelas e a construção da fila inicial.
+- [x] Ajustar o mascote para não sobrepor os textos em telas pequenas.
+- [x] Corrigir a pergunta de estrelas com ilustração visível e consistente.
+- [x] Embaralhar a ordem das perguntas em cada novo nivelamento.
+- [x] Validar a tela, a aleatoriedade e a compilação antes de salvar o checkpoint.
+
+Diagnóstico: o nível inicial usava a lista estática diretamente, e o componente não exibida o campo visual da questão. O mascote estava posicionado parcialmente para fora do cartão, sem reservar espaço para a mensagem de abertura.
+
+O perfil local anterior foi removido da prévia para testar o nivelamento como uma nova criança, sem reutilizar a ordem persistida de perguntas.
+
+Na nova entrada de JYCA, o nivelamento abriu em “1 DE 21” com “QUAL DESTES É UM NÚMERO?”, diferente da primeira pergunta exibida no ciclo anterior. O mascote permanece no canto superior direito, com espaço reservado e sem cobrir a saudação ou o enunciado.
+
+A questão “QUANTAS ESTRELAS ESTÃO NO CÉU?” foi validada visualmente: cinco estrelas douradas agora aparecem em uma faixa própria entre o enunciado e as alternativas, sem conflito com o mascote.
+
+A verificação de tipos e a compilação de produção foram concluídas com êxito. A prévia em viewport compacto também foi capturada para documentar a revisão da tela inicial.

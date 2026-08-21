@@ -221,7 +221,7 @@ export const PLACEMENT_QUESTIONS: GameQuestion[] = [
   choice("nivel-abc-ordem", "QUAL LETRA VEM DEPOIS DE C?", ["B", "D", "E"], "D", "FALE: A, B, C, D."),
   choice("nivel-abc-inicial", "QUAL LETRA COMEÇA BOLA?", ["B", "P", "D"], "B", "O SOM INICIAL É BÊÊÊ."),
   choice("nivel-g-forma", "Qual forma é redonda?", ["○", "△", "□"], "○", "Procure a forma que parece uma bola."),
-  choice("nivel-g-quantidade", "Quantas estrelas há aqui?", ["2", "3", "4"], "3", "Conte cada estrela.", "★ ★ ★"),
+  choice("nivel-g-quantidade", "CONTE AS ESTRELAS ABAIXO.", ["2", "3", "4"], "3", "CONTE CADA ESTRELA.", "★ ★ ★"),
   choice("nivel-g-rabisco", "Qual desenho parece uma letra?", ["A", "☀", "○"], "A", "Uma letra pode fazer parte de uma palavra."),
   choice("nivel-p-letra", "Qual destes é uma letra?", ["8", "M", "△"], "M", "Letras servem para escrever."),
   choice("nivel-p-numero", "Qual destes é um número?", ["B", "7", "☁"], "7", "Números ajudam a contar."),

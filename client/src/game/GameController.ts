@@ -59,6 +59,7 @@ export type GameState = {
   profile: Profile | null;
   placementIndex: number;
   placementScore: number;
+  placementQueue: GameQuestion[];
   activeWorld: number;
   selectedWorld: number;
   activePhase: number;
@@ -92,6 +93,7 @@ function initialState(): GameState {
     profile: null,
     placementIndex: 0,
     placementScore: 0,
+    placementQueue: [],
     activeWorld: 0,
     selectedWorld: 0,
     activePhase: 0,
@@ -143,7 +145,8 @@ export class GameController {
         audioEnabled: saved.profile.audioEnabled !== false,
       } : null;
       const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
-      const hydrated = { ...initialState(), ...saved, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
+      const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
+      const hydrated = { ...initialState(), ...saved, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
       const requiresProfile = ["map", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -191,16 +194,18 @@ export class GameController {
       ...initialState(),
       screen: "placement",
       profile: { name: safeName, partner, currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled: true },
+      placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
   }
 
   submitPlacement(answer: string) {
-    const question = PLACEMENT_QUESTIONS[this.state.placementIndex];
+    const placementQueue = this.state.placementQueue.length ? this.state.placementQueue : PLACEMENT_QUESTIONS;
+    const question = placementQueue[this.state.placementIndex];
     if (!question) return;
     const correct = answer === question.answer;
     const nextScore = this.state.placementScore + (correct ? 1 : 0);
-    if (this.state.placementIndex === PLACEMENT_QUESTIONS.length - 1) {
+    if (this.state.placementIndex === placementQueue.length - 1) {
       const recommendedWorld = nextScore <= 3 ? 0 : nextScore <= 6 ? 1 : nextScore <= 9 ? 2 : nextScore <= 12 ? 3 : nextScore <= 15 ? 4 : nextScore <= 18 ? 5 : 6;
       if (this.state.profile) {
         this.state.profile.currentWorld = 0;
@@ -209,6 +214,7 @@ export class GameController {
       this.state.placementScore = nextScore;
       this.state.activeWorld = 0;
       this.state.selectedWorld = 0;
+      this.state.placementQueue = [];
       this.state.screen = "map";
       this.state.feedback = null;
     } else {
