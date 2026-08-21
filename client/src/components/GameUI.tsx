@@ -86,7 +86,35 @@ function Header({ state, controller, back = false }: { state: GameState; control
   );
 }
 
-function Welcome({ controller }: { controller: GameController }) {
+function EntryMenu({ state, controller }: Props) {
+  const narrationOn = state.setupAudioEnabled;
+  return <main className="entry-menu-page">
+    <div className="opening-book-spread entry-spread" aria-hidden="true"><i className="book-spine" /><b>✦</b></div>
+    <section className="entry-menu-copy paper-panel">
+      <span className="page-tab">PORTA DE ENTRADA</span>
+      <div className="entry-brand-stamp"><BrandMark /><span><strong>Aventura</strong><small>das Letras</small></span><i>✦</i></div>
+      <p className="eyebrow"><Sparkles size={16} /> Livro-mapa encantado</p>
+      <h1>Qual trilha<br /><em>vamos abrir?</em></h1>
+      <p className="welcome-description">Escolha sua porta de entrada. A Lumi guarda seu combinado de leitura para esta expedição.</p>
+      <div className="entry-actions">
+        <button className="entry-path child-path" onClick={() => controller.openPlayerSetup()}><i className="entry-stop-tag" aria-hidden="true">PARADA 01</i><span className="entry-icon"><PawPrint size={25} /></span><span><strong>Sou criança</strong><small>Abrir minha expedição</small></span><ChevronRight size={24} /></button>
+        <button className={`self-audio-toggle ${narrationOn ? "on" : "off"}`} onClick={() => controller.setSetupAudio(!narrationOn)} aria-pressed={narrationOn}><i className="entry-stop-tag" aria-hidden="true">COMBINADO</i><span className="entry-icon">{narrationOn ? <Volume2 size={25} /> : <VolumeX size={25} />}</span><span><strong>{narrationOn ? "Lumi pode ler para mim" : "Vou ler sem ajuda"}</strong><small>{narrationOn ? "Toque para mutar a narração" : "Toque para ouvir a Lumi novamente"}</small></span><i aria-hidden="true">{narrationOn ? "ON" : "OFF"}</i></button>
+      </div>
+      <p className="menu-reassurance">Você pode mudar esse combinado antes de escrever seu nome.</p>
+      <button className="teacher-entry menu-teacher-entry" onClick={() => controller.openTeacher()}><Lock size={15} /> Sou professor(a)</button>
+    </section>
+    <aside className="entry-menu-art" aria-label="Lumi apresenta as portas de entrada do livro-mapa">
+      <span className="diorama-tab">MAPA ABERTO</span>
+      <i className="pop-paper-hill hill-back" aria-hidden="true" /><i className="pop-paper-hill hill-mid" aria-hidden="true" /><i className="star-stamp" aria-hidden="true">✦</i>
+      <div className="menu-sign sign-child"><PawPrint size={17} /> MINHA TRILHA</div><div className="menu-sign sign-teacher"><BookOpen size={17} /> GUIA</div>
+      <div className="menu-path" aria-hidden="true"><i>●</i><i>●</i><i>✦</i></div>
+      <Mascot className="welcome-mascot" />
+      <div className="welcome-note menu-note"><span>“A escolha é sua!”</span><small>— Lumi, sua parceira de trilha</small></div>
+    </aside>
+  </main>;
+}
+
+function Welcome({ state, controller }: Props) {
   const [name, setName] = useState("");
   const [animal, setAnimal] = useState("Raposa");
   return (
@@ -98,6 +126,7 @@ function Welcome({ controller }: { controller: GameController }) {
         <h1>As letras estão<br /><em>chamando você.</em></h1>
         <p className="welcome-description">Aqui, cada pergunta abre um pedacinho de um grande livro de aventuras. Vamos descobrir letras, palavras, números e formas?</p>
         <div className="page-trail" aria-hidden="true"><i>✦</i><span /><b>●</b></div>
+        <button className={`setup-audio-summary ${state.setupAudioEnabled ? "on" : "off"}`} onClick={() => controller.returnToMenu()}><span>{state.setupAudioEnabled ? <Volume2 size={17} /> : <VolumeX size={17} />}</span>{state.setupAudioEnabled ? "LUMI VAI LER AS PERGUNTAS" : "VOCÊ ESCOLHEU LER SOZINHO"}<small>AJUSTAR NO MENU</small></button>
         <label className="input-label" htmlFor="child-name">Qual nome vai no mapa da sua expedição?</label>
         <input id="child-name" className="name-input" value={name} onChange={(event) => setName(event.target.value)} maxLength={18} placeholder="Escreva seu nome aqui" />
         <p className="input-label">Escolha o companheiro da sua trilha</p>
@@ -316,8 +345,9 @@ function AnswerInspector({ answer }: { answer: GameState["answers"][number] }) {
 export default function GameUI({ state, controller }: Props) {
   const content = useMemo(() => {
     const requiresProfile = ["map", "lesson", "reward", "pets"].includes(state.screen);
-    if (requiresProfile && !state.profile) return <Welcome controller={controller} />;
-    if (state.screen === "welcome") return <Welcome controller={controller} />;
+    if (requiresProfile && !state.profile) return <EntryMenu state={state} controller={controller} />;
+    if (state.screen === "menu") return <EntryMenu state={state} controller={controller} />;
+    if (state.screen === "welcome") return <Welcome state={state} controller={controller} />;
     if (state.screen === "placement") return <Placement state={state} controller={controller} />;
     if (state.screen === "map") return <MapPage state={state} controller={controller} />;
     if (state.screen === "lesson") return <Lesson state={state} controller={controller} />;

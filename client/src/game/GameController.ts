@@ -5,7 +5,7 @@
 
 import { getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
-export type Screen = "welcome" | "placement" | "map" | "lesson" | "reward" | "pets" | "teacher";
+export type Screen = "menu" | "welcome" | "placement" | "map" | "lesson" | "reward" | "pets" | "teacher";
 
 export type Profile = {
   name: string;
@@ -57,6 +57,7 @@ export type Reward = {
 export type GameState = {
   screen: Screen;
   profile: Profile | null;
+  setupAudioEnabled: boolean;
   placementIndex: number;
   placementScore: number;
   placementQueue: GameQuestion[];
@@ -89,8 +90,9 @@ function shuffle<T>(items: T[]): T[] {
 
 function initialState(): GameState {
   return {
-    screen: "welcome",
+    screen: "menu",
     profile: null,
+    setupAudioEnabled: true,
     placementIndex: 0,
     placementScore: 0,
     placementQueue: [],
@@ -113,9 +115,10 @@ export class GameController {
   private state: GameState;
   private listeners = new Set<(state: GameState) => void>();
 
-  constructor(demo = false) {
+  constructor(demo = false, previewMenu = false) {
     this.state = this.load();
     if (demo) this.seedDemo();
+    else if (previewMenu) this.state = initialState();
   }
 
   getState = () => this.state;
@@ -146,7 +149,8 @@ export class GameController {
       } : null;
       const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
-      const hydrated = { ...initialState(), ...saved, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
+      const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
+      const hydrated = { ...initialState(), ...saved, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
       const requiresProfile = ["map", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -190,12 +194,31 @@ export class GameController {
 
   beginProfile(name: string, partner: string) {
     const safeName = name.trim() || "Exploradora";
+    const audioEnabled = this.state.setupAudioEnabled;
     this.state = {
       ...initialState(),
       screen: "placement",
-      profile: { name: safeName, partner, currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled: true },
+      setupAudioEnabled: audioEnabled,
+      profile: { name: safeName, partner, currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled },
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
+    this.emit();
+  }
+
+  openPlayerSetup() {
+    this.state.screen = "welcome";
+    this.state.teacherAuthorized = false;
+    this.emit();
+  }
+
+  returnToMenu() {
+    this.state.screen = "menu";
+    this.state.teacherAuthorized = false;
+    this.emit();
+  }
+
+  setSetupAudio(enabled: boolean) {
+    this.state.setupAudioEnabled = enabled;
     this.emit();
   }
 
@@ -315,14 +338,14 @@ export class GameController {
   }
 
   goToMap() {
-    this.state.screen = this.state.profile ? "map" : "welcome";
+    this.state.screen = this.state.profile ? "map" : "menu";
     if (this.state.profile) this.state.selectedWorld = this.state.activeWorld;
     this.state.feedback = null;
     this.emit();
   }
 
   openPets() {
-    this.state.screen = this.state.profile ? "pets" : "welcome";
+    this.state.screen = this.state.profile ? "pets" : "menu";
     this.emit();
   }
 

@@ -49,3 +49,6 @@
 - O símbolo de marca será tratado como um carimbo de papel: um “A” de montanha, com percurso pontilhado e estrela-lanterna, acompanhado de um wordmark com presença artesanal.
 - Abas de página, carimbos, pontos de trilha, pegadas e molduras de adesivo serão motivos recorrentes nas telas de entrada e atividades.
 - Os comandos visíveis adotam voz de expedição: a criança entra em uma trilha com companhia em vez de preencher um formulário comum.
+- A tela de entrada sempre exibirá o carimbo de marca “Aventura das Letras”, com o “A” de papel-montanha, trilha pontilhada e estrela-lanterna.
+- As escolhas de entrada serão tratadas como paradas e portas do mapa, com abas, pontos de trilha e pequenos carimbos, nunca como configurações genéricas.
+- A ilustração de Lumi será situada entre morros de papel sobrepostos, sombras de recorte, caminhos costurados e placas de orientação para manter a sensação de diorama pop-up.

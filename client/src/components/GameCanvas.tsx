@@ -13,7 +13,10 @@ export default function GameCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const startedRef = useRef(false);
   const controllerRef = useRef<GameController | null>(null);
-  if (!controllerRef.current) controllerRef.current = new GameController(new URLSearchParams(window.location.search).has("demo"));
+  if (!controllerRef.current) {
+    const params = new URLSearchParams(window.location.search);
+    controllerRef.current = new GameController(params.has("demo"), params.has("menu"));
+  }
   const controller = controllerRef.current;
   const [state, setState] = useState<GameState>(() => controller.getState());
 

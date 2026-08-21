@@ -95,7 +95,16 @@ A verificação de tipos e a compilação de produção foram concluídas com ê
 
 ## Montagem silábica e narração por autonomia
 
-- [ ] Mapear a atividade de sílabas, os recursos visuais e a regra de áudio atual.
-- [ ] Substituir a palavra escrita por imagem e montar sílabas por clique e arraste.
-- [ ] Exibir narração somente do Mundo 1 ao Mundo do Alfabeto, respeitando o bloqueio do professor.
-- [ ] Validar a montagem, a narração e o bloqueio individual antes de salvar o checkpoint.
+- [x] Mapear a atividade de sílabas, os recursos visuais e a regra de áudio atual.
+- [x] Substituir a palavra escrita por imagem e montar sílabas por clique e arraste.
+- [x] Exibir narração somente até o Mundo do Alfabeto, respeitando o bloqueio do professor.
+- [x] Validar a montagem, a narração e o bloqueio individual antes de salvar o checkpoint.
+
+## Menu inicial e autonomia de narração
+
+- [x] Revisar a entrada do jogo e a persistência da preferência de áudio da criança.
+- [x] Criar uma tela de menu anterior ao cadastro, com rotas claras para criança e professor.
+- [x] Adicionar um controle de narração para a criança, com confirmação visual e efeito imediato.
+- [x] Validar a convivência entre a escolha da criança, o bloqueio docente e a compilação de produção.
+
+Validação registrada: o menu foi capturado em desktop e em 375 px. A escolha “Lumi pode ler para mim” muda para “Vou ler sem ajuda” no mesmo controle e é transportada para o perfil ao iniciar a expedição. A preferência do professor segue sendo aplicada no perfil individual, e `pnpm check` e `pnpm build` foram concluídos sem erros.
