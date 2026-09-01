@@ -5,7 +5,7 @@
 
 import { getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
-export type Screen = "menu" | "welcome" | "placement" | "map" | "lesson" | "reward" | "pets" | "teacher";
+export type Screen = "menu" | "welcome" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
 
 export type Profile = {
   name: string;
@@ -29,6 +29,13 @@ export type Completion = {
   score: number;
   total: number;
   date: string;
+};
+
+export type PlacementResult = {
+  questionId: string;
+  question: string;
+  correct: boolean;
+  attempts: number;
 };
 
 export type AnswerLog = {
@@ -60,6 +67,8 @@ export type GameState = {
   setupAudioEnabled: boolean;
   placementIndex: number;
   placementScore: number;
+  placementAttempts: number;
+  placementResults: PlacementResult[];
   placementQueue: GameQuestion[];
   activeWorld: number;
   selectedWorld: number;
@@ -95,6 +104,8 @@ function initialState(): GameState {
     setupAudioEnabled: true,
     placementIndex: 0,
     placementScore: 0,
+    placementAttempts: 0,
+    placementResults: [],
     placementQueue: [],
     activeWorld: 0,
     selectedWorld: 0,
@@ -151,7 +162,7 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const hydrated = { ...initialState(), ...saved, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
-      const requiresProfile = ["map", "lesson", "reward", "pets"].includes(hydrated.screen);
+      const requiresProfile = ["map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
       return initialState();
@@ -226,24 +237,50 @@ export class GameController {
     const placementQueue = this.state.placementQueue.length ? this.state.placementQueue : PLACEMENT_QUESTIONS;
     const question = placementQueue[this.state.placementIndex];
     if (!question) return;
+    const attempts = this.state.placementAttempts + 1;
     const correct = answer === question.answer;
+    if (!correct && attempts < 2) {
+      this.state.placementAttempts = attempts;
+      this.state.feedback = { tone: "hint", text: `${positiveHints[Math.floor(Math.random() * positiveHints.length)]} Você pode tentar esta questão mais uma vez.` };
+      this.emit();
+      return;
+    }
+
+    const result: PlacementResult = {
+      questionId: question.id,
+      question: question.displayPrompt ?? question.prompt,
+      correct,
+      attempts,
+    };
+    const placementResults = [...this.state.placementResults, result];
     const nextScore = this.state.placementScore + (correct ? 1 : 0);
+    this.state.placementResults = placementResults;
+    this.state.placementScore = nextScore;
+    this.state.placementAttempts = 0;
+    this.state.feedback = null;
+
     if (this.state.placementIndex === placementQueue.length - 1) {
-      const recommendedWorld = nextScore <= 3 ? 0 : nextScore <= 6 ? 1 : nextScore <= 9 ? 2 : nextScore <= 12 ? 3 : nextScore <= 15 ? 4 : nextScore <= 18 ? 5 : 6;
+      const retryPenalty = placementResults.filter(({ attempts: questionAttempts }) => questionAttempts > 1).length * 0.5;
+      const evaluatedScore = Math.max(0, Math.round(nextScore - retryPenalty));
+      const recommendedWorld = evaluatedScore <= 3 ? 0 : evaluatedScore <= 6 ? 1 : evaluatedScore <= 9 ? 2 : evaluatedScore <= 12 ? 3 : evaluatedScore <= 15 ? 4 : evaluatedScore <= 18 ? 5 : 6;
       if (this.state.profile) {
-        this.state.profile.currentWorld = 0;
+        this.state.profile.currentWorld = recommendedWorld;
         this.state.profile.recommendedWorld = recommendedWorld;
       }
-      this.state.placementScore = nextScore;
-      this.state.activeWorld = 0;
-      this.state.selectedWorld = 0;
+      this.state.activeWorld = recommendedWorld;
+      this.state.selectedWorld = recommendedWorld;
       this.state.placementQueue = [];
-      this.state.screen = "map";
-      this.state.feedback = null;
+      this.state.screen = "placement-result";
     } else {
       this.state.placementIndex += 1;
-      this.state.placementScore = nextScore;
     }
+    this.emit();
+  }
+
+  openMapFromPlacement() {
+    if (this.state.screen !== "placement-result") return;
+    this.state.screen = "map";
+    this.state.feedback = null;
     this.emit();
   }
 

@@ -16,6 +16,10 @@ export type GameQuestion = {
   id: string;
   kind: QuestionKind;
   prompt: string;
+  /** Texto exibido quando a pergunta usa uma palavra de referência em áudio. */
+  displayPrompt?: string;
+  /** Palavra de referência que pode ser ouvida sem aparecer no enunciado. */
+  targetWord?: string;
   options?: string[];
   answer: string;
   hint: string;
@@ -47,6 +51,62 @@ const choice = (id: string, prompt: string, options: string[], answer: string, h
 const order = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, audioText?: string): GameQuestion => ({ id, kind: "order", prompt, options, answer, hint, visual, audioText });
 const draw = (id: string, prompt: string, hint: string, visual?: string): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual });
 
+type TargetWordAudio = { word: string; prompt: string };
+
+/** Palavras de referência que devem ser ouvidas, mas não exibidas no enunciado. */
+const TARGET_WORD_AUDIO: Record<string, TargetWordAudio> = {
+  "abc-b": { word: "BOLA", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "abc-e": { word: "ELEFANTE", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "abc-f": { word: "FADA", prompt: "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?" },
+  "abc-j": { word: "JANELA", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "abc-l": { word: "LUZ", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "abc-p": { word: "PATO", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "p-inicial-nome": { word: "LIA", prompt: "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?" },
+  "p-conte-letras-sol": { word: "SOL", prompt: "QUANTAS LETRAS TEM A PALAVRA OUVIDA?" },
+  "p-primeira-bola": { word: "BOLA", prompt: "QUAL LETRA APARECE PRIMEIRO NA PALAVRA OUVIDA?" },
+  "p-letras-gato": { word: "GATO", prompt: "QUANTAS LETRAS TEM A PALAVRA OUVIDA?" },
+  "p-inicial-pato": { word: "PATO", prompt: "QUAL LETRA ABRE A PALAVRA OUVIDA?" },
+  "s-primeira-pato": { word: "PATO", prompt: "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?" },
+  "s-completa-bola": { word: "BOLA", prompt: "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?" },
+  "s-casa-partes": { word: "CASA", prompt: "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?" },
+  "s-primeira-bola": { word: "BOLA", prompt: "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?" },
+  "s-rima": { word: "BOLA", prompt: "QUAL PALAVRA TERMINA COMO A PALAVRA OUVIDA?" },
+  "s-elefante": { word: "ELEFANTE", prompt: "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?" },
+  "s-gato": { word: "GATO", prompt: "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?" },
+  "s-vogal-ma": { word: "MA", prompt: "QUAL VOGAL COMPLETA A PALAVRA OUVIDA?" },
+  "s-tesouro": { word: "TESOURO", prompt: "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?" },
+  "s-final-casa": { word: "CASA", prompt: "QUAL SÍLABA FICA NO FINAL DA PALAVRA OUVIDA?" },
+  "s-quantas-bola": { word: "BOLA", prompt: "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?" },
+  "s-inicial-mesa": { word: "MESA", prompt: "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?" },
+  "sa-casa": { word: "CASA", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "sa-conserte": { word: "CASA", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "sa-dado": { word: "DADO", prompt: "QUAL PALAVRA COMEÇA E TERMINA COM A MESMA LETRA?" },
+  "sa-final-pato": { word: "PATO", prompt: "QUAL LETRA TERMINA A PALAVRA OUVIDA?" },
+  "sa-ditado": { word: "GATO", prompt: "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?" },
+  "sa-inicial-lua": { word: "LUA", prompt: "QUE LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "sa-rato": { word: "RATO", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "sa-escrita": { word: "MALA", prompt: "QUAL ESCRITA ESTÁ CERTA PARA A PALAVRA OUVIDA?" },
+  "sa-vogal-final": { word: "MESA", prompt: "QUAL VOGAL TERMINA A PALAVRA OUVIDA?" },
+  "sa-fruta": { word: "UVA", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "a-rima": { word: "GATO", prompt: "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?" },
+  "a-silabas": { word: "BORBOLETA", prompt: "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?" },
+  "a-secreta": { word: "BOLA", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "a-rima-lua": { word: "LUA", prompt: "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?" },
+  "a-final": { word: "FLOR", prompt: "QUAL LETRA TERMINA A PALAVRA OUVIDA?" },
+  "nivel-abc-inicial": { word: "BOLA", prompt: "QUAL LETRA COMEÇA A PALAVRA OUVIDA?" },
+  "nivel-s-inicio": { word: "BOLA", prompt: "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?" },
+  "nivel-sa-completa": { word: "CASA", prompt: "QUAL LETRA FALTA NA PALAVRA OUVIDA?" },
+  "nivel-sa-final": { word: "GATO", prompt: "QUAL LETRA TERMINA A PALAVRA OUVIDA?" },
+  "nivel-sa-ditado": { word: "MESA", prompt: "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?" },
+  "nivel-a-rima": { word: "GATO", prompt: "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?" },
+};
+
+function prepareQuestion(question: GameQuestion): GameQuestion {
+  const target = TARGET_WORD_AUDIO[question.id];
+  const targetWord = target?.word ?? question.audioText;
+  return targetWord ? { ...question, displayPrompt: target?.prompt, targetWord } : question;
+}
+
 /** Cada mundo oferece 20 descobertas. Uma fase sorteia 8, sem repetir a mesma página. */
 const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
   0: [
@@ -58,7 +118,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("abc-e", "QUAL LETRA COMEÇA ELEFANTE?", ["E", "F", "L"], "E", "ELEFANTE COMEÇA COM O SOM ÊÊÊ." , "🐘"),
     choice("abc-vogal", "QUAL DESTAS É UMA VOGAL?", ["A", "T", "R"], "A", "AS VOGAIS SÃO A, E, I, O E U."),
     choice("abc-f", "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?", ["F", "V", "P"], "F", "FADA COMEÇA COM FFFFF." , "🧚"),
-    order("abc-gato", "QUAL PALAVRA O GATINHO REPRESENTA?", ["O", "G", "A", "T"], "GATO", "OBSERVE O GATINHO E EXPERIMENTE OS SONS DAS LETRAS.", "🐱", "GATO"),
+    order("abc-gato", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["O", "G", "A", "T"], "GATO", "OBSERVE O GATINHO E EXPERIMENTE OS SONS DAS LETRAS.", "🐱", "GATO"),
     choice("abc-h", "QUAL LETRA VEM ANTES DE I?", ["G", "H", "J"], "H", "Fale: G, H, I."),
     choice("abc-i", "QUAL É A LETRA I?", ["I", "L", "T"], "I", "I É UMA LETRA RETINHA."),
     choice("abc-j", "QUAL LETRA COMEÇA JANELA?", ["J", "G", "L"], "J", "JANELA COMEÇA COM JJJJ." , "🪟"),
@@ -85,7 +145,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("g-soma-1-2", "Quantas frutas ficam juntas?", ["2", "3", "4"], "3", "Uma fruta e mais duas frutas.", "🍎 + 🍎 🍎"),
     choice("g-desenho", "Qual é um desenho de verdade?", ["☀", "A", "3"], "☀", "Desenhos mostram coisas que vemos no mundo."),
     choice("g-cor-forma", "Qual forma parece uma janela?", ["□", "○", "△"], "□", "Uma janela costuma ter quatro lados."),
-    order("g-sol", "QUAL PALAVRA REPRESENTA O ASTRO AMARELO DO DIA?", ["O", "S", "L"], "SOL", "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.", "☀️", "SOL"),
+    order("g-sol", "COMO SE ESCREVE O NOME DA FIGURA?", ["O", "S", "L"], "SOL", "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.", "☀️", "SOL"),
     choice("g-conte-4", "Quantos peixinhos nadam aqui?", ["3", "4", "5"], "4", "Conte sem pular nenhum.", "🐟 🐟 🐟 🐟"),
     choice("g-ondulado", "Qual traço faz ondas?", ["—", "〰", "|"], "〰", "Olhe para o traço que sobe e desce."),
     draw("g-nome", "Faça a sua marca ou tente desenhar seu nome.", "Não precisa ficar perfeito. Cada marca conta uma história.", "✎"),
@@ -100,7 +160,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("p-poucas-letras", "Qual palavra tem menos letras?", ["SOL", "BORBOLETA", "ELEFANTE"], "SOL", "Conte os pedacinhos escritos."),
     choice("p-muitas-letras", "Qual palavra tem muitas letras?", ["PÉ", "BOLA", "BORBOLETA"], "BORBOLETA", "Compare o tamanho das palavras."),
     choice("p-nome-animal", "Qual pode ser o nome deste animal?", ["GATO", "MESA", "LUA"], "GATO", "Olhe para o bichinho e escolha seu nome.", "🐱"),
-    order("p-torre-letras", "QUAL PALAVRA É REPRESENTADA POR ESTA BOLA?", ["A", "B", "O", "L"], "BOLA", "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.", "⚽", "BOLA"),
+    order("p-torre-letras", "COMO SE ESCREVE O NOME DA FIGURA?", ["A", "B", "O", "L"], "BOLA", "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.", "⚽", "BOLA"),
     choice("p-conte-letras-sol", "Quantas letras você vê em SOL?", ["2", "3", "4"], "3", "Conte S, O e L."),
     choice("p-forma-escondida", "Qual forma está escondida nesta janela?", ["△", "□", "○"], "□", "A janela tem quatro lados.", "▣"),
     choice("p-blocos-2-1", "Com dois blocos e mais um bloco, quantos há?", ["2", "3", "4"], "3", "Junte os blocos.", "🧱 🧱 + 🧱"),
@@ -109,7 +169,7 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("p-primeira-bola", "Qual letra aparece primeiro em BOLA?", ["B", "O", "A"], "B", "Leia olhando da esquerda para a direita."),
     choice("p-letras-gato", "Quantas letras tem GATO?", ["3", "4", "5"], "4", "Conte G, A, T, O."),
     choice("p-desenho-ou-palavra", "Qual é uma palavra escrita?", ["🍎", "BOLA", "3"], "BOLA", "Palavras são feitas de letras."),
-    order("p-sapo", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["P", "A", "S", "O"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.", "🐸", "SAPO"),
+    order("p-sapo", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["P", "A", "S", "O"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.", "🐸", "SAPO"),
     choice("p-quais-letras", "Qual grupo tem somente letras?", ["A B C", "2 4 6", "○ △ □"], "A B C", "Letras não são números nem desenhos."),
     choice("p-quantidade-6", "Qual grupo tem seis bolinhas?", ["●●●●●", "●●●●●●", "●●●●"], "●●●●●●", "Conte uma por uma."),
     choice("p-inicial-pato", "Qual letra abre a palavra PATO?", ["P", "T", "O"], "P", "O som inicial é PPP."),
@@ -119,44 +179,44 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("s-primeira-pato", "Qual sílaba começa PATO?", ["PA", "TO", "TA"], "PA", "Fale em duas partes: PA-TO.", "🦆"),
     choice("s-completa-bola", "Complete: BO ___", ["LA", "LI", "LU"], "LA", "O brinquedo redondo é BO-LA.", "⚽"),
     choice("s-casa-partes", "Quantas sílabas tem CA-SA?", ["1", "2", "3"], "2", "Bata duas palmas: CA / SA."),
-    order("s-pato", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["TO", "PA"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🦆", "PATO"),
+    order("s-pato", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["TO", "PA"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🦆", "PATO"),
     order("s-ma", "JUNTE A LETRA M COM A VOGAL A.", ["A", "M"], "MA", "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.", "M + A", "MA"),
     choice("s-primeira-bola", "Qual parte vem primeiro em BO-LA?", ["BO", "LA", "BA"], "BO", "A primeira palma é BO."),
     choice("s-elefante", "Quantas palmas damos para E-LE-FAN-TE?", ["3", "4", "5"], "4", "Diga bem devagar as quatro partes."),
-    order("s-bola", "QUAL PALAVRA ESTA BOLA REPRESENTA?", ["LA", "BO"], "BOLA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "⚽", "BOLA"),
+    order("s-bola", "COMO SE ESCREVE O NOME DA FIGURA?", ["LA", "BO"], "BOLA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "⚽", "BOLA"),
     choice("s-rima", "Qual palavra termina como BOLA?", ["MALA", "SAPO", "DADO"], "MALA", "BOLA e MALA terminam com LA."),
     choice("s-gato", "Complete: GA ___", ["TO", "TA", "TU"], "TO", "O animal que mia é GA-TO.", "🐱"),
     choice("s-duas-palmas", "Qual palavra tem duas sílabas?", ["CASA", "BORBOLETA", "PÉ"], "CASA", "CA-SA tem duas palmas."),
-    order("s-sapo", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["PO", "SA"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🐸", "SAPO"),
+    order("s-sapo", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["PO", "SA"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🐸", "SAPO"),
     choice("s-vogal-ma", "Qual vogal completa M_ para formar MA?", ["A", "E", "O"], "A", "O som é MAAA."),
     choice("s-tesouro", "Quantas sílabas tem a palavra TESOURO?", ["2", "3", "4"], "3", "TE / SOU / RO: três palmas."),
     choice("s-final-casa", "Qual sílaba fica no final de CA-SA?", ["CA", "SA", "SO"], "SA", "A última palma é SA."),
-    order("s-lata", "QUAL PALAVRA ESTA LATA REPRESENTA?", ["TA", "LA"], "LATA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "🥫", "LATA"),
+    order("s-lata", "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?", ["TA", "LA"], "LATA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "🥫", "LATA"),
     choice("s-quantas-bola", "Quantas sílabas tem BO-LA?", ["1", "2", "3"], "2", "BO e LA são duas partes."),
     choice("s-inicial-mesa", "Qual sílaba começa MESA?", ["ME", "SA", "MA"], "ME", "Diga ME-SA."),
-    order("s-cama", "QUAL PALAVRA ESTA CAMA REPRESENTA?", ["MA", "CA"], "CAMA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "🛏️", "CAMA"),
+    order("s-cama", "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?", ["MA", "CA"], "CAMA", "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.", "🛏️", "CAMA"),
     choice("s-silaba-ca", "Qual palavra começa com CA?", ["CASA", "BOLA", "MALA"], "CASA", "CA é a primeira parte de CASA."),
   ],
   4: [
     choice("sa-casa", "Complete a palavra: CA _ A", ["S", "T", "P"], "S", "É o lugar em que moramos: CASA.", "🏠"),
-    order("sa-gato", "QUAL PALAVRA O GATINHO REPRESENTA?", ["T", "G", "A", "O"], "GATO", "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.", "🐱", "GATO"),
+    order("sa-gato", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["T", "G", "A", "O"], "GATO", "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.", "🐱", "GATO"),
     choice("sa-vogal", "Qual destas letras é uma vogal?", ["E", "M", "R"], "E", "As vogais fazem sons que podemos cantar."),
     choice("sa-final-pato", "Qual letra termina PATO?", ["A", "O", "T"], "O", "Olhe para a última letra escrita."),
     choice("sa-ditado", "Qual escrita combina com a palavra falada GATO?", ["GATO", "GOTA", "TACO"], "GATO", "Procure G-A-T-O."),
     choice("sa-soma-gatos", "Três gatos e mais dois gatos são quantos?", ["4", "5", "6"], "5", "Junte três e dois.", "🐱🐱🐱 + 🐱🐱"),
     choice("sa-conserte", "A palavra CASA está assim: CAA. Qual letra falta?", ["S", "M", "L"], "S", "Coloque S para formar CASA."),
-    order("sa-mesa", "QUAL PALAVRA ESTE MÓVEL REPRESENTA?", ["A", "M", "S", "E"], "MESA", "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.", "🍽️", "MESA"),
+    order("sa-mesa", "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?", ["A", "M", "S", "E"], "MESA", "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.", "🍽️", "MESA"),
     choice("sa-sapato", "Quantas partes tem SA-PA-TO?", ["2", "3", "4"], "3", "Dê três palmas."),
     choice("sa-inicial-lua", "Que letra começa LUA?", ["L", "U", "A"], "L", "O primeiro som é LLL."),
     choice("sa-rato", "Complete: RA _ O", ["T", "C", "P"], "T", "É um bichinho pequeno: RATO."),
-    order("sa-pato", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["O", "P", "A", "T"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.", "🦆", "PATO"),
+    order("sa-pato", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["O", "P", "A", "T"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.", "🦆", "PATO"),
     choice("sa-consoante", "Qual destas é uma consoante?", ["A", "I", "B"], "B", "Consoantes se juntam às vogais."),
     choice("sa-dado", "Qual palavra começa e termina com a mesma letra?", ["DADO", "GATO", "BOLA"], "DADO", "Veja D no início e no fim."),
     choice("sa-subtracao", "Cinco flores menos duas flores deixam quantas?", ["2", "3", "4"], "3", "Comece no cinco e tire duas.", "🌸🌸🌸🌸🌸 − 🌸🌸"),
-    order("sa-bolo", "QUAL PALAVRA ESTE DOCE REPRESENTA?", ["O", "B", "L", "O"], "BOLO", "OLHE PARA O DOCE E EXPERIMENTE AS LETRAS.", "🍰", "BOLO"),
+    order("sa-bolo", "COMO SE ESCREVE O NOME DO DOCE DA FIGURA?", ["O", "B", "L", "O"], "BOLO", "OLHE PARA O DOCE E EXPERIMENTE AS LETRAS.", "🍰", "BOLO"),
     choice("sa-escrita", "Qual escrita está certa para MALA?", ["MALA", "MALL", "MLA"], "MALA", "A palavra tem quatro letras."),
     choice("sa-vogal-final", "Qual vogal termina a palavra MESA?", ["A", "E", "O"], "A", "Leia ME-SA."),
-    order("sa-sapo", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["O", "S", "A", "P"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.", "🐸", "SAPO"),
+    order("sa-sapo", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["O", "S", "A", "P"], "SAPO", "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.", "🐸", "SAPO"),
     choice("sa-fruta", "Qual letra falta em _VA para formar UVA?", ["U", "A", "E"], "U", "A fruta começa com U."),
   ],
   5: [
@@ -165,17 +225,17 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
     choice("a-rima", "Qual palavra rima com GATO?", ["PATO", "MESA", "LUA"], "PATO", "As duas terminam com o som ATO."),
     choice("a-leitura", "Complete a frase: O ___ comeu a banana.", ["macaco", "janela", "livro"], "macaco", "Quem pode comer uma banana?"),
     choice("a-problema", "João tinha 5 maçãs e comeu 2. Quantas sobraram?", ["2", "3", "4"], "3", "Tire duas maçãs de cinco."),
-    order("a-gato", "QUAL PALAVRA O GATINHO REPRESENTA?", ["T", "A", "O", "G"], "GATO", "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.", "🐱", "GATO"),
+    order("a-gato", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["T", "A", "O", "G"], "GATO", "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.", "🐱", "GATO"),
     choice("a-silabas", "Quantas sílabas tem BOR-BO-LE-TA?", ["3", "4", "5"], "4", "Bata quatro palmas."),
     choice("a-secreta", "A palavra secreta é _OLA, uma coisa redonda. Qual letra falta?", ["B", "M", "P"], "B", "BOLA começa com B."),
     choice("a-alfabeto", "Qual letra vem antes de M?", ["L", "N", "O"], "L", "Fale: K, L, M."),
     choice("a-frase-ponto", "Qual frase precisa de ponto no final?", ["Eu li um livro", "Qual é seu nome?", "Que legal!"], "Eu li um livro", "Uma frase que conta algo termina com ponto."),
-    order("a-mesa", "QUAL PALAVRA ESTE MÓVEL REPRESENTA?", ["S", "A", "M", "E"], "MESA", "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.", "🍽️", "MESA"),
+    order("a-mesa", "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?", ["S", "A", "M", "E"], "MESA", "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.", "🍽️", "MESA"),
     choice("a-rima-lua", "Qual palavra rima com LUA?", ["RUA", "SOL", "PÉ"], "RUA", "LUA e RUA terminam com UA."),
     choice("a-subtracao", "Quanto é 9 menos 5?", ["3", "4", "5"], "4", "Dê cinco pulinhos para trás a partir do nove."),
     choice("a-final", "Qual letra termina a palavra FLOR?", ["F", "R", "O"], "R", "Olhe para a última letra da palavra."),
     choice("a-frase-leitura", "Quem dorme na frase “O gato dorme”?", ["O gato", "O sono", "A cama"], "O gato", "Procure quem faz a ação de dormir."),
-    order("a-livro", "QUAL PALAVRA ESTE OBJETO REPRESENTA?", ["R", "L", "I", "V", "O"], "LIVRO", "OLHE PARA O OBJETO E EXPERIMENTE AS LETRAS.", "📘", "LIVRO"),
+    order("a-livro", "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?", ["R", "L", "I", "V", "O"], "LIVRO", "OLHE PARA O OBJETO E EXPERIMENTE AS LETRAS.", "📘", "LIVRO"),
     choice("a-maior-palavra", "Qual palavra tem mais letras?", ["SOL", "BOLA", "BORBOLETA"], "BORBOLETA", "Compare o tamanho das palavras."),
     choice("a-continua", "Complete: A menina ___ um livro.", ["lê", "sol", "casa"], "lê", "Uma ação cabe na frase."),
     choice("a-soma", "Duas estrelas e quatro estrelas são quantas?", ["5", "6", "7"], "6", "Junte dois e quatro."),
@@ -210,7 +270,10 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const start = (phase * 3) % bank.length;
   const rotated = [...bank.slice(start), ...bank.slice(0, start)];
-  return rotated.map((question, index) => ({ ...question, id: `${phaseTag}-${question.id}-${index}` }));
+  return rotated.map((question, index) => {
+    const prepared = prepareQuestion(question);
+    return { ...prepared, id: `${phaseTag}-${prepared.id}-${index}` };
+  });
 }
 
 /**
@@ -229,7 +292,7 @@ export const PLACEMENT_QUESTIONS: GameQuestion[] = [
   choice("nivel-p-tamanho", "Qual palavra tem mais letras?", ["SOL", "BOLA", "BORBOLETA"], "BORBOLETA", "Compare o tamanho das palavras."),
   choice("nivel-s-inicio", "Qual sílaba começa BO-LA?", ["BO", "LA", "BA"], "BO", "Fale devagar: BO-LA."),
   choice("nivel-s-palmas", "Quantas sílabas tem CA-SA?", ["1", "2", "3"], "2", "Bata duas palmas: CA / SA."),
-  order("nivel-s-monta", "QUAL PALAVRA ESTE ANIMAL REPRESENTA?", ["TO", "PA"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🦆", "PATO"),
+  order("nivel-s-monta", "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?", ["TO", "PA"], "PATO", "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.", "🦆", "PATO"),
   choice("nivel-sa-completa", "Complete: CA _ A", ["S", "T", "P"], "S", "A palavra é CASA."),
   choice("nivel-sa-final", "Qual letra termina GATO?", ["A", "O", "T"], "O", "Olhe para o fim da palavra."),
   choice("nivel-sa-ditado", "Qual escrita corresponde a MESA?", ["MESA", "MEZA", "SEMA"], "MESA", "Procure M-E-S-A."),
@@ -239,4 +302,4 @@ export const PLACEMENT_QUESTIONS: GameQuestion[] = [
   choice("nivel-o-rr", "Qual palavra está escrita corretamente?", ["CARRO", "CARO", "CARRU"], "CARRO", "O som forte de R no meio usa RR."),
   choice("nivel-o-cedilha", "Qual palavra está correta?", ["CORAÇÃO", "CORASÃO", "CORASAO"], "CORAÇÃO", "A cedilha faz som de S antes de A."),
   choice("nivel-o-acento", "Qual escrita está correta?", ["mamãe", "mamae", "mãmae"], "mamãe", "Observe o til e o acento."),
-];
+].map(prepareQuestion);

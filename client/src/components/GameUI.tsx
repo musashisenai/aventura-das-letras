@@ -45,8 +45,10 @@ function speak(text: string) {
   window.speechSynthesis.speak(utterance);
 }
 
-function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean) {
-  const narration = question?.audioText ?? question?.prompt;
+function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false) {
+  const narration = wordOnly
+    ? question?.targetWord
+    : question?.audioText ?? (question?.targetWord ? `${visiblePrompt(question)} ${question.targetWord}` : question?.prompt);
   useEffect(() => {
     if (!enabled || !narration) {
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
@@ -62,6 +64,14 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
   return () => {
     if (enabled && narration) speak(narration);
   };
+}
+
+function visiblePrompt(question: GameQuestion) {
+  return question.displayPrompt ?? question.prompt;
+}
+
+function audioLabel(question: GameQuestion, wordOnly = false) {
+  return wordOnly || question.audioText ? "Ouvir palavra" : "Ouvir pergunta";
 }
 
 function Header({ state, controller, back = false }: { state: GameState; controller: GameController; back?: boolean }) {
@@ -153,6 +163,7 @@ function Placement({ state, controller }: Props) {
   const question = placementQueue[state.placementIndex];
   const audioAvailable = state.profile?.audioEnabled !== false;
   const playNarration = useQuestionNarration(question, audioAvailable);
+  const attemptLabel = state.placementAttempts === 0 ? "1ª tentativa" : "2ª tentativa";
   if (!question) return null;
   return (
     <main className="single-game-page">
@@ -161,15 +172,50 @@ function Placement({ state, controller }: Props) {
         <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / placementQueue.length) * 100}%` }} /></div>
         <Mascot className="mini-lumi" label="Lumi" />
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
-        <div className="placement-question-title"><h2>{question.prompt}</h2>{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration}><Volume2 size={20} /> Ouvir</button>}</div>
+        <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2>{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}</div>
         {question.visual && <div className="placement-question-visual" role="img" aria-label={`Ilustração: ${question.visual}`}><span>{question.visual}</span></div>}
+        <p className="placement-attempt-label">{attemptLabel} · você pode tentar duas vezes</p>
         {question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
           {question.options?.map((option) => <button key={option} className="answer-tile" onClick={() => controller.submitPlacement(option)}>{option}</button>)}
         </div>}
+        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div><CircleHelp size={22} /></div><p>{state.feedback.text}</p></div>}
         <p className="soft-note">Não é prova. Cada resposta ajuda a Lumi a escolher a melhor trilha para você.</p>
       </section>
     </main>
   );
+}
+
+function placementLevelMessage(worldId: number) {
+  if (worldId <= 1) return "Vamos começar pelas descobertas iniciais, com calma e brincadeira.";
+  if (worldId <= 3) return "Você já reconhece várias pistas. Vamos fortalecer a leitura passo a passo.";
+  if (worldId <= 5) return "Você está pronta para juntar sons, sílabas e palavras em novas aventuras.";
+  return "Você já está avançando na leitura de frases e na escrita das palavras.";
+}
+
+function PlacementResult({ state, controller }: Props) {
+  const profile = state.profile!;
+  const world = WORLDS[profile.recommendedWorld] ?? WORLDS[0];
+  const total = state.placementResults.length;
+  const retries = state.placementResults.filter((result) => result.attempts > 1).length;
+  const evaluatedScore = Math.max(0, Math.round(state.placementScore - retries * 0.5));
+  const totalAttempts = state.placementResults.reduce((sum, result) => sum + result.attempts, 0);
+  return <main className="single-game-page placement-result-page">
+    <section className="placement-result-card paper-panel">
+      <div className="placement-result-kicker"><Sparkles size={18} /> Resultado da sua expedição</div>
+      <Mascot className="result-lumi" label="Lumi comemorando o resultado" />
+      <p className="eyebrow">Muito bem, {profile.name}! A Lumi olhou para cada resposta com atenção.</p>
+      <h1>Seu próximo caminho é o <em>{world.shortName}</em></h1>
+      <p className="result-intro">{placementLevelMessage(world.id)} Este é o ponto de partida escolhido para você.</p>
+      <div className="placement-summary-grid">
+        <article><strong>{state.placementScore}</strong><span>acertos em {total}</span></article>
+        <article><strong>{totalAttempts}</strong><span>tentativas no total</span></article>
+        <article><strong>{evaluatedScore}/{total}</strong><span>desempenho considerado</span></article>
+      </div>
+      <div className="placement-level-note" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}><span>{world.icon}</span><div><small>NÍVEL RECOMENDADO</small><strong>{world.name}</strong><p>{world.theme}</p></div></div>
+      <section className="placement-results-list"><div className="table-head"><div><p className="eyebrow">Como foi o teste?</p><h2>Resposta por resposta</h2></div><span>{retries ? `${retries} questão(ões) refeita(s)` : "Todas na primeira tentativa"}</span></div>{state.placementResults.map((result, index) => <div className="placement-result-row" key={`${result.questionId}-${index}`}><span className={result.correct ? "result-check correct" : "result-check retry"}>{result.correct ? <Check size={17} /> : <X size={17} />}</span><p><strong>{index + 1}. {result.question}</strong><small>{result.attempts === 1 ? "1 tentativa" : `${result.attempts} tentativas`}</small></p><b>{result.correct ? "ACERTO" : "COM DICA"}</b></div>)}</section>
+      <button className="primary-action" onClick={() => controller.openMapFromPlacement()}>Abrir meu livro-mapa <ChevronRight size={22} /></button>
+    </section>
+  </main>;
 }
 
 function MapPage({ state, controller }: Props) {
@@ -223,16 +269,20 @@ function Lesson({ state, controller }: Props) {
   const question = controller.currentQuestion();
   if (!question) return null;
   const world = WORLDS[state.activeWorld];
-  const audioAvailable = state.activeWorld <= 5 && state.profile?.audioEnabled !== false;
-  const playNarration = useQuestionNarration(question, audioAvailable);
+  // Até o Silábico-Alfabético, a Lumi pode narrar o enunciado completo.
+  // No Alfabético e no Ortográfico, somente atividades com palavra-alvo
+  // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
+  const advancedWorld = state.activeWorld >= 5;
+  const audioAvailable = state.profile?.audioEnabled !== false && (state.activeWorld <= 4 || Boolean(question.targetWord));
+  const playNarration = useQuestionNarration(question, audioAvailable, advancedWorld);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
-        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration}><Volume2 size={20} /> Ouvir</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question, advancedWorld)}><Volume2 size={20} /> {audioLabel(question, advancedWorld)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         {question.visual && <div className="question-visual">{question.visual}</div>}
-        <h2>{question.prompt}</h2>
+        <h2>{visiblePrompt(question)}</h2>
         <QuestionInteraction question={question} disabled={Boolean(state.feedback)} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
         {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p><button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button></div>}
       </section>
@@ -327,7 +377,7 @@ function TeacherDashboard({ state, controller, tab, onTabChange, selectedAnswer,
   const drawings = entries.filter(({ answer }) => Boolean(answer.drawing));
   const visible = tab === "drawings" ? drawings : entries;
   const selected = visible.find((entry) => entry.index === selectedAnswer) ?? visible[0];
-  const audioCard = <section className="audio-control paper-panel"><p className="eyebrow">Acessibilidade individual</p><h2>Leitura em voz alta</h2><p className="soft-note">{profile.audioEnabled ? "A LUMI PODE LER AS PERGUNTAS PARA ESTE ALUNO." : "A LEITURA POR ÁUDIO ESTÁ DESLIGADA. O ALUNO LERÁ AS PERGUNTAS SEM NARRAÇÃO."}</p><button className="primary-action compact" onClick={() => controller.setStudentAudio(!profile.audioEnabled)}>{profile.audioEnabled ? <><VolumeX size={18} /> Desativar áudio deste aluno</> : <><Volume2 size={18} /> Ativar áudio deste aluno</>}</button></section>;
+  const audioCard = <section className="audio-control paper-panel"><p className="eyebrow">Acessibilidade individual</p><h2>Leitura em voz alta</h2><p className="soft-note">{profile.audioEnabled ? "A LUMI PODE LER AS PERGUNTAS OU PALAVRAS DE REFERÊNCIA PARA ESTE ALUNO." : "A LEITURA POR ÁUDIO ESTÁ DESLIGADA. O ALUNO LERÁ AS ATIVIDADES SEM NARRAÇÃO."}</p><button className="primary-action compact" onClick={() => controller.setStudentAudio(!profile.audioEnabled)}>{profile.audioEnabled ? <><VolumeX size={18} /> Desativar áudio deste aluno</> : <><Volume2 size={18} /> Ativar áudio deste aluno</>}</button></section>;
   if (tab === "profiles") return <><section className="student-profile-card paper-panel"><div><p className="eyebrow">Perfil de aluno</p><h2>{profile.name}</h2><p>Parceiro: <strong>{profile.partner}</strong> · Nível {Math.max(1, Math.floor(profile.xp / 40) + 1)} · {profile.xp} XP</p></div><div className="profile-actions"><button className="soft-action" onClick={() => onTabChange("answers")}><CircleHelp size={17} /> Ver respostas</button><button className="soft-action" onClick={() => controller.goToMap()}><BookOpen size={17} /> Abrir livro-mapa</button></div></section>{audioCard}<WorldTeacherGrid state={state} controller={controller} onOpenAnswers={() => onTabChange("answers")} /></>;
   if (tab === "answers" || tab === "drawings") return <section className="analysis-workspace"><div className="analysis-list paper-panel"><div className="table-head"><div><p className="eyebrow">{tab === "drawings" ? "Portfólio visual" : "Resposta por resposta"}</p><h2>{tab === "drawings" ? "Desenhos enviados" : "Analisar tentativas"}</h2></div><span>{visible.length} registro(s)</span></div>{visible.length ? <div className="response-select-list">{visible.map(({ answer, index }) => <button key={`${answer.at}-${index}`} className={selected?.index === index ? "selected" : ""} onClick={() => onSelectAnswer(index)}><span className={answer.correct ? "status-correct" : "status-help"}>{answer.correct ? "ACERTO" : "COM DICA"}</span><strong>{WORLDS[answer.worldId]?.shortName || "Mundo"} · Fase {answer.phase + 1}</strong><small>{answer.question}</small></button>)}</div> : <p className="empty-note">Ainda não há registros para analisar.</p>}</div>{selected && <AnswerInspector answer={selected.answer} />}</section>;
   return <><section className="teacher-stat-grid"><article><span>Mundo atual</span><strong>{world.shortName}</strong><i style={{ background: world.color }} /></article><article><span>Acerto no mundo</span><strong>{accuracy}%</strong><i className="green" /></article><article><span>Respostas salvas</span><strong>{state.answers.length}</strong><i className="orange" /></article></section>{audioCard}<WorldTeacherGrid state={state} controller={controller} onOpenAnswers={() => onTabChange("answers")} /><section className="answer-history paper-panel"><div className="table-head"><div><p className="eyebrow">Portfólio de aprendizagem</p><h2>Últimas respostas</h2></div><button className="soft-action" onClick={() => onTabChange("answers")}>ANALISAR TUDO <ChevronRight size={17} /></button></div>{entries.length ? <div className="history-list">{entries.slice(0, 6).map(({ answer, index }) => <button key={`${answer.at}-${index}`} onClick={() => { onSelectAnswer(index); onTabChange("answers"); }}><span className={answer.correct ? "status-correct" : "status-help"}>{answer.correct ? "ACERTO" : "COM DICA"}</span><p>{answer.question}</p><strong>{answer.answer}</strong><small>{answer.at}</small></button>)}</div> : <p className="empty-note">AS RESPOSTAS DA CRIANÇA APARECERÃO AQUI DURANTE AS FASES.</p>}</section></>;
@@ -344,11 +394,12 @@ function AnswerInspector({ answer }: { answer: GameState["answers"][number] }) {
 
 export default function GameUI({ state, controller }: Props) {
   const content = useMemo(() => {
-    const requiresProfile = ["map", "lesson", "reward", "pets"].includes(state.screen);
+    const requiresProfile = ["map", "placement-result", "lesson", "reward", "pets"].includes(state.screen);
     if (requiresProfile && !state.profile) return <EntryMenu state={state} controller={controller} />;
     if (state.screen === "menu") return <EntryMenu state={state} controller={controller} />;
     if (state.screen === "welcome") return <Welcome state={state} controller={controller} />;
     if (state.screen === "placement") return <Placement state={state} controller={controller} />;
+    if (state.screen === "placement-result") return <PlacementResult state={state} controller={controller} />;
     if (state.screen === "map") return <MapPage state={state} controller={controller} />;
     if (state.screen === "lesson") return <Lesson state={state} controller={controller} />;
     if (state.screen === "reward") return <Reward state={state} controller={controller} />;
