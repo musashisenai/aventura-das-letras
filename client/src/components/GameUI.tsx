@@ -66,6 +66,23 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
   return wordOnly ? "Ouvir palavra" : "Ouvir pergunta";
 }
 
+function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean) {
+  useEffect(() => {
+    if (!enabled || !feedback?.text) return;
+    const timer = window.setTimeout(() => speak(feedback.text), 180);
+    return () => window.clearTimeout(timer);
+  }, [enabled, feedback?.text, feedback?.tone]);
+}
+
+function usePlacementResultNarration(results: GameState["placementResults"], enabled: boolean) {
+  useEffect(() => {
+    const last = results[results.length - 1];
+    if (!enabled || !last?.correct) return;
+    const timer = window.setTimeout(() => speak("Parabéns! Muito bem! Você conseguiu."), 180);
+    return () => window.clearTimeout(timer);
+  }, [enabled, results.length]);
+}
+
 function FigureIllustration({ question, placement = false }: { question: GameQuestion; placement?: boolean }) {
   if (!question.visual) return null;
   const math: Record<string, { left: string[]; operator?: string; right?: string[] }> = {
@@ -173,6 +190,8 @@ function Placement({ state, controller }: Props) {
   const wordAudioAvailable = audioAvailable && Boolean(question?.targetWord ?? question?.audioText);
   const playNarration = useQuestionNarration(question, audioAvailable);
   const playWord = useQuestionNarration(question, wordAudioAvailable, true);
+  useFeedbackNarration(state.feedback, audioAvailable);
+  usePlacementResultNarration(state.placementResults, audioAvailable);
   const attemptLabel = state.placementAttempts === 0 ? "1ª tentativa" : "2ª tentativa";
   if (!question) return null;
   return (
@@ -286,6 +305,7 @@ function Lesson({ state, controller }: Props) {
   const wordAudioAvailable = audioAvailable && Boolean(question.targetWord ?? question.audioText);
   const playNarration = useQuestionNarration(question, audioAvailable);
   const playWord = useQuestionNarration(question, wordAudioAvailable, true);
+  useFeedbackNarration(state.feedback, audioAvailable);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">

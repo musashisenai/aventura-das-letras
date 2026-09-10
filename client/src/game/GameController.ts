@@ -339,13 +339,13 @@ export class GameController {
 
     if (correct) {
       this.state.roundScore += 1;
-      this.state.feedback = { tone: "success", text: "Muito bem! Sua trilha ganhou uma nova pegada." };
+      this.state.feedback = { tone: "success", text: "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada." };
     } else if (attempts === 1) {
       this.state.attempts = attempts;
-      this.state.feedback = { tone: "hint", text: `${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${question.hint}` };
+      this.state.feedback = { tone: "hint", text: `Tente novamente, não desista! ${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${question.hint}` };
     } else {
       this.state.attempts = attempts;
-      this.state.feedback = { tone: "continue", text: `A Lumi guardou uma dica para você: ${question.hint} Vamos para a próxima descoberta!` };
+      this.state.feedback = { tone: "continue", text: `Tente novamente, não desista! A Lumi guardou uma dica para você: ${question.hint} Vamos para a próxima descoberta!` };
     }
     this.emit();
   }
