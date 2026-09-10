@@ -91,6 +91,7 @@ export type GameState = {
   answers: AnswerLog[];
   reward: Reward | null;
   teacherAuthorized: boolean;
+  teacherPassword: string;
 };
 
 const STORAGE_KEY = "aventura-das-letras-v2";
@@ -128,6 +129,7 @@ function initialState(): GameState {
     answers: [],
     reward: null,
     teacherAuthorized: false,
+    teacherPassword: "professor",
   };
 }
 
@@ -175,7 +177,7 @@ export class GameController {
       const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "professor", setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -488,9 +490,18 @@ export class GameController {
   }
 
   authorizeTeacher(password: string) {
-    this.state.teacherAuthorized = password.toLowerCase() === "professor";
+    this.state.teacherAuthorized = password === this.state.teacherPassword;
     this.emit();
     return this.state.teacherAuthorized;
+  }
+
+  changeTeacherPassword(current: string, next: string, confirmation: string) {
+    if (!this.state.teacherAuthorized || current !== this.state.teacherPassword) return "A senha atual não confere.";
+    if (next.trim().length < 6) return "A nova senha precisa ter pelo menos 6 caracteres.";
+    if (next !== confirmation) return "A confirmação não confere.";
+    this.state.teacherPassword = next;
+    this.emit();
+    return null;
   }
 
   worldAccuracy(worldId: number) {
