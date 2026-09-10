@@ -156,4 +156,7 @@ button:not(:disabled):active { transform: scale(.97); }
 .response-attempt strong { font-size: .7rem; }
 .response-attempt small { margin-top: .2rem; color: #6d897e; font-size: .57rem; }
 .response-attempt > svg { flex: 0 0 auto; color: #75a892; }
+.danger-action { border: 1px solid #e7a5a0; border-radius: .7rem; color: #9b302a; background: #fff2f0; font-weight: 900; cursor: pointer; }
+.danger-action:hover { border-color: #c85a51; background: #ffe5e1; }
+.danger-action:active { transform: scale(.97); }
 @media (max-width: 560px) { .response-phase-list { padding-left: .65rem; } .response-explorer { padding: 14px; } }
