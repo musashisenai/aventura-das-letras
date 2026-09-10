@@ -170,7 +170,9 @@ function Placement({ state, controller }: Props) {
   const placementQueue = state.placementQueue.length ? state.placementQueue : PLACEMENT_QUESTIONS;
   const question = placementQueue[state.placementIndex];
   const audioAvailable = state.profile?.audioEnabled !== false;
+  const wordAudioAvailable = audioAvailable && Boolean(question?.targetWord ?? question?.audioText);
   const playNarration = useQuestionNarration(question, audioAvailable);
+  const playWord = useQuestionNarration(question, wordAudioAvailable, true);
   const attemptLabel = state.placementAttempts === 0 ? "1ª tentativa" : "2ª tentativa";
   if (!question) return null;
   return (
@@ -180,7 +182,7 @@ function Placement({ state, controller }: Props) {
         <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / placementQueue.length) * 100}%` }} /></div>
         <Mascot className="mini-lumi" label="Lumi" />
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
-        <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2>{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}</div>
+        <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2><div className="placement-audio-actions">{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{wordAudioAvailable && <button className="audio-button word-audio-button placement-audio" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}</div></div>
         <FigureIllustration question={question} placement />
         <p className="placement-attempt-label">{attemptLabel} · você pode tentar duas vezes</p>
         {question.kind === "draw" ? <DrawingPad disabled={Boolean(state.feedback)} onSend={(drawing) => controller.submitPlacement("Desenho enviado", drawing)} /> : question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">

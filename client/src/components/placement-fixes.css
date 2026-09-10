@@ -30,6 +30,13 @@
   flex: 1;
 }
 
+.placement-audio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .placement-audio {
   flex: 0 0 auto;
   margin-top: 8px;
@@ -206,6 +213,11 @@
 
   .placement-question-title {
     gap: 8px;
+  }
+
+  .placement-audio-actions {
+    max-width: 180px;
+    gap: 5px;
   }
 
   .placement-audio {
