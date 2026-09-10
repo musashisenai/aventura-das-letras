@@ -10,16 +10,8 @@ import { type GameController, type GameState } from "@/game/GameController";
 import "./placement-fixes.css";
 
 type Props = { state: GameState; controller: GameController };
-type Animal = { name: string; emoji: string; note: string };
 type TeacherTab = "overview" | "profiles" | "answers" | "drawings";
 const PHASES_PER_WORLD = 8;
-
-const animals: Animal[] = [
-  { name: "Raposa", emoji: "🦊", note: "curiosa e esperta" },
-  { name: "Coruja", emoji: "🦉", note: "atenta às palavras" },
-  { name: "Panda", emoji: "🐼", note: "calmo e gentil" },
-  { name: "Coelho", emoji: "🐰", note: "rápido nas descobertas" },
-];
 
 function Mascot({ className = "", label = "Lumi, raposa parceira" }: { className?: string; label?: string }) {
   return <div className={`mascot-illustration ${className}`} role="img" aria-label={label}>
@@ -126,7 +118,6 @@ function EntryMenu({ state, controller }: Props) {
 
 function Welcome({ state, controller }: Props) {
   const [name, setName] = useState("");
-  const [animal, setAnimal] = useState("Raposa");
   return (
     <main className="welcome-page">
       <div className="opening-book-spread" aria-hidden="true"><i className="book-spine" /><b>✦</b></div>
@@ -139,11 +130,8 @@ function Welcome({ state, controller }: Props) {
         <button className={`setup-audio-summary ${state.setupAudioEnabled ? "on" : "off"}`} onClick={() => controller.returnToMenu()}><span>{state.setupAudioEnabled ? <Volume2 size={17} /> : <VolumeX size={17} />}</span>{state.setupAudioEnabled ? "LUMI VAI LER AS PERGUNTAS" : "VOCÊ ESCOLHEU LER SOZINHO"}<small>AJUSTAR NO MENU</small></button>
         <label className="input-label" htmlFor="child-name">Qual nome vai no mapa da sua expedição?</label>
         <input id="child-name" className="name-input" value={name} onChange={(event) => setName(event.target.value)} maxLength={18} placeholder="Escreva seu nome aqui" />
-        <p className="input-label">Escolha o companheiro da sua trilha</p>
-        <div className="animal-picker">
-          {animals.map((item) => <button key={item.name} className={`animal-choice ${animal === item.name ? "selected" : ""}`} onClick={() => setAnimal(item.name)}><span>{item.emoji}</span><small>{item.name}</small></button>)}
-        </div>
-        <button className="primary-action" onClick={() => controller.beginProfile(name, animal)}>Começar a expedição <ChevronRight size={23} /></button>
+        <p className="input-label lumi-companion-note">A Lumi será sua única companheira de trilha e vai ajudar com dicas, leituras e descobertas.</p>
+        <button className="primary-action" onClick={() => controller.beginProfile(name)}>Começar a expedição <ChevronRight size={23} /></button>
         <button className="teacher-entry" onClick={() => controller.openTeacher()}>Sou professor(a)</button>
       </section>
       <aside className="welcome-art" aria-label="Lumi, a raposa parceira, em uma floresta de papel">
@@ -175,7 +163,7 @@ function Placement({ state, controller }: Props) {
         <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2>{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}</div>
         {question.visual && <div className="placement-question-visual" role="img" aria-label={`Ilustração: ${question.visual}`}><span>{question.visual}</span></div>}
         <p className="placement-attempt-label">{attemptLabel} · você pode tentar duas vezes</p>
-        {question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
+        {question.kind === "draw" ? <DrawingPad disabled={Boolean(state.feedback)} onSend={(drawing) => controller.submitPlacement("Desenho enviado", drawing)} /> : question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
           {question.options?.map((option) => <button key={option} className="answer-tile" onClick={() => controller.submitPlacement(option)}>{option}</button>)}
         </div>}
         {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div><CircleHelp size={22} /></div><p>{state.feedback.text}</p></div>}
@@ -341,10 +329,12 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
 function DrawingPad({ disabled, onSend }: { disabled: boolean; onSend: (drawing: string) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
+  const [hasMarks, setHasMarks] = useState(false);
   const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
-  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled) return; const canvas = canvasRef.current; if (!canvas) return; const ctx = canvas.getContext("2d"); if (!ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineWidth = 12; ctx.strokeStyle = "#19765C"; setDrawing(true); canvas.setPointerCapture(event.pointerId); };
+  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled) return; const canvas = canvasRef.current; if (!canvas) return; const ctx = canvas.getContext("2d"); if (!ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineWidth = 12; ctx.strokeStyle = "#19765C"; setDrawing(true); setHasMarks(true); canvas.setPointerCapture(event.pointerId); };
   const paint = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawing || disabled) return; const ctx = canvasRef.current?.getContext("2d"); if (!ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); };
-  return <div className="drawing-pad"><canvas ref={canvasRef} width="900" height="360" onPointerDown={begin} onPointerMove={paint} onPointerUp={() => setDrawing(false)} onPointerLeave={() => setDrawing(false)} aria-label="Área para desenhar" /><div><p>Use o dedo ou o mouse para desenhar. A Lumi vai guardar sua criação para o professor ver.</p><button className="primary-action compact" disabled={disabled} onClick={() => onSend(canvasRef.current?.toDataURL("image/png") || "")}>Enviar meu desenho <ChevronRight size={19} /></button></div></div>;
+  const clear = () => { const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx || disabled) return; ctx.clearRect(0, 0, canvas.width, canvas.height); setHasMarks(false); };
+  return <div className="drawing-pad"><div className="drawing-canvas-wrap"><canvas ref={canvasRef} width="900" height="360" onPointerDown={begin} onPointerMove={paint} onPointerUp={() => setDrawing(false)} onPointerCancel={() => setDrawing(false)} aria-label="Área para desenhar" /><span className={hasMarks ? "drawing-placeholder hidden" : "drawing-placeholder"}>Desenhe aqui</span></div><div className="drawing-controls"><p>Use o dedo ou o mouse para desenhar. A Lumi vai guardar sua criação para o professor ver.</p><div><button className="soft-action" disabled={disabled || !hasMarks} onClick={clear}>Limpar</button><button className="primary-action compact" disabled={disabled || !hasMarks} onClick={() => onSend(canvasRef.current?.toDataURL("image/png") || "")}>Enviar meu desenho <ChevronRight size={19} /></button></div></div></div>;
 }
 
 function Reward({ state, controller }: Props) {

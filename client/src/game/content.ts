@@ -287,6 +287,7 @@ export const PLACEMENT_QUESTIONS: GameQuestion[] = [
   choice("nivel-g-forma", "Qual forma é redonda?", ["○", "△", "□"], "○", "Procure a forma que parece uma bola."),
   choice("nivel-g-quantidade", "CONTE AS ESTRELAS ABAIXO.", ["2", "3", "4"], "3", "CONTE CADA ESTRELA.", "★ ★ ★"),
   choice("nivel-g-rabisco", "Qual desenho parece uma letra?", ["A", "☀", "○"], "A", "Uma letra pode fazer parte de uma palavra."),
+  draw("nivel-g-risco", "FAÇA UM RISCO DE IDA E VOLTA.", "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.", "〰"),
   choice("nivel-p-letra", "Qual destes é uma letra?", ["8", "M", "△"], "M", "Letras servem para escrever."),
   choice("nivel-p-numero", "Qual destes é um número?", ["B", "7", "☁"], "7", "Números ajudam a contar."),
   choice("nivel-p-tamanho", "Qual palavra tem mais letras?", ["SOL", "BOLA", "BORBOLETA"], "BORBOLETA", "Compare o tamanho das palavras."),

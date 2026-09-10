@@ -36,6 +36,7 @@ export type PlacementResult = {
   question: string;
   correct: boolean;
   attempts: number;
+  drawing?: string;
 };
 
 export type AnswerLog = {
@@ -154,6 +155,7 @@ export class GameController {
       const answers = (saved.answers ?? []).map((answer) => ({ ...answer, worldId: shiftWorld(answer.worldId) }));
       const profile = saved.profile ? {
         ...saved.profile,
+        partner: "Lumi",
         currentWorld: shiftWorld(saved.profile.currentWorld),
         recommendedWorld: shiftWorld(saved.profile.recommendedWorld ?? saved.profile.currentWorld),
         audioEnabled: saved.profile.audioEnabled !== false,
@@ -186,7 +188,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "map",
-      profile: { name: "Clara", partner: "Raposa", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
+      profile: { name: "Clara", partner: "Lumi", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
       selectedWorld: 1,
       completions: {
         "0:0": { score: 7, total: 8, date: new Date().toISOString() },
@@ -203,14 +205,14 @@ export class GameController {
     this.emit();
   }
 
-  beginProfile(name: string, partner: string) {
+  beginProfile(name: string, _partner?: string) {
     const safeName = name.trim() || "Exploradora";
     const audioEnabled = this.state.setupAudioEnabled;
     this.state = {
       ...initialState(),
       screen: "placement",
       setupAudioEnabled: audioEnabled,
-      profile: { name: safeName, partner, currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled },
+      profile: { name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled },
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
@@ -233,12 +235,13 @@ export class GameController {
     this.emit();
   }
 
-  submitPlacement(answer: string) {
+  submitPlacement(answer: string, drawing?: string) {
     const placementQueue = this.state.placementQueue.length ? this.state.placementQueue : PLACEMENT_QUESTIONS;
     const question = placementQueue[this.state.placementIndex];
     if (!question) return;
     const attempts = this.state.placementAttempts + 1;
-    const correct = answer === question.answer;
+    const correct = question.kind === "draw" ? Boolean(drawing) : answer === question.answer;
+    if (question.kind === "draw" && !drawing) return;
     if (!correct && attempts < 2) {
       this.state.placementAttempts = attempts;
       this.state.feedback = { tone: "hint", text: `${positiveHints[Math.floor(Math.random() * positiveHints.length)]} Você pode tentar esta questão mais uma vez.` };
@@ -251,6 +254,7 @@ export class GameController {
       question: question.displayPrompt ?? question.prompt,
       correct,
       attempts,
+      drawing,
     };
     const placementResults = [...this.state.placementResults, result];
     const nextScore = this.state.placementScore + (correct ? 1 : 0);
