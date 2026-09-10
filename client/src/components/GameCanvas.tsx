@@ -26,6 +26,13 @@ export default function GameCanvas() {
   }, [controller]);
 
   useEffect(() => {
+    if (!state.profile) return;
+    void controller.pullTeacherDecision();
+    const timer = window.setInterval(() => void controller.pullTeacherDecision(), 5000);
+    return () => window.clearInterval(timer);
+  }, [controller, state.profile?.studentId]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || startedRef.current) return;
     startedRef.current = true;

@@ -216,8 +216,15 @@ function vitePluginLocalClassroom(): Plugin {
   return {
     name: "local-classroom-sync",
     configureServer(server: ViteDevServer) {
-      server.middlewares.use("/api/students", (req, res) => {
+      server.middlewares.use((req, res, next) => {
+        const requestPath = req.url?.split("?")[0] ?? "";
+        if (requestPath !== "/api/students" && !requestPath.startsWith("/api/students/")) return next();
         const send = (status: number, payload: unknown) => { res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }); res.end(JSON.stringify(payload)); };
+        if (req.method === "GET" && requestPath !== "/api/students") {
+          const studentId = decodeURIComponent(requestPath.replace(/^\/api\/students\//, ""));
+          const student = readStudents()[studentId];
+          return student ? send(200, student) : send(404, { error: "Student not found" });
+        }
         if (req.method === "GET") {
           const students = readStudents();
           return send(200, Object.values(students));
@@ -227,10 +234,10 @@ function vitePluginLocalClassroom(): Plugin {
         req.on("data", (chunk) => { body += chunk.toString(); });
         req.on("end", () => {
           try {
-            const payload = JSON.parse(body) as { id?: string; profile?: unknown; completions?: unknown; answers?: unknown };
+            const payload = JSON.parse(body) as { id?: string; profile?: unknown; completions?: unknown; worldApprovals?: unknown; answers?: unknown };
             if (!payload.id || !payload.profile) return send(400, { error: "Student id and profile are required" });
             const students = readStudents();
-            students[payload.id] = { id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() };
+            students[payload.id] = { id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() };
             writeStudents(students);
             return send(200, { ok: true });
           } catch { return send(400, { error: "Invalid JSON" }); }

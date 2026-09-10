@@ -39,6 +39,13 @@ export type Completion = {
   date: string;
 };
 
+export type WorldApproval = {
+  status: "pending" | "approved";
+  requestedAt: string;
+  approvedAt?: string;
+  approvedBy?: string;
+};
+
 export type PlacementResult = {
   questionId: string;
   question: string;
@@ -89,6 +96,7 @@ export type GameState = {
   roundScore: number;
   feedback: Feedback;
   completions: Record<string, Completion>;
+  worldApprovals: Record<string, WorldApproval>;
   answers: AnswerLog[];
   reward: Reward | null;
   teacherAuthorized: boolean;
@@ -128,6 +136,7 @@ function initialState(): GameState {
     roundScore: 0,
     feedback: null,
     completions: {},
+    worldApprovals: {},
     answers: [],
     reward: null,
     teacherAuthorized: false,
@@ -181,7 +190,8 @@ export class GameController {
       const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "professor", teacherName: saved.teacherName || "Professor(a)", setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
+      const worldApprovals = Object.fromEntries(Object.entries(saved.worldApprovals ?? {}).map(([worldId, approval]) => [`${shiftWorld(Number(worldId))}`, approval]));
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "professor", teacherName: saved.teacherName || "Professor(a)", setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -201,9 +211,26 @@ export class GameController {
 
   private async syncCurrentStudent() {
     try {
-      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, completions: this.state.completions, answers: this.state.answers }) });
+      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers }) });
     } catch {
       // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
+    }
+  }
+
+  async pullTeacherDecision() {
+    const studentId = this.state.profile?.studentId;
+    if (!studentId) return;
+    try {
+      const response = await fetch(`/api/students/${encodeURIComponent(studentId)}`);
+      if (!response.ok) return;
+      const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval> };
+      if (!remote.profile || remote.profile.currentWorld <= this.state.profile!.currentWorld) return;
+      this.state.profile = { ...this.state.profile!, currentWorld: remote.profile.currentWorld, recommendedWorld: remote.profile.recommendedWorld ?? remote.profile.currentWorld };
+      this.state.worldApprovals = remote.worldApprovals ?? this.state.worldApprovals;
+      this.state.selectedWorld = this.state.profile.currentWorld;
+      this.emit();
+    } catch {
+      // O jogo continua funcionando offline; a decisão será consultada novamente.
     }
   }
 
@@ -432,6 +459,9 @@ export class GameController {
     const key = this.completionKey(this.state.activeWorld, this.state.activePhase);
     this.state.completions[key] = { score: this.state.roundScore, total: 8, date: new Date().toISOString() };
     const finalChallenge = this.state.activePhase === 7;
+    if (finalChallenge && this.state.activeWorld < WORLDS.length - 1) {
+      this.state.worldApprovals[String(this.state.activeWorld)] = { status: "pending", requestedAt: new Date().toISOString() };
+    }
     const egg = this.state.roundScore >= 6 || finalChallenge;
     const eggRarity: EggRarity = finalChallenge ? "lendario" : this.state.roundScore >= 8 ? "epico" : this.state.roundScore >= 7 ? "raro" : "comum";
     const reward = { coins: 10 + this.state.roundScore * 2, xp: 8 + this.state.roundScore * 3, egg, eggRarity, title: finalChallenge ? "Desafio final concluído" : `Fase ${this.state.activePhase + 1} concluída` };
@@ -541,6 +571,7 @@ export class GameController {
   releaseNextWorld(worldId: number) {
     if (!this.state.profile || this.worldAccuracy(worldId) < 70) return;
     const nextWorld = Math.min(worldId + 1, WORLDS.length - 1);
+    this.state.worldApprovals[String(worldId)] = { status: "approved", requestedAt: this.state.worldApprovals[String(worldId)]?.requestedAt ?? new Date().toISOString(), approvedAt: new Date().toISOString(), approvedBy: this.state.teacherName };
     this.state.profile.currentWorld = Math.max(this.state.profile.currentWorld, nextWorld);
     this.state.selectedWorld = nextWorld;
     this.emit();
