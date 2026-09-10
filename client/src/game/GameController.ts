@@ -259,8 +259,24 @@ export class GameController {
     this.emit();
   }
 
-  beginProfile(name: string, _partner?: string) {
+  async isStudentNameAvailable(name: string, excludeId = this.state.profile?.studentId) {
+    const safeName = name.trim();
+    if (!safeName) return false;
+    try {
+      const params = new URLSearchParams({ name: safeName });
+      if (excludeId) params.set("excludeId", excludeId);
+      const response = await fetch(`/api/students/name-available?${params.toString()}`);
+      if (!response.ok) return true;
+      const result = await response.json() as { available?: boolean };
+      return result.available !== false;
+    } catch {
+      return true;
+    }
+  }
+
+  async beginProfile(name: string, _partner?: string) {
     const safeName = name.trim() || "Exploradora";
+    if (!(await this.isStudentNameAvailable(safeName))) return false;
     const audioEnabled = this.state.setupAudioEnabled;
     this.state = {
       ...initialState(),
@@ -270,6 +286,7 @@ export class GameController {
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
+    return true;
   }
 
   openPlayerSetup() {
@@ -297,18 +314,24 @@ export class GameController {
     this.emit();
   }
 
-  saveProfileName(name: string) {
-    if (!this.state.profile) return;
-    this.state.profile.name = name.trim() || this.state.profile.name;
+  async saveProfileName(name: string) {
+    if (!this.state.profile) return false;
+    const safeName = name.trim() || this.state.profile.name;
+    if (!(await this.isStudentNameAvailable(safeName, this.state.profile.studentId))) return false;
+    this.state.profile.name = safeName;
     this.state.screen = "profile";
     this.emit();
+    return true;
   }
 
-  updateProfileName(name: string) {
+  async updateProfileName(name: string) {
     if (!this.state.profile) return this.beginProfile(name);
-    this.state.profile.name = name.trim() || this.state.profile.name;
+    const safeName = name.trim() || this.state.profile.name;
+    if (!(await this.isStudentNameAvailable(safeName, this.state.profile.studentId))) return false;
+    this.state.profile.name = safeName;
     this.state.screen = "map";
     this.emit();
+    return true;
   }
 
   startNewSave() {
@@ -547,6 +570,27 @@ export class GameController {
     this.state.teacherAuthorized = password === this.state.teacherPassword;
     this.emit();
     return this.state.teacherAuthorized;
+  }
+
+  async deleteRemoteStudent(studentId: string, confirmation: string) {
+    try {
+      let token = window.sessionStorage.getItem("aventura-teacher-token") ?? "";
+      if (!token) {
+        const verified = await fetch("/api/teacher/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: this.state.teacherPassword }) });
+        if (!verified.ok) return { ok: false, message: "A senha local do professor não foi aceita pelo servidor." };
+        token = (await verified.json() as { token: string }).token;
+        window.sessionStorage.setItem("aventura-teacher-token", token);
+      }
+      const response = await fetch(`/api/students/${encodeURIComponent(studentId)}`, { method: "DELETE", headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }, body: JSON.stringify({ confirmation }) });
+      const result = await response.json().catch(() => ({})) as { message?: string };
+      if (!response.ok) {
+        if (response.status === 401) window.sessionStorage.removeItem("aventura-teacher-token");
+        return { ok: false, message: result.message ?? "Não foi possível excluir o aluno." };
+      }
+      return { ok: true, message: "Perfil excluído com sucesso." };
+    } catch {
+      return { ok: false, message: "Servidor indisponível para excluir este perfil." };
+    }
   }
 
   changeTeacherPassword(current: string, next: string, confirmation: string) {
