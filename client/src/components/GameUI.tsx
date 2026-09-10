@@ -9,6 +9,7 @@ import { PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./pet-expansion.css";
+import "./profile-page.css";
 
 type Props = { state: GameState; controller: GameController };
 type TeacherTab = "overview" | "profiles" | "answers" | "drawings";
@@ -119,7 +120,7 @@ function Header({ state, controller, back = false }: { state: GameState; control
           {back && <button className="icon-button" onClick={() => controller.goToMap()} aria-label="Voltar ao mapa"><ArrowLeft size={22} /></button>}
           <button className="currency-pill" onClick={() => controller.openPets()} aria-label="Abrir casa dos pets"><Coins size={19} /> {profile.coins}</button>
           <button className="currency-pill xp" onClick={() => controller.openPets()} aria-label="Abrir casa dos pets"><Star size={19} fill="currentColor" /> {profile.xp} XP</button>
-          <button className="partner-chip" onClick={() => controller.editProfile()} aria-label="Editar perfil da criança"><Mascot label="Lumi, parceira do jogo" /> <span>{profile.name}</span></button>
+          <button className="partner-chip" onClick={() => controller.openProfile()} aria-label="Abrir perfil da criança"><Mascot label="Lumi, parceira do jogo" /> <span>{profile.name}</span></button>
         </div>
       )}
     </header>
@@ -183,6 +184,13 @@ function Welcome({ state, controller }: Props) {
       </aside>
     </main>
   );
+}
+
+function StudentProfile({ state, controller }: Props) {
+  const profile = state.profile!;
+  const [name, setName] = useState(profile.name);
+  const level = Math.max(1, Math.floor(profile.xp / 40) + 1);
+  return <main className="profile-page single-game-page"><Header state={state} controller={controller} back /><section className="profile-card paper-panel"><div className="profile-hero"><Mascot label="Lumi, parceira do aluno" /><div><p className="eyebrow"><PawPrint size={16} /> Perfil do aluno</p><h1>{profile.name}</h1><p>Acompanhe sua aventura e deixe seu nome sempre do seu jeito.</p></div></div><div className="profile-stats"><span><strong>{level}</strong><small>Nível</small></span><span><strong>{profile.xp}</strong><small>XP</small></span><span><strong>{profile.coins}</strong><small>Moedas</small></span><span><strong>{profile.petLevel}</strong><small>Nível do pet</small></span></div><label className="input-label" htmlFor="profile-name">Nome da criança</label><input id="profile-name" className="name-input" value={name} onChange={(event) => setName(event.target.value)} maxLength={18} /><div className="profile-page-actions"><button className="primary-action" onClick={() => controller.saveProfileName(name)}>Salvar alterações <Check size={20} /></button><button className="soft-action" onClick={() => controller.continueSave()}><BookOpen size={18} /> Voltar para minha trilha</button><button className="teacher-entry" onClick={() => controller.returnToMenu()}>Voltar ao menu</button></div></section></main>;
 }
 
 function Placement({ state, controller }: Props) {
@@ -417,7 +425,7 @@ function TeacherDashboard({ state, controller, tab, onTabChange, selectedAnswer,
   const visible = tab === "drawings" ? drawings : entries;
   const selected = visible.find((entry) => entry.index === selectedAnswer) ?? visible[0];
   const audioCard = <section className="audio-control paper-panel"><p className="eyebrow">Acessibilidade individual</p><h2>Leitura em voz alta</h2><p className="soft-note">{profile.audioEnabled ? "A LUMI PODE LER AS PERGUNTAS OU PALAVRAS DE REFERÊNCIA PARA ESTE ALUNO." : "A LEITURA POR ÁUDIO ESTÁ DESLIGADA. O ALUNO LERÁ AS ATIVIDADES SEM NARRAÇÃO."}</p><button className="primary-action compact" onClick={() => controller.setStudentAudio(!profile.audioEnabled)}>{profile.audioEnabled ? <><VolumeX size={18} /> Desativar áudio deste aluno</> : <><Volume2 size={18} /> Ativar áudio deste aluno</>}</button></section>;
-  if (tab === "profiles") return <><section className="student-profile-card paper-panel"><div><p className="eyebrow">Perfil de aluno</p><h2>{profile.name}</h2><p>Parceiro: <strong>{profile.partner}</strong> · Nível {Math.max(1, Math.floor(profile.xp / 40) + 1)} · {profile.xp} XP</p></div><div className="profile-actions"><button className="soft-action" onClick={() => controller.editProfile()}><PawPrint size={17} /> Editar perfil</button><button className="soft-action" onClick={() => onTabChange("answers")}><CircleHelp size={17} /> Ver respostas</button><button className="soft-action" onClick={() => controller.goToMap()}><BookOpen size={17} /> Abrir livro-mapa</button></div></section>{audioCard}<WorldTeacherGrid state={state} controller={controller} onOpenAnswers={() => onTabChange("answers")} /></>;
+  if (tab === "profiles") return <><section className="student-profile-card paper-panel"><div><p className="eyebrow">Perfil de aluno</p><h2>{profile.name}</h2><p>Parceiro: <strong>{profile.partner}</strong> · Nível {Math.max(1, Math.floor(profile.xp / 40) + 1)} · {profile.xp} XP</p></div><div className="profile-actions"><button className="soft-action" onClick={() => controller.openProfile()}><PawPrint size={17} /> Editar perfil</button><button className="soft-action" onClick={() => onTabChange("answers")}><CircleHelp size={17} /> Ver respostas</button><button className="soft-action" onClick={() => controller.goToMap()}><BookOpen size={17} /> Abrir livro-mapa</button></div></section>{audioCard}<WorldTeacherGrid state={state} controller={controller} onOpenAnswers={() => onTabChange("answers")} /></>;
   if (tab === "answers" || tab === "drawings") return <section className="analysis-workspace"><div className="analysis-list paper-panel"><div className="table-head"><div><p className="eyebrow">{tab === "drawings" ? "Portfólio visual" : "Resposta por resposta"}</p><h2>{tab === "drawings" ? "Desenhos enviados" : "Analisar tentativas"}</h2></div><span>{visible.length} registro(s)</span></div>{visible.length ? <div className="response-select-list">{visible.map(({ answer, index }) => <button key={`${answer.at}-${index}`} className={selected?.index === index ? "selected" : ""} onClick={() => onSelectAnswer(index)}><span className={answer.correct ? "status-correct" : "status-help"}>{answer.correct ? "ACERTO" : "COM DICA"}</span><strong>{WORLDS[answer.worldId]?.shortName || "Mundo"} · Fase {answer.phase + 1}</strong><small>{answer.question}</small></button>)}</div> : <p className="empty-note">Ainda não há registros para analisar.</p>}</div>{selected && <AnswerInspector answer={selected.answer} />}</section>;
   return <><section className="teacher-stat-grid"><article><span>Mundo atual</span><strong>{world.shortName}</strong><i style={{ background: world.color }} /></article><article><span>Acerto no mundo</span><strong>{accuracy}%</strong><i className="green" /></article><article><span>Respostas salvas</span><strong>{state.answers.length}</strong><i className="orange" /></article></section>{audioCard}<WorldTeacherGrid state={state} controller={controller} onOpenAnswers={() => onTabChange("answers")} /><section className="answer-history paper-panel"><div className="table-head"><div><p className="eyebrow">Portfólio de aprendizagem</p><h2>Últimas respostas</h2></div><button className="soft-action" onClick={() => onTabChange("answers")}>ANALISAR TUDO <ChevronRight size={17} /></button></div>{entries.length ? <div className="history-list">{entries.slice(0, 6).map(({ answer, index }) => <button key={`${answer.at}-${index}`} onClick={() => { onSelectAnswer(index); onTabChange("answers"); }}><span className={answer.correct ? "status-correct" : "status-help"}>{answer.correct ? "ACERTO" : "COM DICA"}</span><p>{answer.question}</p><strong>{answer.answer}</strong><small>{answer.at}</small></button>)}</div> : <p className="empty-note">AS RESPOSTAS DA CRIANÇA APARECERÃO AQUI DURANTE AS FASES.</p>}</section></>;
 }
@@ -433,10 +441,11 @@ function AnswerInspector({ answer }: { answer: GameState["answers"][number] }) {
 
 export default function GameUI({ state, controller }: Props) {
   const content = useMemo(() => {
-    const requiresProfile = ["map", "placement-result", "lesson", "reward", "pets"].includes(state.screen);
+    const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(state.screen);
     if (requiresProfile && !state.profile) return <EntryMenu state={state} controller={controller} />;
     if (state.screen === "menu") return <EntryMenu state={state} controller={controller} />;
     if (state.screen === "welcome") return <Welcome state={state} controller={controller} />;
+    if (state.screen === "profile") return <StudentProfile state={state} controller={controller} />;
     if (state.screen === "placement") return <Placement state={state} controller={controller} />;
     if (state.screen === "placement-result") return <PlacementResult state={state} controller={controller} />;
     if (state.screen === "map") return <MapPage state={state} controller={controller} />;

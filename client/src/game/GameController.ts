@@ -5,7 +5,7 @@
 
 import { getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
-export type Screen = "menu" | "welcome" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
+export type Screen = "menu" | "welcome" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
 
 export type Profile = {
   name: string;
@@ -176,7 +176,7 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const hydrated = { ...initialState(), ...saved, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
-      const requiresProfile = ["map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
+      const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
       return initialState();
@@ -246,6 +246,19 @@ export class GameController {
   editProfile() {
     if (!this.state.profile) return this.openPlayerSetup();
     this.state.screen = "welcome";
+    this.emit();
+  }
+
+  openProfile() {
+    if (!this.state.profile) return this.openPlayerSetup();
+    this.state.screen = "profile";
+    this.emit();
+  }
+
+  saveProfileName(name: string) {
+    if (!this.state.profile) return;
+    this.state.profile.name = name.trim() || this.state.profile.name;
+    this.state.screen = "profile";
     this.emit();
   }
 
