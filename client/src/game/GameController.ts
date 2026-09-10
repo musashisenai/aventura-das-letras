@@ -483,6 +483,7 @@ export class GameController {
 
   openTeacher() {
     this.state.screen = "teacher";
+    this.state.teacherAuthorized = false;
     this.emit();
   }
 
