@@ -8,6 +8,7 @@ import { getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from 
 export type Screen = "menu" | "welcome" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
 
 export type Profile = {
+  studentId?: string;
   name: string;
   partner: string;
   currentWorld: number;
@@ -167,6 +168,7 @@ export class GameController {
       const answers = (saved.answers ?? []).map((answer) => ({ ...answer, worldId: shiftWorld(answer.worldId) }));
       const profile = saved.profile ? {
         ...saved.profile,
+        studentId: saved.profile.studentId ?? `${saved.profile.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-legacy`,
         partner: "Lumi",
         eggCollection: saved.profile.eggCollection ?? [],
         petName: saved.profile.petName ?? "Faísca",
@@ -194,6 +196,15 @@ export class GameController {
       // O jogo continua funcionando mesmo se o navegador bloquear armazenamento local.
     }
     this.listeners.forEach((listener) => listener({ ...this.state }));
+    if (this.state.profile) void this.syncCurrentStudent();
+  }
+
+  private async syncCurrentStudent() {
+    try {
+      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, completions: this.state.completions, answers: this.state.answers }) });
+    } catch {
+      // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
+    }
   }
 
   private completionKey(worldId: number, phase: number) {
@@ -228,7 +239,7 @@ export class GameController {
       ...initialState(),
       screen: "placement",
       setupAudioEnabled: audioEnabled,
-      profile: { name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled },
+      profile: { studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled },
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
