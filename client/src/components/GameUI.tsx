@@ -119,7 +119,7 @@ function Header({ state, controller, back = false }: { state: GameState; control
           {back && <button className="icon-button" onClick={() => controller.goToMap()} aria-label="Voltar ao mapa"><ArrowLeft size={22} /></button>}
           <button className="currency-pill" onClick={() => controller.openPets()} aria-label="Abrir casa dos pets"><Coins size={19} /> {profile.coins}</button>
           <button className="currency-pill xp" onClick={() => controller.openPets()} aria-label="Abrir casa dos pets"><Star size={19} fill="currentColor" /> {profile.xp} XP</button>
-          <button className="partner-chip" onClick={() => controller.openPets()}><Mascot label="Lumi, parceira do jogo" /> <span>{profile.name}</span></button>
+          <button className="partner-chip" onClick={() => controller.editProfile()} aria-label="Editar perfil da criança"><Mascot label="Lumi, parceira do jogo" /> <span>{profile.name}</span></button>
         </div>
       )}
     </header>
