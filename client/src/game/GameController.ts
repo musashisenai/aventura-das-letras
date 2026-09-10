@@ -175,7 +175,7 @@ export class GameController {
       const selectedWorld = profile ? shiftWorld(saved.selectedWorld ?? saved.activeWorld ?? profile.currentWorld) : 0;
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
-      const hydrated = { ...initialState(), ...saved, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
