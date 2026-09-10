@@ -9,4 +9,23 @@
 .profile-stats strong { font-size: 1.7rem; }
 .profile-stats small { color: #66877c; font-size: .7rem; font-weight: 900; }
 .profile-page-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.profile-progress { margin-top: 34px; padding-top: 27px; border-top: 2px dashed #cfe5d8; }
+.profile-progress-heading { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 17px; }
+.profile-progress-heading h2 { margin: 0; }
+.profile-progress-heading > strong { color: #19765c; font-size: 1.05rem; }
+.profile-world-progress { margin-top: 13px; padding: 15px; border: 2px solid #d7e9df; border-radius: 18px 12px 17px 13px; background: #fbfffc; }
+.profile-world-heading { display: flex; align-items: center; gap: 10px; }
+.profile-world-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: #eff9f3; font-size: 1.45rem; }
+.profile-world-heading div { min-width: 0; flex: 1; }
+.profile-world-heading strong, .profile-world-heading small { display: block; }
+.profile-world-heading strong { font-size: 1.08rem; }
+.profile-world-heading small { margin-top: 3px; color: #6c897e; font-size: .65rem; font-weight: 900; letter-spacing: .06em; }
+.profile-world-heading b { color: #19765c; font-size: 1rem; }
+.profile-progress-bar { height: 8px; margin: 12px 0; overflow: hidden; border-radius: 99px; background: #e5f1e9; }
+.profile-progress-bar i { display: block; height: 100%; border-radius: inherit; transition: width .3s ease; }
+.profile-phase-list { display: flex; gap: 6px; }
+.profile-phase-list span { position: relative; display: grid; place-items: center; width: 29px; height: 29px; border: 2px solid #d7e5dc; border-radius: 9px; color: #91a99f; font: 900 .72rem/1 "Nunito", sans-serif; }
+.profile-phase-list span.done { border-color: #75c09f; color: #fff; background: #35a281; }
+.profile-phase-list span small { position: absolute; right: -5px; bottom: -7px; padding: 2px 3px; border-radius: 5px; color: #8a5b17; background: #fff1b8; font-size: .48rem; }
+.profile-world-score { display: block; margin-top: 13px; color: #6c897e; font-size: .72rem; font-weight: 800; }
 @media (max-width: 560px) { .profile-hero { align-items: flex-start; gap: 12px; } .profile-hero .mascot-illustration { width: 82px; height: 82px; flex-basis: 82px; } .profile-stats { grid-template-columns: repeat(2, 1fr); } .profile-page-actions > * { width: 100%; } }
