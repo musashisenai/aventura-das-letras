@@ -124,3 +124,10 @@ button:not(:disabled):active { transform: scale(.97); }
   .teacher-profile-edit { min-width: 0; }
   .teacher-profile-edit input { max-width: 100%; }
 }
+
+/* Answer review selection and attached drawing marker. */
+.response-select-list button { transition: border-color .16s ease, background .16s ease, transform .16s ease; }
+.response-select-list button.selected { border-color: #19765c; background: #e9f8ee; box-shadow: 0 3px 0 rgba(25,118,92,.15); transform: translateY(-1px); }
+.drawing-attached { display: inline-block; width: fit-content; margin-top: 6px; padding: 3px 6px; border-radius: 6px; color: #8a5a0d; background: #fff1c8; font-size: .55rem; font-style: normal; font-weight: 1000; letter-spacing: .04em; }
+.answer-inspector { min-width: 0; }
+.answer-inspector .inspector-visual { max-width: 100%; overflow-wrap: anywhere; }
