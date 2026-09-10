@@ -14,11 +14,18 @@ export type Profile = {
   coins: number;
   xp: number;
   eggs: number;
+  eggCollection: Egg[];
   petLevel: number;
   petCare: number;
+  petName: string;
+  petStage: "filhote" | "evoluido";
+  petSpecies: string;
   audioEnabled: boolean;
   recommendedWorld: number;
 };
+
+export type EggRarity = "comum" | "raro" | "epico" | "lendario";
+export type Egg = { id: string; rarity: EggRarity; progress: number; required: number; hatched: boolean };
 
 export type Feedback = {
   tone: "success" | "hint" | "continue";
@@ -59,6 +66,7 @@ export type Reward = {
   coins: number;
   xp: number;
   egg: boolean;
+  eggRarity?: EggRarity;
   title: string;
 };
 
@@ -156,6 +164,10 @@ export class GameController {
       const profile = saved.profile ? {
         ...saved.profile,
         partner: "Lumi",
+        eggCollection: saved.profile.eggCollection ?? [],
+        petName: saved.profile.petName ?? "Faísca",
+        petStage: saved.profile.petStage ?? (saved.profile.petLevel >= 10 ? "evoluido" : "filhote"),
+        petSpecies: saved.profile.petSpecies ?? "raposa",
         currentWorld: shiftWorld(saved.profile.currentWorld),
         recommendedWorld: shiftWorld(saved.profile.recommendedWorld ?? saved.profile.currentWorld),
         audioEnabled: saved.profile.audioEnabled !== false,
@@ -188,7 +200,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "map",
-      profile: { name: "Clara", partner: "Lumi", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, petLevel: 2, petCare: 62, audioEnabled: true },
+      profile: { name: "Clara", partner: "Lumi", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, eggCollection: [{ id: "demo-egg", rarity: "raro", progress: 1, required: 3, hatched: false }], petLevel: 2, petCare: 62, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled: true },
       selectedWorld: 1,
       completions: {
         "0:0": { score: 7, total: 8, date: new Date().toISOString() },
@@ -212,7 +224,7 @@ export class GameController {
       ...initialState(),
       screen: "placement",
       setupAudioEnabled: audioEnabled,
-      profile: { name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, petLevel: 1, petCare: 30, audioEnabled },
+      profile: { name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled },
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
@@ -221,6 +233,32 @@ export class GameController {
   openPlayerSetup() {
     this.state.screen = "welcome";
     this.state.teacherAuthorized = false;
+    this.emit();
+  }
+
+  continueSave() {
+    if (!this.state.profile) return this.openPlayerSetup();
+    this.state.screen = "map";
+    this.state.selectedWorld = this.state.activeWorld;
+    this.emit();
+  }
+
+  editProfile() {
+    if (!this.state.profile) return this.openPlayerSetup();
+    this.state.screen = "welcome";
+    this.emit();
+  }
+
+  updateProfileName(name: string) {
+    if (!this.state.profile) return this.beginProfile(name);
+    this.state.profile.name = name.trim() || this.state.profile.name;
+    this.state.screen = "map";
+    this.emit();
+  }
+
+  startNewSave() {
+    const setupAudioEnabled = this.state.setupAudioEnabled;
+    this.state = { ...initialState(), setupAudioEnabled, screen: "welcome" };
     this.emit();
   }
 
@@ -367,11 +405,15 @@ export class GameController {
     this.state.completions[key] = { score: this.state.roundScore, total: 8, date: new Date().toISOString() };
     const finalChallenge = this.state.activePhase === 7;
     const egg = this.state.roundScore >= 6 || finalChallenge;
-    const reward = { coins: 10 + this.state.roundScore * 2, xp: 8 + this.state.roundScore * 3, egg, title: finalChallenge ? "Desafio final concluído" : `Fase ${this.state.activePhase + 1} concluída` };
+    const eggRarity: EggRarity = finalChallenge ? "lendario" : this.state.roundScore >= 8 ? "epico" : this.state.roundScore >= 7 ? "raro" : "comum";
+    const reward = { coins: 10 + this.state.roundScore * 2, xp: 8 + this.state.roundScore * 3, egg, eggRarity, title: finalChallenge ? "Desafio final concluído" : `Fase ${this.state.activePhase + 1} concluída` };
     if (this.state.profile) {
       this.state.profile.coins += reward.coins;
       this.state.profile.xp += reward.xp;
-      if (egg) this.state.profile.eggs += 1;
+      const collection = (this.state.profile.eggCollection ?? []).map((item) => item.hatched ? item : { ...item, progress: Math.min(item.required, item.progress + 1) });
+      if (egg) collection.push({ id: `egg-${Date.now()}`, rarity: eggRarity, progress: 0, required: eggRarity === "lendario" ? 5 : eggRarity === "epico" ? 4 : eggRarity === "raro" ? 3 : 2, hatched: false });
+      this.state.profile.eggCollection = collection;
+      this.state.profile.eggs = collection.filter((item) => !item.hatched).length;
     }
     this.state.reward = reward;
     this.state.screen = "reward";
@@ -392,15 +434,32 @@ export class GameController {
 
   careForPet(action: "food" | "care" | "play") {
     if (!this.state.profile) return;
-    const cost = action === "food" ? 5 : action === "play" ? 3 : 0;
+    const cost = action === "food" ? 5 : action === "play" ? 3 : 2;
     if (this.state.profile.coins < cost) return;
     this.state.profile.coins -= cost;
     this.state.profile.petCare = Math.min(100, this.state.profile.petCare + (action === "care" ? 12 : 9));
-    if (this.state.profile.petCare >= 80) {
-      this.state.profile.petLevel = Math.min(9, this.state.profile.petLevel + 1);
+    if (this.state.profile.petCare >= 100) {
+      this.state.profile.petLevel = Math.min(10, this.state.profile.petLevel + 1);
       this.state.profile.petCare = 35;
+      if (this.state.profile.petLevel === 10) {
+        this.state.profile.petStage = "evoluido";
+        this.state.profile.petSpecies = "raposa guardiã";
+      }
     }
     this.emit();
+  }
+
+  hatchEgg(index: number, name: string) {
+    if (!this.state.profile) return false;
+    const egg = this.state.profile.eggCollection?.[index];
+    const safeName = name.trim().slice(0, 18);
+    if (!egg || egg.hatched || egg.progress < egg.required || !safeName) return false;
+    this.state.profile.eggCollection = this.state.profile.eggCollection.map((item, itemIndex) => itemIndex === index ? { ...item, hatched: true } : item);
+    this.state.profile.eggs = this.state.profile.eggCollection.filter((item) => !item.hatched).length;
+    this.state.profile.petName = safeName;
+    this.state.profile.petSpecies = egg.rarity === "lendario" ? "dragão-lumi" : egg.rarity === "epico" ? "grifo-lumi" : egg.rarity === "raro" ? "gato-lumi" : "raposa";
+    this.emit();
+    return true;
   }
 
   setStudentAudio(enabled: boolean) {

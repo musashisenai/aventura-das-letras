@@ -1,0 +1,16 @@
+.pet-evolution-note { margin: 16px 0 0; color: #637d73; font-size: .82rem; line-height: 1.45; }
+.pet-evolved .egg-pet { font-size: clamp(6rem, 15vw, 10rem); filter: drop-shadow(0 12px 8px rgba(25,118,92,.2)); transform: scale(1.14); }
+.pet-evolved { background: radial-gradient(circle at 50% 42%, #fff1ad 0 18%, transparent 42%), #edf9f1; }
+.rarity-strip { display: grid; gap: 4px; margin: 14px 0; padding: 12px 15px; border-radius: 16px; background: #fff5d9; color: #8a5b17; }
+.rarity-strip small { color: #806f4d; }
+.egg-card { display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 10px; margin-top: 12px; padding: 10px; border: 2px solid #d9e9de; border-radius: 15px; background: #fbfffc; }
+.egg-card > span { font-size: 2rem; text-align: center; }
+.egg-card strong, .egg-card small { display: block; }
+.egg-card small { margin-top: 3px; color: #638074; font-size: .76rem; }
+.egg-raro { border-color: #8eb5e9; background: #f0f6ff; }
+.egg-epico { border-color: #bd93df; background: #fbf2ff; }
+.egg-lendario { border-color: #e6b23f; background: #fff9df; box-shadow: 0 0 0 3px rgba(230,178,63,.13); }
+.hatch-form { grid-column: 1 / -1; display: flex; gap: 6px; }
+.hatch-form input { min-width: 0; flex: 1; border: 1px solid #bdd8cb; border-radius: 10px; padding: 8px 9px; font: inherit; }
+.hatch-form button { border: 0; border-radius: 10px; padding: 8px 11px; color: white; background: #19765c; font-weight: 800; }
+@media (max-width: 620px) { .hatch-form { flex-direction: column; } .hatch-form button { width: 100%; } }
