@@ -68,6 +68,18 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
 
 function FigureIllustration({ question, placement = false }: { question: GameQuestion; placement?: boolean }) {
   if (!question.visual) return null;
+  const math: Record<string, { left: string[]; operator?: string; right?: string[] }> = {
+    "g-soma-1-2": { left: ["🍎"], operator: "+", right: ["🍎", "🍎"] },
+    "p-blocos-2-1": { left: ["🧱", "🧱"], operator: "+", right: ["🧱"] },
+    "sa-soma-gatos": { left: ["🐱", "🐱", "🐱"], operator: "+", right: ["🐱", "🐱"] },
+    "sa-subtracao": { left: ["🌸", "🌸", "🌸", "🌸", "🌸"], operator: "−", right: ["🌸", "🌸"] },
+    "a-problema": { left: ["🍎", "🍎", "🍎", "🍎", "🍎"], operator: "−", right: ["🍎", "🍎"] },
+    "nivel-a-problema": { left: ["🍎", "🍎", "🍎", "🍎", "🍎"], operator: "−", right: ["🍎", "🍎"] },
+    "a-soma": { left: ["★", "★"], operator: "+", right: ["★", "★", "★", "★"] },
+    "a-subtracao": { left: ["9"], operator: "−", right: ["5"] },
+  };
+  const spec = math[question.id];
+  if (spec) return <div className={placement ? "placement-question-visual math-visual" : "question-visual math-visual"} role="img" aria-label="Representação visual do cálculo"><div className="math-group">{spec.left.map((token, index) => <i key={`l-${index}`}>{token}</i>)}</div><b className="math-operator">{spec.operator}</b><div className="math-group">{spec.right?.map((token, index) => <i key={`r-${index}`}>{token}</i>)}</div></div>;
   const key = (question.targetWord ?? question.answer).toUpperCase();
   const assets: Record<string, string> = { MESA: "/figura-mesa.png", BOLO: "/figura-bolo.png", LIVRO: "/figura-livro.png", FLOR: "/figura-flor.png" };
   const asset = assets[key];
