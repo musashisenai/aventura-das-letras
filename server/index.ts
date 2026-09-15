@@ -22,9 +22,9 @@ async function startServer() {
   const readTeacherPassword = () => {
     try {
       const data = JSON.parse(fs.readFileSync(teacherFile, "utf8")) as { password?: string };
-      return data.password || "professor";
+      return data.password || "7391846205";
     } catch {
-      return "professor";
+      return "7391846205";
     }
   };
   const writeTeacherPassword = (password: string) => {
