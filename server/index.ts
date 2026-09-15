@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  const DEFAULT_TEACHER_PASSWORD = "7391846205";
+  const LEGACY_TEACHER_PASSWORD = "professor";
   const classroomFile = path.resolve(__dirname, "..", ".local-data", "students.json");
   const teacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
   const readStudents = () => {
@@ -22,9 +24,16 @@ async function startServer() {
   const readTeacherPassword = () => {
     try {
       const data = JSON.parse(fs.readFileSync(teacherFile, "utf8")) as { password?: string };
-      return data.password || "7391846205";
+      if (!data.password) return DEFAULT_TEACHER_PASSWORD;
+      // Migrate the password used by versions before the documented default.
+      // Do not overwrite a password that the teacher has configured explicitly.
+      if (data.password === LEGACY_TEACHER_PASSWORD) {
+        writeTeacherPassword(DEFAULT_TEACHER_PASSWORD);
+        return DEFAULT_TEACHER_PASSWORD;
+      }
+      return data.password;
     } catch {
-      return "7391846205";
+      return DEFAULT_TEACHER_PASSWORD;
     }
   };
   const writeTeacherPassword = (password: string) => {
