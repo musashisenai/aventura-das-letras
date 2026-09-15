@@ -206,6 +206,9 @@ function vitePluginStorageProxy(): Plugin {
 function vitePluginLocalClassroom(): Plugin {
   const dataDir = path.join(PROJECT_ROOT, ".local-data");
   const dataFile = path.join(dataDir, "students.json");
+  const teacherFile = path.join(dataDir, "teacher.json");
+  const defaultTeacherPassword = "7391846205";
+  const legacyTeacherPassword = "professor";
   const readStudents = () => {
     try { return JSON.parse(fs.readFileSync(dataFile, "utf8")) as Record<string, unknown>; } catch { return {}; }
   };
@@ -213,11 +216,47 @@ function vitePluginLocalClassroom(): Plugin {
     fs.mkdirSync(dataDir, { recursive: true });
     fs.writeFileSync(dataFile, JSON.stringify(students, null, 2), "utf8");
   };
+  const writeTeacherPassword = (password: string) => {
+    fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(teacherFile, JSON.stringify({ password }, null, 2), "utf8");
+  };
+  const readTeacherPassword = () => {
+    try {
+      const data = JSON.parse(fs.readFileSync(teacherFile, "utf8")) as { password?: string };
+      if (!data.password) return defaultTeacherPassword;
+      if (data.password === legacyTeacherPassword) {
+        writeTeacherPassword(defaultTeacherPassword);
+        return defaultTeacherPassword;
+      }
+      return data.password;
+    } catch {
+      return defaultTeacherPassword;
+    }
+  };
   return {
     name: "local-classroom-sync",
     configureServer(server: ViteDevServer) {
       server.middlewares.use((req, res, next) => {
         const requestPath = req.url?.split("?")[0] ?? "";
+        if (requestPath === "/api/teacher/authorize" || requestPath === "/api/teacher/password") {
+          const send = (status: number, payload: unknown) => { res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }); res.end(JSON.stringify(payload)); };
+          let body = "";
+          req.on("data", (chunk) => { body += chunk.toString(); });
+          req.on("end", () => {
+            try {
+              const payload = JSON.parse(body) as { password?: string; current?: string; next?: string };
+              if (requestPath === "/api/teacher/authorize") {
+                return String(payload.password ?? "") === readTeacherPassword() ? send(200, { ok: true }) : send(401, { error: "Senha não reconhecida." });
+              }
+              if (String(payload.current ?? "") !== readTeacherPassword()) return send(401, { error: "A senha atual não confere." });
+              const nextPassword = String(payload.next ?? "");
+              if (nextPassword.trim().length < 6) return send(400, { error: "A nova senha precisa ter pelo menos 6 caracteres." });
+              writeTeacherPassword(nextPassword);
+              return send(200, { ok: true });
+            } catch { return send(400, { error: "Invalid JSON" }); }
+          });
+          return;
+        }
         if (requestPath !== "/api/students" && !requestPath.startsWith("/api/students/")) return next();
         const send = (status: number, payload: unknown) => { res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }); res.end(JSON.stringify(payload)); };
         if (req.method === "GET" && requestPath !== "/api/students") {
