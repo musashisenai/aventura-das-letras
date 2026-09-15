@@ -13,6 +13,10 @@ npm install --include=dev --legacy-peer-deps
 ```
 npm run dev
 ```
+## Link para acessar em outros dispositivos
+```
+http://10.137.11.221:3000
+```
 ## Senha da Área do Professor
 ```
 7391846205
