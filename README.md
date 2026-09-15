@@ -13,6 +13,10 @@ npm install --include=dev --legacy-peer-deps
 ```
 npm run dev -- --host=0.0.0.0 --port=4173
 ```
+## Senha da Área do Professor
+```
+Professor
+```
 ## 👨‍💻 Autores
 
 Desenvolvido por **Leonardo Neves**; **Leonardo Henrique**; **Felipe Tavares** e **Daniel Borges**
