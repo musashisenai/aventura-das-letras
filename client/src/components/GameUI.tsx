@@ -16,6 +16,7 @@ type Props = { state: GameState; controller: GameController };
 type TeacherTab = "overview" | "profiles" | "answers" | "teacher-profile";
 type RemoteStudent = { id: string; profile: { name: string; currentWorld: number; recommendedWorld?: number; xp: number; petName: string }; completions: Record<string, unknown>; worldApprovals?: Record<string, WorldApproval>; answers: unknown[]; updatedAt: string };
 const PHASES_PER_WORLD = 8;
+const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
 
 function studentReportRow(student: RemoteStudent) {
   const answers = student.answers as GameState["answers"];
@@ -190,8 +191,7 @@ function Welcome({ state, controller }: Props) {
     try {
       const students = await fetch("/api/students").then((response) => response.ok ? response.json() : []) as RemoteStudent[];
       const currentId = state.profile?.studentId;
-      const normalize = (value: string) => value.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
-      if (students.some((student) => student.id !== currentId && normalize(student.profile.name) === normalize(safeName))) return setNameError("Esse nome já está sendo usado por outro aluno. Escolha outro nome.");
+      if (students.some((student) => student.id !== currentId && normalizeStudentName(student.profile.name) === normalizeStudentName(safeName))) return setNameError("Esse nome já está sendo usado por outro aluno. Escolha outro nome.");
       if (state.profile) controller.updateProfileName(safeName); else controller.beginProfile(safeName);
     } catch { setNameError("Não foi possível verificar o nome agora. Tente novamente."); }
     finally { setSaving(false); }
@@ -473,9 +473,13 @@ function Teacher({ state, controller }: Props) {
     if (!selected) return;
     if (!window.confirm(`Excluir definitivamente o perfil de ${selected.profile.name}? Esta ação não pode ser desfeita.`)) return;
     const confirmation = window.prompt(`Para confirmar, digite exatamente o nome do aluno: ${selected.profile.name}`);
-    if (confirmation !== selected.profile.name) { window.alert("Exclusão cancelada: o nome não confere."); return; }
+    if (normalizeStudentName(confirmation ?? "") !== normalizeStudentName(selected.profile.name)) { window.alert("Exclusão cancelada: o nome não confere."); return; }
     const response = await fetch(`/api/students/${encodeURIComponent(selected.id)}`, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ confirmName: confirmation }) });
-    if (!response.ok) { window.alert("Não foi possível excluir o perfil. Tente novamente."); return; }
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({})) as { error?: string };
+      window.alert(result.error ?? "Não foi possível excluir o perfil. Tente novamente.");
+      return;
+    }
     setRemoteStudents((items) => items.filter((item) => item.id !== selected.id));
     setSelectedStudentId("");
   };
