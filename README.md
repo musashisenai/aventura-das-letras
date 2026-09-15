@@ -1,13 +1,18 @@
 ## Como utilizar este repositório
 1. Clone este repositório para seu ambiente de desenvolvimento local
-utilizando o comando:
+utilizando os comandos:
 ```
-git config --global user.name musashisenai
-
-git config --global user.email musashisenai@gmail.com
-
 git clone https://github.com/musashisenai/aventura-das-letras.git
-
+```
+```
+cd aventura-das-letras
+```
+```
 npm install --include=dev --legacy-peer-deps
-
+```
+```
 npm run dev -- --host=0.0.0.0 --port=4173
+```
+## 👨‍💻 Autores
+
+Desenvolvido por **Leonardo Neves**; **Leonardo Henrique**; **Felipe Tavares** e **Daniel Borges**
