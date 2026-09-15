@@ -15,7 +15,7 @@ npm run dev -- --host=0.0.0.0 --port=4173
 ```
 ## Senha da Área do Professor
 ```
-Professor
+7391846205
 ```
 ## 👨‍💻 Autores
 
