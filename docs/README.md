@@ -155,61 +155,9 @@ O painel permite:
 
 A exclusão é deliberadamente destrutiva. A interface exige duas confirmações e a API valida o nome normalizado antes de remover o registro de `students.json`.
 
-## 5. Arquitetura técnica
+## 5. Linguagens, bibliotecas e ferramentas utilizadas
 
-### 5.1 Fluxo principal
-
-```text
-App.tsx
-  └── GameCanvas.tsx
-       ├── Babylon.js Engine e cena visual
-       ├── GameController
-       │    ├── Estado do jogo
-       │    ├── Nivelamento
-       │    ├── Fases e respostas
-       │    ├── Recompensas e pets
-       │    ├── Persistência local
-       │    └── Sincronização do aluno
-       └── GameUI.tsx
-            ├── Entrada e perfil
-            ├── Nivelamento
-            ├── Mapa e fases
-            ├── Perguntas e desenho
-            ├── Pets e recompensas
-            └── Área do professor
-```
-
-### 5.2 Arquivos principais
-
-| Arquivo | Responsabilidade |
-|---|---|
-| `client/src/App.tsx` | Entrada da aplicação e renderização da tela principal |
-| `client/src/components/GameCanvas.tsx` | Integração entre canvas, Babylon.js, controlador e interface |
-| `client/src/components/GameUI.tsx` | Telas, componentes de interação e painel do professor |
-| `client/src/game/GameController.ts` | Estado, regras, navegação, nivelamento, progresso, recompensas e persistência |
-| `client/src/game/content.ts` | Mundos, bancos de perguntas, questões de nivelamento e conteúdos pedagógicos |
-| `client/src/game/scene.ts` | Criação e descarte da cena visual Babylon.js |
-| `client/src/components/Map.tsx` | Elementos visuais e navegação do mapa |
-| `client/src/index.css` | Estilos globais e identidade visual |
-| `server/index.ts` | API Express, arquivos locais de alunos e senha do professor |
-| `shared/const.ts` | Constantes compartilhadas entre cliente e servidor |
-
-### 5.3 Persistência
-
-O navegador mantém o estado do jogo em `localStorage`, usando as chaves da versão atual e de compatibilidade legada. Isso permite continuar a aventura no mesmo dispositivo.
-
-Quando existe um perfil, o controlador tenta sincronizar os dados com `POST /api/students`. A sincronização inclui perfil, conclusões, aprovações de mundo e respostas. A decisão do professor é consultada periodicamente por `GET /api/students/:id`.
-
-No servidor, os dados são mantidos em arquivos JSON dentro de `.local-data`:
-
-- `students.json`: registros dos alunos;
-- `teacher.json`: senha persistida do professor.
-
-A aplicação foi desenhada para continuar funcionando localmente quando a sincronização não estiver disponível; nesse caso, a tentativa de sincronização é repetida nas alterações seguintes.
-
-## 6. Linguagens, bibliotecas e ferramentas utilizadas
-
-### 6.1 Linguagens
+### 5.1 Linguagens
 
 | Tecnologia | Uso no projeto |
 |---|---|
@@ -220,7 +168,7 @@ A aplicação foi desenhada para continuar funcionando localmente quando a sincr
 | **HTML** | Documento base em `client/index.html` e estrutura renderizada pelos componentes |
 | **JSON** | Configuração do projeto, lockfile e persistência local de alunos/senha |
 
-### 6.2 Bibliotecas e ferramentas principais
+### 5.2 Bibliotecas e ferramentas principais
 
 | Ferramenta | Função |
 |---|---|
@@ -236,47 +184,34 @@ A aplicação foi desenhada para continuar funcionando localmente quando a sincr
 | **Vitest** | Infraestrutura disponível para testes automatizados |
 | **Prettier** | Formatação do código |
 
-## 7. Execução local
+## 6. Como utilizar este repositório
 
-Pré-requisitos: Node.js, pnpm e um navegador moderno com suporte a canvas.
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Para verificar tipos:
+Clone o repositório para o ambiente de desenvolvimento local:
 
 ```bash
-pnpm check
+git clone https://github.com/musashisenai/aventura-das-letras.git
 ```
 
-Para gerar o build de produção:
+Entre na pasta do projeto:
 
 ```bash
-pnpm build
+cd aventura-das-letras
 ```
 
-Para iniciar o bundle de produção depois do build:
+Instale as dependências de desenvolvimento:
 
 ```bash
-pnpm start
+npm install --include=dev --legacy-peer-deps
 ```
 
-A aplicação usa o host configurado pelo Vite no desenvolvimento e a porta definida pela variável `PORT` no servidor de produção, com `3000` como padrão.
+Inicie o servidor de desenvolvimento usando o host e a porta indicados no README:
 
-## 8. Verificação e manutenção
+```bash
+npm run dev -- --host=0.0.0.0 --port=4173
+```
 
-Antes de publicar alterações, recomenda-se executar `pnpm check`, `pnpm build` e `git diff --check`. Alterações em `WORLDS`, bancos de perguntas ou IDs de mundo devem considerar a compatibilidade com saves existentes, conclusões, respostas, aprovações e relatórios do professor.
-
-Ao criar novas atividades, é importante manter uma pergunta com enunciado claro, alternativas coerentes, resposta correta, pista não punitiva e, quando aplicável, suporte a áudio ou elemento visual. O conteúdo deve continuar adequado à faixa de alfabetização representada pelo mundo.
-
-## 9. Limitações conhecidas
+## 7. Limitações conhecidas
 
 O nivelamento é heurístico e baseado no desempenho observado nas questões; ele não realiza avaliação clínica ou pedagógica completa. Atividades de desenho verificam a existência de um desenho enviado, mas não interpretam semanticamente o conteúdo desenhado. A persistência em arquivos JSON é adequada ao protótipo e a ambientes locais, mas uma implantação multiusuário de maior escala deve migrar para um banco de dados com autenticação, controle de acesso, backups e auditoria.
 
 A senha do professor não deve ser compartilhada em documentação pública. Em um ambiente de produção, recomenda-se definir a senha inicial por variável de ambiente ou procedimento administrativo seguro e proteger o arquivo de dados do servidor.
-
-## 10. Autores
-
-O repositório identifica como autores **Leonardo Neves**, **Leonardo Henrique**, **Felipe Tavares** e **Daniel Borges**.
