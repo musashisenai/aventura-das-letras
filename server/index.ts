@@ -11,6 +11,7 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   const classroomFile = path.resolve(__dirname, "..", ".local-data", "students.json");
+  const teacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
   const readStudents = () => {
     try { return JSON.parse(fs.readFileSync(classroomFile, "utf8")) as Record<string, unknown>; } catch { return {}; }
   };
@@ -18,8 +19,32 @@ async function startServer() {
     fs.mkdirSync(path.dirname(classroomFile), { recursive: true });
     fs.writeFileSync(classroomFile, JSON.stringify(students, null, 2), "utf8");
   };
+  const readTeacherPassword = () => {
+    try {
+      const data = JSON.parse(fs.readFileSync(teacherFile, "utf8")) as { password?: string };
+      return data.password || "professor";
+    } catch {
+      return "professor";
+    }
+  };
+  const writeTeacherPassword = (password: string) => {
+    fs.mkdirSync(path.dirname(teacherFile), { recursive: true });
+    fs.writeFileSync(teacherFile, JSON.stringify({ password }, null, 2), "utf8");
+  };
 
   app.use(express.json({ limit: "8mb" }));
+  app.post("/api/teacher/authorize", (req, res) => {
+    const password = String(req.body?.password ?? "");
+    return password === readTeacherPassword() ? res.json({ ok: true }) : res.status(401).json({ error: "Senha não reconhecida." });
+  });
+  app.put("/api/teacher/password", (req, res) => {
+    const current = String(req.body?.current ?? "");
+    const next = String(req.body?.next ?? "");
+    if (current !== readTeacherPassword()) return res.status(401).json({ error: "A senha atual não confere." });
+    if (next.trim().length < 6) return res.status(400).json({ error: "A nova senha precisa ter pelo menos 6 caracteres." });
+    writeTeacherPassword(next);
+    return res.json({ ok: true });
+  });
   app.get("/api/students", (_req, res) => res.json(Object.values(readStudents())));
   app.get("/api/students/:id", (req, res) => {
     const student = readStudents()[req.params.id];

@@ -38,8 +38,8 @@ export type World = {
 };
 
 export const WORLDS: World[] = [
-  { id: 0, name: "Mundo do Alfabeto", shortName: "Alfabeto", theme: "Jardim das 26 chaves", color: "#2FAF88", accent: "#E7FFF6", icon: "ABC" },
-  { id: 1, name: "Mundo da Garatuja", shortName: "Garatuja", theme: "Ateliê das primeiras marcas", color: "#70B9E8", accent: "#EEF9FF", icon: "✎" },
+  { id: 0, name: "Mundo da Garatuja", shortName: "Garatuja", theme: "Ateliê das primeiras marcas", color: "#70B9E8", accent: "#EEF9FF", icon: "✎" },
+  { id: 1, name: "Mundo do Alfabeto", shortName: "Alfabeto", theme: "Jardim das 26 chaves", color: "#2FAF88", accent: "#E7FFF6", icon: "ABC" },
   { id: 2, name: "Mundo Pré-Silábico", shortName: "Pré-Silábico", theme: "Cidade das letras curiosas", color: "#F1A83B", accent: "#FFF5D8", icon: "A" },
   { id: 3, name: "Mundo Silábico", shortName: "Silábico", theme: "Ilhas que cantam sílabas", color: "#E86E73", accent: "#FFF0F1", icon: "SA" },
   { id: 4, name: "Mundo Silábico-Alfabético", shortName: "Sílaba + Letra", theme: "Montanha das palavras", color: "#9673D3", accent: "#F4F0FF", icon: "PA" },
@@ -267,7 +267,8 @@ const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = {
 
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
   const phaseTag = phase === 7 ? "desafio" : `fase-${phase + 1}`;
-  const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
+  const contentWorldId = worldId === 0 ? 1 : worldId === 1 ? 0 : worldId;
+  const bank = WORLD_QUESTION_BANKS[contentWorldId] ?? WORLD_QUESTION_BANKS[0];
   const start = (phase * 3) % bank.length;
   const rotated = [...bank.slice(start), ...bank.slice(0, start)];
   return rotated.map((question, index) => {
@@ -304,3 +305,14 @@ export const PLACEMENT_QUESTIONS: GameQuestion[] = [
   choice("nivel-o-cedilha", "Qual palavra está correta?", ["CORAÇÃO", "CORASÃO", "CORASAO"], "CORAÇÃO", "A cedilha faz som de S antes de A."),
   choice("nivel-o-acento", "Qual escrita está correta?", ["mamãe", "mamae", "mãmae"], "mamãe", "Observe o til e o acento."),
 ].map(prepareQuestion);
+
+export function getPlacementWorld(score: number, total = PLACEMENT_QUESTIONS.length) {
+  const percentage = total > 0 ? (score / total) * 100 : 0;
+  if (percentage <= 20) return 0;
+  if (percentage <= 35) return 1;
+  if (percentage <= 50) return 2;
+  if (percentage <= 65) return 3;
+  if (percentage <= 80) return 4;
+  if (percentage <= 92) return 5;
+  return 6;
+}

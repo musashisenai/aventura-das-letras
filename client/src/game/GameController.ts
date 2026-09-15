@@ -3,7 +3,7 @@
  * cada erro inicial vira uma pista de exploração e cada avanço ganha um carimbo.
  */
 
-import { getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
+import { getPlacementWorld, getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
 export type Screen = "menu" | "welcome" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
 
@@ -102,6 +102,7 @@ export type GameState = {
   teacherAuthorized: boolean;
   teacherPassword: string;
   teacherName: string;
+  worldOrderVersion: number;
 };
 
 const STORAGE_KEY = "aventura-das-letras-v2";
@@ -142,6 +143,7 @@ function initialState(): GameState {
     teacherAuthorized: false,
     teacherPassword: "professor",
     teacherName: "Professor(a)",
+    worldOrderVersion: 2,
   };
 }
 
@@ -169,7 +171,11 @@ export class GameController {
       if (!raw) return initialState();
       const legacy = !rawV2;
       const saved = JSON.parse(raw) as GameState;
-      const shiftWorld = (worldId: number) => Math.max(0, Math.min(WORLDS.length - 1, legacy ? worldId + 1 : worldId));
+      const reordered = !legacy && saved.worldOrderVersion !== 2;
+      const shiftWorld = (worldId: number) => {
+        const migrated = legacy ? worldId + 1 : reordered && worldId < 2 ? 1 - worldId : worldId;
+        return Math.max(0, Math.min(WORLDS.length - 1, migrated));
+      };
       const completions = Object.fromEntries(Object.entries(saved.completions ?? {}).map(([key, completion]) => {
         const [worldId, phase] = key.split(":");
         return [`${shiftWorld(Number(worldId))}:${phase}`, completion];
@@ -191,7 +197,7 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const worldApprovals = Object.fromEntries(Object.entries(saved.worldApprovals ?? {}).map(([worldId, approval]) => [`${shiftWorld(Number(worldId))}`, approval]));
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "professor", teacherName: saved.teacherName || "Professor(a)", setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "professor", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -359,7 +365,7 @@ export class GameController {
     if (this.state.placementIndex === placementQueue.length - 1) {
       const retryPenalty = placementResults.filter(({ attempts: questionAttempts }) => questionAttempts > 1).length * 0.5;
       const evaluatedScore = Math.max(0, Math.round(nextScore - retryPenalty));
-      const recommendedWorld = evaluatedScore <= 3 ? 0 : evaluatedScore <= 6 ? 1 : evaluatedScore <= 9 ? 2 : evaluatedScore <= 12 ? 3 : evaluatedScore <= 15 ? 4 : evaluatedScore <= 18 ? 5 : 6;
+      const recommendedWorld = getPlacementWorld(evaluatedScore, placementQueue.length);
       if (this.state.profile) {
         this.state.profile.currentWorld = recommendedWorld;
         this.state.profile.recommendedWorld = recommendedWorld;
@@ -543,16 +549,31 @@ export class GameController {
     this.emit();
   }
 
-  authorizeTeacher(password: string) {
-    this.state.teacherAuthorized = password === this.state.teacherPassword;
+  async authorizeTeacher(password: string) {
+    try {
+      const response = await fetch("/api/teacher/authorize", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password }) });
+      this.state.teacherAuthorized = response.ok;
+      if (response.ok) this.state.teacherPassword = password;
+    } catch {
+      this.state.teacherAuthorized = false;
+    }
     this.emit();
     return this.state.teacherAuthorized;
   }
 
-  changeTeacherPassword(current: string, next: string, confirmation: string) {
+  async changeTeacherPassword(current: string, next: string, confirmation: string) {
     if (!this.state.teacherAuthorized || current !== this.state.teacherPassword) return "A senha atual não confere.";
     if (next.trim().length < 6) return "A nova senha precisa ter pelo menos 6 caracteres.";
     if (next !== confirmation) return "A confirmação não confere.";
+    try {
+      const response = await fetch("/api/teacher/password", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ current, next }) });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({})) as { error?: string };
+        return result.error ?? "Não foi possível alterar a senha no servidor.";
+      }
+    } catch {
+      return "Servidor indisponível para alterar a senha.";
+    }
     this.state.teacherPassword = next;
     this.emit();
     return null;
