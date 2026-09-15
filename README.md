@@ -11,7 +11,7 @@ cd aventura-das-letras
 npm install --include=dev --legacy-peer-deps
 ```
 ```
-npm run dev -- --host=0.0.0.0 --port=4173
+npm run dev
 ```
 ## Senha da Área do Professor
 ```
