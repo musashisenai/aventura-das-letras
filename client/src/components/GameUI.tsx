@@ -130,7 +130,7 @@ function FigureIllustration({ question, placement = false }: { question: GameQue
   const spec = math[question.id];
   if (spec) return <div className={placement ? "placement-question-visual math-visual" : "question-visual math-visual"} role="img" aria-label="Representação visual do cálculo"><div className="math-group">{spec.left.map((token, index) => <i key={`l-${index}`}>{token}</i>)}</div><b className="math-operator">{spec.operator}</b><div className="math-group">{spec.right?.map((token, index) => <i key={`r-${index}`}>{token}</i>)}</div></div>;
   const key = (question.targetWord ?? question.answer).toUpperCase();
-  const assets: Record<string, string> = { MESA: "/manus-storage/figura-mesa_e5788eb5.png", BOLO: "/manus-storage/figura-bolo_16fdeb17.png", LIVRO: "/manus-storage/figura-livro_4d73ec4c.png", FLOR: "/manus-storage/figura-flor_26e87e70.png" };
+  const assets: Record<string, string> = { MESA: "/assets/figura-mesa.svg", BOLO: "/assets/figura-bolo.svg", LIVRO: "/assets/figura-livro.svg", FLOR: "/assets/figura-flor.svg" };
   const asset = assets[key];
   return <div className={placement ? "placement-question-visual" : "question-visual"} role="img" aria-label="Ilustração da figura da atividade"><span className="figure-glyph">{asset ? <img src={asset} alt="" /> : question.visual}</span></div>;
 }

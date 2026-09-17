@@ -4,10 +4,10 @@
  */
 
 export const ASSETS = {
-  forest: "/manus-storage/floresta-livro-fundo_13d81f22.png",
-  mascot: "/manus-storage/mascote-lumi_8d8abb75.png",
-  logo: "/manus-storage/logo-aventura-simbolo_5ffaf790.png",
-  rewards: "/manus-storage/recompensas-aventura_7af48267.png",
+  forest: "/assets/floresta-livro-fundo.svg",
+  mascot: "/assets/mascote-lumi.svg",
+  logo: "/assets/logo-aventura-simbolo.svg",
+  rewards: "/assets/recompensas-aventura.svg",
 } as const;
 
 export type QuestionKind = "choice" | "order" | "draw";
