@@ -3,7 +3,6 @@ import { createServer } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import mysql, { type Pool, type RowDataPacket } from "mysql2/promise";
 
 type StudentRecord = Record<string, unknown>;
 const __filename = fileURLToPath(import.meta.url);
@@ -16,8 +15,15 @@ async function startServer() {
   const server = createServer(app);
   const classroomFile = path.resolve(__dirname, "..", ".local-data", "students.json");
   const teacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
-  const databaseUrl = process.env.MYSQL_URL?.trim();
-  const pool: Pool | null = databaseUrl ? mysql.createPool(databaseUrl) : null;
+  const supabaseUrl = process.env.SUPABASE_URL?.trim();
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  const supabaseEnabled = Boolean(supabaseUrl && supabaseServiceRoleKey);
+  const supabaseRequest = async <T>(path: string, init: RequestInit = {}) => {
+    if (!supabaseUrl || !supabaseServiceRoleKey) throw new Error("Supabase credentials are not configured");
+    const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${path}`, { ...init, headers: { apikey: supabaseServiceRoleKey, Authorization: `Bearer ${supabaseServiceRoleKey}`, "Content-Type": "application/json", ...(init.headers ?? {}) } });
+    if (!response.ok) throw new Error(`Supabase request failed (${response.status}): ${await response.text()}`);
+    return response.status === 204 ? null as T : await response.json() as T;
+  };
 
   const readLocalStudents = (): Record<string, StudentRecord> => {
     try { return JSON.parse(fs.readFileSync(classroomFile, "utf8")) as Record<string, StudentRecord>; } catch { return {}; }
@@ -29,36 +35,23 @@ async function startServer() {
     fs.renameSync(temporaryFile, classroomFile);
   };
   const readStudents = async (): Promise<Record<string, StudentRecord>> => {
-    if (!pool) return readLocalStudents();
-    const [rows] = await pool.query<RowDataPacket[]>("SELECT id, data FROM students ORDER BY updated_at ASC");
-    return Object.fromEntries(rows.map((row) => [String(row.id), typeof row.data === "string" ? JSON.parse(row.data) as StudentRecord : row.data as StudentRecord]));
+    if (!supabaseEnabled) return readLocalStudents();
+    const rows = await supabaseRequest<Array<{ id: string; data: StudentRecord }>>("students?select=id,data&order=updated_at.asc");
+    return Object.fromEntries(rows.map((row) => [String(row.id), row.data]));
   };
   const writeStudents = async (students: Record<string, StudentRecord>) => {
-    if (!pool) return writeLocalStudents(students);
-    const client = await pool.getConnection();
-    try {
-      await client.beginTransaction();
-      for (const student of Object.values(students)) {
-        await client.query("INSERT INTO students (id, data, updated_at) VALUES (?, ?, NOW()) ON DUPLICATE KEY UPDATE data = VALUES(data), updated_at = NOW()", [student.id, JSON.stringify(student)]);
-      }
-      await client.commit();
-    } catch (error) {
-      await client.rollback();
-      throw error;
-    } finally { client.release(); }
+    if (!supabaseEnabled) return writeLocalStudents(students);
+    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(Object.values(students).map((student) => ({ id: student.id, data: student, updated_at: new Date().toISOString() }))) });
   };
   const initDatabase = async () => {
-    if (!pool) return;
-    await pool.query("CREATE TABLE IF NOT EXISTS students (id VARCHAR(191) PRIMARY KEY, data JSON NOT NULL, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)");
-    const [countRows] = await pool.query<RowDataPacket[]>("SELECT COUNT(*) AS count FROM students");
+    if (!supabaseEnabled) return;
+    const existing = await supabaseRequest<Array<{ id: string }>>("students?select=id&limit=1");
     const localStudents = readLocalStudents();
-    if (Number(countRows[0]?.count ?? 0) === 0 && Object.keys(localStudents).length) {
-      for (const student of Object.values(localStudents)) {
-        await pool.query("INSERT IGNORE INTO students (id, data, updated_at) VALUES (?, ?, NOW())", [student.id, JSON.stringify(student)]);
-      }
-      console.log(`Migrated ${Object.keys(localStudents).length} local student save(s) to MySQL`);
+    if (!existing.length && Object.keys(localStudents).length) {
+      await supabaseRequest("students", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify(Object.values(localStudents).map((student) => ({ id: student.id, data: student }))) });
+      console.log(`Migrated ${Object.keys(localStudents).length} local student save(s) to Supabase`);
     }
-    console.log("Persistent student storage: MySQL");
+    console.log("Persistent student storage: Supabase");
   };
   const readTeacherPassword = () => {
     try {
@@ -125,7 +118,7 @@ async function startServer() {
     if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
     if (!confirmation || confirmation !== normalizeStudentName(String((student.profile as StudentRecord | undefined)?.name ?? ""))) return res.status(400).json({ error: "A confirmação do nome não confere." });
     delete students[req.params.id];
-    if (pool) await pool.query("DELETE FROM students WHERE id = ?", [req.params.id]); else writeLocalStudents(students);
+    if (supabaseEnabled) await supabaseRequest(`students?id=eq.${encodeURIComponent(req.params.id)}`, { method: "DELETE", headers: { Prefer: "return=minimal" } }); else writeLocalStudents(students);
     return res.json({ ok: true });
   });
   app.use("/manus-storage", async (req, res) => {
