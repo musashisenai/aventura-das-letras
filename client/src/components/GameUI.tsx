@@ -47,7 +47,6 @@ function printStudentsPdf(students: RemoteStudent[], title = "Relatório de dese
 
 function Mascot({ className = "", label = "Lumi, raposa parceira" }: { className?: string; label?: string }) {
   return <div className={`mascot-illustration ${className}`} role="img" aria-label={label}>
-    <img className="mascot-image" src={ASSETS.mascot} alt="" />
     <i className="fox-ear fox-ear-left" /><i className="fox-ear fox-ear-right" /><i className="fox-body" /><i className="fox-tail" />
     <i className="fox-head" /><i className="fox-muzzle" /><i className="fox-eye fox-eye-left" /><i className="fox-eye fox-eye-right" /><i className="fox-nose" /><i className="fox-scarf" /><b className="fox-spark">✦</b>
   </div>;
