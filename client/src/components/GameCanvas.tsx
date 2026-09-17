@@ -33,6 +33,15 @@ export default function GameCanvas() {
   }, [controller, state.profile?.studentId]);
 
   useEffect(() => {
+    if (!state.profile?.sessionToken) return;
+    void controller.keepStudentSession();
+    const timer = window.setInterval(() => void controller.keepStudentSession(), 30000);
+    const release = () => controller.releaseStudentSession();
+    window.addEventListener("pagehide", release);
+    return () => { window.clearInterval(timer); window.removeEventListener("pagehide", release); };
+  }, [controller, state.profile?.studentId, state.profile?.sessionToken]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || startedRef.current) return;
     startedRef.current = true;

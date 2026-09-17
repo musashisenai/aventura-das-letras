@@ -9,6 +9,7 @@ export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" |
 
 export type Profile = {
   studentId?: string;
+  sessionToken?: string;
   name: string;
   partner: string;
   currentWorld: number;
@@ -217,7 +218,7 @@ export class GameController {
 
   private async syncCurrentStudent() {
     try {
-      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers }) });
+      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers }) });
     } catch {
       // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
     }
@@ -238,6 +239,20 @@ export class GameController {
     } catch {
       // O jogo continua funcionando offline; a decisão será consultada novamente.
     }
+  }
+
+  async keepStudentSession() {
+    const studentId = this.state.profile?.studentId;
+    const sessionToken = this.state.profile?.sessionToken;
+    if (!studentId || !sessionToken) return;
+    await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
+  }
+
+  releaseStudentSession() {
+    const studentId = this.state.profile?.studentId;
+    const sessionToken = this.state.profile?.sessionToken;
+    if (!studentId || !sessionToken) return;
+    void fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "DELETE", headers: { "Content-Type": "application/json" }, keepalive: true, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
   }
 
   private completionKey(worldId: number, phase: number) {
@@ -265,17 +280,29 @@ export class GameController {
     this.emit();
   }
 
-  beginProfile(name: string, _partner?: string) {
+  async beginProfile(name: string, _partner?: string) {
     const safeName = name.trim() || "Exploradora";
     const audioEnabled = this.state.setupAudioEnabled;
+    const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const profile: Profile = { sessionToken, studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled };
+    try {
+      const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: profile.studentId, profile, sessionToken, completions: {}, worldApprovals: {}, answers: [] }) });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({})) as { error?: string };
+        return result.error ?? "Não foi possível iniciar essa aventura.";
+      }
+    } catch {
+      return "Servidor indisponível para iniciar a aventura.";
+    }
     this.state = {
       ...initialState(),
       screen: "placement",
       setupAudioEnabled: audioEnabled,
-      profile: { studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled },
+      profile,
       placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })),
     };
     this.emit();
+    return null;
   }
 
   async resumeProfile(name: string) {
@@ -287,8 +314,14 @@ export class GameController {
       const students = await response.json() as Array<{ id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"] }>;
       const saved = students.find((student) => student.profile?.name?.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR") === normalized);
       if (!saved) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
+      const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) });
+      if (!claim.ok) {
+        const result = await claim.json().catch(() => ({})) as { error?: string };
+        return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
+      }
       const audioEnabled = saved.profile.audioEnabled !== false;
-      this.state = { ...initialState(), screen: "map", setupAudioEnabled: audioEnabled, profile: { ...saved.profile, studentId: saved.id, audioEnabled }, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: saved.profile.currentWorld, selectedWorld: saved.profile.currentWorld };
+      this.state = { ...initialState(), screen: "map", setupAudioEnabled: audioEnabled, profile: { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled }, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: saved.profile.currentWorld, selectedWorld: saved.profile.currentWorld };
       this.emit();
       return null;
     } catch {

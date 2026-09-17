@@ -54,14 +54,25 @@ async function startServer() {
     writeTeacherPassword(next);
     return res.json({ ok: true });
   });
-  app.get("/api/students", (_req, res) => res.json(Object.values(readStudents())));
+  const publicStudent = (student: unknown) => {
+    const { activeSession: _activeSession, ...safeStudent } = student as Record<string, unknown>;
+    return safeStudent;
+  };
+  app.get("/api/students", (_req, res) => res.json(Object.values(readStudents()).map(publicStudent)));
   app.get("/api/students/:id", (req, res) => {
     const student = readStudents()[req.params.id];
-    return student ? res.json(student) : res.status(404).json({ error: "Student not found" });
+    return student ? res.json(publicStudent(student)) : res.status(404).json({ error: "Student not found" });
   });
   const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
+  const sessionIsActive = (student: unknown) => {
+    const session = (student as { activeSession?: { token?: string; lastSeen?: number } } | undefined)?.activeSession;
+    return Boolean(session?.token && session.lastSeen && Date.now() - session.lastSeen < 120000);
+  };
+  const createSession = (student: Record<string, unknown>, token: string) => {
+    student.activeSession = { token, lastSeen: Date.now() };
+  };
   app.post("/api/students", (req, res) => {
-    const payload = req.body as { id?: string; profile?: unknown; completions?: unknown; worldApprovals?: unknown; answers?: unknown };
+    const payload = req.body as { id?: string; profile?: unknown; completions?: unknown; worldApprovals?: unknown; answers?: unknown; sessionToken?: string; teacherOverride?: boolean };
     if (!payload.id || !payload.profile) return res.status(400).json({ error: "Student id and profile are required" });
     const students = readStudents();
     const incomingName = normalizeStudentName(String((payload.profile as { name?: string }).name ?? ""));
@@ -70,8 +81,34 @@ async function startServer() {
       return item.id !== payload.id && normalizeStudentName(String(item.profile?.name ?? "")) === incomingName;
     });
     if (duplicate) return res.status(409).json({ error: "Já existe um aluno com esse nome." });
-    students[payload.id] = { id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() };
+    const existing = students[payload.id] as Record<string, unknown> | undefined;
+    const active = existing?.activeSession as { token?: string; lastSeen?: number } | undefined;
+    if (existing && sessionIsActive(existing) && active?.token !== payload.sessionToken && !payload.teacherOverride) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." });
+    const record = { ...(existing ?? {}), id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() } as Record<string, unknown>;
+    if (payload.sessionToken) createSession(record, payload.sessionToken);
+    students[payload.id] = record;
     writeStudents(students);
+    return res.json({ ok: true });
+  });
+  app.post("/api/students/:id/session", (req, res) => {
+    const students = readStudents();
+    const student = students[req.params.id] as Record<string, unknown> | undefined;
+    const token = String(req.body?.sessionToken ?? "");
+    if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
+    const active = student.activeSession as { token?: string } | undefined;
+    if (!token) return res.status(400).json({ error: "Sessão inválida." });
+    if (sessionIsActive(student) && active?.token !== token) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." });
+    createSession(student, token);
+    writeStudents(students);
+    return res.json({ ok: true });
+  });
+  app.delete("/api/students/:id/session", (req, res) => {
+    const students = readStudents();
+    const student = students[req.params.id] as Record<string, unknown> | undefined;
+    const token = String(req.body?.sessionToken ?? "");
+    if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
+    const active = student.activeSession as { token?: string } | undefined;
+    if (active?.token === token) { delete student.activeSession; writeStudents(students); }
     return res.json({ ok: true });
   });
   app.delete("/api/students/:id", (req, res) => {
