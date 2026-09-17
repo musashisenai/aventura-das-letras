@@ -19,7 +19,9 @@ async function startServer() {
   };
   const writeStudents = (students: Record<string, unknown>) => {
     fs.mkdirSync(path.dirname(classroomFile), { recursive: true });
-    fs.writeFileSync(classroomFile, JSON.stringify(students, null, 2), "utf8");
+    const temporaryFile = `${classroomFile}.tmp`;
+    fs.writeFileSync(temporaryFile, JSON.stringify(students, null, 2), "utf8");
+    fs.renameSync(temporaryFile, classroomFile);
   };
   const readTeacherPassword = () => {
     try {

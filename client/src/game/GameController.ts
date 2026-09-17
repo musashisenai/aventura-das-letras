@@ -10,6 +10,7 @@ export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" |
 export type Profile = {
   studentId?: string;
   sessionToken?: string;
+  placementCompleted: boolean;
   name: string;
   partner: string;
   currentWorld: number;
@@ -151,6 +152,7 @@ function initialState(): GameState {
 export class GameController {
   private state: GameState;
   private listeners = new Set<(state: GameState) => void>();
+  private syncQueue: Promise<void> = Promise.resolve();
 
   constructor(demo = false, previewMenu = false) {
     this.state = this.load();
@@ -185,6 +187,7 @@ export class GameController {
       const profile = saved.profile ? {
         ...saved.profile,
         studentId: saved.profile.studentId ?? `${saved.profile.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-legacy`,
+        placementCompleted: saved.profile.placementCompleted ?? true,
         partner: "Lumi",
         eggCollection: saved.profile.eggCollection ?? [],
         petName: saved.profile.petName ?? "Faísca",
@@ -216,12 +219,16 @@ export class GameController {
     if (this.state.profile) void this.syncCurrentStudent();
   }
 
-  private async syncCurrentStudent() {
-    try {
-      await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers }) });
-    } catch {
-      // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
-    }
+  private syncCurrentStudent() {
+    const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers };
+    this.syncQueue = this.syncQueue.then(async () => {
+      try {
+        await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      } catch {
+        // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
+      }
+    });
+    return this.syncQueue;
   }
 
   async pullTeacherDecision() {
@@ -263,7 +270,7 @@ export class GameController {
     this.state = {
       ...initialState(),
       screen: "map",
-      profile: { name: "Clara", partner: "Lumi", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, eggCollection: [{ id: "demo-egg", rarity: "raro", progress: 1, required: 3, hatched: false }], petLevel: 2, petCare: 62, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled: true },
+      profile: { placementCompleted: true, name: "Clara", partner: "Lumi", currentWorld: 2, recommendedWorld: 2, coins: 145, xp: 86, eggs: 1, eggCollection: [{ id: "demo-egg", rarity: "raro", progress: 1, required: 3, hatched: false }], petLevel: 2, petCare: 62, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled: true },
       selectedWorld: 1,
       completions: {
         "0:0": { score: 7, total: 8, date: new Date().toISOString() },
@@ -284,7 +291,7 @@ export class GameController {
     const safeName = name.trim() || "Exploradora";
     const audioEnabled = this.state.setupAudioEnabled;
     const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const profile: Profile = { sessionToken, studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled };
+    const profile: Profile = { placementCompleted: false, sessionToken, studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled };
     try {
       const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: profile.studentId, profile, sessionToken, completions: {}, worldApprovals: {}, answers: [] }) });
       if (!response.ok) {
@@ -321,7 +328,8 @@ export class GameController {
         return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
       }
       const audioEnabled = saved.profile.audioEnabled !== false;
-      this.state = { ...initialState(), screen: "map", setupAudioEnabled: audioEnabled, profile: { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled }, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: saved.profile.currentWorld, selectedWorld: saved.profile.currentWorld };
+      const profile = { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled, placementCompleted: saved.profile.placementCompleted ?? true };
+      this.state = { ...initialState(), screen: profile.placementCompleted ? "map" : "placement", setupAudioEnabled: audioEnabled, profile, placementQueue: profile.placementCompleted ? [] : shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })), completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: profile.currentWorld, selectedWorld: profile.currentWorld };
       this.emit();
       return null;
     } catch {
@@ -333,7 +341,7 @@ export class GameController {
     const safeName = name.trim();
     if (!safeName) return "Digite o nome do aluno.";
     const slug = safeName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "aluno";
-    const profile: Profile = { studentId: `student-${slug}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled: this.state.setupAudioEnabled };
+    const profile: Profile = { placementCompleted: false, studentId: `student-${slug}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled: this.state.setupAudioEnabled };
     try {
       const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: profile.studentId, profile, completions: {}, worldApprovals: {}, answers: [] }) });
       if (!response.ok) {
@@ -441,6 +449,7 @@ export class GameController {
       const evaluatedScore = Math.max(0, Math.round(nextScore - retryPenalty));
       const recommendedWorld = getPlacementWorld(evaluatedScore, placementQueue.length);
       if (this.state.profile) {
+        this.state.profile.placementCompleted = true;
         this.state.profile.currentWorld = recommendedWorld;
         this.state.profile.recommendedWorld = recommendedWorld;
       }

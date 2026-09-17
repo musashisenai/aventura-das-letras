@@ -221,7 +221,7 @@ function Welcome({ state, controller }: Props) {
         <p className="input-label lumi-companion-note">A Lumi será sua única companheira de trilha e vai ajudar com dicas, leituras e descobertas.</p>
         <button className="primary-action" disabled={saving} onClick={saveName}>{state.profile ? "Salvar alterações" : "Começar a expedição"} <ChevronRight size={23} /></button>
         {state.profile && <button className="teacher-entry" onClick={() => controller.returnToMenu()}>Voltar ao menu</button>}
-        <button className="teacher-entry" onClick={() => controller.openTeacher()}>Sou professor(a)</button>{nameError && <small className="login-error">{nameError}</small>}
+        {nameError && <small className="login-error">{nameError}</small>}
       </section>
       <aside className="welcome-art" aria-label="Lumi, a raposa parceira, em uma floresta de papel">
         <span className="diorama-tab">ROTA 01</span>
@@ -347,7 +347,7 @@ function MapPage({ state, controller }: Props) {
         <PhaseBook worldId={selectedWorld.id} state={state} controller={controller} />
         <aside className="lumi-tip-card"><Mascot label="Lumi" /><div><span>Dica da Lumi</span><p>“Quando uma letra parece difícil, nós podemos ouvir seu som bem devagar.”</p></div></aside>
       </section>
-      <footer className="map-footer"><button onClick={() => controller.openPets()}><PawPrint size={19} /> Casa dos pets</button><button onClick={() => controller.openTeacher()}><BookOpen size={19} /> Área do professor</button></footer>
+      <footer className="map-footer"><button onClick={() => controller.openPets()}><PawPrint size={19} /> Casa dos pets</button></footer>
     </main>
   );
 }
@@ -512,8 +512,8 @@ function Teacher({ state, controller }: Props) {
   };
   const openTab = (next: TeacherTab) => setTab(next);
   const updateSelected = async (student: RemoteStudent) => { await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...student, teacherOverride: true }) }); setRemoteStudents((items) => items.map((item) => item.id === student.id ? student : item)); };
-  const registerStudent = async () => { setRegisteringStudent(true); setStudentMessage(""); const error = await controller.registerStudent(newStudentName); if (error) setStudentMessage(error); else { setStudentMessage("Aluno cadastrado. Ele já pode continuar a aventura usando esse nome."); setNewStudentName(""); } setRegisteringStudent(false); };
-  const registrationPanel = <section className="teacher-profile-card paper-panel"><div><p className="eyebrow"><PawPrint size={15} /> Cadastro de aluno</p><h2>Adicionar aluno à turma</h2><p>Cadastre o nome uma vez. Depois, o aluno poderá escolher “Continuar aventura” no menu e informar esse mesmo nome.</p></div><div className="teacher-profile-edit"><input value={newStudentName} onChange={(event) => setNewStudentName(event.target.value)} placeholder="Nome do aluno" maxLength={18} onKeyDown={(event) => { if (event.key === "Enter") void registerStudent(); }} /><button className="primary-action compact" disabled={registeringStudent} onClick={() => void registerStudent()}>Cadastrar <Check size={17} /></button></div>{studentMessage && <small className={studentMessage.startsWith("Aluno cadastrado") ? "password-success" : "login-error"}>{studentMessage}</small>}</section>;
+  const registerStudent = async () => { setRegisteringStudent(true); setStudentMessage(""); const error = await controller.registerStudent(newStudentName); if (error) setStudentMessage(error); else { setStudentMessage("Aluno cadastrado. Na primeira entrada, ele fará o teste inicial antes de acessar o jogo."); setNewStudentName(""); } setRegisteringStudent(false); };
+  const registrationPanel = <section className="teacher-profile-card paper-panel"><div><p className="eyebrow"><PawPrint size={15} /> Cadastro de aluno</p><h2>Adicionar aluno à turma</h2><p>Cadastre o nome uma vez. Na primeira entrada, o aluno fará o teste inicial; depois poderá continuar a aventura pelo menu usando esse mesmo nome.</p></div><div className="teacher-profile-edit"><input value={newStudentName} onChange={(event) => setNewStudentName(event.target.value)} placeholder="Nome do aluno" maxLength={18} onKeyDown={(event) => { if (event.key === "Enter") void registerStudent(); }} /><button className="primary-action compact" disabled={registeringStudent} onClick={() => void registerStudent()}>Cadastrar <Check size={17} /></button></div>{studentMessage && <small className={studentMessage.startsWith("Aluno cadastrado") ? "password-success" : "login-error"}>{studentMessage}</small>}</section>;
   const totalAnswers = remoteStudents.reduce((sum, student) => sum + student.answers.length, 0);
   const totalCorrect = remoteStudents.reduce((sum, student) => sum + (student.answers as GameState["answers"]).filter((answer) => answer.correct).length, 0);
   const averageAccuracy = totalAnswers ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
