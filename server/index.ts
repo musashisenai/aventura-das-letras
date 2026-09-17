@@ -47,10 +47,8 @@ async function startServer() {
   const initializeSupabase = async () => {
     if (!supabaseEnabled) return;
     const existing = await supabaseRequest<Array<{ id: string }>>("students?select=id&limit=1");
-    if (!existing.length) {
-      const localStudents = readStudents();
-      if (Object.keys(localStudents).length) await supabaseRequest("students", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify(Object.values(localStudents).map((student) => ({ id: (student as { id: string }).id, data: student }))) });
-    }
+    if (!existing.length) console.log("Supabase students table is empty; starting with no local student data.");
+    try { if (fs.existsSync(classroomFile)) fs.unlinkSync(classroomFile); } catch { /* Local data is optional when Supabase is active. */ }
     console.log("Persistent student storage: Supabase");
   };
   const clearSessionsOnStartup = async () => {
