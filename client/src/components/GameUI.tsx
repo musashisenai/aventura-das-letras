@@ -53,7 +53,7 @@ function Mascot({ className = "", label = "Lumi, raposa parceira" }: { className
 }
 
 function BrandMark() {
-  return <div className="brand-emblem" aria-hidden="true"><img className="brand-mark-image" src={ASSETS.logo} alt="" /><b>A</b><i>· ·</i><span>✦</span></div>;
+  return <div className="brand-emblem" aria-hidden="true"><b>A</b><i>· ·</i><span>✦</span></div>;
 }
 
 function TreasureArt({ className = "" }: { className?: string }) {

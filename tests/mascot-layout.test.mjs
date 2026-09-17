@@ -13,4 +13,14 @@ assert.doesNotMatch(
 assert.match(mascotBlock[0], /fox-ear fox-ear-left/, "A ilustração CSS do mascote deve continuar presente");
 assert.match(mascotBlock[0], /fox-head/, "A cabeça do mascote deve continuar presente");
 
-console.log("OK: teste do layout do mascote aprovado; nenhuma imagem PNG é renderizada no componente Mascot.");
+const brandBlock = source.match(/function BrandMark[\s\S]*?\n}\n/);
+
+assert.ok(brandBlock, "O componente BrandMark deve existir");
+assert.doesNotMatch(
+  brandBlock[0],
+  /<img\b[^>]*className=["']brand-mark-image["']/,
+  "O logotipo não deve renderizar a camada PNG sobreposta"
+);
+assert.match(brandBlock[0], /className=["']brand-emblem["']/, "A marca CSS deve continuar presente");
+
+console.log("OK: teste do layout do mascote e do logotipo aprovado; nenhuma camada PNG é renderizada nesses componentes.");
