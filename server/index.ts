@@ -16,7 +16,7 @@ async function startServer() {
   const server = createServer(app);
   const classroomFile = path.resolve(__dirname, "..", ".local-data", "students.json");
   const teacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
-  const databaseUrl = (process.env.MYSQL_URL || process.env.DATABASE_URL)?.trim();
+  const databaseUrl = process.env.MYSQL_URL?.trim();
   const pool: Pool | null = databaseUrl ? mysql.createPool(databaseUrl) : null;
 
   const readLocalStudents = (): Record<string, StudentRecord> => {
