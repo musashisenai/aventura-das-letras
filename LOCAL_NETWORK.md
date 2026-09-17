@@ -2,14 +2,16 @@
 
 ## Iniciar no notebook servidor
 
-Abra o terminal na pasta do projeto e execute:
+Crie um banco MySQL em um servidor acessível pela rede (pode ser o computador que hospeda o MySQL Server administrado pelo MySQL Workbench), crie o schema `aventura_das_letras`, copie `.env.example` para `.env` e preencha `MYSQL_URL`. Depois, abra o terminal na pasta do projeto e execute:
 
 ```bat
-npm install
-npm run dev -- --host=0.0.0.0 --port=4173
+pnpm install
+pnpm start:dev
 ```
 
-Mantenha essa janela aberta. O servidor grava os alunos conectados em `.local-data/students.json`.
+O servidor cria a tabela automaticamente e grava os perfis, respostas e progresso no MySQL. Se existir um `.local-data/students.json` antigo, ele é migrado automaticamente na primeira inicialização com o banco configurado.
+
+Em outro dispositivo, clone o repositório, copie `.env.example` para `.env`, use a mesma `MYSQL_URL`, instale as dependências e execute `pnpm start:dev`. Os dados aparecerão porque estão no MySQL, não no disco do computador anterior.
 
 ## Acessar em outros dispositivos
 
@@ -23,8 +25,8 @@ Exemplo:
 http://10.137.11.210:4173
 ```
 
-Todos precisam estar na mesma rede. Se o Windows Firewall perguntar, permita o acesso em redes privadas. O professor verá automaticamente os alunos que abrirem a aventura pelo endereço do servidor.
+Todos precisam estar na mesma rede. Se o Windows Firewall perguntar, permita o acesso em redes privadas. O professor verá automaticamente os alunos que abrirem a aventura pelo endereço do servidor. O MySQL precisa aceitar conexões do computador que executa o jogo.
 
 ## Observação
 
-Cada navegador mantém a sessão local do aluno, enquanto o servidor mantém uma cópia resumida para a lista da turma. O notebook servidor precisa permanecer ligado e com o terminal aberto.
+O navegador mantém uma cópia temporária para funcionamento da interface, mas a fonte oficial dos perfis e saves é o MySQL. O computador que estiver executando o servidor precisa permanecer ligado para os alunos acessarem o jogo; os dados permanecem no servidor MySQL mesmo que esse computador do jogo seja desligado.
