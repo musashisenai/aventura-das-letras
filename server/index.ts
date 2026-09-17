@@ -23,6 +23,17 @@ async function startServer() {
     fs.writeFileSync(temporaryFile, JSON.stringify(students, null, 2), "utf8");
     fs.renameSync(temporaryFile, classroomFile);
   };
+  const clearSessionsOnStartup = () => {
+    const students = readStudents();
+    let changed = false;
+    for (const student of Object.values(students)) {
+      if (student && typeof student === "object" && "activeSession" in student) {
+        delete (student as Record<string, unknown>).activeSession;
+        changed = true;
+      }
+    }
+    if (changed) writeStudents(students);
+  };
   const readTeacherPassword = () => {
     try {
       const data = JSON.parse(fs.readFileSync(teacherFile, "utf8")) as { password?: string };
@@ -158,6 +169,9 @@ async function startServer() {
 
   const port = process.env.PORT || 3000;
 
+  // A server restart ends every previous in-memory session. Persisted student
+  // profiles must not remain blocked because a browser closed unexpectedly.
+  clearSessionsOnStartup();
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
