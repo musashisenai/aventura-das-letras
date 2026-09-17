@@ -5,7 +5,7 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { ArrowLeft, BookOpen, Check, ChevronRight, CircleHelp, Coins, Download, Eye, EyeOff, FileText, Gift, Heart, Lock, PawPrint, Play, RotateCcw, Sparkles, Star, Volume2, VolumeX, X } from "lucide-react";
-import { PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
+import { ASSETS, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./pet-expansion.css";
@@ -47,17 +47,18 @@ function printStudentsPdf(students: RemoteStudent[], title = "Relatório de dese
 
 function Mascot({ className = "", label = "Lumi, raposa parceira" }: { className?: string; label?: string }) {
   return <div className={`mascot-illustration ${className}`} role="img" aria-label={label}>
+    <img className="mascot-image" src={ASSETS.mascot} alt="" />
     <i className="fox-ear fox-ear-left" /><i className="fox-ear fox-ear-right" /><i className="fox-body" /><i className="fox-tail" />
     <i className="fox-head" /><i className="fox-muzzle" /><i className="fox-eye fox-eye-left" /><i className="fox-eye fox-eye-right" /><i className="fox-nose" /><i className="fox-scarf" /><b className="fox-spark">✦</b>
   </div>;
 }
 
 function BrandMark() {
-  return <div className="brand-emblem" aria-hidden="true"><b>A</b><i>· ·</i><span>✦</span></div>;
+  return <div className="brand-emblem" aria-hidden="true"><img className="brand-mark-image" src={ASSETS.logo} alt="" /><b>A</b><i>· ·</i><span>✦</span></div>;
 }
 
 function TreasureArt({ className = "" }: { className?: string }) {
-  return <div className={`treasure-art ${className}`} role="img" aria-label="Baú de aventura, moedas e um ovo surpresa"><i className="treasure-ray ray-one" /><i className="treasure-ray ray-two" /><b className="treasure-egg">✦</b><span className="treasure-lid" /><span className="treasure-chest" /><em className="treasure-lock">★</em></div>;
+  return <div className={`treasure-art ${className}`} role="img" aria-label="Baú de aventura, moedas e um ovo surpresa"><img className="treasure-image" src={ASSETS.rewards} alt="" /><i className="treasure-ray ray-one" /><i className="treasure-ray ray-two" /><b className="treasure-egg">✦</b><span className="treasure-lid" /><span className="treasure-chest" /><em className="treasure-lock">★</em></div>;
 }
 
 function speak(text: string) {
