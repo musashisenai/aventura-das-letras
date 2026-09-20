@@ -17,6 +17,7 @@ async function startServer() {
   const supabaseUrl = process.env.SUPABASE_URL?.trim();
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   const supabaseEnabled = Boolean(supabaseUrl && supabaseServiceRoleKey);
+  const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
   const supabaseRequest = async <T>(resource: string, init: RequestInit = {}) => {
     if (!supabaseUrl || !supabaseServiceRoleKey) throw new Error("Supabase credentials are not configured");
     const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${resource}`, {
@@ -42,12 +43,26 @@ async function startServer() {
   };
   const saveStudents = async (students: Record<string, unknown>) => {
     if (!supabaseEnabled) return writeStudents(students);
-    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(Object.values(students).map((student) => ({ id: (student as { id: string }).id, data: student, updated_at: new Date().toISOString() }))) });
+    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(Object.values(students).map((student) => ({ id: (student as { id: string }).id, name_key: normalizeStudentName(String((student as { profile?: { name?: string } }).profile?.name ?? "")), data: student, updated_at: new Date().toISOString() }))) });
+  };
+  const saveStudent = async (student: Record<string, unknown>) => {
+    if (!supabaseEnabled) {
+      const students = readStudents();
+      students[String(student.id)] = student;
+      return writeStudents(students);
+    }
+    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ id: student.id, name_key: normalizeStudentName(String((student.profile as { name?: string } | undefined)?.name ?? "")), data: student, updated_at: new Date().toISOString() }) });
   };
   const initializeSupabase = async () => {
     if (!supabaseEnabled) return;
     const existing = await supabaseRequest<Array<{ id: string }>>("students?select=id&limit=1");
-    if (!existing.length) console.log("Supabase students table is empty; starting with no local student data.");
+    if (!existing.length) {
+      const localStudents = readStudents();
+      if (Object.keys(localStudents).length) {
+        await saveStudents(localStudents);
+        console.log(`Migrated ${Object.keys(localStudents).length} local student profile(s) to Supabase.`);
+      } else console.log("Supabase students table is empty; starting with no local student data.");
+    }
     try { if (fs.existsSync(classroomFile)) fs.unlinkSync(classroomFile); } catch { /* Local data is optional when Supabase is active. */ }
     console.log("Persistent student storage: Supabase");
   };
@@ -104,7 +119,6 @@ async function startServer() {
     const student = (await loadStudents())[req.params.id];
     return student ? res.json(publicStudent(student)) : res.status(404).json({ error: "Student not found" });
   });
-  const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
   const sessionIsActive = (student: unknown) => {
     const session = (student as { activeSession?: { token?: string; lastSeen?: number } } | undefined)?.activeSession;
     return Boolean(session?.token && session.lastSeen && Date.now() - session.lastSeen < 120000);
@@ -128,7 +142,13 @@ async function startServer() {
     const record = { ...(existing ?? {}), id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() } as Record<string, unknown>;
     if (payload.sessionToken) createSession(record, payload.sessionToken);
     students[payload.id] = record;
-    await saveStudents(students);
+    try {
+      await saveStudent(record);
+    } catch (error) {
+      if (String(error).includes("students_name_key_unique_idx") || String(error).includes("duplicate key")) return res.status(409).json({ error: "Já existe um aluno com esse nome." });
+      console.error("Unable to save student", error);
+      return res.status(503).json({ error: "O banco de dados está indisponível no momento." });
+    }
     return res.json({ ok: true });
   });
   app.post("/api/students/:id/session", async (req, res) => {
@@ -140,7 +160,7 @@ async function startServer() {
     if (!token) return res.status(400).json({ error: "Sessão inválida." });
     if (sessionIsActive(student) && active?.token !== token) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." });
     createSession(student, token);
-    await saveStudents(students);
+    await saveStudent(student);
     return res.json({ ok: true });
   });
   app.delete("/api/students/:id/session", async (req, res) => {
@@ -149,7 +169,7 @@ async function startServer() {
     const token = String(req.body?.sessionToken ?? "");
     if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
     const active = student.activeSession as { token?: string } | undefined;
-    if (active?.token === token) { delete student.activeSession; await saveStudents(students); }
+    if (active?.token === token) { delete student.activeSession; await saveStudent(student); }
     return res.json({ ok: true });
   });
   app.delete("/api/students/:id", async (req, res) => {
