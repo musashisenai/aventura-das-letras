@@ -216,6 +216,13 @@ function vitePluginLocalClassroom(): Plugin {
     fs.mkdirSync(dataDir, { recursive: true });
     fs.writeFileSync(dataFile, JSON.stringify(students, null, 2), "utf8");
   };
+  const sessionIsActive = (student: Record<string, unknown>) => {
+    const session = student.activeSession as { token?: string; lastSeen?: number } | undefined;
+    return Boolean(session?.token && session.lastSeen && Date.now() - session.lastSeen < 120000);
+  };
+  const createSession = (student: Record<string, unknown>, token: string) => {
+    student.activeSession = { token, lastSeen: Date.now() };
+  };
   const writeTeacherPassword = (password: string) => {
     fs.mkdirSync(dataDir, { recursive: true });
     fs.writeFileSync(teacherFile, JSON.stringify({ password }, null, 2), "utf8");
@@ -259,6 +266,36 @@ function vitePluginLocalClassroom(): Plugin {
         }
         if (requestPath !== "/api/students" && !requestPath.startsWith("/api/students/")) return next();
         const send = (status: number, payload: unknown) => { res.writeHead(status, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }); res.end(JSON.stringify(payload)); };
+        const sessionMatch = requestPath.match(/^\/api\/students\/([^/]+)\/session$/);
+        if (sessionMatch) {
+          const studentId = decodeURIComponent(sessionMatch[1]);
+          const students = readStudents();
+          const student = students[studentId] as Record<string, unknown> | undefined;
+          if (!student) return send(404, { error: "Aluno não encontrado." });
+          let body = "";
+          req.on("data", (chunk) => { body += chunk.toString(); });
+          req.on("end", () => {
+            try {
+              const payload = JSON.parse(body || "{}") as { sessionToken?: string };
+              const token = String(payload.sessionToken ?? "");
+              if (!token) return send(400, { error: "Sessão inválida." });
+              const active = student.activeSession as { token?: string } | undefined;
+              if (req.method === "POST") {
+                if (sessionIsActive(student) && active?.token !== token) return send(409, { error: "Este aluno já está em jogo em outro dispositivo." });
+                createSession(student, token);
+                writeStudents(students);
+                return send(200, { ok: true });
+              }
+              if (req.method === "DELETE") {
+                if (active?.token === token) delete student.activeSession;
+                writeStudents(students);
+                return send(200, { ok: true });
+              }
+              return send(405, { error: "Method not allowed" });
+            } catch { return send(400, { error: "Invalid JSON" }); }
+          });
+          return;
+        }
         if (req.method === "GET" && requestPath !== "/api/students") {
           const studentId = decodeURIComponent(requestPath.replace(/^\/api\/students\//, ""));
           const student = readStudents()[studentId];
@@ -273,10 +310,12 @@ function vitePluginLocalClassroom(): Plugin {
         req.on("data", (chunk) => { body += chunk.toString(); });
         req.on("end", () => {
           try {
-            const payload = JSON.parse(body) as { id?: string; profile?: unknown; completions?: unknown; worldApprovals?: unknown; answers?: unknown };
+            const payload = JSON.parse(body) as { id?: string; profile?: unknown; sessionToken?: string; completions?: unknown; worldApprovals?: unknown; answers?: unknown };
             if (!payload.id || !payload.profile) return send(400, { error: "Student id and profile are required" });
             const students = readStudents();
-            students[payload.id] = { id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() };
+            const record = { ...(students[payload.id] as Record<string, unknown> | undefined), id: payload.id, profile: payload.profile, completions: payload.completions ?? {}, worldApprovals: payload.worldApprovals ?? {}, answers: payload.answers ?? [], updatedAt: new Date().toISOString() };
+            if (payload.sessionToken) createSession(record, payload.sessionToken);
+            students[payload.id] = record;
             writeStudents(students);
             return send(200, { ok: true });
           } catch { return send(400, { error: "Invalid JSON" }); }

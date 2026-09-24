@@ -555,8 +555,413 @@
 .figure-glyph-mesa::before { content: ""; position: absolute; left: 18px; right: 18px; top: 24px; height: 9px; border: 3px solid #1d463e; border-radius: 7px; background: #f3b45b; box-shadow: 0 17px 0 -2px #e6a14a; }
 .figure-glyph-mesa::after { content: ""; position: absolute; left: 25px; top: 33px; width: 7px; height: 22px; border-radius: 4px; background: #1d463e; box-shadow: 35px 0 #1d463e; }
 .word-audio-button { color: #a45f13; background: #fff3d4; }
-.math-visual { gap: clamp(10px, 2vw, 20px); min-height: 92px; margin-top: -8px; margin-bottom: 19px; }
-.math-group { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px; min-width: 82px; max-width: 220px; padding: 10px 12px; border: 2px solid #b9dfcc; border-radius: 16px 11px 17px 12px; background: #f2fbf5; box-shadow: 0 4px 0 rgba(25,118,92,.08); }
-.math-group i { display: grid; place-items: center; min-width: 28px; min-height: 28px; color: #1d463e; font-size: clamp(1.35rem, 3.2vw, 2rem); font-style: normal; line-height: 1; }
+.math-visual { width: 100%; min-height: 92px; margin-top: -8px; margin-bottom: 19px; gap: clamp(10px, 2vw, 20px); align-items: center; justify-content: center; flex-wrap: wrap; }
+.math-group { display: flex; flex: 1 1 170px; flex-wrap: wrap; align-content: center; justify-content: center; gap: clamp(3px, 1vw, 7px); width: min(100%, 220px); min-width: min(100%, 150px); max-width: 220px; min-height: 92px; padding: clamp(10px, 1.8vw, 14px); border: 2px solid #b9dfcc; border-radius: 16px 11px 17px 12px; background: #f2fbf5; box-shadow: 0 4px 0 rgba(25,118,92,.08); }
+.math-group i { display: grid; flex: 0 0 clamp(28px, 23%, 42px); place-items: center; aspect-ratio: 1; min-width: 0; min-height: 0; color: #1d463e; font-size: clamp(1.35rem, 3.2vw, 2rem); font-style: normal; line-height: 1; }
 .math-operator { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; color: #fff; background: #f2655a; font: 900 1.8rem/1 "Baloo 2", sans-serif; box-shadow: 0 4px 0 #c7524b; }
-@media (max-width: 520px) { .math-visual { gap: 6px; } .math-group { min-width: 68px; padding: 7px; } .math-group i { min-width: 23px; min-height: 23px; font-size: 1.3rem; } .math-operator { width: 31px; height: 31px; font-size: 1.4rem; } }
+@media (max-width: 520px) { .math-visual { gap: 6px; } .math-group { flex-basis: 132px; min-width: 120px; min-height: 78px; padding: 8px; } .math-group i { flex-basis: clamp(24px, 24%, 34px); font-size: 1.3rem; } .math-operator { width: 31px; height: 31px; font-size: 1.4rem; } }
+@media (max-width: 380px) { .math-visual { display: grid; grid-template-columns: minmax(0, 1fr) 31px minmax(0, 1fr); align-items: center; } .math-group { width: 100%; min-width: 0; } }
+
+
+/* Visual math groups: use the available question-card width and wrap pieces naturally inside each frame. */
+.question-card .math-visual,
+.placement-card .math-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(34px, 5vw, 48px) minmax(0, 1fr);
+  width: 100%;
+  gap: clamp(10px, 2vw, 20px);
+  align-items: center;
+}
+
+.question-card .math-group,
+.placement-card .math-group {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  min-height: 112px;
+  padding: clamp(12px, 2vw, 18px);
+  gap: clamp(4px, 1vw, 8px);
+}
+
+.question-card .math-group i,
+.placement-card .math-group i {
+  flex: 0 1 clamp(30px, 20%, 50px);
+  width: clamp(30px, 20%, 50px);
+  max-width: 50px;
+  font-size: clamp(1.45rem, 3.5vw, 2.25rem);
+}
+
+@media (max-width: 620px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    min-height: 96px;
+    padding: 10px 8px;
+    gap: 4px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    flex-basis: clamp(26px, 20%, 38px);
+    width: clamp(26px, 20%, 38px);
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 31px minmax(0, 1fr);
+    gap: 5px;
+  }
+}
+
+
+/* Definitive fit: one adaptive green frame contains the full expression; groups wrap internally without clipping. */
+.question-card .math-visual,
+.placement-card .math-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(34px, 5vw, 48px) minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  margin: 8px 0 22px;
+  padding: clamp(12px, 2vw, 20px);
+  gap: clamp(8px, 2vw, 20px);
+  overflow: visible;
+  border: 2px solid #b9dfcc;
+  border-radius: 18px 13px 19px 14px;
+  background: #f2fbf5;
+  box-shadow: inset 0 -5px 0 rgba(25, 118, 92, .08);
+}
+
+.question-card .math-group,
+.placement-card .math-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  gap: clamp(3px, 1vw, 8px);
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.question-card .math-group i,
+.placement-card .math-group i {
+  display: grid;
+  width: min(100%, clamp(28px, 6vw, 52px));
+  max-width: 52px;
+  aspect-ratio: 1;
+  place-items: center;
+  color: #1d463e;
+  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
+  line-height: 1;
+}
+
+.question-card .math-operator,
+.placement-card .math-operator {
+  justify-self: center;
+  flex: none;
+}
+
+@media (max-width: 520px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+    gap: 6px;
+    padding: 10px 8px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    gap: 3px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    width: min(100%, 34px);
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 29px minmax(0, 1fr);
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    width: min(100%, 29px);
+    font-size: 1.15rem;
+  }
+}
+
+
+/* All remaining activity visuals: flexible green frames for every literacy level and placement question. */
+.question-card .question-visual:not(.math-visual),
+.placement-card .placement-question-visual:not(.math-visual) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 8px 0 22px;
+  padding: clamp(10px, 2vw, 18px);
+  overflow: visible;
+  border: 2px solid #b9dfcc;
+  border-radius: 18px 13px 19px 14px;
+  background: #f2fbf5;
+  box-shadow: inset 0 -5px 0 rgba(25, 118, 92, .08);
+}
+
+.question-card .question-visual:not(.math-visual) .figure-glyph,
+.placement-card .placement-question-visual:not(.math-visual) .figure-glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 100%);
+  min-width: 0;
+  min-height: 76px;
+  height: auto;
+  padding: 8px 12px;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: #1d463e;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.12;
+  text-align: center;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.question-card .question-visual:not(.math-visual) .figure-glyph img,
+.placement-card .placement-question-visual:not(.math-visual) .figure-glyph img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 220px);
+  height: auto;
+  max-height: 170px;
+  object-fit: contain;
+}
+
+@media (max-width: 620px) {
+  .question-card .question-visual:not(.math-visual),
+  .placement-card .placement-question-visual:not(.math-visual) {
+    margin-bottom: 16px;
+    padding: 8px;
+  }
+
+  .question-card .question-visual:not(.math-visual) .figure-glyph,
+  .placement-card .placement-question-visual:not(.math-visual) .figure-glyph {
+    min-height: 62px;
+    padding: 5px 8px;
+    font-size: 2rem;
+  }
+
+  .question-card .question-visual:not(.math-visual) .figure-glyph img,
+  .placement-card .placement-question-visual:not(.math-visual) .figure-glyph img {
+    max-width: min(100%, 180px);
+    max-height: 140px;
+  }
+}
+
+@media (max-width: 380px) {
+  .question-card .question-visual:not(.math-visual) .figure-glyph,
+  .placement-card .placement-question-visual:not(.math-visual) .figure-glyph {
+    font-size: 1.75rem;
+  }
+}
+
+
+/* Narrow-screen safety: every mathematical token must remain inside its green frame. */
+.question-card .math-visual,
+.placement-card .math-visual,
+.question-card .math-group,
+.placement-card .math-group,
+.question-card .math-group i,
+.placement-card .math-group i,
+.question-card .math-operator,
+.placement-card .math-operator {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.question-card .math-visual,
+.placement-card .math-visual {
+  justify-self: stretch;
+  overflow: hidden;
+}
+
+.question-card .math-group,
+.placement-card .math-group {
+  overflow: hidden;
+}
+
+.question-card .math-group i,
+.placement-card .math-group i {
+  overflow: hidden;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 4px;
+    padding: 8px 6px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    width: 100%;
+    max-width: 30px;
+    font-size: 1.15rem;
+  }
+
+  .question-card .math-operator,
+  .placement-card .math-operator {
+    width: 28px;
+    height: 28px;
+    font-size: 1.25rem;
+  }
+}
+
+
+/* Final activity-frame refinement: widen the expression and let image tokens wrap naturally. */
+.placement-card {
+  width: min(820px, 100%);
+}
+
+.question-card .math-visual,
+.placement-card .math-visual {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  margin: 8px 0 22px;
+  padding: clamp(12px, 2.4vw, 22px);
+  gap: clamp(8px, 2.2vw, 22px);
+  overflow: visible;
+}
+
+.question-card .math-group,
+.placement-card .math-group {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  width: auto;
+  min-width: 0;
+  min-height: 112px;
+  padding: clamp(10px, 1.8vw, 16px);
+  gap: clamp(4px, 1vw, 9px);
+  overflow: visible;
+  border: 2px solid #b9dfcc;
+  border-radius: 16px 11px 17px 12px;
+  background: #f2fbf5;
+  box-shadow: 0 4px 0 rgba(25, 118, 92, .08);
+}
+
+.question-card .math-group i,
+.placement-card .math-group i {
+  display: grid;
+  flex: 0 0 clamp(30px, 22%, 52px);
+  width: clamp(30px, 22%, 52px);
+  max-width: 52px;
+  aspect-ratio: 1;
+  place-items: center;
+  overflow: visible;
+  color: #1d463e;
+  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
+  line-height: 1;
+}
+
+.question-card .math-operator,
+.placement-card .math-operator {
+  flex: 0 0 clamp(34px, 5vw, 48px);
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    gap: 7px;
+    padding: 10px 7px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    min-height: 96px;
+    padding: 9px 6px;
+    gap: 4px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    flex-basis: clamp(26px, 22%, 38px);
+    width: clamp(26px, 22%, 38px);
+    font-size: 1.4rem;
+  }
+
+  .question-card .math-operator,
+  .placement-card .math-operator {
+    flex-basis: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    gap: 4px;
+    padding-inline: 4px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    padding-inline: 4px;
+    gap: 2px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    flex-basis: clamp(24px, 22%, 31px);
+    width: clamp(24px, 22%, 31px);
+    font-size: 1.2rem;
+  }
+}

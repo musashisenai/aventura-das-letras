@@ -258,8 +258,21 @@ export class GameController {
   releaseStudentSession() {
     const studentId = this.state.profile?.studentId;
     const sessionToken = this.state.profile?.sessionToken;
-    if (!studentId || !sessionToken) return;
-    void fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "DELETE", headers: { "Content-Type": "application/json" }, keepalive: true, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
+    if (!studentId || !sessionToken) return Promise.resolve();
+    return this.syncQueue.then(() => fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "DELETE", headers: { "Content-Type": "application/json" }, keepalive: true, body: JSON.stringify({ sessionToken }) })).then(() => undefined).catch(() => undefined);
+  }
+
+  logout() {
+    void this.releaseStudentSession();
+    const setupAudioEnabled = this.state.setupAudioEnabled;
+    this.state = { ...initialState(), setupAudioEnabled, screen: "menu" };
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+    } catch {
+      // O logout continua válido mesmo se o navegador bloquear o armazenamento.
+    }
+    this.listeners.forEach((listener) => listener({ ...this.state }));
   }
 
   private completionKey(worldId: number, phase: number) {
@@ -400,15 +413,13 @@ export class GameController {
   }
 
   startNewSave() {
-    const setupAudioEnabled = this.state.setupAudioEnabled;
-    this.state = { ...initialState(), setupAudioEnabled, screen: "welcome" };
+    this.logout();
+    this.state.screen = "welcome";
     this.emit();
   }
 
   returnToMenu() {
-    this.state.screen = "menu";
-    this.state.teacherAuthorized = false;
-    this.emit();
+    this.logout();
   }
 
   setSetupAudio(enabled: boolean) {

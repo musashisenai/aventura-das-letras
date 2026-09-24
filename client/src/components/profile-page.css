@@ -9,6 +9,16 @@
 .profile-stats strong { font-size: 1.7rem; }
 .profile-stats small { color: #66877c; font-size: .7rem; font-weight: 900; }
 .profile-page-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.logout-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 15px; border: 1px solid #e7a5a0; border-radius: .7rem; color: #9b302a; background: #fff2f0; font-weight: 900; cursor: pointer; }
+.logout-button:hover { border-color: #c85a51; background: #ffe5e1; }
+.logout-button:active { transform: scale(.97); }
+.logout-modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(25, 63, 54, .45); backdrop-filter: blur(4px); }
+.logout-modal { width: min(470px, 100%); padding: 30px; text-align: center; }
+.logout-modal-icon { margin-bottom: 10px; color: #9b302a; }
+.logout-modal h2 { margin: 0 0 10px; }
+.logout-modal p:not(.eyebrow) { color: #5a7b70; font-weight: 700; line-height: 1.5; }
+.logout-modal-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+.logout-modal-actions > * { min-width: 170px; }
 .profile-progress { margin-top: 34px; padding-top: 27px; border-top: 2px dashed #cfe5d8; }
 .profile-progress-heading { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 17px; }
 .profile-progress-heading h2 { margin: 0; }
