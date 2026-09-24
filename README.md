@@ -12,8 +12,13 @@ cd aventura-das-letras
 ```
 npm install --include=dev --legacy-peer-deps
 ```
+## Comando para iniciar o servidor e conectar ao Banco em Nuvem
 ```
-npm run dev
+npm run start:dev 
+```
+## Comando para iniciar o servidor sem o Banco
+```
+npm run dev 
 ```
 ## Senha da Área do Professor
 ```
