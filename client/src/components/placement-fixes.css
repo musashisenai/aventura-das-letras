@@ -965,3 +965,107 @@
     font-size: 1.2rem;
   }
 }
+
+
+/* Last-resort mobile guard: one bounded frame, bounded columns, and bounded tokens. */
+.question-card .math-visual,
+.placement-card .math-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(28px, 5vw, 48px) minmax(0, 1fr);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  align-items: center;
+  gap: clamp(4px, 2vw, 18px);
+  padding: clamp(8px, 2vw, 18px);
+}
+
+.question-card .math-group,
+.placement-card .math-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  gap: clamp(2px, 1vw, 7px);
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.question-card .math-group i,
+.placement-card .math-group i {
+  box-sizing: border-box;
+  width: min(100%, clamp(24px, 6vw, 50px));
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  overflow: hidden;
+  font-size: clamp(1.1rem, 3.5vw, 2.1rem);
+  line-height: 1;
+}
+
+.question-card .math-operator,
+.placement-card .math-operator {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 48px;
+  min-width: 0;
+  justify-self: center;
+}
+
+@media (max-width: 420px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 4px;
+    padding: 8px 5px;
+  }
+
+  .question-card .math-group,
+  .placement-card .math-group {
+    gap: 2px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    width: min(100%, 29px);
+    font-size: 1.1rem;
+  }
+
+  .question-card .math-operator,
+  .placement-card .math-operator {
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .question-card .math-visual,
+  .placement-card .math-visual {
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+    gap: 2px;
+    padding-inline: 3px;
+  }
+
+  .question-card .math-group i,
+  .placement-card .math-group i {
+    width: min(100%, 24px);
+    font-size: 1rem;
+  }
+
+  .question-card .math-operator,
+  .placement-card .math-operator {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+  }
+}
