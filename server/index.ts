@@ -107,6 +107,9 @@ async function startServer() {
   };
 
   app.use(express.json({ limit: "8mb" }));
+  const asyncRoute = (handler: express.RequestHandler): express.RequestHandler => (req, res, next) => {
+    Promise.resolve(handler(req, res, next)).catch(next);
+  };
   app.post("/api/teacher/authorize", (req, res) => {
     const password = String(req.body?.password ?? "");
     return password === readTeacherPassword() ? res.json({ ok: true }) : res.status(401).json({ error: "Senha não reconhecida." });
@@ -123,11 +126,11 @@ async function startServer() {
     const { activeSession: _activeSession, ...safeStudent } = student as Record<string, unknown>;
     return safeStudent;
   };
-  app.get("/api/students", async (_req, res) => res.json(Object.values(await loadStudents()).map(publicStudent)));
-  app.get("/api/students/:id", async (req, res) => {
+  app.get("/api/students", asyncRoute(async (_req, res) => res.json(Object.values(await loadStudents()).map(publicStudent))));
+  app.get("/api/students/:id", asyncRoute(async (req, res) => {
     const student = (await loadStudents())[req.params.id];
     return student ? res.json(publicStudent(student)) : res.status(404).json({ error: "Student not found" });
-  });
+  }));
   const sessionIsActive = (student: unknown) => {
     const session = (student as { activeSession?: { token?: string; lastSeen?: number } } | undefined)?.activeSession;
     return Boolean(session?.token && session.lastSeen && Date.now() - session.lastSeen < 120000);
@@ -135,7 +138,7 @@ async function startServer() {
   const createSession = (student: Record<string, unknown>, token: string) => {
     student.activeSession = { token, lastSeen: Date.now() };
   };
-  app.post("/api/students", async (req, res) => {
+  app.post("/api/students", asyncRoute(async (req, res) => {
     const payload = req.body as { id?: string; profile?: unknown; completions?: unknown; worldApprovals?: unknown; answers?: unknown; sessionToken?: string; teacherOverride?: boolean };
     if (!payload.id || !payload.profile) return res.status(400).json({ error: "Student id and profile are required" });
     const students = await loadStudents();
@@ -159,8 +162,8 @@ async function startServer() {
       return res.status(503).json({ error: "O banco de dados está indisponível no momento." });
     }
     return res.json({ ok: true });
-  });
-  app.post("/api/students/:id/session", async (req, res) => {
+  }));
+  app.post("/api/students/:id/session", asyncRoute(async (req, res) => {
     const students = await loadStudents();
     const student = students[req.params.id] as Record<string, unknown> | undefined;
     const token = String(req.body?.sessionToken ?? "");
@@ -171,8 +174,8 @@ async function startServer() {
     createSession(student, token);
     await saveStudent(student);
     return res.json({ ok: true });
-  });
-  app.delete("/api/students/:id/session", async (req, res) => {
+  }));
+  app.delete("/api/students/:id/session", asyncRoute(async (req, res) => {
     const students = await loadStudents();
     const student = students[req.params.id] as Record<string, unknown> | undefined;
     const token = String(req.body?.sessionToken ?? "");
@@ -180,8 +183,8 @@ async function startServer() {
     const active = student.activeSession as { token?: string } | undefined;
     if (active?.token === token) { delete student.activeSession; await saveStudent(student); }
     return res.json({ ok: true });
-  });
-  app.delete("/api/students/:id", async (req, res) => {
+  }));
+  app.delete("/api/students/:id", asyncRoute(async (req, res) => {
     const students = await loadStudents();
     const student = students[req.params.id] as { profile?: { name?: string } } | undefined;
     const confirmation = normalizeStudentName(String(req.body?.confirmName ?? ""));
@@ -193,8 +196,8 @@ async function startServer() {
     if (supabaseEnabled) await supabaseRequest(`students?id=eq.${encodeURIComponent(req.params.id)}`, { method: "DELETE", headers: { Prefer: "return=minimal" } });
     else writeStudents(students);
     return res.json({ ok: true });
-  });
-  app.use("/manus-storage", async (req, res) => {
+  }));
+  app.use("/manus-storage", asyncRoute(async (req, res) => {
     const key = req.path.replace(/^\//, "");
     if (!key) return res.status(400).send("Missing storage key");
     const forgeBaseUrl = (process.env.BUILT_IN_FORGE_API_URL || "").replace(/\/+$/, "");
@@ -211,6 +214,11 @@ async function startServer() {
     } catch {
       return res.status(502).send("Storage proxy error");
     }
+  }));
+  app.use((error: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error("Unhandled request error", error);
+    if (res.headersSent) return next(error);
+    return res.status(503).json({ error: "O servidor não conseguiu concluir a solicitação." });
   });
   // Serve static files from dist/public in production
   const staticPath =
