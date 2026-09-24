@@ -24,8 +24,17 @@ async function startServer() {
       ...init,
       headers: { apikey: supabaseServiceRoleKey, Authorization: `Bearer ${supabaseServiceRoleKey}`, "Content-Type": "application/json", ...(init.headers ?? {}) },
     });
-    if (!response.ok) throw new Error(`Supabase request failed (${response.status}): ${await response.text()}`);
-    return response.status === 204 ? null as T : await response.json() as T;
+    const responseBody = await response.text();
+    if (!response.ok) throw new Error(`Supabase request failed (${response.status}): ${responseBody}`);
+    // PostgREST may return 201 (rather than 204) with an empty body when
+    // Prefer: return=minimal is used. Calling response.json() in that case
+    // throws "Unexpected end of JSON input" even though the request succeeded.
+    if (!responseBody.trim()) return null as T;
+    try {
+      return JSON.parse(responseBody) as T;
+    } catch {
+      throw new Error(`Supabase returned invalid JSON (${response.status}): ${responseBody.slice(0, 300)}`);
+    }
   };
   const readStudents = () => {
     try { return JSON.parse(fs.readFileSync(classroomFile, "utf8")) as Record<string, unknown>; } catch { return {}; }

@@ -26,9 +26,11 @@ Ao iniciar, o servidor conecta automaticamente ao Supabase, carrega os alunos e 
 3. Nos computadores dos alunos, abra:
 
 ```text
-http://192.168.0.10:4173
+http://192.168.0.10:3000
 ```
 
 Os alunos não precisam instalar o projeto, configurar o Supabase ou informar senha. Eles apenas acessam o IP do computador do professor.
 
 Se o Windows Firewall perguntar, permita o acesso em redes privadas.
+
+> O comando `pnpm start:dev` usa a porta `3000` por padrão. Se a variável `PORT` estiver definida no `.env`, use essa porta no endereço dos alunos.
