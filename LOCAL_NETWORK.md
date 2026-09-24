@@ -34,19 +34,3 @@ Os alunos não precisam instalar o projeto, configurar o Supabase ou informar se
 Se o Windows Firewall perguntar, permita o acesso em redes privadas.
 
 > O comando `pnpm start:dev` usa a porta `3000` por padrão. Se a variável `PORT` estiver definida no `.env`, use essa porta no endereço dos alunos.
-
-## MySQL local e sincronização
-
-O servidor usa o MySQL local como armazenamento imediato e mantém o Supabase sincronizado. Na inicialização, o Supabase precisa estar acessível para sincronizar os dados; depois, se a internet cair, novas alterações continuam sendo salvas no MySQL local e entram em uma fila para sincronização automática quando a conexão voltar.
-
-1. Instale o MySQL Community Server no computador do professor e deixe o serviço MySQL iniciado automaticamente. Durante a instalação, escolha o disco persistente `D:` para o **Data Directory** do MySQL, por exemplo `D:\MySQL\Data`. Apenas configurar `LOCAL_DATA_DIR` não move os arquivos internos do MySQL; o `Data Directory` também precisa estar em uma unidade que não seja restaurada.
-2. Copie `.env.example` para `.env` e preencha `LOCAL_MYSQL_PASSWORD` com a senha criada durante a instalação.
-3. Ajuste `LOCAL_DATA_DIR` para uma pasta do disco persistente, por exemplo `D:\AventuraDasLetras\dados`. O projeto cria o banco `aventura_das_letras` e suas tabelas automaticamente.
-4. Mantenha `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` preenchidos. O sistema sincroniza durante a inicialização e verifica alterações pendentes a cada 30 segundos.
-5. Para criar uma cópia manual na Área de Trabalho, pare ou mantenha o servidor em execução e execute:
-
-```bat
-npm run backup
-```
-
-O arquivo `aventura-das-letras-backup-AAAA-MM-DD...json` poderá ser anexado ao e-mail. Ele contém os alunos e os progressos, portanto deve ser tratado como informação privada.

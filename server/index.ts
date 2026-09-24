@@ -3,7 +3,6 @@ import { createServer } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { createLocalStore, type LocalStore, type StudentRecord } from "./localStore.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,13 +12,11 @@ async function startServer() {
   const server = createServer(app);
   const DEFAULT_TEACHER_PASSWORD = "7391846205";
   const LEGACY_TEACHER_PASSWORD = "professor";
-  const localDataDir = process.env.LOCAL_DATA_DIR?.trim() || path.resolve(__dirname, "..", ".local-data");
-  const classroomFile = path.resolve(localDataDir, "students.json");
-  const teacherFile = path.resolve(localDataDir, "teacher.json");
+  const classroomFile = path.resolve(__dirname, "..", ".local-data", "students.json");
+  const teacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
   const supabaseUrl = process.env.SUPABASE_URL?.trim();
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   const supabaseEnabled = Boolean(supabaseUrl && supabaseServiceRoleKey);
-  let localStore: LocalStore;
   const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
   const supabaseRequest = async <T>(resource: string, init: RequestInit = {}) => {
     if (!supabaseUrl || !supabaseServiceRoleKey) throw new Error("Supabase credentials are not configured");
@@ -48,62 +45,35 @@ async function startServer() {
     fs.writeFileSync(temporaryFile, JSON.stringify(students, null, 2), "utf8");
     fs.renameSync(temporaryFile, classroomFile);
   };
-  const loadCloudStudents = async (): Promise<Record<string, StudentRecord>> => {
-    const rows = await supabaseRequest<Array<{ id: string; data: StudentRecord; updated_at: string }>>("students?select=id,data,updated_at&order=updated_at.asc");
-    return Object.fromEntries(rows.map((row) => [String(row.id), { ...row.data, id: row.id, updatedAt: row.data.updatedAt ?? row.updated_at }]));
+  const loadStudents = async (): Promise<Record<string, unknown>> => {
+    if (!supabaseEnabled) return readStudents();
+    const rows = await supabaseRequest<Array<{ id: string; data: Record<string, unknown> }>>("students?select=id,data&order=updated_at.asc");
+    return Object.fromEntries(rows.map((row) => [String(row.id), row.data]));
   };
-  const saveCloudStudent = async (student: StudentRecord) => {
-    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ id: student.id, name_key: normalizeStudentName(String((student.profile as { name?: string } | undefined)?.name ?? "")), data: student, updated_at: student.updatedAt ?? new Date().toISOString() }) });
+  const saveStudents = async (students: Record<string, unknown>) => {
+    if (!supabaseEnabled) return writeStudents(students);
+    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify(Object.values(students).map((student) => ({ id: (student as { id: string }).id, name_key: normalizeStudentName(String((student as { profile?: { name?: string } }).profile?.name ?? "")), data: student, updated_at: new Date().toISOString() }))) });
   };
-  const loadStudents = async (): Promise<Record<string, StudentRecord>> => localStore.list();
-  const saveStudents = async (students: Record<string, StudentRecord>) => {
-    for (const student of Object.values(students)) await localStore.upsert(student);
-  };
-  const saveStudent = async (student: StudentRecord) => {
-    await localStore.upsert(student);
-    if (!supabaseEnabled) return;
-    try {
-      await saveCloudStudent(student);
-    } catch (error) {
-      await localStore.enqueue("upsert", String(student.id), student);
-      console.warn("Supabase indisponível; alteração mantida na fila local.", error);
-    }
-  };
-  const syncPendingChanges = async () => {
-    if (!supabaseEnabled) return;
-    for (const item of await localStore.pending()) {
-      try {
-        if (item.operation === "delete") await supabaseRequest(`students?id=eq.${encodeURIComponent(item.student_id)}`, { method: "DELETE", headers: { Prefer: "return=minimal" } });
-        else if (item.payload) await saveCloudStudent(item.payload);
-        await localStore.removeQueueItem(item.id);
-      } catch (error) {
-        console.warn("Sincronização pendente adiada; Supabase ainda indisponível.", error);
-        break;
-      }
-    }
-  };
-  const initializePersistence = async () => {
-    localStore = await createLocalStore();
-    const localStudents = await localStore.list();
-    const legacyStudents = readStudents();
-    if (!Object.keys(localStudents).length && Object.keys(legacyStudents).length) {
-      await saveStudents(legacyStudents as Record<string, StudentRecord>);
-      console.log(`Migrated ${Object.keys(legacyStudents).length} legacy student profile(s) to MySQL.`);
-    }
+  const saveStudent = async (student: Record<string, unknown>) => {
     if (!supabaseEnabled) {
-      console.log("Persistent student storage: MySQL local (Supabase not configured)");
-      return;
+      const students = readStudents();
+      students[String(student.id)] = student;
+      return writeStudents(students);
     }
-    const cloudStudents = await loadCloudStudents();
-    const currentStudents = await localStore.list();
-    for (const [id, cloudStudent] of Object.entries(cloudStudents)) {
-      const localStudent = currentStudents[id];
-      if (!localStudent || new Date(String(cloudStudent.updatedAt ?? 0)) > new Date(String(localStudent.updatedAt ?? 0))) await localStore.upsert(cloudStudent);
+    await supabaseRequest("students", { method: "POST", headers: { Prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ id: student.id, name_key: normalizeStudentName(String((student.profile as { name?: string } | undefined)?.name ?? "")), data: student, updated_at: new Date().toISOString() }) });
+  };
+  const initializeSupabase = async () => {
+    if (!supabaseEnabled) return;
+    const existing = await supabaseRequest<Array<{ id: string }>>("students?select=id&limit=1");
+    if (!existing.length) {
+      const localStudents = readStudents();
+      if (Object.keys(localStudents).length) {
+        await saveStudents(localStudents);
+        console.log(`Migrated ${Object.keys(localStudents).length} local student profile(s) to Supabase.`);
+      } else console.log("Supabase students table is empty; starting with no local student data.");
     }
-    await syncPendingChanges();
-    const mergedStudents = await localStore.list();
-    for (const student of Object.values(mergedStudents)) await saveCloudStudent(student);
-    console.log(`Persistent student storage: MySQL local + Supabase (${Object.keys(mergedStudents).length} student(s))`);
+    try { if (fs.existsSync(classroomFile)) fs.unlinkSync(classroomFile); } catch { /* Local data is optional when Supabase is active. */ }
+    console.log("Persistent student storage: Supabase");
   };
   const clearSessionsOnStartup = async () => {
     const students = await loadStudents();
@@ -223,15 +193,8 @@ async function startServer() {
       return res.status(400).json({ error: "A confirmação do nome não confere." });
     }
     delete students[req.params.id];
-    await localStore.remove(req.params.id);
-    if (supabaseEnabled) {
-      try {
-        await supabaseRequest(`students?id=eq.${encodeURIComponent(req.params.id)}`, { method: "DELETE", headers: { Prefer: "return=minimal" } });
-      } catch (error) {
-        await localStore.enqueue("delete", req.params.id, null);
-        console.warn("Supabase indisponível; exclusão mantida na fila local.", error);
-      }
-    }
+    if (supabaseEnabled) await supabaseRequest(`students?id=eq.${encodeURIComponent(req.params.id)}`, { method: "DELETE", headers: { Prefer: "return=minimal" } });
+    else writeStudents(students);
     return res.json({ ok: true });
   }));
   app.use("/manus-storage", asyncRoute(async (req, res) => {
@@ -274,10 +237,8 @@ async function startServer() {
 
   // A server restart ends every previous in-memory session. Persisted student
   // profiles must not remain blocked because a browser closed unexpectedly.
-  await initializePersistence();
+  await initializeSupabase();
   await clearSessionsOnStartup();
-  await syncPendingChanges();
-  if (supabaseEnabled) setInterval(() => { void syncPendingChanges(); }, 30000);
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
