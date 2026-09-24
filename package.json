@@ -8,6 +8,7 @@
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "node --env-file=.env dist/index.js",
     "start:dev": "npm run build && npm start",
+    "backup": "tsx scripts/backup-local.ts",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write ."
@@ -50,6 +51,7 @@
     "framer-motion": "^12.23.22",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.453.0",
+    "mysql2": "^3.15.1",
     "nanoid": "^5.1.5",
     "next-themes": "^0.4.6",
     "react": "^19.2.1",
