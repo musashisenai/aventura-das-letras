@@ -10,10 +10,10 @@ git clone https://github.com/musashisenai/aventura-das-letras.git
 cd aventura-das-letras
 ```
 ```
-pnpm install
+npm install --include=dev --legacy-peer-deps
 ```
 ```
-pnpm start:dev
+npm run dev
 ```
 ## Senha da Área do Professor
 ```
