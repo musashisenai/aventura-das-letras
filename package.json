@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "node --env-file=.env dist/index.js",
-    "start:dev": "pnpm build && pnpm start",
+    "start:dev": "npm run build && npm start",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write ."
