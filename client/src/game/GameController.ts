@@ -405,18 +405,33 @@ export class GameController {
     this.emit();
   }
 
-  saveProfileName(name: string) {
-    if (!this.state.profile) return;
-    this.state.profile.name = name.trim() || this.state.profile.name;
-    this.state.screen = "profile";
-    this.emit();
+  private async changeProfileName(name: string, screen: GameState["screen"]): Promise<string | null> {
+    if (!this.state.profile) return "Nenhum perfil de aluno está conectado.";
+    const safeName = name.trim();
+    if (!safeName) return "Digite um nome para continuar.";
+    const currentProfile = this.state.profile;
+    const nextProfile = { ...currentProfile, name: safeName };
+    const { teacherAuthorized: _teacherAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
+    try {
+      const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: currentProfile.studentId, profile: nextProfile, sessionToken: currentProfile.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState }) });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({})) as { error?: string };
+        return result.error ?? "Não foi possível alterar o nome.";
+      }
+      this.state.profile = nextProfile;
+      this.state.screen = screen;
+      this.emit();
+      return null;
+    } catch {
+      return "Não foi possível verificar o nome no servidor.";
+    }
   }
+
+  saveProfileName(name: string) { return this.changeProfileName(name, "profile"); }
 
   updateProfileName(name: string) {
     if (!this.state.profile) return this.beginProfile(name);
-    this.state.profile.name = name.trim() || this.state.profile.name;
-    this.state.screen = "map";
-    this.emit();
+    return this.changeProfileName(name, "map");
   }
 
   startNewSave() {
