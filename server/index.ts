@@ -20,7 +20,7 @@ async function startServer() {
   const server = createServer(app);
   const DEFAULT_TEACHER_PASSWORD = "7391846205";
   const LEGACY_TEACHER_PASSWORD = "professor";
-  const FINAL_DATABASE_CLEAR_PASSWORD = "Pindamonhagaba";
+  const FINAL_DATABASE_CLEAR_PASSWORD = "Don't forget 3. Oct. 11";
   const databaseFile = path.resolve(__dirname, "..", "database", "classroom.json");
   const repositoryRoot = path.resolve(__dirname, "..");
   const legacyStudentsFile = path.resolve(__dirname, "..", ".local-data", "students.json");

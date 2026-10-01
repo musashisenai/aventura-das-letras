@@ -1610,19 +1610,5 @@
     "gameState": {},
     "completions": {},
     "worldApprovals": {}
-  },
-  "student-verificacao-999": {
-    "id": "student-verificacao-999",
-    "name": "Aluno Verificacao",
-    "profile": {
-      "name": "Aluno Verificacao",
-      "placementCompleted": false,
-      "currentWorld": 0
-    },
-    "gameState": {
-      "screen": "placement"
-    },
-    "completions": {},
-    "worldApprovals": {}
   }
 }

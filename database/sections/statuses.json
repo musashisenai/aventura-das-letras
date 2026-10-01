@@ -406,17 +406,5 @@
     "activePhase": 0,
     "questionIndex": 0,
     "updatedAt": "2026-10-01T10:56:51.485610Z"
-  },
-  "student-verificacao-999": {
-    "id": "student-verificacao-999",
-    "name": "Aluno Verificacao",
-    "placementCompleted": false,
-    "currentWorld": 0,
-    "recommendedWorld": 0,
-    "activeScreen": "placement",
-    "activeWorld": 0,
-    "activePhase": 0,
-    "questionIndex": 0,
-    "updatedAt": "2026-10-01T12:23:19.312Z"
   }
 }
