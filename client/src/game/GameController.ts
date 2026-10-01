@@ -10,6 +10,7 @@ export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" |
 export type Profile = {
   studentId?: string;
   sessionToken?: string;
+  sessionVersion?: number;
   placementCompleted: boolean;
   name: string;
   partner: string;
@@ -230,10 +231,11 @@ export class GameController {
 
   private syncCurrentStudent() {
     const { teacherAuthorized: _teacherAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
-    const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
+    const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, sessionVersion: this.state.profile?.sessionVersion ?? 0, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
     this.syncQueue = this.syncQueue.then(async () => {
       try {
-        await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if ((response.status === 401 || response.status === 409) && this.state.profile?.studentId === payload.id) this.logout();
       } catch {
         // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
       }
@@ -263,15 +265,17 @@ export class GameController {
     const studentId = this.state.profile?.studentId;
     const sessionToken = this.state.profile?.sessionToken;
     if (!studentId || !sessionToken) return;
-    const response = await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
-    if (response?.status === 404) this.logout();
+    const sessionVersion = this.state.profile?.sessionVersion ?? 0;
+    const response = await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken, sessionVersion }) }).catch(() => undefined);
+    if (response && (response.status === 401 || response.status === 404 || response.status === 409)) this.logout();
   }
 
   releaseStudentSession() {
     const studentId = this.state.profile?.studentId;
     const sessionToken = this.state.profile?.sessionToken;
     if (!studentId || !sessionToken) return Promise.resolve();
-    return this.syncQueue.then(() => fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "DELETE", headers: { "Content-Type": "application/json" }, keepalive: true, body: JSON.stringify({ sessionToken }) })).then(() => undefined).catch(() => undefined);
+    const sessionVersion = this.state.profile?.sessionVersion ?? 0;
+    return this.syncQueue.then(() => fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "DELETE", headers: { "Content-Type": "application/json" }, keepalive: true, body: JSON.stringify({ sessionToken, sessionVersion }) })).then(() => undefined).catch(() => undefined);
   }
 
   logout() {
@@ -317,9 +321,9 @@ export class GameController {
     const safeName = name.trim() || "Exploradora";
     const audioEnabled = this.state.setupAudioEnabled;
     const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const profile: Profile = { placementCompleted: false, sessionToken, studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled };
+    const profile: Profile = { placementCompleted: false, sessionToken, sessionVersion: 0, studentId: `${safeName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`, name: safeName, partner: "Lumi", currentWorld: 0, recommendedWorld: 0, coins: 20, xp: 0, eggs: 0, eggCollection: [], petLevel: 1, petCare: 30, petName: "Faísca", petStage: "filhote", petSpecies: "raposa", audioEnabled };
     try {
-      const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: profile.studentId, profile, sessionToken, completions: {}, worldApprovals: {}, answers: [] }) });
+      const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: profile.studentId, profile, sessionToken, sessionVersion: profile.sessionVersion, completions: {}, worldApprovals: {}, answers: [] }) });
       if (!response.ok) {
         const result = await response.json().catch(() => ({})) as { error?: string };
         return result.error ?? "Não foi possível iniciar essa aventura.";
@@ -345,17 +349,18 @@ export class GameController {
     try {
       const response = await fetch("/api/students");
       if (!response.ok) return "Não foi possível consultar os alunos agora.";
-      const students = await response.json() as Array<{ id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> }>;
+      const students = await response.json() as Array<{ id: string; profile: Profile; sessionVersion?: number; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> }>;
       const saved = students.find((student) => student.profile?.name?.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR") === normalized);
       if (!saved) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
       const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) });
+      const sessionVersion = saved.sessionVersion ?? 0;
+      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken, sessionVersion }) });
       if (!claim.ok) {
         const result = await claim.json().catch(() => ({})) as { error?: string };
         return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
       }
       const audioEnabled = saved.profile.audioEnabled !== false;
-      const profile = { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled, placementCompleted: saved.profile.placementCompleted ?? false };
+      const profile = { ...saved.profile, studentId: saved.id, sessionToken, sessionVersion, audioEnabled, placementCompleted: saved.profile.placementCompleted ?? false };
       const savedGameState = saved.gameState;
       const freshPlacement = () => ({ placementIndex: 0, placementScore: 0, placementAttempts: 0, placementResults: [], placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) });
       const resumed = profile.placementCompleted && savedGameState ? { ...initialState(), ...savedGameState } : { ...initialState(), ...freshPlacement() };
