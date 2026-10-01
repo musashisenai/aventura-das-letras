@@ -220,7 +220,8 @@ export class GameController {
   }
 
   private syncCurrentStudent() {
-    const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers };
+    const { teacherAuthorized: _teacherAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
+    const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
     this.syncQueue = this.syncQueue.then(async () => {
       try {
         await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
@@ -331,7 +332,7 @@ export class GameController {
     try {
       const response = await fetch("/api/students");
       if (!response.ok) return "Não foi possível consultar os alunos agora.";
-      const students = await response.json() as Array<{ id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"] }>;
+      const students = await response.json() as Array<{ id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> }>;
       const saved = students.find((student) => student.profile?.name?.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR") === normalized);
       if (!saved) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
       const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -341,8 +342,11 @@ export class GameController {
         return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
       }
       const audioEnabled = saved.profile.audioEnabled !== false;
-      const profile = { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled, placementCompleted: saved.profile.placementCompleted ?? true };
-      this.state = { ...initialState(), screen: profile.placementCompleted ? "map" : "placement", setupAudioEnabled: audioEnabled, profile, placementQueue: profile.placementCompleted ? [] : shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })), completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: profile.currentWorld, selectedWorld: profile.currentWorld };
+      const profile = { ...saved.profile, studentId: saved.id, sessionToken, audioEnabled, placementCompleted: saved.profile.placementCompleted ?? false };
+      const savedGameState = saved.gameState;
+      const freshPlacement = () => ({ placementIndex: 0, placementScore: 0, placementAttempts: 0, placementResults: [], placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) });
+      const resumed = profile.placementCompleted && savedGameState ? { ...initialState(), ...savedGameState } : { ...initialState(), ...freshPlacement() };
+      this.state = { ...resumed, screen: profile.placementCompleted ? (savedGameState?.screen && savedGameState.screen !== "placement" ? savedGameState.screen : "map") : "placement", setupAudioEnabled: audioEnabled, profile, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: savedGameState?.activeWorld ?? profile.currentWorld, selectedWorld: savedGameState?.selectedWorld ?? profile.currentWorld, teacherAuthorized: false, teacherPassword: "7391846205" };
       this.emit();
       return null;
     } catch {

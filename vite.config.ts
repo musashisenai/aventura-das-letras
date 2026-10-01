@@ -325,7 +325,7 @@ function vitePluginLocalClassroom(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy(), vitePluginLocalClassroom()];
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
   plugins,
@@ -346,6 +346,10 @@ export default defineConfig({
     port: 3000,
     strictPort: false, // Will find next available port if 3000 is busy
     host: true,
+    proxy: {
+      "/api": "http://127.0.0.1:3000",
+      "/manus-storage": "http://127.0.0.1:3000",
+    },
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",
