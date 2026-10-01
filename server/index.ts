@@ -73,8 +73,33 @@ async function startServer() {
   const clearSessionsOnStartup = () => { const database = readDatabase(); let changed = false; for (const student of Object.values(database.students)) if (student.activeSession) { delete student.activeSession; changed = true; } if (changed) writeDatabase(database); };
   let syncInProgress = false;
   const syncDatabaseToGit = async () => {
-    if (syncInProgress) return { ok: false, message: "Já existe uma sincronização em andamento." }; syncInProgress = true;
-    try { await execFileAsync("git", ["add", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); try { await execFileAsync("git", ["diff", "--cached", "--quiet", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); return { ok: true, message: "O banco já estava sincronizado com o GitHub." }; } catch { await execFileAsync("git", ["commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 }); await execFileAsync("git", ["push", "origin", "main"], { cwd: repositoryRoot, timeout: 60000 }); return { ok: true, message: "Banco salvo e sincronizado com o GitHub." }; } } catch (error) { console.error("Sincronização falhou:", error); return { ok: false, message: "O banco foi salvo neste computador, mas não foi possível sincronizá-lo com o GitHub agora." }; } finally { syncInProgress = false; }
+    if (syncInProgress) return { ok: false, message: "Já existe uma sincronização em andamento." };
+    syncInProgress = true;
+    try {
+      await execFileAsync("git", ["add", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 });
+      let stagedChanges = true;
+      try { await execFileAsync("git", ["diff", "--cached", "--quiet", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); stagedChanges = false; } catch { /* há dados novos para commit */ }
+      if (stagedChanges) await execFileAsync("git", ["commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 });
+      await execFileAsync("git", ["fetch", "origin", "main"], { cwd: repositoryRoot, timeout: 60000 });
+      let localCommit = (await execFileAsync("git", ["rev-parse", "HEAD"], { cwd: repositoryRoot, timeout: 30000 })).stdout.trim();
+      let remoteCommit = (await execFileAsync("git", ["rev-parse", "origin/main"], { cwd: repositoryRoot, timeout: 30000 })).stdout.trim();
+      let uploaded = false;
+      if (localCommit !== remoteCommit) {
+        try { await execFileAsync("git", ["merge-base", "--is-ancestor", "origin/main", "HEAD"], { cwd: repositoryRoot, timeout: 30000 }); }
+        catch { await execFileAsync("git", ["pull", "--rebase", "--autostash", "origin", "main"], { cwd: repositoryRoot, timeout: 120000 }); }
+        await execFileAsync("git", ["push", "origin", "main"], { cwd: repositoryRoot, timeout: 120000 });
+        uploaded = true;
+        localCommit = (await execFileAsync("git", ["rev-parse", "HEAD"], { cwd: repositoryRoot, timeout: 30000 })).stdout.trim();
+        remoteCommit = (await execFileAsync("git", ["ls-remote", "origin", "refs/heads/main"], { cwd: repositoryRoot, timeout: 60000 })).stdout.trim().split(/\s+/)[0];
+      }
+      if (localCommit !== remoteCommit) return { ok: false, message: "O banco foi salvo localmente, mas a confirmação do GitHub não coincidiu com o commit deste computador." };
+      return { ok: true, message: stagedChanges || uploaded ? "Banco salvo e sincronizado com o GitHub." : "O banco já estava sincronizado com o GitHub." };
+    } catch (error) {
+      const detail = error as { stderr?: string; message?: string };
+      const reason = String(detail.stderr ?? detail.message ?? "erro desconhecido").trim().split("\n").slice(-1)[0];
+      console.error("Sincronização falhou:", error);
+      return { ok: false, message: `O banco foi salvo localmente, mas não subiu para o GitHub: ${reason}` };
+    } finally { syncInProgress = false; }
   };
 
   const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup(); writeDatabaseViews(readDatabase());
