@@ -79,7 +79,7 @@ async function startServer() {
       await execFileAsync("git", ["add", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 });
       let stagedChanges = true;
       try { await execFileAsync("git", ["diff", "--cached", "--quiet", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); stagedChanges = false; } catch { /* há dados novos para commit */ }
-      if (stagedChanges) await execFileAsync("git", ["commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 });
+      if (stagedChanges) await execFileAsync("git", ["-c", "user.name=Aventura das Letras", "-c", "user.email=aventura-das-letras@local.invalid", "commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 });
       await execFileAsync("git", ["fetch", "origin", "main"], { cwd: repositoryRoot, timeout: 60000 });
       let localCommit = (await execFileAsync("git", ["rev-parse", "HEAD"], { cwd: repositoryRoot, timeout: 30000 })).stdout.trim();
       let remoteCommit = (await execFileAsync("git", ["rev-parse", "origin/main"], { cwd: repositoryRoot, timeout: 30000 })).stdout.trim();
