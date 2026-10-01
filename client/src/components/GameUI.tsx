@@ -295,7 +295,7 @@ function Placement({ state, controller }: Props) {
   const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
   useFeedbackNarration(state.feedback, audioAvailable);
   usePlacementResultNarration(state.placementResults, audioAvailable);
-  const attemptLabel = state.placementAttempts === 0 ? "1ª tentativa" : "2ª tentativa";
+  const attemptLabel = "1ª tentativa";
   if (!question) return null;
   return (
     <main className="single-game-page">
@@ -306,7 +306,7 @@ function Placement({ state, controller }: Props) {
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
         <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2><div className="placement-audio-actions">{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button placement-audio" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}</div></div>
         <FigureIllustration question={question} placement />
-        <p className="placement-attempt-label">{attemptLabel} · você pode tentar duas vezes</p>
+        <p className="placement-attempt-label">{attemptLabel} · esta resposta é usada apenas para o nivelamento</p>
         {question.kind === "draw" ? <DrawingPad disabled={Boolean(state.feedback)} onSend={(drawing) => controller.submitPlacement("Desenho enviado", drawing)} /> : question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
           {question.options?.map((option) => <button key={option} className="answer-tile" onClick={() => controller.submitPlacement(option)}>{option}</button>)}
         </div>}
@@ -344,7 +344,7 @@ function PlacementResult({ state, controller }: Props) {
         <article><strong>{evaluatedScore}/{total}</strong><span>desempenho considerado</span></article>
       </div>
       <div className="placement-level-note" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}><span>{world.icon}</span><div><small>NÍVEL RECOMENDADO</small><strong>{world.name}</strong><p>{world.theme}</p></div></div>
-      <section className="placement-results-list"><div className="table-head"><div><p className="eyebrow">Como foi o teste?</p><h2>Resposta por resposta</h2></div><span>{retries ? `${retries} questão(ões) refeita(s)` : "Todas na primeira tentativa"}</span></div>{state.placementResults.map((result, index) => <div className="placement-result-row" key={`${result.questionId}-${index}`}><span className={result.correct ? "result-check correct" : "result-check retry"}>{result.correct ? <Check size={17} /> : <X size={17} />}</span><p><strong>{index + 1}. {result.question}</strong><small>{result.attempts === 1 ? "1 tentativa" : `${result.attempts} tentativas`}</small></p><b>{result.correct ? "ACERTO" : "COM DICA"}</b></div>)}</section>
+      <section className="placement-results-list"><div className="table-head"><div><p className="eyebrow">Como foi o teste?</p><h2>Resposta por resposta</h2></div><span>{retries ? `${retries} questão(ões) refeita(s)` : "Todas na primeira tentativa"}</span></div>{state.placementResults.map((result, index) => <div className="placement-result-row" key={`${result.questionId}-${index}`}><span className={result.correct ? "result-check correct" : "result-check retry"}>{result.correct ? <Check size={17} /> : <X size={17} />}</span><p><strong>{index + 1}. {result.question}</strong><small>{result.attempts === 1 ? "1 tentativa" : `${result.attempts} tentativas`}</small></p><b>{result.correct ? "ACERTO" : "ERRO"}</b></div>)}</section>
       <button className="primary-action" onClick={() => controller.openMapFromPlacement()}>Abrir meu livro-mapa <ChevronRight size={22} /></button>
     </section>
   </main>;
@@ -417,8 +417,8 @@ function Lesson({ state, controller }: Props) {
         <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
-        <QuestionInteraction question={question} disabled={Boolean(state.feedback)} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
-        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p><button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button></div>}
+        <QuestionInteraction question={question} disabled={Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
+        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
       </section>
     </section>
   </main>;

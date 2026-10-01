@@ -466,13 +466,6 @@ export class GameController {
     const attempts = this.state.placementAttempts + 1;
     const correct = question.kind === "draw" ? Boolean(drawing) : answer === question.answer;
     if (question.kind === "draw" && !drawing) return;
-    if (!correct && attempts < 2) {
-      this.state.placementAttempts = attempts;
-      this.state.feedback = { tone: "hint", text: `${positiveHints[Math.floor(Math.random() * positiveHints.length)]} Você pode tentar esta questão mais uma vez.` };
-      this.emit();
-      return;
-    }
-
     const result: PlacementResult = {
       questionId: question.id,
       question: question.displayPrompt ?? question.prompt,
@@ -554,7 +547,7 @@ export class GameController {
 
   answer(value: string, drawing?: string) {
     const question = this.currentQuestion();
-    if (!question || this.state.feedback) return;
+    if (!question || (this.state.feedback && !(this.state.feedback.tone === "hint" && this.state.attempts === 1))) return;
     const correct = question.kind === "draw" ? Boolean(drawing) : value === question.answer;
     const attempts = this.state.attempts + 1;
     const usedHint = attempts > 1;
