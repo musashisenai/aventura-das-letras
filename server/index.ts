@@ -3,12 +3,15 @@ import { createServer } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 type StudentRecord = Record<string, unknown> & { id: string; profile?: { name?: string; placementCompleted?: boolean } };
 type ClassroomDatabase = { students: Record<string, StudentRecord>; settings: Record<string, string> };
+const execFileAsync = promisify(execFile);
 
 async function startServer() {
   const app = express();
@@ -16,6 +19,7 @@ async function startServer() {
   const DEFAULT_TEACHER_PASSWORD = "7391846205";
   const LEGACY_TEACHER_PASSWORD = "professor";
   const databaseFile = path.resolve(__dirname, "..", "database", "classroom.json");
+  const repositoryRoot = path.resolve(__dirname, "..");
   const legacyStudentsFile = path.resolve(__dirname, "..", ".local-data", "students.json");
   const legacyTeacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
   const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
@@ -70,6 +74,25 @@ async function startServer() {
     }
     if (changed) writeDatabase(database);
   };
+  let syncInProgress = false;
+  const syncDatabaseToGit = async () => {
+    if (syncInProgress) return { ok: false, message: "Já existe uma sincronização em andamento." };
+    syncInProgress = true;
+    try {
+      await execFileAsync("git", ["add", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 });
+      try {
+        await execFileAsync("git", ["diff", "--cached", "--quiet", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 });
+        return { ok: true, message: "O banco já estava sincronizado com o GitHub." };
+      } catch {
+        await execFileAsync("git", ["commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 });
+        await execFileAsync("git", ["push", "origin", "main"], { cwd: repositoryRoot, timeout: 60000 });
+        return { ok: true, message: "Banco salvo e sincronizado com o GitHub." };
+      }
+    } catch (error) {
+      console.error("Sincronização do banco com o GitHub falhou:", error);
+      return { ok: false, message: "O banco foi salvo neste computador, mas não foi possível sincronizá-lo com o GitHub agora. Verifique a internet e a autenticação do Git." };
+    } finally { syncInProgress = false; }
+  };
 
   const database = migrateLegacyData();
   if (!fs.existsSync(databaseFile)) writeDatabase(database);
@@ -88,6 +111,12 @@ async function startServer() {
     if (next.trim().length < 6) return res.status(400).json({ error: "A nova senha precisa ter pelo menos 6 caracteres." });
     database.settings.teacherPassword = next; writeDatabase(database); return res.json({ ok: true });
   });
+  app.post("/api/teacher/database/sync", asyncRoute(async (req, res) => {
+    const database = readDatabase();
+    if (String(req.body?.password ?? "") !== getTeacherPassword(database)) return res.status(401).json({ error: "Senha não reconhecida." });
+    const result = await syncDatabaseToGit();
+    return result.ok ? res.json(result) : res.status(503).json(result);
+  }));
   const publicStudent = (student: unknown) => { const { activeSession: _activeSession, ...safeStudent } = student as Record<string, unknown>; return safeStudent; };
   app.get("/api/students", asyncRoute(async (_req, res) => res.json(Object.values(readDatabase().students).map(publicStudent))));
   app.get("/api/students/:id", asyncRoute(async (req, res) => { const student = readDatabase().students[req.params.id]; return student ? res.json(publicStudent(student)) : res.status(404).json({ error: "Student not found" }); }));
@@ -142,6 +171,8 @@ async function startServer() {
   app.use(express.static(staticPath));
   app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
   const port = process.env.PORT || 3000;
+  const autosyncTimer = setInterval(() => { void syncDatabaseToGit(); }, 15 * 60 * 1000);
+  autosyncTimer.unref();
   server.listen(port, () => console.log(`Servidor do jogo rodando em http://localhost:${port}/`));
 }
 

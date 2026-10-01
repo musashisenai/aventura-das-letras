@@ -48,6 +48,8 @@ Se existir um `.local-data/students.json` de uma versão anterior, ele será mig
 
 Cada alteração do aluno é sincronizada com a API do servidor e salva em `database/classroom.json`. Além do nome, o registro guarda o perfil, fases concluídas, respostas, mundo atual e o estado momentâneo do jogo: tela, mundo, fase, ordem das perguntas, pergunta atual, tentativas, pontuação, feedback e progresso do teste inicial. Assim, ao continuar pelo nome, o aluno volta ao ponto salvo.
 
+O servidor tenta sincronizar o banco com o GitHub automaticamente a cada 15 minutos. O professor também pode entrar em **Meu perfil → Salvar banco no GitHub** para fazer a sincronização imediatamente. Se estiver sem internet, o arquivo continua sendo salvo localmente e a sincronização pode ser tentada depois.
+
 Alunos cadastrados diretamente no banco devem ter `profile.placementCompleted` como `false`. Na primeira entrada, o teste inicial será obrigatório. Se o aluno sair antes de concluir esse teste, na próxima entrada ele será obrigado a começar o teste novamente desde a primeira questão; o teste incompleto não libera o mapa.
 
 ### Senha da Área do Professor

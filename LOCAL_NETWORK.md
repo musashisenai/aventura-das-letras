@@ -27,6 +27,8 @@ Não é obrigatório abrir dois CMDs. Se quiser Hot Module Reload para desenvolv
 
 O progresso é salvo automaticamente: nome, fases, mundo, fase, pergunta atual, tentativas e o estado do teste inicial. Se um aluno criado no banco tiver `placementCompleted` como `false`, ele será direcionado obrigatoriamente ao teste inicial. Se sair antes de terminar, terá de refazer o teste desde o começo na próxima entrada.
 
+O servidor tenta enviar o banco ao GitHub automaticamente a cada 15 minutos. O professor também pode usar o botão **Salvar banco no GitHub** em **Meu perfil** para enviar imediatamente. A aula não depende dessa sincronização: sem internet, o arquivo continua sendo atualizado localmente.
+
 ## Acessar pelos computadores dos alunos
 
 1. No computador do professor, execute `ipconfig`.
