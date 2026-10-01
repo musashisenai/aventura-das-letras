@@ -61,6 +61,7 @@ export type AnswerLog = {
   question: string;
   answer: string;
   correct: boolean;
+  usedHint?: boolean;
   worldId: number;
   phase: number;
   kind?: "choice" | "order" | "draw";
@@ -110,6 +111,13 @@ export type GameState = {
 const STORAGE_KEY = "aventura-das-letras-v2";
 const LEGACY_STORAGE_KEY = "aventura-das-letras-v1";
 const positiveHints = ["Quase! Você está quase lá!", "Tente de novo, eu acredito em você!", "Vamos olhar com calma. A Lumi tem uma pista!"];
+const safeActivityHints = [
+  "Observe todas as opções com calma e compare os sons.",
+  "Pense no que a pergunta está pedindo e elimine a opção que não combina.",
+  "Olhe para a figura e preste atenção ao começo e ao final.",
+  "Fale as opções devagar e escolha a que combina melhor.",
+];
+const activityHint = () => safeActivityHints[Math.floor(Math.random() * safeActivityHints.length)];
 
 function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
@@ -549,9 +557,11 @@ export class GameController {
     if (!question || this.state.feedback) return;
     const correct = question.kind === "draw" ? Boolean(drawing) : value === question.answer;
     const attempts = this.state.attempts + 1;
+    const usedHint = attempts > 1;
+    const hint = usedHint ? activityHint() : undefined;
     this.state.answers = [
       ...this.state.answers,
-      { questionId: question.id, question: question.prompt, answer: value || "DESENHO ENVIADO", correct, worldId: this.state.activeWorld, phase: this.state.activePhase, kind: question.kind, options: question.options, correctAnswer: question.answer, hint: question.hint, visual: question.visual, drawing, at: new Date().toLocaleString("pt-BR") },
+      { questionId: question.id, question: question.prompt, answer: value || "DESENHO ENVIADO", correct, usedHint, worldId: this.state.activeWorld, phase: this.state.activePhase, kind: question.kind, options: question.options, correctAnswer: question.answer, hint, visual: question.visual, drawing, at: new Date().toLocaleString("pt-BR") },
     ].slice(-120);
 
     if (correct) {
@@ -559,10 +569,10 @@ export class GameController {
       this.state.feedback = { tone: "success", text: "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada." };
     } else if (attempts === 1) {
       this.state.attempts = attempts;
-      this.state.feedback = { tone: "hint", text: `Tente novamente, não desista! ${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${question.hint}` };
+      this.state.feedback = { tone: "hint", text: `Tente novamente, não desista! ${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${activityHint()}` };
     } else {
       this.state.attempts = attempts;
-      this.state.feedback = { tone: "continue", text: `Tente novamente, não desista! A Lumi guardou uma dica para você: ${question.hint} Vamos para a próxima descoberta!` };
+      this.state.feedback = { tone: "continue", text: `Tente novamente, não desista! A Lumi guardou uma dica para você: ${hint} Vamos para a próxima descoberta!` };
     }
     this.emit();
   }
