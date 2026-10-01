@@ -649,6 +649,7 @@ export class GameController {
   }
 
   openTeacher() {
+    if (this.state.profile) return;
     this.state.screen = "teacher";
     this.state.teacherAuthorized = false;
     this.emit();
