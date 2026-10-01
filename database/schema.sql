@@ -1,22 +1,32 @@
 # Banco de dados versionado do Aventura das Letras
 
-O banco usado pelo servidor está em `database/classroom.json`.
+O banco usado pelo servidor está em `database/classroom.json`. Ele não é SQL: é um JSON local, versionado e legível diretamente no VS Code.
 
-Ele possui esta estrutura:
+Cada aluno fica organizado em três partes principais:
 
 ```json
 {
   "students": {
     "id-do-aluno": {
       "id": "id-do-aluno",
-      "profile": {
-        "name": "Nome do aluno",
-        "placementCompleted": false
+      "name": "Nome do aluno",
+      "status": {
+        "placementCompleted": false,
+        "currentWorld": 0,
+        "recommendedWorld": 0,
+        "activeScreen": "placement",
+        "activeWorld": 0,
+        "activePhase": 0,
+        "questionIndex": 0
       },
-      "completions": {},
-      "worldApprovals": {},
-      "answers": [],
-      "gameState": {}
+      "save": {
+        "profile": { "name": "Nome do aluno", "...": "dados do perfil" },
+        "completions": {},
+        "worldApprovals": {},
+        "answers": [],
+        "gameState": { "...": "posição exata da partida" }
+      },
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     }
   },
   "settings": {
@@ -25,4 +35,9 @@ Ele possui esta estrutura:
 }
 ```
 
-O Node.js lê e grava este arquivo automaticamente com escrita temporária e substituição atômica. Não é necessário instalar banco de dados, extensão ou ferramenta adicional.
+- `name`: identificação simples do aluno.
+- `status`: resumo atual, fácil de consultar no VS Code.
+- `save`: perfil, respostas, fases e estado exato para continuar.
+- `activeSession`: quando existir, é interno e impede dois acessos simultâneos ao mesmo perfil.
+
+O Node.js lê e grava este arquivo automaticamente com escrita temporária e substituição atômica. Não é necessário instalar SQL, SQLite, extensão ou ferramenta adicional.
