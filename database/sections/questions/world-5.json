@@ -1,0 +1,885 @@
+{
+  "world": {
+    "id": 5,
+    "name": "Mundo Alfabético",
+    "shortName": "Alfabético",
+    "theme": "Céu das frases leitoras"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-a-flor-0",
+        "kind": "order",
+        "prompt": "QUAL PALAVRA ESTA FLOR REPRESENTA?",
+        "options": [
+          "R",
+          "F",
+          "O",
+          "L"
+        ],
+        "answer": "FLOR",
+        "hint": "OLHE PARA A FLOR E EXPERIMENTE AS LETRAS.",
+        "visual": "🌸",
+        "audioText": "FLOR",
+        "targetWord": "FLOR"
+      },
+      {
+        "id": "fase-1-a-frase-1",
+        "kind": "choice",
+        "prompt": "Qual frase está escrita do jeito certo?",
+        "options": [
+          "O gato dorme.",
+          "gato O dorme.",
+          "Dorme gato o."
+        ],
+        "answer": "O gato dorme.",
+        "hint": "Frases começam com letra maiúscula e terminam com ponto."
+      },
+      {
+        "id": "fase-1-a-rima-2",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com GATO?",
+        "options": [
+          "PATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "PATO",
+        "hint": "As duas terminam com o som ATO.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-1-a-leitura-3",
+        "kind": "choice",
+        "prompt": "Complete a frase: O ___ comeu a banana.",
+        "options": [
+          "macaco",
+          "janela",
+          "livro"
+        ],
+        "answer": "macaco",
+        "hint": "Quem pode comer uma banana?"
+      },
+      {
+        "id": "fase-1-a-problema-4",
+        "kind": "choice",
+        "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Tire duas maçãs de cinco."
+      },
+      {
+        "id": "fase-1-a-gato-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "A",
+          "O",
+          "G"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-1-a-silabas-6",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BOR-BO-LE-TA?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Bata quatro palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BORBOLETA"
+      },
+      {
+        "id": "fase-1-a-secreta-7",
+        "kind": "choice",
+        "prompt": "A palavra secreta é _OLA, uma coisa redonda. Qual letra falta?",
+        "options": [
+          "B",
+          "M",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "BOLA começa com B.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-a-leitura-0",
+        "kind": "choice",
+        "prompt": "Complete a frase: O ___ comeu a banana.",
+        "options": [
+          "macaco",
+          "janela",
+          "livro"
+        ],
+        "answer": "macaco",
+        "hint": "Quem pode comer uma banana?"
+      },
+      {
+        "id": "fase-2-a-problema-1",
+        "kind": "choice",
+        "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Tire duas maçãs de cinco."
+      },
+      {
+        "id": "fase-2-a-gato-2",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "A",
+          "O",
+          "G"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-2-a-silabas-3",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BOR-BO-LE-TA?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Bata quatro palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BORBOLETA"
+      },
+      {
+        "id": "fase-2-a-secreta-4",
+        "kind": "choice",
+        "prompt": "A palavra secreta é _OLA, uma coisa redonda. Qual letra falta?",
+        "options": [
+          "B",
+          "M",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "BOLA começa com B.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-2-a-alfabeto-5",
+        "kind": "choice",
+        "prompt": "Qual letra vem antes de M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "L",
+        "hint": "Fale: K, L, M."
+      },
+      {
+        "id": "fase-2-a-frase-ponto-6",
+        "kind": "choice",
+        "prompt": "Qual frase precisa de ponto no final?",
+        "options": [
+          "Eu li um livro",
+          "Qual é seu nome?",
+          "Que legal!"
+        ],
+        "answer": "Eu li um livro",
+        "hint": "Uma frase que conta algo termina com ponto."
+      },
+      {
+        "id": "fase-2-a-mesa-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "S",
+          "A",
+          "M",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-a-silabas-0",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BOR-BO-LE-TA?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Bata quatro palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BORBOLETA"
+      },
+      {
+        "id": "fase-3-a-secreta-1",
+        "kind": "choice",
+        "prompt": "A palavra secreta é _OLA, uma coisa redonda. Qual letra falta?",
+        "options": [
+          "B",
+          "M",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "BOLA começa com B.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-3-a-alfabeto-2",
+        "kind": "choice",
+        "prompt": "Qual letra vem antes de M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "L",
+        "hint": "Fale: K, L, M."
+      },
+      {
+        "id": "fase-3-a-frase-ponto-3",
+        "kind": "choice",
+        "prompt": "Qual frase precisa de ponto no final?",
+        "options": [
+          "Eu li um livro",
+          "Qual é seu nome?",
+          "Que legal!"
+        ],
+        "answer": "Eu li um livro",
+        "hint": "Uma frase que conta algo termina com ponto."
+      },
+      {
+        "id": "fase-3-a-mesa-4",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "S",
+          "A",
+          "M",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-3-a-rima-lua-5",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com LUA?",
+        "options": [
+          "RUA",
+          "SOL",
+          "PÉ"
+        ],
+        "answer": "RUA",
+        "hint": "LUA e RUA terminam com UA.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "LUA"
+      },
+      {
+        "id": "fase-3-a-subtracao-6",
+        "kind": "choice",
+        "prompt": "Quanto é 9 menos 5?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Dê cinco pulinhos para trás a partir do nove."
+      },
+      {
+        "id": "fase-3-a-final-7",
+        "kind": "choice",
+        "prompt": "Qual letra termina a palavra FLOR?",
+        "options": [
+          "F",
+          "R",
+          "O"
+        ],
+        "answer": "R",
+        "hint": "Olhe para a última letra da palavra.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "FLOR"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-a-frase-ponto-0",
+        "kind": "choice",
+        "prompt": "Qual frase precisa de ponto no final?",
+        "options": [
+          "Eu li um livro",
+          "Qual é seu nome?",
+          "Que legal!"
+        ],
+        "answer": "Eu li um livro",
+        "hint": "Uma frase que conta algo termina com ponto."
+      },
+      {
+        "id": "fase-4-a-mesa-1",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "S",
+          "A",
+          "M",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-4-a-rima-lua-2",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com LUA?",
+        "options": [
+          "RUA",
+          "SOL",
+          "PÉ"
+        ],
+        "answer": "RUA",
+        "hint": "LUA e RUA terminam com UA.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "LUA"
+      },
+      {
+        "id": "fase-4-a-subtracao-3",
+        "kind": "choice",
+        "prompt": "Quanto é 9 menos 5?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Dê cinco pulinhos para trás a partir do nove."
+      },
+      {
+        "id": "fase-4-a-final-4",
+        "kind": "choice",
+        "prompt": "Qual letra termina a palavra FLOR?",
+        "options": [
+          "F",
+          "R",
+          "O"
+        ],
+        "answer": "R",
+        "hint": "Olhe para a última letra da palavra.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "FLOR"
+      },
+      {
+        "id": "fase-4-a-frase-leitura-5",
+        "kind": "choice",
+        "prompt": "Quem dorme na frase “O gato dorme”?",
+        "options": [
+          "O gato",
+          "O sono",
+          "A cama"
+        ],
+        "answer": "O gato",
+        "hint": "Procure quem faz a ação de dormir."
+      },
+      {
+        "id": "fase-4-a-livro-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "R",
+          "L",
+          "I",
+          "V",
+          "O"
+        ],
+        "answer": "LIVRO",
+        "hint": "OLHE PARA O OBJETO E EXPERIMENTE AS LETRAS.",
+        "visual": "📘",
+        "audioText": "LIVRO",
+        "targetWord": "LIVRO"
+      },
+      {
+        "id": "fase-4-a-maior-palavra-7",
+        "kind": "choice",
+        "prompt": "Qual palavra tem mais letras?",
+        "options": [
+          "SOL",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-a-subtracao-0",
+        "kind": "choice",
+        "prompt": "Quanto é 9 menos 5?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Dê cinco pulinhos para trás a partir do nove."
+      },
+      {
+        "id": "fase-5-a-final-1",
+        "kind": "choice",
+        "prompt": "Qual letra termina a palavra FLOR?",
+        "options": [
+          "F",
+          "R",
+          "O"
+        ],
+        "answer": "R",
+        "hint": "Olhe para a última letra da palavra.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "FLOR"
+      },
+      {
+        "id": "fase-5-a-frase-leitura-2",
+        "kind": "choice",
+        "prompt": "Quem dorme na frase “O gato dorme”?",
+        "options": [
+          "O gato",
+          "O sono",
+          "A cama"
+        ],
+        "answer": "O gato",
+        "hint": "Procure quem faz a ação de dormir."
+      },
+      {
+        "id": "fase-5-a-livro-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "R",
+          "L",
+          "I",
+          "V",
+          "O"
+        ],
+        "answer": "LIVRO",
+        "hint": "OLHE PARA O OBJETO E EXPERIMENTE AS LETRAS.",
+        "visual": "📘",
+        "audioText": "LIVRO",
+        "targetWord": "LIVRO"
+      },
+      {
+        "id": "fase-5-a-maior-palavra-4",
+        "kind": "choice",
+        "prompt": "Qual palavra tem mais letras?",
+        "options": [
+          "SOL",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "fase-5-a-continua-5",
+        "kind": "choice",
+        "prompt": "Complete: A menina ___ um livro.",
+        "options": [
+          "lê",
+          "sol",
+          "casa"
+        ],
+        "answer": "lê",
+        "hint": "Uma ação cabe na frase."
+      },
+      {
+        "id": "fase-5-a-soma-6",
+        "kind": "choice",
+        "prompt": "Duas estrelas e quatro estrelas são quantas?",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "hint": "Junte dois e quatro."
+      },
+      {
+        "id": "fase-5-a-ordem-7",
+        "kind": "choice",
+        "prompt": "Qual frase está na ordem certa?",
+        "options": [
+          "A bola rola.",
+          "Rola a bola.",
+          "Bola a rola."
+        ],
+        "answer": "A bola rola.",
+        "hint": "Procure quem faz a ação primeiro."
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-a-livro-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "R",
+          "L",
+          "I",
+          "V",
+          "O"
+        ],
+        "answer": "LIVRO",
+        "hint": "OLHE PARA O OBJETO E EXPERIMENTE AS LETRAS.",
+        "visual": "📘",
+        "audioText": "LIVRO",
+        "targetWord": "LIVRO"
+      },
+      {
+        "id": "fase-6-a-maior-palavra-1",
+        "kind": "choice",
+        "prompt": "Qual palavra tem mais letras?",
+        "options": [
+          "SOL",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "fase-6-a-continua-2",
+        "kind": "choice",
+        "prompt": "Complete: A menina ___ um livro.",
+        "options": [
+          "lê",
+          "sol",
+          "casa"
+        ],
+        "answer": "lê",
+        "hint": "Uma ação cabe na frase."
+      },
+      {
+        "id": "fase-6-a-soma-3",
+        "kind": "choice",
+        "prompt": "Duas estrelas e quatro estrelas são quantas?",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "hint": "Junte dois e quatro."
+      },
+      {
+        "id": "fase-6-a-ordem-4",
+        "kind": "choice",
+        "prompt": "Qual frase está na ordem certa?",
+        "options": [
+          "A bola rola.",
+          "Rola a bola.",
+          "Bola a rola."
+        ],
+        "answer": "A bola rola.",
+        "hint": "Procure quem faz a ação primeiro."
+      },
+      {
+        "id": "fase-6-a-flor-5",
+        "kind": "order",
+        "prompt": "QUAL PALAVRA ESTA FLOR REPRESENTA?",
+        "options": [
+          "R",
+          "F",
+          "O",
+          "L"
+        ],
+        "answer": "FLOR",
+        "hint": "OLHE PARA A FLOR E EXPERIMENTE AS LETRAS.",
+        "visual": "🌸",
+        "audioText": "FLOR",
+        "targetWord": "FLOR"
+      },
+      {
+        "id": "fase-6-a-frase-6",
+        "kind": "choice",
+        "prompt": "Qual frase está escrita do jeito certo?",
+        "options": [
+          "O gato dorme.",
+          "gato O dorme.",
+          "Dorme gato o."
+        ],
+        "answer": "O gato dorme.",
+        "hint": "Frases começam com letra maiúscula e terminam com ponto."
+      },
+      {
+        "id": "fase-6-a-rima-7",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com GATO?",
+        "options": [
+          "PATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "PATO",
+        "hint": "As duas terminam com o som ATO.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-a-soma-0",
+        "kind": "choice",
+        "prompt": "Duas estrelas e quatro estrelas são quantas?",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "6",
+        "hint": "Junte dois e quatro."
+      },
+      {
+        "id": "fase-7-a-ordem-1",
+        "kind": "choice",
+        "prompt": "Qual frase está na ordem certa?",
+        "options": [
+          "A bola rola.",
+          "Rola a bola.",
+          "Bola a rola."
+        ],
+        "answer": "A bola rola.",
+        "hint": "Procure quem faz a ação primeiro."
+      },
+      {
+        "id": "fase-7-a-flor-2",
+        "kind": "order",
+        "prompt": "QUAL PALAVRA ESTA FLOR REPRESENTA?",
+        "options": [
+          "R",
+          "F",
+          "O",
+          "L"
+        ],
+        "answer": "FLOR",
+        "hint": "OLHE PARA A FLOR E EXPERIMENTE AS LETRAS.",
+        "visual": "🌸",
+        "audioText": "FLOR",
+        "targetWord": "FLOR"
+      },
+      {
+        "id": "fase-7-a-frase-3",
+        "kind": "choice",
+        "prompt": "Qual frase está escrita do jeito certo?",
+        "options": [
+          "O gato dorme.",
+          "gato O dorme.",
+          "Dorme gato o."
+        ],
+        "answer": "O gato dorme.",
+        "hint": "Frases começam com letra maiúscula e terminam com ponto."
+      },
+      {
+        "id": "fase-7-a-rima-4",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com GATO?",
+        "options": [
+          "PATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "PATO",
+        "hint": "As duas terminam com o som ATO.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-7-a-leitura-5",
+        "kind": "choice",
+        "prompt": "Complete a frase: O ___ comeu a banana.",
+        "options": [
+          "macaco",
+          "janela",
+          "livro"
+        ],
+        "answer": "macaco",
+        "hint": "Quem pode comer uma banana?"
+      },
+      {
+        "id": "fase-7-a-problema-6",
+        "kind": "choice",
+        "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Tire duas maçãs de cinco."
+      },
+      {
+        "id": "fase-7-a-gato-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "A",
+          "O",
+          "G"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-a-frase-0",
+        "kind": "choice",
+        "prompt": "Qual frase está escrita do jeito certo?",
+        "options": [
+          "O gato dorme.",
+          "gato O dorme.",
+          "Dorme gato o."
+        ],
+        "answer": "O gato dorme.",
+        "hint": "Frases começam com letra maiúscula e terminam com ponto."
+      },
+      {
+        "id": "desafio-a-rima-1",
+        "kind": "choice",
+        "prompt": "Qual palavra rima com GATO?",
+        "options": [
+          "PATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "PATO",
+        "hint": "As duas terminam com o som ATO.",
+        "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "desafio-a-leitura-2",
+        "kind": "choice",
+        "prompt": "Complete a frase: O ___ comeu a banana.",
+        "options": [
+          "macaco",
+          "janela",
+          "livro"
+        ],
+        "answer": "macaco",
+        "hint": "Quem pode comer uma banana?"
+      },
+      {
+        "id": "desafio-a-problema-3",
+        "kind": "choice",
+        "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Tire duas maçãs de cinco."
+      },
+      {
+        "id": "desafio-a-gato-4",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "A",
+          "O",
+          "G"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "desafio-a-silabas-5",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BOR-BO-LE-TA?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Bata quatro palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BORBOLETA"
+      },
+      {
+        "id": "desafio-a-secreta-6",
+        "kind": "choice",
+        "prompt": "A palavra secreta é _OLA, uma coisa redonda. Qual letra falta?",
+        "options": [
+          "B",
+          "M",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "BOLA começa com B.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-a-alfabeto-7",
+        "kind": "choice",
+        "prompt": "Qual letra vem antes de M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "L",
+        "hint": "Fale: K, L, M."
+      }
+    ]
+  }
+}

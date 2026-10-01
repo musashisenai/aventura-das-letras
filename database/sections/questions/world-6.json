@@ -1,0 +1,799 @@
+{
+  "world": {
+    "id": 6,
+    "name": "Mundo Ortográfico",
+    "shortName": "Ortográfico",
+    "theme": "Biblioteca dos sons especiais"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-o-ch-0",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CH?",
+        "options": [
+          "CHAVE",
+          "XÍCARA",
+          "SAPO"
+        ],
+        "answer": "CHAVE",
+        "hint": "Faça o som de CH em chave."
+      },
+      {
+        "id": "fase-1-o-rr-1",
+        "kind": "choice",
+        "prompt": "Qual palavra tem som forte de R no meio?",
+        "options": [
+          "RATO",
+          "CARRO",
+          "BOLA"
+        ],
+        "answer": "CARRO",
+        "hint": "No meio de CARRO aparecem dois erres."
+      },
+      {
+        "id": "fase-1-o-ss-2",
+        "kind": "choice",
+        "prompt": "Complete: PA__ARO",
+        "options": [
+          "SS",
+          "S",
+          "Ç"
+        ],
+        "answer": "SS",
+        "hint": "A palavra é PÁSSARO."
+      },
+      {
+        "id": "fase-1-o-acento-avo-3",
+        "kind": "choice",
+        "prompt": "Qual palavra fala da avó?",
+        "options": [
+          "avó",
+          "avô",
+          "avo"
+        ],
+        "answer": "avó",
+        "hint": "O acento mostra o som final de vó."
+      },
+      {
+        "id": "fase-1-o-c-cedilha-4",
+        "kind": "choice",
+        "prompt": "Complete: _ORAÇÃO",
+        "options": [
+          "C",
+          "Ç",
+          "S"
+        ],
+        "answer": "Ç",
+        "hint": "A palavra começa com o som de coração."
+      },
+      {
+        "id": "fase-1-o-correcao-5",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "CASA",
+          "CAZA",
+          "CASSA"
+        ],
+        "answer": "CASA",
+        "hint": "Essa palavra é escrita com S."
+      },
+      {
+        "id": "fase-1-o-ninho-6",
+        "kind": "choice",
+        "prompt": "Complete: NI___O",
+        "options": [
+          "NH",
+          "LH",
+          "CH"
+        ],
+        "answer": "NH",
+        "hint": "A casa dos passarinhos é NINHO."
+      },
+      {
+        "id": "fase-1-o-m-final-7",
+        "kind": "choice",
+        "prompt": "Qual palavra termina com M?",
+        "options": [
+          "TAMBÉM",
+          "TAMBEN",
+          "TABEM"
+        ],
+        "answer": "TAMBÉM",
+        "hint": "No fim, ouvimos o som nasal de M."
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-o-acento-avo-0",
+        "kind": "choice",
+        "prompt": "Qual palavra fala da avó?",
+        "options": [
+          "avó",
+          "avô",
+          "avo"
+        ],
+        "answer": "avó",
+        "hint": "O acento mostra o som final de vó."
+      },
+      {
+        "id": "fase-2-o-c-cedilha-1",
+        "kind": "choice",
+        "prompt": "Complete: _ORAÇÃO",
+        "options": [
+          "C",
+          "Ç",
+          "S"
+        ],
+        "answer": "Ç",
+        "hint": "A palavra começa com o som de coração."
+      },
+      {
+        "id": "fase-2-o-correcao-2",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "CASA",
+          "CAZA",
+          "CASSA"
+        ],
+        "answer": "CASA",
+        "hint": "Essa palavra é escrita com S."
+      },
+      {
+        "id": "fase-2-o-ninho-3",
+        "kind": "choice",
+        "prompt": "Complete: NI___O",
+        "options": [
+          "NH",
+          "LH",
+          "CH"
+        ],
+        "answer": "NH",
+        "hint": "A casa dos passarinhos é NINHO."
+      },
+      {
+        "id": "fase-2-o-m-final-4",
+        "kind": "choice",
+        "prompt": "Qual palavra termina com M?",
+        "options": [
+          "TAMBÉM",
+          "TAMBEN",
+          "TABEM"
+        ],
+        "answer": "TAMBÉM",
+        "hint": "No fim, ouvimos o som nasal de M."
+      },
+      {
+        "id": "fase-2-o-pergunta-5",
+        "kind": "choice",
+        "prompt": "Qual sinal termina uma pergunta?",
+        "options": [
+          ".",
+          "?",
+          "!"
+        ],
+        "answer": "?",
+        "hint": "Perguntas terminam com um sinal de gancho."
+      },
+      {
+        "id": "fase-2-o-texto-6",
+        "kind": "choice",
+        "prompt": "Qual frase deve vir primeiro em um bilhete?",
+        "options": [
+          "Olá, amiga!",
+          "Com carinho, Lia.",
+          "Até amanhã."
+        ],
+        "answer": "Olá, amiga!",
+        "hint": "Um bilhete costuma começar cumprimentando."
+      },
+      {
+        "id": "fase-2-o-problema-7",
+        "kind": "choice",
+        "prompt": "Cada livro custa 4 moedas. Com 10 moedas, quantos livros inteiros você compra?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Dois livros custam oito moedas."
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-o-ninho-0",
+        "kind": "choice",
+        "prompt": "Complete: NI___O",
+        "options": [
+          "NH",
+          "LH",
+          "CH"
+        ],
+        "answer": "NH",
+        "hint": "A casa dos passarinhos é NINHO."
+      },
+      {
+        "id": "fase-3-o-m-final-1",
+        "kind": "choice",
+        "prompt": "Qual palavra termina com M?",
+        "options": [
+          "TAMBÉM",
+          "TAMBEN",
+          "TABEM"
+        ],
+        "answer": "TAMBÉM",
+        "hint": "No fim, ouvimos o som nasal de M."
+      },
+      {
+        "id": "fase-3-o-pergunta-2",
+        "kind": "choice",
+        "prompt": "Qual sinal termina uma pergunta?",
+        "options": [
+          ".",
+          "?",
+          "!"
+        ],
+        "answer": "?",
+        "hint": "Perguntas terminam com um sinal de gancho."
+      },
+      {
+        "id": "fase-3-o-texto-3",
+        "kind": "choice",
+        "prompt": "Qual frase deve vir primeiro em um bilhete?",
+        "options": [
+          "Olá, amiga!",
+          "Com carinho, Lia.",
+          "Até amanhã."
+        ],
+        "answer": "Olá, amiga!",
+        "hint": "Um bilhete costuma começar cumprimentando."
+      },
+      {
+        "id": "fase-3-o-problema-4",
+        "kind": "choice",
+        "prompt": "Cada livro custa 4 moedas. Com 10 moedas, quantos livros inteiros você compra?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Dois livros custam oito moedas."
+      },
+      {
+        "id": "fase-3-o-r-5",
+        "kind": "choice",
+        "prompt": "Complete: CA__O",
+        "options": [
+          "R",
+          "RR",
+          "S"
+        ],
+        "answer": "RR",
+        "hint": "A palavra CARRO tem som forte de R no meio."
+      },
+      {
+        "id": "fase-3-o-s-6",
+        "kind": "choice",
+        "prompt": "Qual palavra usa SS?",
+        "options": [
+          "PASSO",
+          "PASO",
+          "PAÇO"
+        ],
+        "answer": "PASSO",
+        "hint": "O som de S forte no meio pode usar SS."
+      },
+      {
+        "id": "fase-3-o-acentuacao-7",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "mamãe",
+          "mamae",
+          "mãmae"
+        ],
+        "answer": "mamãe",
+        "hint": "O til e o acento mostram o som da palavra."
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-o-texto-0",
+        "kind": "choice",
+        "prompt": "Qual frase deve vir primeiro em um bilhete?",
+        "options": [
+          "Olá, amiga!",
+          "Com carinho, Lia.",
+          "Até amanhã."
+        ],
+        "answer": "Olá, amiga!",
+        "hint": "Um bilhete costuma começar cumprimentando."
+      },
+      {
+        "id": "fase-4-o-problema-1",
+        "kind": "choice",
+        "prompt": "Cada livro custa 4 moedas. Com 10 moedas, quantos livros inteiros você compra?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Dois livros custam oito moedas."
+      },
+      {
+        "id": "fase-4-o-r-2",
+        "kind": "choice",
+        "prompt": "Complete: CA__O",
+        "options": [
+          "R",
+          "RR",
+          "S"
+        ],
+        "answer": "RR",
+        "hint": "A palavra CARRO tem som forte de R no meio."
+      },
+      {
+        "id": "fase-4-o-s-3",
+        "kind": "choice",
+        "prompt": "Qual palavra usa SS?",
+        "options": [
+          "PASSO",
+          "PASO",
+          "PAÇO"
+        ],
+        "answer": "PASSO",
+        "hint": "O som de S forte no meio pode usar SS."
+      },
+      {
+        "id": "fase-4-o-acentuacao-4",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "mamãe",
+          "mamae",
+          "mãmae"
+        ],
+        "answer": "mamãe",
+        "hint": "O til e o acento mostram o som da palavra."
+      },
+      {
+        "id": "fase-4-o-cacador-5",
+        "kind": "choice",
+        "prompt": "Encontre a palavra escrita com erro.",
+        "options": [
+          "BOLA",
+          "GATO",
+          "CAXA"
+        ],
+        "answer": "CAXA",
+        "hint": "A palavra correta é CAIXA."
+      },
+      {
+        "id": "fase-4-o-familia-6",
+        "kind": "choice",
+        "prompt": "Qual palavra é da família de CASA?",
+        "options": [
+          "casinha",
+          "cavalo",
+          "caneta"
+        ],
+        "answer": "casinha",
+        "hint": "CASA e CASINHA têm a mesma raiz."
+      },
+      {
+        "id": "fase-4-o-frase-7",
+        "kind": "order",
+        "prompt": "ORGANIZE AS PALAVRAS PARA CRIAR UMA FRASE QUE FAÇA SENTIDO.",
+        "options": [
+          "livro.",
+          "um",
+          "Eu",
+          "li"
+        ],
+        "answer": "Eu li um livro.",
+        "hint": "PENSE EM QUEM FEZ A AÇÃO E NO QUE FOI LIDO."
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-o-s-0",
+        "kind": "choice",
+        "prompt": "Qual palavra usa SS?",
+        "options": [
+          "PASSO",
+          "PASO",
+          "PAÇO"
+        ],
+        "answer": "PASSO",
+        "hint": "O som de S forte no meio pode usar SS."
+      },
+      {
+        "id": "fase-5-o-acentuacao-1",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "mamãe",
+          "mamae",
+          "mãmae"
+        ],
+        "answer": "mamãe",
+        "hint": "O til e o acento mostram o som da palavra."
+      },
+      {
+        "id": "fase-5-o-cacador-2",
+        "kind": "choice",
+        "prompt": "Encontre a palavra escrita com erro.",
+        "options": [
+          "BOLA",
+          "GATO",
+          "CAXA"
+        ],
+        "answer": "CAXA",
+        "hint": "A palavra correta é CAIXA."
+      },
+      {
+        "id": "fase-5-o-familia-3",
+        "kind": "choice",
+        "prompt": "Qual palavra é da família de CASA?",
+        "options": [
+          "casinha",
+          "cavalo",
+          "caneta"
+        ],
+        "answer": "casinha",
+        "hint": "CASA e CASINHA têm a mesma raiz."
+      },
+      {
+        "id": "fase-5-o-frase-4",
+        "kind": "order",
+        "prompt": "ORGANIZE AS PALAVRAS PARA CRIAR UMA FRASE QUE FAÇA SENTIDO.",
+        "options": [
+          "livro.",
+          "um",
+          "Eu",
+          "li"
+        ],
+        "answer": "Eu li um livro.",
+        "hint": "PENSE EM QUEM FEZ A AÇÃO E NO QUE FOI LIDO."
+      },
+      {
+        "id": "fase-5-o-pontuacao-5",
+        "kind": "choice",
+        "prompt": "Qual frase está pontuada corretamente?",
+        "options": [
+          "Que dia lindo!",
+          "Que dia lindo.",
+          "Que dia lindo?"
+        ],
+        "answer": "Que dia lindo!",
+        "hint": "Uma exclamação mostra entusiasmo."
+      },
+      {
+        "id": "fase-5-o-c-cedilha-2-6",
+        "kind": "choice",
+        "prompt": "Qual palavra usa Ç?",
+        "options": [
+          "CORAÇÃO",
+          "CORASÃO",
+          "CORASAO"
+        ],
+        "answer": "CORAÇÃO",
+        "hint": "A cedilha faz o som de S antes de A."
+      },
+      {
+        "id": "fase-5-o-mensagem-7",
+        "kind": "choice",
+        "prompt": "Qual palavra está correta para uma mensagem?",
+        "options": [
+          "obrigado",
+          "obrigadu",
+          "obrigato"
+        ],
+        "answer": "obrigado",
+        "hint": "Leia com atenção o final da palavra."
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-o-familia-0",
+        "kind": "choice",
+        "prompt": "Qual palavra é da família de CASA?",
+        "options": [
+          "casinha",
+          "cavalo",
+          "caneta"
+        ],
+        "answer": "casinha",
+        "hint": "CASA e CASINHA têm a mesma raiz."
+      },
+      {
+        "id": "fase-6-o-frase-1",
+        "kind": "order",
+        "prompt": "ORGANIZE AS PALAVRAS PARA CRIAR UMA FRASE QUE FAÇA SENTIDO.",
+        "options": [
+          "livro.",
+          "um",
+          "Eu",
+          "li"
+        ],
+        "answer": "Eu li um livro.",
+        "hint": "PENSE EM QUEM FEZ A AÇÃO E NO QUE FOI LIDO."
+      },
+      {
+        "id": "fase-6-o-pontuacao-2",
+        "kind": "choice",
+        "prompt": "Qual frase está pontuada corretamente?",
+        "options": [
+          "Que dia lindo!",
+          "Que dia lindo.",
+          "Que dia lindo?"
+        ],
+        "answer": "Que dia lindo!",
+        "hint": "Uma exclamação mostra entusiasmo."
+      },
+      {
+        "id": "fase-6-o-c-cedilha-2-3",
+        "kind": "choice",
+        "prompt": "Qual palavra usa Ç?",
+        "options": [
+          "CORAÇÃO",
+          "CORASÃO",
+          "CORASAO"
+        ],
+        "answer": "CORAÇÃO",
+        "hint": "A cedilha faz o som de S antes de A."
+      },
+      {
+        "id": "fase-6-o-mensagem-4",
+        "kind": "choice",
+        "prompt": "Qual palavra está correta para uma mensagem?",
+        "options": [
+          "obrigado",
+          "obrigadu",
+          "obrigato"
+        ],
+        "answer": "obrigado",
+        "hint": "Leia com atenção o final da palavra."
+      },
+      {
+        "id": "fase-6-o-ch-5",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CH?",
+        "options": [
+          "CHAVE",
+          "XÍCARA",
+          "SAPO"
+        ],
+        "answer": "CHAVE",
+        "hint": "Faça o som de CH em chave."
+      },
+      {
+        "id": "fase-6-o-rr-6",
+        "kind": "choice",
+        "prompt": "Qual palavra tem som forte de R no meio?",
+        "options": [
+          "RATO",
+          "CARRO",
+          "BOLA"
+        ],
+        "answer": "CARRO",
+        "hint": "No meio de CARRO aparecem dois erres."
+      },
+      {
+        "id": "fase-6-o-ss-7",
+        "kind": "choice",
+        "prompt": "Complete: PA__ARO",
+        "options": [
+          "SS",
+          "S",
+          "Ç"
+        ],
+        "answer": "SS",
+        "hint": "A palavra é PÁSSARO."
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-o-c-cedilha-2-0",
+        "kind": "choice",
+        "prompt": "Qual palavra usa Ç?",
+        "options": [
+          "CORAÇÃO",
+          "CORASÃO",
+          "CORASAO"
+        ],
+        "answer": "CORAÇÃO",
+        "hint": "A cedilha faz o som de S antes de A."
+      },
+      {
+        "id": "fase-7-o-mensagem-1",
+        "kind": "choice",
+        "prompt": "Qual palavra está correta para uma mensagem?",
+        "options": [
+          "obrigado",
+          "obrigadu",
+          "obrigato"
+        ],
+        "answer": "obrigado",
+        "hint": "Leia com atenção o final da palavra."
+      },
+      {
+        "id": "fase-7-o-ch-2",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CH?",
+        "options": [
+          "CHAVE",
+          "XÍCARA",
+          "SAPO"
+        ],
+        "answer": "CHAVE",
+        "hint": "Faça o som de CH em chave."
+      },
+      {
+        "id": "fase-7-o-rr-3",
+        "kind": "choice",
+        "prompt": "Qual palavra tem som forte de R no meio?",
+        "options": [
+          "RATO",
+          "CARRO",
+          "BOLA"
+        ],
+        "answer": "CARRO",
+        "hint": "No meio de CARRO aparecem dois erres."
+      },
+      {
+        "id": "fase-7-o-ss-4",
+        "kind": "choice",
+        "prompt": "Complete: PA__ARO",
+        "options": [
+          "SS",
+          "S",
+          "Ç"
+        ],
+        "answer": "SS",
+        "hint": "A palavra é PÁSSARO."
+      },
+      {
+        "id": "fase-7-o-acento-avo-5",
+        "kind": "choice",
+        "prompt": "Qual palavra fala da avó?",
+        "options": [
+          "avó",
+          "avô",
+          "avo"
+        ],
+        "answer": "avó",
+        "hint": "O acento mostra o som final de vó."
+      },
+      {
+        "id": "fase-7-o-c-cedilha-6",
+        "kind": "choice",
+        "prompt": "Complete: _ORAÇÃO",
+        "options": [
+          "C",
+          "Ç",
+          "S"
+        ],
+        "answer": "Ç",
+        "hint": "A palavra começa com o som de coração."
+      },
+      {
+        "id": "fase-7-o-correcao-7",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "CASA",
+          "CAZA",
+          "CASSA"
+        ],
+        "answer": "CASA",
+        "hint": "Essa palavra é escrita com S."
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-o-rr-0",
+        "kind": "choice",
+        "prompt": "Qual palavra tem som forte de R no meio?",
+        "options": [
+          "RATO",
+          "CARRO",
+          "BOLA"
+        ],
+        "answer": "CARRO",
+        "hint": "No meio de CARRO aparecem dois erres."
+      },
+      {
+        "id": "desafio-o-ss-1",
+        "kind": "choice",
+        "prompt": "Complete: PA__ARO",
+        "options": [
+          "SS",
+          "S",
+          "Ç"
+        ],
+        "answer": "SS",
+        "hint": "A palavra é PÁSSARO."
+      },
+      {
+        "id": "desafio-o-acento-avo-2",
+        "kind": "choice",
+        "prompt": "Qual palavra fala da avó?",
+        "options": [
+          "avó",
+          "avô",
+          "avo"
+        ],
+        "answer": "avó",
+        "hint": "O acento mostra o som final de vó."
+      },
+      {
+        "id": "desafio-o-c-cedilha-3",
+        "kind": "choice",
+        "prompt": "Complete: _ORAÇÃO",
+        "options": [
+          "C",
+          "Ç",
+          "S"
+        ],
+        "answer": "Ç",
+        "hint": "A palavra começa com o som de coração."
+      },
+      {
+        "id": "desafio-o-correcao-4",
+        "kind": "choice",
+        "prompt": "Qual escrita está correta?",
+        "options": [
+          "CASA",
+          "CAZA",
+          "CASSA"
+        ],
+        "answer": "CASA",
+        "hint": "Essa palavra é escrita com S."
+      },
+      {
+        "id": "desafio-o-ninho-5",
+        "kind": "choice",
+        "prompt": "Complete: NI___O",
+        "options": [
+          "NH",
+          "LH",
+          "CH"
+        ],
+        "answer": "NH",
+        "hint": "A casa dos passarinhos é NINHO."
+      },
+      {
+        "id": "desafio-o-m-final-6",
+        "kind": "choice",
+        "prompt": "Qual palavra termina com M?",
+        "options": [
+          "TAMBÉM",
+          "TAMBEN",
+          "TABEM"
+        ],
+        "answer": "TAMBÉM",
+        "hint": "No fim, ouvimos o som nasal de M."
+      },
+      {
+        "id": "desafio-o-pergunta-7",
+        "kind": "choice",
+        "prompt": "Qual sinal termina uma pergunta?",
+        "options": [
+          ".",
+          "?",
+          "!"
+        ],
+        "answer": "?",
+        "hint": "Perguntas terminam com um sinal de gancho."
+      }
+    ]
+  }
+}

@@ -1,0 +1,849 @@
+{
+  "world": {
+    "id": 1,
+    "name": "Mundo do Alfabeto",
+    "shortName": "Alfabeto",
+    "theme": "Jardim das 26 chaves"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-abc-a-0",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA A?",
+        "options": [
+          "A",
+          "M",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "A PARECE UMA MONTANHA COM DUAS PERNAS."
+      },
+      {
+        "id": "fase-1-abc-b-1",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA BOLA?",
+        "options": [
+          "B",
+          "D",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "FAÇA O SOM BÊÊÊ.",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-1-abc-c-2",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE B?",
+        "options": [
+          "A",
+          "C",
+          "D"
+        ],
+        "answer": "C",
+        "hint": "CANTE: A, B, C."
+      },
+      {
+        "id": "fase-1-abc-ordem-abc-3",
+        "kind": "order",
+        "prompt": "ORGANIZE A PEQUENA FILA DO ALFABETO.",
+        "options": [
+          "C",
+          "A",
+          "B"
+        ],
+        "answer": "ABC",
+        "hint": "COMECE PELA PRIMEIRA LETRA DO ALFABETO."
+      },
+      {
+        "id": "fase-1-abc-d-4",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA D?",
+        "options": [
+          "O",
+          "D",
+          "Q"
+        ],
+        "answer": "D",
+        "hint": "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."
+      },
+      {
+        "id": "fase-1-abc-e-5",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA ELEFANTE?",
+        "options": [
+          "E",
+          "F",
+          "L"
+        ],
+        "answer": "E",
+        "hint": "ELEFANTE COMEÇA COM O SOM ÊÊÊ.",
+        "visual": "🐘",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "fase-1-abc-vogal-6",
+        "kind": "choice",
+        "prompt": "QUAL DESTAS É UMA VOGAL?",
+        "options": [
+          "A",
+          "T",
+          "R"
+        ],
+        "answer": "A",
+        "hint": "AS VOGAIS SÃO A, E, I, O E U."
+      },
+      {
+        "id": "fase-1-abc-f-7",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?",
+        "options": [
+          "F",
+          "V",
+          "P"
+        ],
+        "answer": "F",
+        "hint": "FADA COMEÇA COM FFFFF.",
+        "visual": "🧚",
+        "displayPrompt": "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?",
+        "targetWord": "FADA"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-abc-ordem-abc-0",
+        "kind": "order",
+        "prompt": "ORGANIZE A PEQUENA FILA DO ALFABETO.",
+        "options": [
+          "C",
+          "A",
+          "B"
+        ],
+        "answer": "ABC",
+        "hint": "COMECE PELA PRIMEIRA LETRA DO ALFABETO."
+      },
+      {
+        "id": "fase-2-abc-d-1",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA D?",
+        "options": [
+          "O",
+          "D",
+          "Q"
+        ],
+        "answer": "D",
+        "hint": "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."
+      },
+      {
+        "id": "fase-2-abc-e-2",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA ELEFANTE?",
+        "options": [
+          "E",
+          "F",
+          "L"
+        ],
+        "answer": "E",
+        "hint": "ELEFANTE COMEÇA COM O SOM ÊÊÊ.",
+        "visual": "🐘",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "fase-2-abc-vogal-3",
+        "kind": "choice",
+        "prompt": "QUAL DESTAS É UMA VOGAL?",
+        "options": [
+          "A",
+          "T",
+          "R"
+        ],
+        "answer": "A",
+        "hint": "AS VOGAIS SÃO A, E, I, O E U."
+      },
+      {
+        "id": "fase-2-abc-f-4",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?",
+        "options": [
+          "F",
+          "V",
+          "P"
+        ],
+        "answer": "F",
+        "hint": "FADA COMEÇA COM FFFFF.",
+        "visual": "🧚",
+        "displayPrompt": "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?",
+        "targetWord": "FADA"
+      },
+      {
+        "id": "fase-2-abc-gato-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "G",
+          "A",
+          "T"
+        ],
+        "answer": "GATO",
+        "hint": "OBSERVE O GATINHO E EXPERIMENTE OS SONS DAS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-2-abc-h-6",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM ANTES DE I?",
+        "options": [
+          "G",
+          "H",
+          "J"
+        ],
+        "answer": "H",
+        "hint": "Fale: G, H, I."
+      },
+      {
+        "id": "fase-2-abc-i-7",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA I?",
+        "options": [
+          "I",
+          "L",
+          "T"
+        ],
+        "answer": "I",
+        "hint": "I É UMA LETRA RETINHA."
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-abc-vogal-0",
+        "kind": "choice",
+        "prompt": "QUAL DESTAS É UMA VOGAL?",
+        "options": [
+          "A",
+          "T",
+          "R"
+        ],
+        "answer": "A",
+        "hint": "AS VOGAIS SÃO A, E, I, O E U."
+      },
+      {
+        "id": "fase-3-abc-f-1",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?",
+        "options": [
+          "F",
+          "V",
+          "P"
+        ],
+        "answer": "F",
+        "hint": "FADA COMEÇA COM FFFFF.",
+        "visual": "🧚",
+        "displayPrompt": "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?",
+        "targetWord": "FADA"
+      },
+      {
+        "id": "fase-3-abc-gato-2",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "G",
+          "A",
+          "T"
+        ],
+        "answer": "GATO",
+        "hint": "OBSERVE O GATINHO E EXPERIMENTE OS SONS DAS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-3-abc-h-3",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM ANTES DE I?",
+        "options": [
+          "G",
+          "H",
+          "J"
+        ],
+        "answer": "H",
+        "hint": "Fale: G, H, I."
+      },
+      {
+        "id": "fase-3-abc-i-4",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA I?",
+        "options": [
+          "I",
+          "L",
+          "T"
+        ],
+        "answer": "I",
+        "hint": "I É UMA LETRA RETINHA."
+      },
+      {
+        "id": "fase-3-abc-j-5",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA JANELA?",
+        "options": [
+          "J",
+          "G",
+          "L"
+        ],
+        "answer": "J",
+        "hint": "JANELA COMEÇA COM JJJJ.",
+        "visual": "🪟",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "JANELA"
+      },
+      {
+        "id": "fase-3-abc-k-6",
+        "kind": "choice",
+        "prompt": "QUAL GRUPO ESTÁ EM ORDEM ALFABÉTICA?",
+        "options": [
+          "A B C",
+          "C B A",
+          "B A C"
+        ],
+        "answer": "A B C",
+        "hint": "A FILA DO ALFABETO COMEÇA A, B, C."
+      },
+      {
+        "id": "fase-3-abc-l-7",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA LUZ?",
+        "options": [
+          "L",
+          "U",
+          "Z"
+        ],
+        "answer": "L",
+        "hint": "LUZ COMEÇA COM LLLL.",
+        "visual": "💡",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUZ"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-abc-h-0",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM ANTES DE I?",
+        "options": [
+          "G",
+          "H",
+          "J"
+        ],
+        "answer": "H",
+        "hint": "Fale: G, H, I."
+      },
+      {
+        "id": "fase-4-abc-i-1",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA I?",
+        "options": [
+          "I",
+          "L",
+          "T"
+        ],
+        "answer": "I",
+        "hint": "I É UMA LETRA RETINHA."
+      },
+      {
+        "id": "fase-4-abc-j-2",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA JANELA?",
+        "options": [
+          "J",
+          "G",
+          "L"
+        ],
+        "answer": "J",
+        "hint": "JANELA COMEÇA COM JJJJ.",
+        "visual": "🪟",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "JANELA"
+      },
+      {
+        "id": "fase-4-abc-k-3",
+        "kind": "choice",
+        "prompt": "QUAL GRUPO ESTÁ EM ORDEM ALFABÉTICA?",
+        "options": [
+          "A B C",
+          "C B A",
+          "B A C"
+        ],
+        "answer": "A B C",
+        "hint": "A FILA DO ALFABETO COMEÇA A, B, C."
+      },
+      {
+        "id": "fase-4-abc-l-4",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA LUZ?",
+        "options": [
+          "L",
+          "U",
+          "Z"
+        ],
+        "answer": "L",
+        "hint": "LUZ COMEÇA COM LLLL.",
+        "visual": "💡",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUZ"
+      },
+      {
+        "id": "fase-4-abc-m-5",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA M?",
+        "options": [
+          "M",
+          "W",
+          "N"
+        ],
+        "answer": "M",
+        "hint": "M PARECE DUAS MONTANHAS JUNTAS."
+      },
+      {
+        "id": "fase-4-abc-n-6",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "N",
+        "hint": "Fale: L, M, N."
+      },
+      {
+        "id": "fase-4-abc-o-7",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM FORMATO REDONDO?",
+        "options": [
+          "O",
+          "X",
+          "V"
+        ],
+        "answer": "O",
+        "hint": "O PARECE UM CÍRCULO."
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-abc-k-0",
+        "kind": "choice",
+        "prompt": "QUAL GRUPO ESTÁ EM ORDEM ALFABÉTICA?",
+        "options": [
+          "A B C",
+          "C B A",
+          "B A C"
+        ],
+        "answer": "A B C",
+        "hint": "A FILA DO ALFABETO COMEÇA A, B, C."
+      },
+      {
+        "id": "fase-5-abc-l-1",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA LUZ?",
+        "options": [
+          "L",
+          "U",
+          "Z"
+        ],
+        "answer": "L",
+        "hint": "LUZ COMEÇA COM LLLL.",
+        "visual": "💡",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUZ"
+      },
+      {
+        "id": "fase-5-abc-m-2",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA M?",
+        "options": [
+          "M",
+          "W",
+          "N"
+        ],
+        "answer": "M",
+        "hint": "M PARECE DUAS MONTANHAS JUNTAS."
+      },
+      {
+        "id": "fase-5-abc-n-3",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "N",
+        "hint": "Fale: L, M, N."
+      },
+      {
+        "id": "fase-5-abc-o-4",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM FORMATO REDONDO?",
+        "options": [
+          "O",
+          "X",
+          "V"
+        ],
+        "answer": "O",
+        "hint": "O PARECE UM CÍRCULO."
+      },
+      {
+        "id": "fase-5-abc-p-5",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA PATO?",
+        "options": [
+          "P",
+          "B",
+          "T"
+        ],
+        "answer": "P",
+        "hint": "PATO COMEÇA COM PPPP.",
+        "visual": "🦆",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-5-abc-q-6",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE P?",
+        "options": [
+          "O",
+          "Q",
+          "R"
+        ],
+        "answer": "Q",
+        "hint": "Fale: O, P, Q."
+      },
+      {
+        "id": "fase-5-abc-desenhe-7",
+        "kind": "draw",
+        "prompt": "DESENHE OU ESCREVA A PRIMEIRA LETRA DO SEU NOME.",
+        "answer": "__drawing__",
+        "hint": "CADA LETRA É UMA CHAVE PARA UMA NOVA AVENTURA.",
+        "visual": "✎"
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-abc-n-0",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE M?",
+        "options": [
+          "L",
+          "N",
+          "O"
+        ],
+        "answer": "N",
+        "hint": "Fale: L, M, N."
+      },
+      {
+        "id": "fase-6-abc-o-1",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM FORMATO REDONDO?",
+        "options": [
+          "O",
+          "X",
+          "V"
+        ],
+        "answer": "O",
+        "hint": "O PARECE UM CÍRCULO."
+      },
+      {
+        "id": "fase-6-abc-p-2",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA PATO?",
+        "options": [
+          "P",
+          "B",
+          "T"
+        ],
+        "answer": "P",
+        "hint": "PATO COMEÇA COM PPPP.",
+        "visual": "🦆",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-6-abc-q-3",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE P?",
+        "options": [
+          "O",
+          "Q",
+          "R"
+        ],
+        "answer": "Q",
+        "hint": "Fale: O, P, Q."
+      },
+      {
+        "id": "fase-6-abc-desenhe-4",
+        "kind": "draw",
+        "prompt": "DESENHE OU ESCREVA A PRIMEIRA LETRA DO SEU NOME.",
+        "answer": "__drawing__",
+        "hint": "CADA LETRA É UMA CHAVE PARA UMA NOVA AVENTURA.",
+        "visual": "✎"
+      },
+      {
+        "id": "fase-6-abc-a-5",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA A?",
+        "options": [
+          "A",
+          "M",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "A PARECE UMA MONTANHA COM DUAS PERNAS."
+      },
+      {
+        "id": "fase-6-abc-b-6",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA BOLA?",
+        "options": [
+          "B",
+          "D",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "FAÇA O SOM BÊÊÊ.",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-6-abc-c-7",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE B?",
+        "options": [
+          "A",
+          "C",
+          "D"
+        ],
+        "answer": "C",
+        "hint": "CANTE: A, B, C."
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-abc-q-0",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE P?",
+        "options": [
+          "O",
+          "Q",
+          "R"
+        ],
+        "answer": "Q",
+        "hint": "Fale: O, P, Q."
+      },
+      {
+        "id": "fase-7-abc-desenhe-1",
+        "kind": "draw",
+        "prompt": "DESENHE OU ESCREVA A PRIMEIRA LETRA DO SEU NOME.",
+        "answer": "__drawing__",
+        "hint": "CADA LETRA É UMA CHAVE PARA UMA NOVA AVENTURA.",
+        "visual": "✎"
+      },
+      {
+        "id": "fase-7-abc-a-2",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA A?",
+        "options": [
+          "A",
+          "M",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "A PARECE UMA MONTANHA COM DUAS PERNAS."
+      },
+      {
+        "id": "fase-7-abc-b-3",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA BOLA?",
+        "options": [
+          "B",
+          "D",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "FAÇA O SOM BÊÊÊ.",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-7-abc-c-4",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE B?",
+        "options": [
+          "A",
+          "C",
+          "D"
+        ],
+        "answer": "C",
+        "hint": "CANTE: A, B, C."
+      },
+      {
+        "id": "fase-7-abc-ordem-abc-5",
+        "kind": "order",
+        "prompt": "ORGANIZE A PEQUENA FILA DO ALFABETO.",
+        "options": [
+          "C",
+          "A",
+          "B"
+        ],
+        "answer": "ABC",
+        "hint": "COMECE PELA PRIMEIRA LETRA DO ALFABETO."
+      },
+      {
+        "id": "fase-7-abc-d-6",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA D?",
+        "options": [
+          "O",
+          "D",
+          "Q"
+        ],
+        "answer": "D",
+        "hint": "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."
+      },
+      {
+        "id": "fase-7-abc-e-7",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA ELEFANTE?",
+        "options": [
+          "E",
+          "F",
+          "L"
+        ],
+        "answer": "E",
+        "hint": "ELEFANTE COMEÇA COM O SOM ÊÊÊ.",
+        "visual": "🐘",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-abc-b-0",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA BOLA?",
+        "options": [
+          "B",
+          "D",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "FAÇA O SOM BÊÊÊ.",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-abc-c-1",
+        "kind": "choice",
+        "prompt": "QUAL LETRA VEM DEPOIS DE B?",
+        "options": [
+          "A",
+          "C",
+          "D"
+        ],
+        "answer": "C",
+        "hint": "CANTE: A, B, C."
+      },
+      {
+        "id": "desafio-abc-ordem-abc-2",
+        "kind": "order",
+        "prompt": "ORGANIZE A PEQUENA FILA DO ALFABETO.",
+        "options": [
+          "C",
+          "A",
+          "B"
+        ],
+        "answer": "ABC",
+        "hint": "COMECE PELA PRIMEIRA LETRA DO ALFABETO."
+      },
+      {
+        "id": "desafio-abc-d-3",
+        "kind": "choice",
+        "prompt": "QUAL É A LETRA D?",
+        "options": [
+          "O",
+          "D",
+          "Q"
+        ],
+        "answer": "D",
+        "hint": "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."
+      },
+      {
+        "id": "desafio-abc-e-4",
+        "kind": "choice",
+        "prompt": "QUAL LETRA COMEÇA ELEFANTE?",
+        "options": [
+          "E",
+          "F",
+          "L"
+        ],
+        "answer": "E",
+        "hint": "ELEFANTE COMEÇA COM O SOM ÊÊÊ.",
+        "visual": "🐘",
+        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "desafio-abc-vogal-5",
+        "kind": "choice",
+        "prompt": "QUAL DESTAS É UMA VOGAL?",
+        "options": [
+          "A",
+          "T",
+          "R"
+        ],
+        "answer": "A",
+        "hint": "AS VOGAIS SÃO A, E, I, O E U."
+      },
+      {
+        "id": "desafio-abc-f-6",
+        "kind": "choice",
+        "prompt": "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?",
+        "options": [
+          "F",
+          "V",
+          "P"
+        ],
+        "answer": "F",
+        "hint": "FADA COMEÇA COM FFFFF.",
+        "visual": "🧚",
+        "displayPrompt": "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?",
+        "targetWord": "FADA"
+      },
+      {
+        "id": "desafio-abc-gato-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "G",
+          "A",
+          "T"
+        ],
+        "answer": "GATO",
+        "hint": "OBSERVE O GATINHO E EXPERIMENTE OS SONS DAS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      }
+    ]
+  }
+}

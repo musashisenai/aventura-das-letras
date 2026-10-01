@@ -1,0 +1,54 @@
+{
+  "description": "Perguntas organizadas por subaba de mundo e fase. Fonte exportada do conteúdo usado pelo jogo.",
+  "worlds": [
+    {
+      "id": 0,
+      "name": "Mundo da Garatuja",
+      "file": "world-0.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 1,
+      "name": "Mundo do Alfabeto",
+      "file": "world-1.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 2,
+      "name": "Mundo Pré-Silábico",
+      "file": "world-2.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 3,
+      "name": "Mundo Silábico",
+      "file": "world-3.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 4,
+      "name": "Mundo Silábico-Alfabético",
+      "file": "world-4.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 5,
+      "name": "Mundo Alfabético",
+      "file": "world-5.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    },
+    {
+      "id": 6,
+      "name": "Mundo Ortográfico",
+      "file": "world-6.json",
+      "phases": 8,
+      "questionsPerPhase": 8
+    }
+  ]
+}

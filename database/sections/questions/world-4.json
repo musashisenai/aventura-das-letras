@@ -1,0 +1,933 @@
+{
+  "world": {
+    "id": 4,
+    "name": "Mundo Silábico-Alfabético",
+    "shortName": "Sílaba + Letra",
+    "theme": "Montanha das palavras"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-sa-casa-0",
+        "kind": "choice",
+        "prompt": "Complete a palavra: CA _ A",
+        "options": [
+          "S",
+          "T",
+          "P"
+        ],
+        "answer": "S",
+        "hint": "É o lugar em que moramos: CASA.",
+        "visual": "🏠",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-1-sa-gato-1",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "G",
+          "A",
+          "O"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-1-sa-vogal-2",
+        "kind": "choice",
+        "prompt": "Qual destas letras é uma vogal?",
+        "options": [
+          "E",
+          "M",
+          "R"
+        ],
+        "answer": "E",
+        "hint": "As vogais fazem sons que podemos cantar."
+      },
+      {
+        "id": "fase-1-sa-final-pato-3",
+        "kind": "choice",
+        "prompt": "Qual letra termina PATO?",
+        "options": [
+          "A",
+          "O",
+          "T"
+        ],
+        "answer": "O",
+        "hint": "Olhe para a última letra escrita.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-1-sa-ditado-4",
+        "kind": "choice",
+        "prompt": "Qual escrita combina com a palavra falada GATO?",
+        "options": [
+          "GATO",
+          "GOTA",
+          "TACO"
+        ],
+        "answer": "GATO",
+        "hint": "Procure G-A-T-O.",
+        "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-1-sa-soma-gatos-5",
+        "kind": "choice",
+        "prompt": "Três gatos e mais dois gatos são quantos?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Junte três e dois.",
+        "visual": "🐱🐱🐱 + 🐱🐱"
+      },
+      {
+        "id": "fase-1-sa-conserte-6",
+        "kind": "choice",
+        "prompt": "A palavra CASA está assim: CAA. Qual letra falta?",
+        "options": [
+          "S",
+          "M",
+          "L"
+        ],
+        "answer": "S",
+        "hint": "Coloque S para formar CASA.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-1-sa-mesa-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "A",
+          "M",
+          "S",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-sa-final-pato-0",
+        "kind": "choice",
+        "prompt": "Qual letra termina PATO?",
+        "options": [
+          "A",
+          "O",
+          "T"
+        ],
+        "answer": "O",
+        "hint": "Olhe para a última letra escrita.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-2-sa-ditado-1",
+        "kind": "choice",
+        "prompt": "Qual escrita combina com a palavra falada GATO?",
+        "options": [
+          "GATO",
+          "GOTA",
+          "TACO"
+        ],
+        "answer": "GATO",
+        "hint": "Procure G-A-T-O.",
+        "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-2-sa-soma-gatos-2",
+        "kind": "choice",
+        "prompt": "Três gatos e mais dois gatos são quantos?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Junte três e dois.",
+        "visual": "🐱🐱🐱 + 🐱🐱"
+      },
+      {
+        "id": "fase-2-sa-conserte-3",
+        "kind": "choice",
+        "prompt": "A palavra CASA está assim: CAA. Qual letra falta?",
+        "options": [
+          "S",
+          "M",
+          "L"
+        ],
+        "answer": "S",
+        "hint": "Coloque S para formar CASA.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-2-sa-mesa-4",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "A",
+          "M",
+          "S",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-2-sa-sapato-5",
+        "kind": "choice",
+        "prompt": "Quantas partes tem SA-PA-TO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Dê três palmas."
+      },
+      {
+        "id": "fase-2-sa-inicial-lua-6",
+        "kind": "choice",
+        "prompt": "Que letra começa LUA?",
+        "options": [
+          "L",
+          "U",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUE LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUA"
+      },
+      {
+        "id": "fase-2-sa-rato-7",
+        "kind": "choice",
+        "prompt": "Complete: RA _ O",
+        "options": [
+          "T",
+          "C",
+          "P"
+        ],
+        "answer": "T",
+        "hint": "É um bichinho pequeno: RATO.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "RATO"
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-sa-conserte-0",
+        "kind": "choice",
+        "prompt": "A palavra CASA está assim: CAA. Qual letra falta?",
+        "options": [
+          "S",
+          "M",
+          "L"
+        ],
+        "answer": "S",
+        "hint": "Coloque S para formar CASA.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-3-sa-mesa-1",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "A",
+          "M",
+          "S",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-3-sa-sapato-2",
+        "kind": "choice",
+        "prompt": "Quantas partes tem SA-PA-TO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Dê três palmas."
+      },
+      {
+        "id": "fase-3-sa-inicial-lua-3",
+        "kind": "choice",
+        "prompt": "Que letra começa LUA?",
+        "options": [
+          "L",
+          "U",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUE LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUA"
+      },
+      {
+        "id": "fase-3-sa-rato-4",
+        "kind": "choice",
+        "prompt": "Complete: RA _ O",
+        "options": [
+          "T",
+          "C",
+          "P"
+        ],
+        "answer": "T",
+        "hint": "É um bichinho pequeno: RATO.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "RATO"
+      },
+      {
+        "id": "fase-3-sa-pato-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "P",
+          "A",
+          "T"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-3-sa-consoante-6",
+        "kind": "choice",
+        "prompt": "Qual destas é uma consoante?",
+        "options": [
+          "A",
+          "I",
+          "B"
+        ],
+        "answer": "B",
+        "hint": "Consoantes se juntam às vogais."
+      },
+      {
+        "id": "fase-3-sa-dado-7",
+        "kind": "choice",
+        "prompt": "Qual palavra começa e termina com a mesma letra?",
+        "options": [
+          "DADO",
+          "GATO",
+          "BOLA"
+        ],
+        "answer": "DADO",
+        "hint": "Veja D no início e no fim.",
+        "displayPrompt": "QUAL PALAVRA COMEÇA E TERMINA COM A MESMA LETRA?",
+        "targetWord": "DADO"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-sa-inicial-lua-0",
+        "kind": "choice",
+        "prompt": "Que letra começa LUA?",
+        "options": [
+          "L",
+          "U",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUE LETRA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "LUA"
+      },
+      {
+        "id": "fase-4-sa-rato-1",
+        "kind": "choice",
+        "prompt": "Complete: RA _ O",
+        "options": [
+          "T",
+          "C",
+          "P"
+        ],
+        "answer": "T",
+        "hint": "É um bichinho pequeno: RATO.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "RATO"
+      },
+      {
+        "id": "fase-4-sa-pato-2",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "P",
+          "A",
+          "T"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-4-sa-consoante-3",
+        "kind": "choice",
+        "prompt": "Qual destas é uma consoante?",
+        "options": [
+          "A",
+          "I",
+          "B"
+        ],
+        "answer": "B",
+        "hint": "Consoantes se juntam às vogais."
+      },
+      {
+        "id": "fase-4-sa-dado-4",
+        "kind": "choice",
+        "prompt": "Qual palavra começa e termina com a mesma letra?",
+        "options": [
+          "DADO",
+          "GATO",
+          "BOLA"
+        ],
+        "answer": "DADO",
+        "hint": "Veja D no início e no fim.",
+        "displayPrompt": "QUAL PALAVRA COMEÇA E TERMINA COM A MESMA LETRA?",
+        "targetWord": "DADO"
+      },
+      {
+        "id": "fase-4-sa-subtracao-5",
+        "kind": "choice",
+        "prompt": "Cinco flores menos duas flores deixam quantas?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Comece no cinco e tire duas.",
+        "visual": "🌸🌸🌸🌸🌸 − 🌸🌸"
+      },
+      {
+        "id": "fase-4-sa-bolo-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO DOCE DA FIGURA?",
+        "options": [
+          "O",
+          "B",
+          "L",
+          "O"
+        ],
+        "answer": "BOLO",
+        "hint": "OLHE PARA O DOCE E EXPERIMENTE AS LETRAS.",
+        "visual": "🍰",
+        "audioText": "BOLO",
+        "targetWord": "BOLO"
+      },
+      {
+        "id": "fase-4-sa-escrita-7",
+        "kind": "choice",
+        "prompt": "Qual escrita está certa para MALA?",
+        "options": [
+          "MALA",
+          "MALL",
+          "MLA"
+        ],
+        "answer": "MALA",
+        "hint": "A palavra tem quatro letras.",
+        "displayPrompt": "QUAL ESCRITA ESTÁ CERTA PARA A PALAVRA OUVIDA?",
+        "targetWord": "MALA"
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-sa-consoante-0",
+        "kind": "choice",
+        "prompt": "Qual destas é uma consoante?",
+        "options": [
+          "A",
+          "I",
+          "B"
+        ],
+        "answer": "B",
+        "hint": "Consoantes se juntam às vogais."
+      },
+      {
+        "id": "fase-5-sa-dado-1",
+        "kind": "choice",
+        "prompt": "Qual palavra começa e termina com a mesma letra?",
+        "options": [
+          "DADO",
+          "GATO",
+          "BOLA"
+        ],
+        "answer": "DADO",
+        "hint": "Veja D no início e no fim.",
+        "displayPrompt": "QUAL PALAVRA COMEÇA E TERMINA COM A MESMA LETRA?",
+        "targetWord": "DADO"
+      },
+      {
+        "id": "fase-5-sa-subtracao-2",
+        "kind": "choice",
+        "prompt": "Cinco flores menos duas flores deixam quantas?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Comece no cinco e tire duas.",
+        "visual": "🌸🌸🌸🌸🌸 − 🌸🌸"
+      },
+      {
+        "id": "fase-5-sa-bolo-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO DOCE DA FIGURA?",
+        "options": [
+          "O",
+          "B",
+          "L",
+          "O"
+        ],
+        "answer": "BOLO",
+        "hint": "OLHE PARA O DOCE E EXPERIMENTE AS LETRAS.",
+        "visual": "🍰",
+        "audioText": "BOLO",
+        "targetWord": "BOLO"
+      },
+      {
+        "id": "fase-5-sa-escrita-4",
+        "kind": "choice",
+        "prompt": "Qual escrita está certa para MALA?",
+        "options": [
+          "MALA",
+          "MALL",
+          "MLA"
+        ],
+        "answer": "MALA",
+        "hint": "A palavra tem quatro letras.",
+        "displayPrompt": "QUAL ESCRITA ESTÁ CERTA PARA A PALAVRA OUVIDA?",
+        "targetWord": "MALA"
+      },
+      {
+        "id": "fase-5-sa-vogal-final-5",
+        "kind": "choice",
+        "prompt": "Qual vogal termina a palavra MESA?",
+        "options": [
+          "A",
+          "E",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "Leia ME-SA.",
+        "displayPrompt": "QUAL VOGAL TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-5-sa-sapo-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "A",
+          "P"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-5-sa-fruta-7",
+        "kind": "choice",
+        "prompt": "Qual letra falta em _VA para formar UVA?",
+        "options": [
+          "U",
+          "A",
+          "E"
+        ],
+        "answer": "U",
+        "hint": "A fruta começa com U.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "UVA"
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-sa-bolo-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO DOCE DA FIGURA?",
+        "options": [
+          "O",
+          "B",
+          "L",
+          "O"
+        ],
+        "answer": "BOLO",
+        "hint": "OLHE PARA O DOCE E EXPERIMENTE AS LETRAS.",
+        "visual": "🍰",
+        "audioText": "BOLO",
+        "targetWord": "BOLO"
+      },
+      {
+        "id": "fase-6-sa-escrita-1",
+        "kind": "choice",
+        "prompt": "Qual escrita está certa para MALA?",
+        "options": [
+          "MALA",
+          "MALL",
+          "MLA"
+        ],
+        "answer": "MALA",
+        "hint": "A palavra tem quatro letras.",
+        "displayPrompt": "QUAL ESCRITA ESTÁ CERTA PARA A PALAVRA OUVIDA?",
+        "targetWord": "MALA"
+      },
+      {
+        "id": "fase-6-sa-vogal-final-2",
+        "kind": "choice",
+        "prompt": "Qual vogal termina a palavra MESA?",
+        "options": [
+          "A",
+          "E",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "Leia ME-SA.",
+        "displayPrompt": "QUAL VOGAL TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-6-sa-sapo-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "A",
+          "P"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-6-sa-fruta-4",
+        "kind": "choice",
+        "prompt": "Qual letra falta em _VA para formar UVA?",
+        "options": [
+          "U",
+          "A",
+          "E"
+        ],
+        "answer": "U",
+        "hint": "A fruta começa com U.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "UVA"
+      },
+      {
+        "id": "fase-6-sa-casa-5",
+        "kind": "choice",
+        "prompt": "Complete a palavra: CA _ A",
+        "options": [
+          "S",
+          "T",
+          "P"
+        ],
+        "answer": "S",
+        "hint": "É o lugar em que moramos: CASA.",
+        "visual": "🏠",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-6-sa-gato-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "G",
+          "A",
+          "O"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-6-sa-vogal-7",
+        "kind": "choice",
+        "prompt": "Qual destas letras é uma vogal?",
+        "options": [
+          "E",
+          "M",
+          "R"
+        ],
+        "answer": "E",
+        "hint": "As vogais fazem sons que podemos cantar."
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-sa-sapo-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "A",
+          "P"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS LETRAS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-7-sa-fruta-1",
+        "kind": "choice",
+        "prompt": "Qual letra falta em _VA para formar UVA?",
+        "options": [
+          "U",
+          "A",
+          "E"
+        ],
+        "answer": "U",
+        "hint": "A fruta começa com U.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "UVA"
+      },
+      {
+        "id": "fase-7-sa-casa-2",
+        "kind": "choice",
+        "prompt": "Complete a palavra: CA _ A",
+        "options": [
+          "S",
+          "T",
+          "P"
+        ],
+        "answer": "S",
+        "hint": "É o lugar em que moramos: CASA.",
+        "visual": "🏠",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-7-sa-gato-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "G",
+          "A",
+          "O"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-7-sa-vogal-4",
+        "kind": "choice",
+        "prompt": "Qual destas letras é uma vogal?",
+        "options": [
+          "E",
+          "M",
+          "R"
+        ],
+        "answer": "E",
+        "hint": "As vogais fazem sons que podemos cantar."
+      },
+      {
+        "id": "fase-7-sa-final-pato-5",
+        "kind": "choice",
+        "prompt": "Qual letra termina PATO?",
+        "options": [
+          "A",
+          "O",
+          "T"
+        ],
+        "answer": "O",
+        "hint": "Olhe para a última letra escrita.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-7-sa-ditado-6",
+        "kind": "choice",
+        "prompt": "Qual escrita combina com a palavra falada GATO?",
+        "options": [
+          "GATO",
+          "GOTA",
+          "TACO"
+        ],
+        "answer": "GATO",
+        "hint": "Procure G-A-T-O.",
+        "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-7-sa-soma-gatos-7",
+        "kind": "choice",
+        "prompt": "Três gatos e mais dois gatos são quantos?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Junte três e dois.",
+        "visual": "🐱🐱🐱 + 🐱🐱"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-sa-gato-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "T",
+          "G",
+          "A",
+          "O"
+        ],
+        "answer": "GATO",
+        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
+        "visual": "🐱",
+        "audioText": "GATO",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "desafio-sa-vogal-1",
+        "kind": "choice",
+        "prompt": "Qual destas letras é uma vogal?",
+        "options": [
+          "E",
+          "M",
+          "R"
+        ],
+        "answer": "E",
+        "hint": "As vogais fazem sons que podemos cantar."
+      },
+      {
+        "id": "desafio-sa-final-pato-2",
+        "kind": "choice",
+        "prompt": "Qual letra termina PATO?",
+        "options": [
+          "A",
+          "O",
+          "T"
+        ],
+        "answer": "O",
+        "hint": "Olhe para a última letra escrita.",
+        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "desafio-sa-ditado-3",
+        "kind": "choice",
+        "prompt": "Qual escrita combina com a palavra falada GATO?",
+        "options": [
+          "GATO",
+          "GOTA",
+          "TACO"
+        ],
+        "answer": "GATO",
+        "hint": "Procure G-A-T-O.",
+        "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "desafio-sa-soma-gatos-4",
+        "kind": "choice",
+        "prompt": "Três gatos e mais dois gatos são quantos?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Junte três e dois.",
+        "visual": "🐱🐱🐱 + 🐱🐱"
+      },
+      {
+        "id": "desafio-sa-conserte-5",
+        "kind": "choice",
+        "prompt": "A palavra CASA está assim: CAA. Qual letra falta?",
+        "options": [
+          "S",
+          "M",
+          "L"
+        ],
+        "answer": "S",
+        "hint": "Coloque S para formar CASA.",
+        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "desafio-sa-mesa-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
+        "options": [
+          "A",
+          "M",
+          "S",
+          "E"
+        ],
+        "answer": "MESA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
+        "visual": "🍽️",
+        "audioText": "MESA",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "desafio-sa-sapato-7",
+        "kind": "choice",
+        "prompt": "Quantas partes tem SA-PA-TO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Dê três palmas."
+      }
+    ]
+  }
+}

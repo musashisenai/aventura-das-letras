@@ -1,0 +1,868 @@
+{
+  "world": {
+    "id": 2,
+    "name": "Mundo Pré-Silábico",
+    "shortName": "Pré-Silábico",
+    "theme": "Cidade das letras curiosas"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-p-letra-numero-0",
+        "kind": "choice",
+        "prompt": "Qual destes é uma letra?",
+        "options": [
+          "7",
+          "M",
+          "◇"
+        ],
+        "answer": "M",
+        "hint": "Letras ajudam a formar palavras."
+      },
+      {
+        "id": "fase-1-p-numero-1",
+        "kind": "choice",
+        "prompt": "Qual destes é um número?",
+        "options": [
+          "B",
+          "4",
+          "☀"
+        ],
+        "answer": "4",
+        "hint": "Números ajudam a contar."
+      },
+      {
+        "id": "fase-1-p-inicial-nome-2",
+        "kind": "choice",
+        "prompt": "Qual letra pode começar o nome LIA?",
+        "options": [
+          "L",
+          "I",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?",
+        "targetWord": "LIA"
+      },
+      {
+        "id": "fase-1-p-poucas-letras-3",
+        "kind": "choice",
+        "prompt": "Qual palavra tem menos letras?",
+        "options": [
+          "SOL",
+          "BORBOLETA",
+          "ELEFANTE"
+        ],
+        "answer": "SOL",
+        "hint": "Conte os pedacinhos escritos."
+      },
+      {
+        "id": "fase-1-p-muitas-letras-4",
+        "kind": "choice",
+        "prompt": "Qual palavra tem muitas letras?",
+        "options": [
+          "PÉ",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "fase-1-p-nome-animal-5",
+        "kind": "choice",
+        "prompt": "Qual pode ser o nome deste animal?",
+        "options": [
+          "GATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "GATO",
+        "hint": "Olhe para o bichinho e escolha seu nome.",
+        "visual": "🐱"
+      },
+      {
+        "id": "fase-1-p-torre-letras-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "A",
+          "B",
+          "O",
+          "L"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-1-p-conte-letras-sol-7",
+        "kind": "choice",
+        "prompt": "Quantas letras você vê em SOL?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Conte S, O e L.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "SOL"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-p-poucas-letras-0",
+        "kind": "choice",
+        "prompt": "Qual palavra tem menos letras?",
+        "options": [
+          "SOL",
+          "BORBOLETA",
+          "ELEFANTE"
+        ],
+        "answer": "SOL",
+        "hint": "Conte os pedacinhos escritos."
+      },
+      {
+        "id": "fase-2-p-muitas-letras-1",
+        "kind": "choice",
+        "prompt": "Qual palavra tem muitas letras?",
+        "options": [
+          "PÉ",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "fase-2-p-nome-animal-2",
+        "kind": "choice",
+        "prompt": "Qual pode ser o nome deste animal?",
+        "options": [
+          "GATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "GATO",
+        "hint": "Olhe para o bichinho e escolha seu nome.",
+        "visual": "🐱"
+      },
+      {
+        "id": "fase-2-p-torre-letras-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "A",
+          "B",
+          "O",
+          "L"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-2-p-conte-letras-sol-4",
+        "kind": "choice",
+        "prompt": "Quantas letras você vê em SOL?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Conte S, O e L.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "SOL"
+      },
+      {
+        "id": "fase-2-p-forma-escondida-5",
+        "kind": "choice",
+        "prompt": "Qual forma está escondida nesta janela?",
+        "options": [
+          "△",
+          "□",
+          "○"
+        ],
+        "answer": "□",
+        "hint": "A janela tem quatro lados.",
+        "visual": "▣"
+      },
+      {
+        "id": "fase-2-p-blocos-2-1-6",
+        "kind": "choice",
+        "prompt": "Com dois blocos e mais um bloco, quantos há?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Junte os blocos.",
+        "visual": "🧱 🧱 + 🧱"
+      },
+      {
+        "id": "fase-2-p-letra-a-7",
+        "kind": "choice",
+        "prompt": "Qual destes é a letra A?",
+        "options": [
+          "A",
+          "8",
+          "△"
+        ],
+        "answer": "A",
+        "hint": "Ela parece uma montanha com dois lados."
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-p-torre-letras-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "A",
+          "B",
+          "O",
+          "L"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-3-p-conte-letras-sol-1",
+        "kind": "choice",
+        "prompt": "Quantas letras você vê em SOL?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Conte S, O e L.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "SOL"
+      },
+      {
+        "id": "fase-3-p-forma-escondida-2",
+        "kind": "choice",
+        "prompt": "Qual forma está escondida nesta janela?",
+        "options": [
+          "△",
+          "□",
+          "○"
+        ],
+        "answer": "□",
+        "hint": "A janela tem quatro lados.",
+        "visual": "▣"
+      },
+      {
+        "id": "fase-3-p-blocos-2-1-3",
+        "kind": "choice",
+        "prompt": "Com dois blocos e mais um bloco, quantos há?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Junte os blocos.",
+        "visual": "🧱 🧱 + 🧱"
+      },
+      {
+        "id": "fase-3-p-letra-a-4",
+        "kind": "choice",
+        "prompt": "Qual destes é a letra A?",
+        "options": [
+          "A",
+          "8",
+          "△"
+        ],
+        "answer": "A",
+        "hint": "Ela parece uma montanha com dois lados."
+      },
+      {
+        "id": "fase-3-p-numero-5-5",
+        "kind": "choice",
+        "prompt": "Qual destes é o número cinco?",
+        "options": [
+          "S",
+          "5",
+          "E"
+        ],
+        "answer": "5",
+        "hint": "Veja o símbolo usado para contar cinco coisas."
+      },
+      {
+        "id": "fase-3-p-primeira-bola-6",
+        "kind": "choice",
+        "prompt": "Qual letra aparece primeiro em BOLA?",
+        "options": [
+          "B",
+          "O",
+          "A"
+        ],
+        "answer": "B",
+        "hint": "Leia olhando da esquerda para a direita.",
+        "displayPrompt": "QUAL LETRA APARECE PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-3-p-letras-gato-7",
+        "kind": "choice",
+        "prompt": "Quantas letras tem GATO?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Conte G, A, T, O.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-p-blocos-2-1-0",
+        "kind": "choice",
+        "prompt": "Com dois blocos e mais um bloco, quantos há?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Junte os blocos.",
+        "visual": "🧱 🧱 + 🧱"
+      },
+      {
+        "id": "fase-4-p-letra-a-1",
+        "kind": "choice",
+        "prompt": "Qual destes é a letra A?",
+        "options": [
+          "A",
+          "8",
+          "△"
+        ],
+        "answer": "A",
+        "hint": "Ela parece uma montanha com dois lados."
+      },
+      {
+        "id": "fase-4-p-numero-5-2",
+        "kind": "choice",
+        "prompt": "Qual destes é o número cinco?",
+        "options": [
+          "S",
+          "5",
+          "E"
+        ],
+        "answer": "5",
+        "hint": "Veja o símbolo usado para contar cinco coisas."
+      },
+      {
+        "id": "fase-4-p-primeira-bola-3",
+        "kind": "choice",
+        "prompt": "Qual letra aparece primeiro em BOLA?",
+        "options": [
+          "B",
+          "O",
+          "A"
+        ],
+        "answer": "B",
+        "hint": "Leia olhando da esquerda para a direita.",
+        "displayPrompt": "QUAL LETRA APARECE PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-4-p-letras-gato-4",
+        "kind": "choice",
+        "prompt": "Quantas letras tem GATO?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Conte G, A, T, O.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-4-p-desenho-ou-palavra-5",
+        "kind": "choice",
+        "prompt": "Qual é uma palavra escrita?",
+        "options": [
+          "🍎",
+          "BOLA",
+          "3"
+        ],
+        "answer": "BOLA",
+        "hint": "Palavras são feitas de letras."
+      },
+      {
+        "id": "fase-4-p-sapo-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "P",
+          "A",
+          "S",
+          "O"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-4-p-quais-letras-7",
+        "kind": "choice",
+        "prompt": "Qual grupo tem somente letras?",
+        "options": [
+          "A B C",
+          "2 4 6",
+          "○ △ □"
+        ],
+        "answer": "A B C",
+        "hint": "Letras não são números nem desenhos."
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-p-primeira-bola-0",
+        "kind": "choice",
+        "prompt": "Qual letra aparece primeiro em BOLA?",
+        "options": [
+          "B",
+          "O",
+          "A"
+        ],
+        "answer": "B",
+        "hint": "Leia olhando da esquerda para a direita.",
+        "displayPrompt": "QUAL LETRA APARECE PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-5-p-letras-gato-1",
+        "kind": "choice",
+        "prompt": "Quantas letras tem GATO?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Conte G, A, T, O.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-5-p-desenho-ou-palavra-2",
+        "kind": "choice",
+        "prompt": "Qual é uma palavra escrita?",
+        "options": [
+          "🍎",
+          "BOLA",
+          "3"
+        ],
+        "answer": "BOLA",
+        "hint": "Palavras são feitas de letras."
+      },
+      {
+        "id": "fase-5-p-sapo-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "P",
+          "A",
+          "S",
+          "O"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-5-p-quais-letras-4",
+        "kind": "choice",
+        "prompt": "Qual grupo tem somente letras?",
+        "options": [
+          "A B C",
+          "2 4 6",
+          "○ △ □"
+        ],
+        "answer": "A B C",
+        "hint": "Letras não são números nem desenhos."
+      },
+      {
+        "id": "fase-5-p-quantidade-6-5",
+        "kind": "choice",
+        "prompt": "Qual grupo tem seis bolinhas?",
+        "options": [
+          "●●●●●",
+          "●●●●●●",
+          "●●●●"
+        ],
+        "answer": "●●●●●●",
+        "hint": "Conte uma por uma."
+      },
+      {
+        "id": "fase-5-p-inicial-pato-6",
+        "kind": "choice",
+        "prompt": "Qual letra abre a palavra PATO?",
+        "options": [
+          "P",
+          "T",
+          "O"
+        ],
+        "answer": "P",
+        "hint": "O som inicial é PPP.",
+        "displayPrompt": "QUAL LETRA ABRE A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-5-p-ordem-abc-7",
+        "kind": "choice",
+        "prompt": "Qual letra vem depois de C?",
+        "options": [
+          "B",
+          "D",
+          "E"
+        ],
+        "answer": "D",
+        "hint": "Fale: A, B, C, D."
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-p-sapo-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "P",
+          "A",
+          "S",
+          "O"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-6-p-quais-letras-1",
+        "kind": "choice",
+        "prompt": "Qual grupo tem somente letras?",
+        "options": [
+          "A B C",
+          "2 4 6",
+          "○ △ □"
+        ],
+        "answer": "A B C",
+        "hint": "Letras não são números nem desenhos."
+      },
+      {
+        "id": "fase-6-p-quantidade-6-2",
+        "kind": "choice",
+        "prompt": "Qual grupo tem seis bolinhas?",
+        "options": [
+          "●●●●●",
+          "●●●●●●",
+          "●●●●"
+        ],
+        "answer": "●●●●●●",
+        "hint": "Conte uma por uma."
+      },
+      {
+        "id": "fase-6-p-inicial-pato-3",
+        "kind": "choice",
+        "prompt": "Qual letra abre a palavra PATO?",
+        "options": [
+          "P",
+          "T",
+          "O"
+        ],
+        "answer": "P",
+        "hint": "O som inicial é PPP.",
+        "displayPrompt": "QUAL LETRA ABRE A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-6-p-ordem-abc-4",
+        "kind": "choice",
+        "prompt": "Qual letra vem depois de C?",
+        "options": [
+          "B",
+          "D",
+          "E"
+        ],
+        "answer": "D",
+        "hint": "Fale: A, B, C, D."
+      },
+      {
+        "id": "fase-6-p-letra-numero-5",
+        "kind": "choice",
+        "prompt": "Qual destes é uma letra?",
+        "options": [
+          "7",
+          "M",
+          "◇"
+        ],
+        "answer": "M",
+        "hint": "Letras ajudam a formar palavras."
+      },
+      {
+        "id": "fase-6-p-numero-6",
+        "kind": "choice",
+        "prompt": "Qual destes é um número?",
+        "options": [
+          "B",
+          "4",
+          "☀"
+        ],
+        "answer": "4",
+        "hint": "Números ajudam a contar."
+      },
+      {
+        "id": "fase-6-p-inicial-nome-7",
+        "kind": "choice",
+        "prompt": "Qual letra pode começar o nome LIA?",
+        "options": [
+          "L",
+          "I",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?",
+        "targetWord": "LIA"
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-p-inicial-pato-0",
+        "kind": "choice",
+        "prompt": "Qual letra abre a palavra PATO?",
+        "options": [
+          "P",
+          "T",
+          "O"
+        ],
+        "answer": "P",
+        "hint": "O som inicial é PPP.",
+        "displayPrompt": "QUAL LETRA ABRE A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-7-p-ordem-abc-1",
+        "kind": "choice",
+        "prompt": "Qual letra vem depois de C?",
+        "options": [
+          "B",
+          "D",
+          "E"
+        ],
+        "answer": "D",
+        "hint": "Fale: A, B, C, D."
+      },
+      {
+        "id": "fase-7-p-letra-numero-2",
+        "kind": "choice",
+        "prompt": "Qual destes é uma letra?",
+        "options": [
+          "7",
+          "M",
+          "◇"
+        ],
+        "answer": "M",
+        "hint": "Letras ajudam a formar palavras."
+      },
+      {
+        "id": "fase-7-p-numero-3",
+        "kind": "choice",
+        "prompt": "Qual destes é um número?",
+        "options": [
+          "B",
+          "4",
+          "☀"
+        ],
+        "answer": "4",
+        "hint": "Números ajudam a contar."
+      },
+      {
+        "id": "fase-7-p-inicial-nome-4",
+        "kind": "choice",
+        "prompt": "Qual letra pode começar o nome LIA?",
+        "options": [
+          "L",
+          "I",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?",
+        "targetWord": "LIA"
+      },
+      {
+        "id": "fase-7-p-poucas-letras-5",
+        "kind": "choice",
+        "prompt": "Qual palavra tem menos letras?",
+        "options": [
+          "SOL",
+          "BORBOLETA",
+          "ELEFANTE"
+        ],
+        "answer": "SOL",
+        "hint": "Conte os pedacinhos escritos."
+      },
+      {
+        "id": "fase-7-p-muitas-letras-6",
+        "kind": "choice",
+        "prompt": "Qual palavra tem muitas letras?",
+        "options": [
+          "PÉ",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "fase-7-p-nome-animal-7",
+        "kind": "choice",
+        "prompt": "Qual pode ser o nome deste animal?",
+        "options": [
+          "GATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "GATO",
+        "hint": "Olhe para o bichinho e escolha seu nome.",
+        "visual": "🐱"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-p-numero-0",
+        "kind": "choice",
+        "prompt": "Qual destes é um número?",
+        "options": [
+          "B",
+          "4",
+          "☀"
+        ],
+        "answer": "4",
+        "hint": "Números ajudam a contar."
+      },
+      {
+        "id": "desafio-p-inicial-nome-1",
+        "kind": "choice",
+        "prompt": "Qual letra pode começar o nome LIA?",
+        "options": [
+          "L",
+          "I",
+          "A"
+        ],
+        "answer": "L",
+        "hint": "O primeiro som é LLL.",
+        "displayPrompt": "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?",
+        "targetWord": "LIA"
+      },
+      {
+        "id": "desafio-p-poucas-letras-2",
+        "kind": "choice",
+        "prompt": "Qual palavra tem menos letras?",
+        "options": [
+          "SOL",
+          "BORBOLETA",
+          "ELEFANTE"
+        ],
+        "answer": "SOL",
+        "hint": "Conte os pedacinhos escritos."
+      },
+      {
+        "id": "desafio-p-muitas-letras-3",
+        "kind": "choice",
+        "prompt": "Qual palavra tem muitas letras?",
+        "options": [
+          "PÉ",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "answer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras."
+      },
+      {
+        "id": "desafio-p-nome-animal-4",
+        "kind": "choice",
+        "prompt": "Qual pode ser o nome deste animal?",
+        "options": [
+          "GATO",
+          "MESA",
+          "LUA"
+        ],
+        "answer": "GATO",
+        "hint": "Olhe para o bichinho e escolha seu nome.",
+        "visual": "🐱"
+      },
+      {
+        "id": "desafio-p-torre-letras-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "A",
+          "B",
+          "O",
+          "L"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-p-conte-letras-sol-6",
+        "kind": "choice",
+        "prompt": "Quantas letras você vê em SOL?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Conte S, O e L.",
+        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "SOL"
+      },
+      {
+        "id": "desafio-p-forma-escondida-7",
+        "kind": "choice",
+        "prompt": "Qual forma está escondida nesta janela?",
+        "options": [
+          "△",
+          "□",
+          "○"
+        ],
+        "answer": "□",
+        "hint": "A janela tem quatro lados.",
+        "visual": "▣"
+      }
+    ]
+  }
+}

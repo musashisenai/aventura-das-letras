@@ -1,0 +1,780 @@
+{
+  "world": {
+    "id": 0,
+    "name": "Mundo da Garatuja",
+    "shortName": "Garatuja",
+    "theme": "Ateliê das primeiras marcas"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-g-desenhe-sol-0",
+        "kind": "draw",
+        "prompt": "Desenhe um sol para iluminar a trilha.",
+        "answer": "__drawing__",
+        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
+        "visual": "☀️"
+      },
+      {
+        "id": "fase-1-g-conte-3-1",
+        "kind": "choice",
+        "prompt": "Quantas bolinhas azuis você vê?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Aponte uma bolinha de cada vez.",
+        "visual": "🔵 🔵 🔵"
+      },
+      {
+        "id": "fase-1-g-circulo-2",
+        "kind": "choice",
+        "prompt": "Qual forma é redonda como uma bola?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "○",
+        "hint": "Pense em uma bola bem redondinha."
+      },
+      {
+        "id": "fase-1-g-reto-3",
+        "kind": "choice",
+        "prompt": "Qual traço parece uma estrada retinha?",
+        "options": [
+          "〰",
+          "—",
+          "⌇"
+        ],
+        "answer": "—",
+        "hint": "Uma estrada reta não faz ondas."
+      },
+      {
+        "id": "fase-1-g-rabisco-letra-4",
+        "kind": "choice",
+        "prompt": "Qual rabisco parece uma letra?",
+        "options": [
+          "A",
+          "☁",
+          "○"
+        ],
+        "answer": "A",
+        "hint": "As letras têm partes que podemos usar para escrever."
+      },
+      {
+        "id": "fase-1-g-conte-estrelas-5",
+        "kind": "choice",
+        "prompt": "Quantas estrelas estão no céu?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Conte as estrelas devagar.",
+        "visual": "★ ★ ★ ★ ★"
+      },
+      {
+        "id": "fase-1-g-quadrado-6",
+        "kind": "choice",
+        "prompt": "Qual forma tem quatro lados iguais?",
+        "options": [
+          "○",
+          "□",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Olhe para os quatro ladinhos."
+      },
+      {
+        "id": "fase-1-g-desenhe-peixe-7",
+        "kind": "draw",
+        "prompt": "Desenhe um peixe para o lago da Lumi.",
+        "answer": "__drawing__",
+        "hint": "Pode ser do jeito que você imaginar.",
+        "visual": "🐟"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-g-reto-0",
+        "kind": "choice",
+        "prompt": "Qual traço parece uma estrada retinha?",
+        "options": [
+          "〰",
+          "—",
+          "⌇"
+        ],
+        "answer": "—",
+        "hint": "Uma estrada reta não faz ondas."
+      },
+      {
+        "id": "fase-2-g-rabisco-letra-1",
+        "kind": "choice",
+        "prompt": "Qual rabisco parece uma letra?",
+        "options": [
+          "A",
+          "☁",
+          "○"
+        ],
+        "answer": "A",
+        "hint": "As letras têm partes que podemos usar para escrever."
+      },
+      {
+        "id": "fase-2-g-conte-estrelas-2",
+        "kind": "choice",
+        "prompt": "Quantas estrelas estão no céu?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Conte as estrelas devagar.",
+        "visual": "★ ★ ★ ★ ★"
+      },
+      {
+        "id": "fase-2-g-quadrado-3",
+        "kind": "choice",
+        "prompt": "Qual forma tem quatro lados iguais?",
+        "options": [
+          "○",
+          "□",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Olhe para os quatro ladinhos."
+      },
+      {
+        "id": "fase-2-g-desenhe-peixe-4",
+        "kind": "draw",
+        "prompt": "Desenhe um peixe para o lago da Lumi.",
+        "answer": "__drawing__",
+        "hint": "Pode ser do jeito que você imaginar.",
+        "visual": "🐟"
+      },
+      {
+        "id": "fase-2-g-triangulo-5",
+        "kind": "choice",
+        "prompt": "Qual forma tem três pontas?",
+        "options": [
+          "□",
+          "△",
+          "○"
+        ],
+        "answer": "△",
+        "hint": "Conte as pontinhas: uma, duas, três."
+      },
+      {
+        "id": "fase-2-g-mais-bolinhas-6",
+        "kind": "choice",
+        "prompt": "Em qual grupo há mais bolinhas?",
+        "options": [
+          "●●",
+          "●●●●",
+          "●"
+        ],
+        "answer": "●●●●",
+        "hint": "Conte cada grupo antes de escolher."
+      },
+      {
+        "id": "fase-2-g-soma-1-2-7",
+        "kind": "choice",
+        "prompt": "Quantas frutas ficam juntas?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Uma fruta e mais duas frutas.",
+        "visual": "🍎 + 🍎 🍎"
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-g-quadrado-0",
+        "kind": "choice",
+        "prompt": "Qual forma tem quatro lados iguais?",
+        "options": [
+          "○",
+          "□",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Olhe para os quatro ladinhos."
+      },
+      {
+        "id": "fase-3-g-desenhe-peixe-1",
+        "kind": "draw",
+        "prompt": "Desenhe um peixe para o lago da Lumi.",
+        "answer": "__drawing__",
+        "hint": "Pode ser do jeito que você imaginar.",
+        "visual": "🐟"
+      },
+      {
+        "id": "fase-3-g-triangulo-2",
+        "kind": "choice",
+        "prompt": "Qual forma tem três pontas?",
+        "options": [
+          "□",
+          "△",
+          "○"
+        ],
+        "answer": "△",
+        "hint": "Conte as pontinhas: uma, duas, três."
+      },
+      {
+        "id": "fase-3-g-mais-bolinhas-3",
+        "kind": "choice",
+        "prompt": "Em qual grupo há mais bolinhas?",
+        "options": [
+          "●●",
+          "●●●●",
+          "●"
+        ],
+        "answer": "●●●●",
+        "hint": "Conte cada grupo antes de escolher."
+      },
+      {
+        "id": "fase-3-g-soma-1-2-4",
+        "kind": "choice",
+        "prompt": "Quantas frutas ficam juntas?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Uma fruta e mais duas frutas.",
+        "visual": "🍎 + 🍎 🍎"
+      },
+      {
+        "id": "fase-3-g-desenho-5",
+        "kind": "choice",
+        "prompt": "Qual é um desenho de verdade?",
+        "options": [
+          "☀",
+          "A",
+          "3"
+        ],
+        "answer": "☀",
+        "hint": "Desenhos mostram coisas que vemos no mundo."
+      },
+      {
+        "id": "fase-3-g-cor-forma-6",
+        "kind": "choice",
+        "prompt": "Qual forma parece uma janela?",
+        "options": [
+          "□",
+          "○",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Uma janela costuma ter quatro lados."
+      },
+      {
+        "id": "fase-3-g-sol-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "L"
+        ],
+        "answer": "SOL",
+        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
+        "visual": "☀️",
+        "audioText": "SOL",
+        "targetWord": "SOL"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-g-mais-bolinhas-0",
+        "kind": "choice",
+        "prompt": "Em qual grupo há mais bolinhas?",
+        "options": [
+          "●●",
+          "●●●●",
+          "●"
+        ],
+        "answer": "●●●●",
+        "hint": "Conte cada grupo antes de escolher."
+      },
+      {
+        "id": "fase-4-g-soma-1-2-1",
+        "kind": "choice",
+        "prompt": "Quantas frutas ficam juntas?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Uma fruta e mais duas frutas.",
+        "visual": "🍎 + 🍎 🍎"
+      },
+      {
+        "id": "fase-4-g-desenho-2",
+        "kind": "choice",
+        "prompt": "Qual é um desenho de verdade?",
+        "options": [
+          "☀",
+          "A",
+          "3"
+        ],
+        "answer": "☀",
+        "hint": "Desenhos mostram coisas que vemos no mundo."
+      },
+      {
+        "id": "fase-4-g-cor-forma-3",
+        "kind": "choice",
+        "prompt": "Qual forma parece uma janela?",
+        "options": [
+          "□",
+          "○",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Uma janela costuma ter quatro lados."
+      },
+      {
+        "id": "fase-4-g-sol-4",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "L"
+        ],
+        "answer": "SOL",
+        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
+        "visual": "☀️",
+        "audioText": "SOL",
+        "targetWord": "SOL"
+      },
+      {
+        "id": "fase-4-g-conte-4-5",
+        "kind": "choice",
+        "prompt": "Quantos peixinhos nadam aqui?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Conte sem pular nenhum.",
+        "visual": "🐟 🐟 🐟 🐟"
+      },
+      {
+        "id": "fase-4-g-ondulado-6",
+        "kind": "choice",
+        "prompt": "Qual traço faz ondas?",
+        "options": [
+          "—",
+          "〰",
+          "|"
+        ],
+        "answer": "〰",
+        "hint": "Olhe para o traço que sobe e desce."
+      },
+      {
+        "id": "fase-4-g-nome-7",
+        "kind": "draw",
+        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
+        "answer": "__drawing__",
+        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
+        "visual": "✎"
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-g-cor-forma-0",
+        "kind": "choice",
+        "prompt": "Qual forma parece uma janela?",
+        "options": [
+          "□",
+          "○",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Uma janela costuma ter quatro lados."
+      },
+      {
+        "id": "fase-5-g-sol-1",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "O",
+          "S",
+          "L"
+        ],
+        "answer": "SOL",
+        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
+        "visual": "☀️",
+        "audioText": "SOL",
+        "targetWord": "SOL"
+      },
+      {
+        "id": "fase-5-g-conte-4-2",
+        "kind": "choice",
+        "prompt": "Quantos peixinhos nadam aqui?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Conte sem pular nenhum.",
+        "visual": "🐟 🐟 🐟 🐟"
+      },
+      {
+        "id": "fase-5-g-ondulado-3",
+        "kind": "choice",
+        "prompt": "Qual traço faz ondas?",
+        "options": [
+          "—",
+          "〰",
+          "|"
+        ],
+        "answer": "〰",
+        "hint": "Olhe para o traço que sobe e desce."
+      },
+      {
+        "id": "fase-5-g-nome-4",
+        "kind": "draw",
+        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
+        "answer": "__drawing__",
+        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
+        "visual": "✎"
+      },
+      {
+        "id": "fase-5-g-dupla-forma-5",
+        "kind": "choice",
+        "prompt": "Qual forma combina com este triângulo?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "△",
+        "hint": "Procure a figura com as mesmas três pontas.",
+        "visual": "△"
+      },
+      {
+        "id": "fase-5-g-menor-grupo-6",
+        "kind": "choice",
+        "prompt": "Qual grupo tem menos estrelas?",
+        "options": [
+          "★★★",
+          "★",
+          "★★★★★"
+        ],
+        "answer": "★",
+        "hint": "Menos quer dizer a menor quantidade."
+      },
+      {
+        "id": "fase-5-g-numero-2-7",
+        "kind": "choice",
+        "prompt": "Qual símbolo mostra duas coisas?",
+        "options": [
+          "1",
+          "2",
+          "A"
+        ],
+        "answer": "2",
+        "hint": "Os números nos ajudam a contar."
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-g-ondulado-0",
+        "kind": "choice",
+        "prompt": "Qual traço faz ondas?",
+        "options": [
+          "—",
+          "〰",
+          "|"
+        ],
+        "answer": "〰",
+        "hint": "Olhe para o traço que sobe e desce."
+      },
+      {
+        "id": "fase-6-g-nome-1",
+        "kind": "draw",
+        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
+        "answer": "__drawing__",
+        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
+        "visual": "✎"
+      },
+      {
+        "id": "fase-6-g-dupla-forma-2",
+        "kind": "choice",
+        "prompt": "Qual forma combina com este triângulo?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "△",
+        "hint": "Procure a figura com as mesmas três pontas.",
+        "visual": "△"
+      },
+      {
+        "id": "fase-6-g-menor-grupo-3",
+        "kind": "choice",
+        "prompt": "Qual grupo tem menos estrelas?",
+        "options": [
+          "★★★",
+          "★",
+          "★★★★★"
+        ],
+        "answer": "★",
+        "hint": "Menos quer dizer a menor quantidade."
+      },
+      {
+        "id": "fase-6-g-numero-2-4",
+        "kind": "choice",
+        "prompt": "Qual símbolo mostra duas coisas?",
+        "options": [
+          "1",
+          "2",
+          "A"
+        ],
+        "answer": "2",
+        "hint": "Os números nos ajudam a contar."
+      },
+      {
+        "id": "fase-6-g-desenhe-sol-5",
+        "kind": "draw",
+        "prompt": "Desenhe um sol para iluminar a trilha.",
+        "answer": "__drawing__",
+        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
+        "visual": "☀️"
+      },
+      {
+        "id": "fase-6-g-conte-3-6",
+        "kind": "choice",
+        "prompt": "Quantas bolinhas azuis você vê?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Aponte uma bolinha de cada vez.",
+        "visual": "🔵 🔵 🔵"
+      },
+      {
+        "id": "fase-6-g-circulo-7",
+        "kind": "choice",
+        "prompt": "Qual forma é redonda como uma bola?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "○",
+        "hint": "Pense em uma bola bem redondinha."
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-g-menor-grupo-0",
+        "kind": "choice",
+        "prompt": "Qual grupo tem menos estrelas?",
+        "options": [
+          "★★★",
+          "★",
+          "★★★★★"
+        ],
+        "answer": "★",
+        "hint": "Menos quer dizer a menor quantidade."
+      },
+      {
+        "id": "fase-7-g-numero-2-1",
+        "kind": "choice",
+        "prompt": "Qual símbolo mostra duas coisas?",
+        "options": [
+          "1",
+          "2",
+          "A"
+        ],
+        "answer": "2",
+        "hint": "Os números nos ajudam a contar."
+      },
+      {
+        "id": "fase-7-g-desenhe-sol-2",
+        "kind": "draw",
+        "prompt": "Desenhe um sol para iluminar a trilha.",
+        "answer": "__drawing__",
+        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
+        "visual": "☀️"
+      },
+      {
+        "id": "fase-7-g-conte-3-3",
+        "kind": "choice",
+        "prompt": "Quantas bolinhas azuis você vê?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Aponte uma bolinha de cada vez.",
+        "visual": "🔵 🔵 🔵"
+      },
+      {
+        "id": "fase-7-g-circulo-4",
+        "kind": "choice",
+        "prompt": "Qual forma é redonda como uma bola?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "○",
+        "hint": "Pense em uma bola bem redondinha."
+      },
+      {
+        "id": "fase-7-g-reto-5",
+        "kind": "choice",
+        "prompt": "Qual traço parece uma estrada retinha?",
+        "options": [
+          "〰",
+          "—",
+          "⌇"
+        ],
+        "answer": "—",
+        "hint": "Uma estrada reta não faz ondas."
+      },
+      {
+        "id": "fase-7-g-rabisco-letra-6",
+        "kind": "choice",
+        "prompt": "Qual rabisco parece uma letra?",
+        "options": [
+          "A",
+          "☁",
+          "○"
+        ],
+        "answer": "A",
+        "hint": "As letras têm partes que podemos usar para escrever."
+      },
+      {
+        "id": "fase-7-g-conte-estrelas-7",
+        "kind": "choice",
+        "prompt": "Quantas estrelas estão no céu?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Conte as estrelas devagar.",
+        "visual": "★ ★ ★ ★ ★"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-g-conte-3-0",
+        "kind": "choice",
+        "prompt": "Quantas bolinhas azuis você vê?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "Aponte uma bolinha de cada vez.",
+        "visual": "🔵 🔵 🔵"
+      },
+      {
+        "id": "desafio-g-circulo-1",
+        "kind": "choice",
+        "prompt": "Qual forma é redonda como uma bola?",
+        "options": [
+          "△",
+          "○",
+          "□"
+        ],
+        "answer": "○",
+        "hint": "Pense em uma bola bem redondinha."
+      },
+      {
+        "id": "desafio-g-reto-2",
+        "kind": "choice",
+        "prompt": "Qual traço parece uma estrada retinha?",
+        "options": [
+          "〰",
+          "—",
+          "⌇"
+        ],
+        "answer": "—",
+        "hint": "Uma estrada reta não faz ondas."
+      },
+      {
+        "id": "desafio-g-rabisco-letra-3",
+        "kind": "choice",
+        "prompt": "Qual rabisco parece uma letra?",
+        "options": [
+          "A",
+          "☁",
+          "○"
+        ],
+        "answer": "A",
+        "hint": "As letras têm partes que podemos usar para escrever."
+      },
+      {
+        "id": "desafio-g-conte-estrelas-4",
+        "kind": "choice",
+        "prompt": "Quantas estrelas estão no céu?",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "answer": "5",
+        "hint": "Conte as estrelas devagar.",
+        "visual": "★ ★ ★ ★ ★"
+      },
+      {
+        "id": "desafio-g-quadrado-5",
+        "kind": "choice",
+        "prompt": "Qual forma tem quatro lados iguais?",
+        "options": [
+          "○",
+          "□",
+          "△"
+        ],
+        "answer": "□",
+        "hint": "Olhe para os quatro ladinhos."
+      },
+      {
+        "id": "desafio-g-desenhe-peixe-6",
+        "kind": "draw",
+        "prompt": "Desenhe um peixe para o lago da Lumi.",
+        "answer": "__drawing__",
+        "hint": "Pode ser do jeito que você imaginar.",
+        "visual": "🐟"
+      },
+      {
+        "id": "desafio-g-triangulo-7",
+        "kind": "choice",
+        "prompt": "Qual forma tem três pontas?",
+        "options": [
+          "□",
+          "△",
+          "○"
+        ],
+        "answer": "△",
+        "hint": "Conte as pontinhas: uma, duas, três."
+      }
+    ]
+  }
+}

@@ -1,0 +1,922 @@
+{
+  "world": {
+    "id": 3,
+    "name": "Mundo Silábico",
+    "shortName": "Silábico",
+    "theme": "Ilhas que cantam sílabas"
+  },
+  "phaseCount": 8,
+  "questionsPerPhase": 8,
+  "phases": {
+    "fase-1": [
+      {
+        "id": "fase-1-s-primeira-pato-0",
+        "kind": "choice",
+        "prompt": "Qual sílaba começa PATO?",
+        "options": [
+          "PA",
+          "TO",
+          "TA"
+        ],
+        "answer": "PA",
+        "hint": "Fale em duas partes: PA-TO.",
+        "visual": "🦆",
+        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-1-s-completa-bola-1",
+        "kind": "choice",
+        "prompt": "Complete: BO ___",
+        "options": [
+          "LA",
+          "LI",
+          "LU"
+        ],
+        "answer": "LA",
+        "hint": "O brinquedo redondo é BO-LA.",
+        "visual": "⚽",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-1-s-casa-partes-2",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem CA-SA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Bata duas palmas: CA / SA.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-1-s-pato-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "TO",
+          "PA"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-1-s-ma-4",
+        "kind": "order",
+        "prompt": "JUNTE A LETRA M COM A VOGAL A.",
+        "options": [
+          "A",
+          "M"
+        ],
+        "answer": "MA",
+        "hint": "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.",
+        "visual": "M + A",
+        "audioText": "MA",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-1-s-primeira-bola-5",
+        "kind": "choice",
+        "prompt": "Qual parte vem primeiro em BO-LA?",
+        "options": [
+          "BO",
+          "LA",
+          "BA"
+        ],
+        "answer": "BO",
+        "hint": "A primeira palma é BO.",
+        "displayPrompt": "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-1-s-elefante-6",
+        "kind": "choice",
+        "prompt": "Quantas palmas damos para E-LE-FAN-TE?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Diga bem devagar as quatro partes.",
+        "displayPrompt": "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "fase-1-s-bola-7",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "LA",
+          "BO"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      }
+    ],
+    "fase-2": [
+      {
+        "id": "fase-2-s-pato-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "TO",
+          "PA"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-2-s-ma-1",
+        "kind": "order",
+        "prompt": "JUNTE A LETRA M COM A VOGAL A.",
+        "options": [
+          "A",
+          "M"
+        ],
+        "answer": "MA",
+        "hint": "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.",
+        "visual": "M + A",
+        "audioText": "MA",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-2-s-primeira-bola-2",
+        "kind": "choice",
+        "prompt": "Qual parte vem primeiro em BO-LA?",
+        "options": [
+          "BO",
+          "LA",
+          "BA"
+        ],
+        "answer": "BO",
+        "hint": "A primeira palma é BO.",
+        "displayPrompt": "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-2-s-elefante-3",
+        "kind": "choice",
+        "prompt": "Quantas palmas damos para E-LE-FAN-TE?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Diga bem devagar as quatro partes.",
+        "displayPrompt": "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "fase-2-s-bola-4",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "LA",
+          "BO"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-2-s-rima-5",
+        "kind": "choice",
+        "prompt": "Qual palavra termina como BOLA?",
+        "options": [
+          "MALA",
+          "SAPO",
+          "DADO"
+        ],
+        "answer": "MALA",
+        "hint": "BOLA e MALA terminam com LA.",
+        "displayPrompt": "QUAL PALAVRA TERMINA COMO A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-2-s-gato-6",
+        "kind": "choice",
+        "prompt": "Complete: GA ___",
+        "options": [
+          "TO",
+          "TA",
+          "TU"
+        ],
+        "answer": "TO",
+        "hint": "O animal que mia é GA-TO.",
+        "visual": "🐱",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-2-s-duas-palmas-7",
+        "kind": "choice",
+        "prompt": "Qual palavra tem duas sílabas?",
+        "options": [
+          "CASA",
+          "BORBOLETA",
+          "PÉ"
+        ],
+        "answer": "CASA",
+        "hint": "CA-SA tem duas palmas."
+      }
+    ],
+    "fase-3": [
+      {
+        "id": "fase-3-s-elefante-0",
+        "kind": "choice",
+        "prompt": "Quantas palmas damos para E-LE-FAN-TE?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Diga bem devagar as quatro partes.",
+        "displayPrompt": "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "fase-3-s-bola-1",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "LA",
+          "BO"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-3-s-rima-2",
+        "kind": "choice",
+        "prompt": "Qual palavra termina como BOLA?",
+        "options": [
+          "MALA",
+          "SAPO",
+          "DADO"
+        ],
+        "answer": "MALA",
+        "hint": "BOLA e MALA terminam com LA.",
+        "displayPrompt": "QUAL PALAVRA TERMINA COMO A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-3-s-gato-3",
+        "kind": "choice",
+        "prompt": "Complete: GA ___",
+        "options": [
+          "TO",
+          "TA",
+          "TU"
+        ],
+        "answer": "TO",
+        "hint": "O animal que mia é GA-TO.",
+        "visual": "🐱",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-3-s-duas-palmas-4",
+        "kind": "choice",
+        "prompt": "Qual palavra tem duas sílabas?",
+        "options": [
+          "CASA",
+          "BORBOLETA",
+          "PÉ"
+        ],
+        "answer": "CASA",
+        "hint": "CA-SA tem duas palmas."
+      },
+      {
+        "id": "fase-3-s-sapo-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "PO",
+          "SA"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-3-s-vogal-ma-6",
+        "kind": "choice",
+        "prompt": "Qual vogal completa M_ para formar MA?",
+        "options": [
+          "A",
+          "E",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "O som é MAAA.",
+        "displayPrompt": "QUAL VOGAL COMPLETA A PALAVRA OUVIDA?",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-3-s-tesouro-7",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem a palavra TESOURO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "TE / SOU / RO: três palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "TESOURO"
+      }
+    ],
+    "fase-4": [
+      {
+        "id": "fase-4-s-gato-0",
+        "kind": "choice",
+        "prompt": "Complete: GA ___",
+        "options": [
+          "TO",
+          "TA",
+          "TU"
+        ],
+        "answer": "TO",
+        "hint": "O animal que mia é GA-TO.",
+        "visual": "🐱",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "GATO"
+      },
+      {
+        "id": "fase-4-s-duas-palmas-1",
+        "kind": "choice",
+        "prompt": "Qual palavra tem duas sílabas?",
+        "options": [
+          "CASA",
+          "BORBOLETA",
+          "PÉ"
+        ],
+        "answer": "CASA",
+        "hint": "CA-SA tem duas palmas."
+      },
+      {
+        "id": "fase-4-s-sapo-2",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "PO",
+          "SA"
+        ],
+        "answer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🐸",
+        "audioText": "SAPO",
+        "targetWord": "SAPO"
+      },
+      {
+        "id": "fase-4-s-vogal-ma-3",
+        "kind": "choice",
+        "prompt": "Qual vogal completa M_ para formar MA?",
+        "options": [
+          "A",
+          "E",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "O som é MAAA.",
+        "displayPrompt": "QUAL VOGAL COMPLETA A PALAVRA OUVIDA?",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-4-s-tesouro-4",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem a palavra TESOURO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "TE / SOU / RO: três palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "TESOURO"
+      },
+      {
+        "id": "fase-4-s-final-casa-5",
+        "kind": "choice",
+        "prompt": "Qual sílaba fica no final de CA-SA?",
+        "options": [
+          "CA",
+          "SA",
+          "SO"
+        ],
+        "answer": "SA",
+        "hint": "A última palma é SA.",
+        "displayPrompt": "QUAL SÍLABA FICA NO FINAL DA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-4-s-lata-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "TA",
+          "LA"
+        ],
+        "answer": "LATA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🥫",
+        "audioText": "LATA",
+        "targetWord": "LATA"
+      },
+      {
+        "id": "fase-4-s-quantas-bola-7",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BO-LA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "BO e LA são duas partes.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      }
+    ],
+    "fase-5": [
+      {
+        "id": "fase-5-s-vogal-ma-0",
+        "kind": "choice",
+        "prompt": "Qual vogal completa M_ para formar MA?",
+        "options": [
+          "A",
+          "E",
+          "O"
+        ],
+        "answer": "A",
+        "hint": "O som é MAAA.",
+        "displayPrompt": "QUAL VOGAL COMPLETA A PALAVRA OUVIDA?",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-5-s-tesouro-1",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem a palavra TESOURO?",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3",
+        "hint": "TE / SOU / RO: três palmas.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "TESOURO"
+      },
+      {
+        "id": "fase-5-s-final-casa-2",
+        "kind": "choice",
+        "prompt": "Qual sílaba fica no final de CA-SA?",
+        "options": [
+          "CA",
+          "SA",
+          "SO"
+        ],
+        "answer": "SA",
+        "hint": "A última palma é SA.",
+        "displayPrompt": "QUAL SÍLABA FICA NO FINAL DA PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-5-s-lata-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "TA",
+          "LA"
+        ],
+        "answer": "LATA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🥫",
+        "audioText": "LATA",
+        "targetWord": "LATA"
+      },
+      {
+        "id": "fase-5-s-quantas-bola-4",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BO-LA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "BO e LA são duas partes.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-5-s-inicial-mesa-5",
+        "kind": "choice",
+        "prompt": "Qual sílaba começa MESA?",
+        "options": [
+          "ME",
+          "SA",
+          "MA"
+        ],
+        "answer": "ME",
+        "hint": "Diga ME-SA.",
+        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-5-s-cama-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "MA",
+          "CA"
+        ],
+        "answer": "CAMA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🛏️",
+        "audioText": "CAMA",
+        "targetWord": "CAMA"
+      },
+      {
+        "id": "fase-5-s-silaba-ca-7",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CA?",
+        "options": [
+          "CASA",
+          "BOLA",
+          "MALA"
+        ],
+        "answer": "CASA",
+        "hint": "CA é a primeira parte de CASA."
+      }
+    ],
+    "fase-6": [
+      {
+        "id": "fase-6-s-lata-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "TA",
+          "LA"
+        ],
+        "answer": "LATA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🥫",
+        "audioText": "LATA",
+        "targetWord": "LATA"
+      },
+      {
+        "id": "fase-6-s-quantas-bola-1",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem BO-LA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "BO e LA são duas partes.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-6-s-inicial-mesa-2",
+        "kind": "choice",
+        "prompt": "Qual sílaba começa MESA?",
+        "options": [
+          "ME",
+          "SA",
+          "MA"
+        ],
+        "answer": "ME",
+        "hint": "Diga ME-SA.",
+        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "MESA"
+      },
+      {
+        "id": "fase-6-s-cama-3",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "MA",
+          "CA"
+        ],
+        "answer": "CAMA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🛏️",
+        "audioText": "CAMA",
+        "targetWord": "CAMA"
+      },
+      {
+        "id": "fase-6-s-silaba-ca-4",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CA?",
+        "options": [
+          "CASA",
+          "BOLA",
+          "MALA"
+        ],
+        "answer": "CASA",
+        "hint": "CA é a primeira parte de CASA."
+      },
+      {
+        "id": "fase-6-s-primeira-pato-5",
+        "kind": "choice",
+        "prompt": "Qual sílaba começa PATO?",
+        "options": [
+          "PA",
+          "TO",
+          "TA"
+        ],
+        "answer": "PA",
+        "hint": "Fale em duas partes: PA-TO.",
+        "visual": "🦆",
+        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-6-s-completa-bola-6",
+        "kind": "choice",
+        "prompt": "Complete: BO ___",
+        "options": [
+          "LA",
+          "LI",
+          "LU"
+        ],
+        "answer": "LA",
+        "hint": "O brinquedo redondo é BO-LA.",
+        "visual": "⚽",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-6-s-casa-partes-7",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem CA-SA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Bata duas palmas: CA / SA.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      }
+    ],
+    "fase-7": [
+      {
+        "id": "fase-7-s-cama-0",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO OBJETO DA FIGURA?",
+        "options": [
+          "MA",
+          "CA"
+        ],
+        "answer": "CAMA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🛏️",
+        "audioText": "CAMA",
+        "targetWord": "CAMA"
+      },
+      {
+        "id": "fase-7-s-silaba-ca-1",
+        "kind": "choice",
+        "prompt": "Qual palavra começa com CA?",
+        "options": [
+          "CASA",
+          "BOLA",
+          "MALA"
+        ],
+        "answer": "CASA",
+        "hint": "CA é a primeira parte de CASA."
+      },
+      {
+        "id": "fase-7-s-primeira-pato-2",
+        "kind": "choice",
+        "prompt": "Qual sílaba começa PATO?",
+        "options": [
+          "PA",
+          "TO",
+          "TA"
+        ],
+        "answer": "PA",
+        "hint": "Fale em duas partes: PA-TO.",
+        "visual": "🦆",
+        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-7-s-completa-bola-3",
+        "kind": "choice",
+        "prompt": "Complete: BO ___",
+        "options": [
+          "LA",
+          "LI",
+          "LU"
+        ],
+        "answer": "LA",
+        "hint": "O brinquedo redondo é BO-LA.",
+        "visual": "⚽",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "fase-7-s-casa-partes-4",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem CA-SA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Bata duas palmas: CA / SA.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "fase-7-s-pato-5",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "TO",
+          "PA"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "fase-7-s-ma-6",
+        "kind": "order",
+        "prompt": "JUNTE A LETRA M COM A VOGAL A.",
+        "options": [
+          "A",
+          "M"
+        ],
+        "answer": "MA",
+        "hint": "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.",
+        "visual": "M + A",
+        "audioText": "MA",
+        "targetWord": "MA"
+      },
+      {
+        "id": "fase-7-s-primeira-bola-7",
+        "kind": "choice",
+        "prompt": "Qual parte vem primeiro em BO-LA?",
+        "options": [
+          "BO",
+          "LA",
+          "BA"
+        ],
+        "answer": "BO",
+        "hint": "A primeira palma é BO.",
+        "displayPrompt": "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      }
+    ],
+    "fase-8": [
+      {
+        "id": "desafio-s-completa-bola-0",
+        "kind": "choice",
+        "prompt": "Complete: BO ___",
+        "options": [
+          "LA",
+          "LI",
+          "LU"
+        ],
+        "answer": "LA",
+        "hint": "O brinquedo redondo é BO-LA.",
+        "visual": "⚽",
+        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-s-casa-partes-1",
+        "kind": "choice",
+        "prompt": "Quantas sílabas tem CA-SA?",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "answer": "2",
+        "hint": "Bata duas palmas: CA / SA.",
+        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
+        "targetWord": "CASA"
+      },
+      {
+        "id": "desafio-s-pato-2",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "options": [
+          "TO",
+          "PA"
+        ],
+        "answer": "PATO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+        "visual": "🦆",
+        "audioText": "PATO",
+        "targetWord": "PATO"
+      },
+      {
+        "id": "desafio-s-ma-3",
+        "kind": "order",
+        "prompt": "JUNTE A LETRA M COM A VOGAL A.",
+        "options": [
+          "A",
+          "M"
+        ],
+        "answer": "MA",
+        "hint": "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.",
+        "visual": "M + A",
+        "audioText": "MA",
+        "targetWord": "MA"
+      },
+      {
+        "id": "desafio-s-primeira-bola-4",
+        "kind": "choice",
+        "prompt": "Qual parte vem primeiro em BO-LA?",
+        "options": [
+          "BO",
+          "LA",
+          "BA"
+        ],
+        "answer": "BO",
+        "hint": "A primeira palma é BO.",
+        "displayPrompt": "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-s-elefante-5",
+        "kind": "choice",
+        "prompt": "Quantas palmas damos para E-LE-FAN-TE?",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answer": "4",
+        "hint": "Diga bem devagar as quatro partes.",
+        "displayPrompt": "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?",
+        "targetWord": "ELEFANTE"
+      },
+      {
+        "id": "desafio-s-bola-6",
+        "kind": "order",
+        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "options": [
+          "LA",
+          "BO"
+        ],
+        "answer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
+        "visual": "⚽",
+        "audioText": "BOLA",
+        "targetWord": "BOLA"
+      },
+      {
+        "id": "desafio-s-rima-7",
+        "kind": "choice",
+        "prompt": "Qual palavra termina como BOLA?",
+        "options": [
+          "MALA",
+          "SAPO",
+          "DADO"
+        ],
+        "answer": "MALA",
+        "hint": "BOLA e MALA terminam com LA.",
+        "displayPrompt": "QUAL PALAVRA TERMINA COMO A PALAVRA OUVIDA?",
+        "targetWord": "BOLA"
+      }
+    ]
+  }
+}

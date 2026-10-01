@@ -8,6 +8,7 @@ O servidor Node mantém estas visões legíveis no VS Code e as atualiza automat
 - `statuses.json`: status resumidos.
 - `saves.json`: perfil, posição, fases e estado salvo.
 - `answers.json`: respostas dos alunos.
+- `questions/`: perguntas organizadas em subabas por mundo, com oito fases e oito perguntas por fase.
 
 ## Restauração atual
 
