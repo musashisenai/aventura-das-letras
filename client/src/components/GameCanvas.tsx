@@ -28,7 +28,7 @@ export default function GameCanvas() {
   useEffect(() => {
     if (!state.profile) return;
     void controller.pullTeacherDecision();
-    const timer = window.setInterval(() => void controller.pullTeacherDecision(), 5000);
+    const timer = window.setInterval(() => void controller.pullTeacherDecision(), 1000);
     return () => window.clearInterval(timer);
   }, [controller, state.profile?.studentId]);
 

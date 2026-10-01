@@ -238,6 +238,7 @@ export class GameController {
     if (!studentId) return;
     try {
       const response = await fetch(`/api/students/${encodeURIComponent(studentId)}`);
+      if (response.status === 404) { this.logout(); return; }
       if (!response.ok) return;
       const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval> };
       if (!remote.profile || remote.profile.currentWorld <= this.state.profile!.currentWorld) return;
@@ -254,7 +255,8 @@ export class GameController {
     const studentId = this.state.profile?.studentId;
     const sessionToken = this.state.profile?.sessionToken;
     if (!studentId || !sessionToken) return;
-    await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
+    const response = await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
+    if (response?.status === 404) this.logout();
   }
 
   releaseStudentSession() {
