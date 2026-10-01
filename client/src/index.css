@@ -160,3 +160,40 @@ button:not(:disabled):active { transform: scale(.97); }
 .danger-action:hover { border-color: #c85a51; background: #ffe5e1; }
 .danger-action:active { transform: scale(.97); }
 @media (max-width: 560px) { .response-phase-list { padding-left: .65rem; } .response-explorer { padding: 14px; } }
+
+/* Ajustes finais para telas estreitas e textos longos no painel do professor. */
+.teacher-content .student-profile-card { display: block; width: 100%; }
+.teacher-content .student-profile-card > * { max-width: 100%; }
+.teacher-content .student-profile-card h2 { font-size: clamp(1.45rem, 5vw, 2.2rem); overflow-wrap: anywhere; }
+.teacher-content .student-profile-card p { line-height: 1.45; overflow-wrap: anywhere; }
+.teacher-content .student-profile-card .remote-performance-grid { width: 100%; }
+.teacher-content .student-profile-card .profile-actions { margin-top: 1rem; }
+.teacher-content .student-profile-card .profile-actions button { min-height: 42px; }
+.local-students-card .report-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.local-students-card .report-actions button { min-height: 38px; }
+@media (max-width: 620px) {
+  body { overflow-x: hidden; }
+  .teacher-page, .teacher-content, .teacher-layout, .teacher-sidebar { width: 100%; max-width: 100%; }
+  .teacher-layout { padding-inline: 12px; }
+  .teacher-content { overflow: hidden; }
+  .teacher-welcome { padding: 18px 14px; }
+  .teacher-welcome h1 { max-width: 100%; font-size: clamp(1.8rem, 9vw, 2.7rem); overflow-wrap: anywhere; }
+  .local-students-card .report-actions { width: 100%; align-items: stretch; }
+  .local-students-card .report-actions span { width: 100%; }
+  .local-students-card .report-actions button { flex: 1 1 135px; }
+  .student-profile-card { padding: 16px; }
+  .teacher-content .student-profile-card .remote-performance-grid { grid-template-columns: 1fr; }
+  .teacher-content .student-profile-card .profile-actions { display: grid; grid-template-columns: 1fr; }
+  .teacher-content .student-profile-card .profile-actions button { width: 100%; }
+  .question-head { flex-wrap: wrap; }
+  .question-head > div { width: 100%; flex-direction: row !important; flex-wrap: wrap; justify-content: flex-start !important; align-items: center !important; }
+  .placement-question-title h2, .question-card h2 { overflow-wrap: anywhere; word-break: normal; }
+}
+@media (max-width: 380px) {
+  .game-header { padding-inline: 10px; }
+  .brand-lockup > div { display: none; }
+  .header-actions { max-width: calc(100vw - 58px); overflow: hidden; }
+  .currency-pill { font-size: .68rem; }
+  .teacher-layout { padding-inline: 8px; }
+  .teacher-sidebar button { font-size: .7rem; padding-inline: 8px; }
+}

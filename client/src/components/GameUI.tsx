@@ -197,7 +197,11 @@ function Welcome({ state, controller }: Props) {
     try {
       const students = await fetch("/api/students").then((response) => response.ok ? response.json() : []) as RemoteStudent[];
       const currentId = state.profile?.studentId;
-      if (students.some((student) => student.id !== currentId && normalizeStudentName(student.profile.name) === normalizeStudentName(safeName))) return setNameError("Esse nome já está sendo usado por outro aluno. Escolha outro nome.");
+      if (students.some((student) => student.id !== currentId && normalizeStudentName(student.profile.name) === normalizeStudentName(safeName))) {
+        const resumeError = await controller.resumeProfile(safeName);
+        if (resumeError) setNameError(resumeError);
+        return;
+      }
       if (state.profile) controller.updateProfileName(safeName);
       else {
         const error = await controller.beginProfile(safeName);
@@ -267,9 +271,9 @@ function Placement({ state, controller }: Props) {
   const placementQueue = state.placementQueue.length ? state.placementQueue : PLACEMENT_QUESTIONS;
   const question = placementQueue[state.placementIndex];
   const audioAvailable = state.profile?.audioEnabled !== false;
-  const wordAudioAvailable = audioAvailable && Boolean(question?.targetWord ?? question?.audioText);
+  const essentialAudioAvailable = Boolean(question?.targetWord ?? question?.audioText);
   const playNarration = useQuestionNarration(question, audioAvailable);
-  const playWord = useQuestionNarration(question, wordAudioAvailable, true);
+  const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
   useFeedbackNarration(state.feedback, audioAvailable);
   usePlacementResultNarration(state.placementResults, audioAvailable);
   const attemptLabel = state.placementAttempts === 0 ? "1ª tentativa" : "2ª tentativa";
@@ -281,7 +285,7 @@ function Placement({ state, controller }: Props) {
         <div className="progress-track"><i style={{ width: `${((state.placementIndex + 1) / placementQueue.length) * 100}%` }} /></div>
         <Mascot className="mini-lumi" label="Lumi" />
         <p className="eyebrow">Olá, {state.profile?.name}! Vamos só descobrir por onde sua aventura pode começar.</p>
-        <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2><div className="placement-audio-actions">{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{wordAudioAvailable && <button className="audio-button word-audio-button placement-audio" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}</div></div>
+        <div className="placement-question-title"><h2>{visiblePrompt(question)}</h2><div className="placement-audio-actions">{audioAvailable && <button className="audio-button placement-audio" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button placement-audio" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}</div></div>
         <FigureIllustration question={question} placement />
         <p className="placement-attempt-label">{attemptLabel} · você pode tentar duas vezes</p>
         {question.kind === "draw" ? <DrawingPad disabled={Boolean(state.feedback)} onSend={(drawing) => controller.submitPlacement("Desenho enviado", drawing)} /> : question.kind === "order" ? <WordBuilder question={question} onAnswer={(answer) => controller.submitPlacement(answer)} /> : <div className="answer-grid placement-grid">
@@ -382,16 +386,16 @@ function Lesson({ state, controller }: Props) {
   // No Alfabético e no Ortográfico, somente atividades com palavra-alvo
   // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
   const audioAvailable = state.profile?.audioEnabled !== false;
-  const wordAudioAvailable = audioAvailable && Boolean(question.targetWord ?? question.audioText);
+  const essentialAudioAvailable = Boolean(question.targetWord ?? question.audioText);
   const playNarration = useQuestionNarration(question, audioAvailable);
-  const playWord = useQuestionNarration(question, wordAudioAvailable, true);
+  const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
   useFeedbackNarration(state.feedback, audioAvailable);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
-        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{wordAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
         <QuestionInteraction question={question} disabled={Boolean(state.feedback)} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />

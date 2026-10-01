@@ -42,7 +42,16 @@ async function startServer() {
       return { students: Object.fromEntries(Object.entries(rawStudents).map(([id, student]) => [id, toStoredStudent(id, student)])), settings: parsed.settings && typeof parsed.settings === "object" ? parsed.settings as Record<string, string> : {} };
     } catch { return emptyDatabase(); }
   };
-  const writeDatabase = (database: ClassroomDatabase) => { const temporaryFile = `${databaseFile}.tmp`; fs.writeFileSync(temporaryFile, `${JSON.stringify(database, null, 2)}\n`, "utf8"); fs.renameSync(temporaryFile, databaseFile); };
+  const sectionsDirectory = path.resolve(__dirname, "..", "database", "sections");
+  const writeDatabaseViews = (database: ClassroomDatabase) => {
+    fs.mkdirSync(sectionsDirectory, { recursive: true });
+    const writeView = (filename: string, value: unknown) => { const temporaryFile = path.join(sectionsDirectory, `${filename}.tmp`); fs.writeFileSync(temporaryFile, `${JSON.stringify(value, null, 2)}\n`, "utf8"); fs.renameSync(temporaryFile, path.join(sectionsDirectory, filename)); };
+    writeView("names.json", Object.fromEntries(Object.values(database.students).map((student) => [student.id, { id: student.id, name: student.name }])));
+    writeView("statuses.json", Object.fromEntries(Object.values(database.students).map((student) => [student.id, { id: student.id, name: student.name, ...student.status, updatedAt: student.updatedAt }])));
+    writeView("saves.json", Object.fromEntries(Object.values(database.students).map((student) => [student.id, { id: student.id, name: student.name, profile: student.save.profile, gameState: student.save.gameState, completions: student.save.completions, worldApprovals: student.save.worldApprovals }])));
+    writeView("answers.json", Object.fromEntries(Object.values(database.students).map((student) => [student.id, { id: student.id, name: student.name, answers: student.save.answers }])));
+  };
+  const writeDatabase = (database: ClassroomDatabase) => { const temporaryFile = `${databaseFile}.tmp`; fs.writeFileSync(temporaryFile, `${JSON.stringify(database, null, 2)}\n`, "utf8"); fs.renameSync(temporaryFile, databaseFile); writeDatabaseViews(database); };
   const migrateLegacyData = () => {
     const database = readDatabase();
     if (Object.keys(database.students).length || !fs.existsSync(legacyStudentsFile)) return database;
@@ -68,7 +77,7 @@ async function startServer() {
     try { await execFileAsync("git", ["add", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); try { await execFileAsync("git", ["diff", "--cached", "--quiet", "--", "database/classroom.json"], { cwd: repositoryRoot, timeout: 30000 }); return { ok: true, message: "O banco já estava sincronizado com o GitHub." }; } catch { await execFileAsync("git", ["commit", "-m", "Atualizar banco dos alunos"], { cwd: repositoryRoot, timeout: 30000 }); await execFileAsync("git", ["push", "origin", "main"], { cwd: repositoryRoot, timeout: 60000 }); return { ok: true, message: "Banco salvo e sincronizado com o GitHub." }; } } catch (error) { console.error("Sincronização falhou:", error); return { ok: false, message: "O banco foi salvo neste computador, mas não foi possível sincronizá-lo com o GitHub agora." }; } finally { syncInProgress = false; }
   };
 
-  const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup();
+  const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup(); writeDatabaseViews(readDatabase());
   app.use(express.json({ limit: "8mb" }));
   const asyncRoute = (handler: express.RequestHandler): express.RequestHandler => (req, res, next) => { Promise.resolve(handler(req, res, next)).catch(next); };
   const requireTeacher = (req: express.Request) => { const database = readDatabase(); return String(req.body?.password ?? "") === getTeacherPassword(database); };

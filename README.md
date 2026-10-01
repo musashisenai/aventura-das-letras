@@ -52,6 +52,8 @@ Cada alteração do aluno é sincronizada com a API do servidor e salva em `data
 
 O arquivo fica organizado por aluno em `name`, `status` e `save`. `status` concentra o resumo atual para consulta rápida; `save` contém o perfil completo, respostas, conclusões e a posição exata da partida.
 
+Para consultar essas informações em abas separadas no VS Code, o servidor também mantém `database/sections/names.json` (nomes), `statuses.json` (status), `saves.json` (posição e progresso) e `answers.json` (respostas). São visões geradas automaticamente; a fonte oficial continua sendo `database/classroom.json`.
+
 Na área do professor, o perfil selecionado oferece **Editar nome**, **Resetar status e teste inicial** e **Excluir perfil**. O reset apaga respostas, fases, posição e progresso do teste, deixando o aluno obrigado a refazer o teste inicial. A exclusão exige confirmação digitando o nome. Em **Meu perfil**, **Excluir todos os dados** exige confirmação visual, a frase `LIMPAR BANCO` e a senha do professor antes de remover todos os alunos.
 
 O servidor tenta sincronizar o banco com o GitHub automaticamente a cada 15 minutos. O professor também pode entrar em **Meu perfil → Salvar banco no GitHub** para fazer a sincronização imediatamente. Se estiver sem internet, o arquivo continua sendo salvo localmente e a sincronização pode ser tentada depois.
@@ -59,6 +61,8 @@ O servidor tenta sincronizar o banco com o GitHub automaticamente a cada 15 minu
 Quando um aluno joga em outro computador da mesma rede, o navegador envia as alterações para o Node que está rodando no computador do professor. O Node grava o progresso no mesmo `database/classroom.json`; portanto, o save não fica preso ao computador do aluno. A cada 15 minutos, ou quando o professor usa o botão, esse arquivo é commitado e enviado ao GitHub, desde que o computador servidor tenha conexão e autenticação Git configurada.
 
 Alunos cadastrados diretamente no banco devem ter `status.placementCompleted` e `save.profile.placementCompleted` como `false`. Na primeira entrada, o teste inicial será obrigatório. Se o aluno sair antes de concluir esse teste, na próxima entrada ele será obrigado a começar o teste novamente desde a primeira questão; o teste incompleto não libera o mapa.
+
+Se o nome digitado em **Começar nova aventura** já estiver cadastrado, o sistema tenta automaticamente a retomada desse aluno. Se outro dispositivo estiver usando a conta, a mensagem de sessão ativa será exibida. Ao desligar a leitura opcional da Lumi, atividades que dependem de uma palavra ouvida continuam reproduzindo o áudio essencial da palavra.
 
 ### Senha da Área do Professor
 

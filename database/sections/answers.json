@@ -1,0 +1,320 @@
+{
+  "student-amaya-santos": {
+    "id": "student-amaya-santos",
+    "name": "Amaya Santos",
+    "answers": [
+      {
+        "questionId": "fase-1-p-sapo-15",
+        "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+        "answer": "ASPO",
+        "correct": false,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "order",
+        "options": [
+          "O",
+          "P",
+          "A",
+          "S"
+        ],
+        "correctAnswer": "SAPO",
+        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+        "visual": "🐸",
+        "at": "01/10/2026, 08:18:47"
+      },
+      {
+        "questionId": "fase-1-p-torre-letras-6",
+        "question": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "answer": "BLAO",
+        "correct": false,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "order",
+        "options": [
+          "O",
+          "L",
+          "A",
+          "B"
+        ],
+        "correctAnswer": "BOLA",
+        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+        "visual": "⚽",
+        "at": "01/10/2026, 08:18:53"
+      },
+      {
+        "questionId": "fase-1-p-muitas-letras-4",
+        "question": "Qual palavra tem muitas letras?",
+        "answer": "BOLA",
+        "correct": false,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "PÉ",
+          "BOLA",
+          "BORBOLETA"
+        ],
+        "correctAnswer": "BORBOLETA",
+        "hint": "Compare o tamanho das palavras.",
+        "at": "01/10/2026, 08:18:55"
+      },
+      {
+        "questionId": "fase-1-p-numero-1",
+        "question": "Qual destes é um número?",
+        "answer": "B",
+        "correct": false,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "4",
+          "B",
+          "☀"
+        ],
+        "correctAnswer": "4",
+        "hint": "Números ajudam a contar.",
+        "at": "01/10/2026, 08:18:56"
+      },
+      {
+        "questionId": "fase-1-p-quais-letras-16",
+        "question": "Qual grupo tem somente letras?",
+        "answer": "A B C",
+        "correct": true,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "2 4 6",
+          "○ △ □",
+          "A B C"
+        ],
+        "correctAnswer": "A B C",
+        "hint": "Letras não são números nem desenhos.",
+        "at": "01/10/2026, 08:18:57"
+      },
+      {
+        "questionId": "fase-1-p-quantidade-6-17",
+        "question": "Qual grupo tem seis bolinhas?",
+        "answer": "●●●●●●",
+        "correct": true,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "●●●●",
+          "●●●●●●",
+          "●●●●●"
+        ],
+        "correctAnswer": "●●●●●●",
+        "hint": "Conte uma por uma.",
+        "at": "01/10/2026, 08:18:58"
+      },
+      {
+        "questionId": "fase-1-p-blocos-2-1-9",
+        "question": "Com dois blocos e mais um bloco, quantos há?",
+        "answer": "3",
+        "correct": true,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "3",
+          "4",
+          "2"
+        ],
+        "correctAnswer": "3",
+        "hint": "Junte os blocos.",
+        "visual": "🧱 🧱 + 🧱",
+        "at": "01/10/2026, 08:18:59"
+      },
+      {
+        "questionId": "fase-1-p-nome-animal-5",
+        "question": "Qual pode ser o nome deste animal?",
+        "answer": "LUA",
+        "correct": false,
+        "worldId": 2,
+        "phase": 0,
+        "kind": "choice",
+        "options": [
+          "GATO",
+          "LUA",
+          "MESA"
+        ],
+        "correctAnswer": "GATO",
+        "hint": "Olhe para o bichinho e escolha seu nome.",
+        "visual": "🐱",
+        "at": "01/10/2026, 08:19:02"
+      }
+    ]
+  },
+  "student-angelo-ciccillo": {
+    "id": "student-angelo-ciccillo",
+    "name": "Angelo Ciccillo",
+    "answers": []
+  },
+  "student-anna-alice-pereira": {
+    "id": "student-anna-alice-pereira",
+    "name": "Anna Alice Pereira",
+    "answers": []
+  },
+  "student-anthony-rezende": {
+    "id": "student-anthony-rezende",
+    "name": "ANTHONY REZENDE",
+    "answers": []
+  },
+  "student-anthony-zaia": {
+    "id": "student-anthony-zaia",
+    "name": "Anthony Zaia",
+    "answers": []
+  },
+  "student-arthur-miguel": {
+    "id": "student-arthur-miguel",
+    "name": "Arthur Miguel",
+    "answers": []
+  },
+  "student-benicio-maia": {
+    "id": "student-benicio-maia",
+    "name": "BENÍCIO MAIA",
+    "answers": []
+  },
+  "student-benicio-zaia": {
+    "id": "student-benicio-zaia",
+    "name": "Benício Zaia",
+    "answers": []
+  },
+  "student-benjamim-sales": {
+    "id": "student-benjamim-sales",
+    "name": "BENJAMIM SALES",
+    "answers": []
+  },
+  "student-benjamin-luz": {
+    "id": "student-benjamin-luz",
+    "name": "Benjamin Luz",
+    "answers": []
+  },
+  "student-bernardo-alves": {
+    "id": "student-bernardo-alves",
+    "name": "Bernardo Alves",
+    "answers": []
+  },
+  "student-brendha-araujo": {
+    "id": "student-brendha-araujo",
+    "name": "Brendha Araujo",
+    "answers": []
+  },
+  "student-cecilia-gomes": {
+    "id": "student-cecilia-gomes",
+    "name": "Cecília Gomes",
+    "answers": []
+  },
+  "student-cecilia-raiol": {
+    "id": "student-cecilia-raiol",
+    "name": "Cecília Raiol",
+    "answers": []
+  },
+  "student-cecilia-ziemba": {
+    "id": "student-cecilia-ziemba",
+    "name": "Cecília Ziemba",
+    "answers": []
+  },
+  "student-davi-de-souza-belentani": {
+    "id": "student-davi-de-souza-belentani",
+    "name": "Davi de Souza Belentani",
+    "answers": []
+  },
+  "student-davi-souza-ventura": {
+    "id": "student-davi-souza-ventura",
+    "name": "DAVI SOUZA VENTURA",
+    "answers": []
+  },
+  "student-emanuelly-gomes": {
+    "id": "student-emanuelly-gomes",
+    "name": "Emanuelly Gomes",
+    "answers": []
+  },
+  "student-gabriel-henrique-da-silva": {
+    "id": "student-gabriel-henrique-da-silva",
+    "name": "GABRIEL HENRIQUE DA SILVA",
+    "answers": []
+  },
+  "student-helena-ferreira": {
+    "id": "student-helena-ferreira",
+    "name": "HELENA FERREIRA",
+    "answers": []
+  },
+  "student-heloisa-troiani": {
+    "id": "student-heloisa-troiani",
+    "name": "Heloísa Troiani",
+    "answers": []
+  },
+  "student-henrique-fernandes": {
+    "id": "student-henrique-fernandes",
+    "name": "Henrique Fernandes",
+    "answers": []
+  },
+  "student-isaque-ferreira": {
+    "id": "student-isaque-ferreira",
+    "name": "ISAQUE FERREIRA",
+    "answers": []
+  },
+  "student-liz-farina": {
+    "id": "student-liz-farina",
+    "name": "Liz Farina",
+    "answers": []
+  },
+  "student-lorena-vitoria-bispo": {
+    "id": "student-lorena-vitoria-bispo",
+    "name": "Lorena Vitoria Bispo",
+    "answers": []
+  },
+  "student-maria-alice-lima": {
+    "id": "student-maria-alice-lima",
+    "name": "MARIA ALICE LIMA",
+    "answers": []
+  },
+  "student-maria-clara-vilhalba": {
+    "id": "student-maria-clara-vilhalba",
+    "name": "MARIA CLARA VILHALBA",
+    "answers": []
+  },
+  "student-mariah-zinezzi": {
+    "id": "student-mariah-zinezzi",
+    "name": "Mariah Zinezzi",
+    "answers": []
+  },
+  "student-paola-bezerra": {
+    "id": "student-paola-bezerra",
+    "name": "Paola Bezerra",
+    "answers": []
+  },
+  "student-pedro-henrique": {
+    "id": "student-pedro-henrique",
+    "name": "PEDRO HENRIQUE",
+    "answers": []
+  },
+  "student-sofia-cochi": {
+    "id": "student-sofia-cochi",
+    "name": "SOFIA COCHI",
+    "answers": []
+  },
+  "student-taina-cochi": {
+    "id": "student-taina-cochi",
+    "name": "TAINA COCHI",
+    "answers": []
+  },
+  "student-helena-oliveira": {
+    "id": "student-helena-oliveira",
+    "name": "Helena Oliveira",
+    "answers": []
+  },
+  "student-lunna-catarina": {
+    "id": "student-lunna-catarina",
+    "name": "Lunna Catarina",
+    "answers": []
+  },
+  "student-verificacao-999": {
+    "id": "student-verificacao-999",
+    "name": "Aluno Verificacao",
+    "answers": []
+  }
+}

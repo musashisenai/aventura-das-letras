@@ -1,0 +1,1628 @@
+{
+  "student-amaya-santos": {
+    "id": "student-amaya-santos",
+    "name": "Amaya Santos",
+    "profile": {
+      "placementCompleted": true,
+      "studentId": "student-amaya-santos",
+      "name": "Amaya Santos",
+      "partner": "Lumi",
+      "currentWorld": 2,
+      "recommendedWorld": 2,
+      "coins": 36,
+      "xp": 17,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true,
+      "sessionToken": "1790853482149-x2cg1png2xk"
+    },
+    "gameState": {
+      "screen": "map",
+      "profile": {
+        "placementCompleted": true,
+        "studentId": "student-amaya-santos",
+        "name": "Amaya Santos",
+        "partner": "Lumi",
+        "currentWorld": 2,
+        "recommendedWorld": 2,
+        "coins": 36,
+        "xp": 17,
+        "eggs": 0,
+        "eggCollection": [],
+        "petLevel": 1,
+        "petCare": 30,
+        "petName": "Faísca",
+        "petStage": "filhote",
+        "petSpecies": "raposa",
+        "audioEnabled": true,
+        "sessionToken": "1790853482149-x2cg1png2xk"
+      },
+      "setupAudioEnabled": true,
+      "placementIndex": 21,
+      "placementScore": 15,
+      "placementAttempts": 0,
+      "placementResults": [
+        {
+          "questionId": "nivel-abc-a",
+          "question": "QUAL É A LETRA A?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-p-numero",
+          "question": "Qual destes é um número?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-sa-final",
+          "question": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-sa-ditado",
+          "question": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-g-rabisco",
+          "question": "Qual desenho parece uma letra?",
+          "correct": true,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-abc-ordem",
+          "question": "QUAL LETRA VEM DEPOIS DE C?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-s-monta",
+          "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-s-palmas",
+          "question": "Quantas sílabas tem CA-SA?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-p-tamanho",
+          "question": "Qual palavra tem mais letras?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-o-rr",
+          "question": "Qual palavra está escrita corretamente?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-s-inicio",
+          "question": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-o-acento",
+          "question": "Qual escrita está correta?",
+          "correct": true,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-a-rima",
+          "question": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+          "correct": true,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-g-forma",
+          "question": "Qual forma é redonda?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-abc-inicial",
+          "question": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-o-cedilha",
+          "question": "Qual palavra está correta?",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-g-risco",
+          "question": "FAÇA UM RISCO DE IDA E VOLTA.",
+          "correct": true,
+          "attempts": 1,
+          "drawing": "data:image/png;base64,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"
+        },
+        {
+          "questionId": "nivel-g-quantidade",
+          "question": "CONTE AS ESTRELAS ABAIXO.",
+          "correct": false,
+          "attempts": 2
+        },
+        {
+          "questionId": "nivel-a-frase",
+          "question": "Qual frase está escrita corretamente?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-sa-completa",
+          "question": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-p-letra",
+          "question": "Qual destes é uma letra?",
+          "correct": true,
+          "attempts": 1
+        },
+        {
+          "questionId": "nivel-a-problema",
+          "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+          "correct": true,
+          "attempts": 2
+        }
+      ],
+      "placementQueue": [],
+      "activeWorld": 2,
+      "selectedWorld": 2,
+      "activePhase": 0,
+      "queue": [
+        {
+          "id": "fase-1-p-sapo-15",
+          "kind": "order",
+          "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+          "options": [
+            "O",
+            "P",
+            "A",
+            "S"
+          ],
+          "answer": "SAPO",
+          "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+          "visual": "🐸",
+          "audioText": "SAPO",
+          "targetWord": "SAPO"
+        },
+        {
+          "id": "fase-1-p-torre-letras-6",
+          "kind": "order",
+          "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+          "options": [
+            "O",
+            "L",
+            "A",
+            "B"
+          ],
+          "answer": "BOLA",
+          "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+          "visual": "⚽",
+          "audioText": "BOLA",
+          "targetWord": "BOLA"
+        },
+        {
+          "id": "fase-1-p-muitas-letras-4",
+          "kind": "choice",
+          "prompt": "Qual palavra tem muitas letras?",
+          "options": [
+            "PÉ",
+            "BOLA",
+            "BORBOLETA"
+          ],
+          "answer": "BORBOLETA",
+          "hint": "Compare o tamanho das palavras."
+        },
+        {
+          "id": "fase-1-p-numero-1",
+          "kind": "choice",
+          "prompt": "Qual destes é um número?",
+          "options": [
+            "4",
+            "B",
+            "☀"
+          ],
+          "answer": "4",
+          "hint": "Números ajudam a contar."
+        },
+        {
+          "id": "fase-1-p-quais-letras-16",
+          "kind": "choice",
+          "prompt": "Qual grupo tem somente letras?",
+          "options": [
+            "2 4 6",
+            "○ △ □",
+            "A B C"
+          ],
+          "answer": "A B C",
+          "hint": "Letras não são números nem desenhos."
+        },
+        {
+          "id": "fase-1-p-quantidade-6-17",
+          "kind": "choice",
+          "prompt": "Qual grupo tem seis bolinhas?",
+          "options": [
+            "●●●●",
+            "●●●●●●",
+            "●●●●●"
+          ],
+          "answer": "●●●●●●",
+          "hint": "Conte uma por uma."
+        },
+        {
+          "id": "fase-1-p-blocos-2-1-9",
+          "kind": "choice",
+          "prompt": "Com dois blocos e mais um bloco, quantos há?",
+          "options": [
+            "3",
+            "4",
+            "2"
+          ],
+          "answer": "3",
+          "hint": "Junte os blocos.",
+          "visual": "🧱 🧱 + 🧱"
+        },
+        {
+          "id": "fase-1-p-nome-animal-5",
+          "kind": "choice",
+          "prompt": "Qual pode ser o nome deste animal?",
+          "options": [
+            "GATO",
+            "LUA",
+            "MESA"
+          ],
+          "answer": "GATO",
+          "hint": "Olhe para o bichinho e escolha seu nome.",
+          "visual": "🐱"
+        }
+      ],
+      "questionIndex": 7,
+      "attempts": 1,
+      "roundScore": 3,
+      "feedback": null,
+      "completions": {
+        "2:0": {
+          "score": 3,
+          "total": 8,
+          "date": "2026-10-01T11:19:03.333Z"
+        }
+      },
+      "worldApprovals": {},
+      "answers": [
+        {
+          "questionId": "fase-1-p-sapo-15",
+          "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+          "answer": "ASPO",
+          "correct": false,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "order",
+          "options": [
+            "O",
+            "P",
+            "A",
+            "S"
+          ],
+          "correctAnswer": "SAPO",
+          "hint": "OLHE PARA O ANIMAL E EXPERIMENTE OS SONS.",
+          "visual": "🐸",
+          "at": "01/10/2026, 08:18:47"
+        },
+        {
+          "questionId": "fase-1-p-torre-letras-6",
+          "question": "COMO SE ESCREVE O NOME DA FIGURA?",
+          "answer": "BLAO",
+          "correct": false,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "order",
+          "options": [
+            "O",
+            "L",
+            "A",
+            "B"
+          ],
+          "correctAnswer": "BOLA",
+          "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
+          "visual": "⚽",
+          "at": "01/10/2026, 08:18:53"
+        },
+        {
+          "questionId": "fase-1-p-muitas-letras-4",
+          "question": "Qual palavra tem muitas letras?",
+          "answer": "BOLA",
+          "correct": false,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "PÉ",
+            "BOLA",
+            "BORBOLETA"
+          ],
+          "correctAnswer": "BORBOLETA",
+          "hint": "Compare o tamanho das palavras.",
+          "at": "01/10/2026, 08:18:55"
+        },
+        {
+          "questionId": "fase-1-p-numero-1",
+          "question": "Qual destes é um número?",
+          "answer": "B",
+          "correct": false,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "4",
+            "B",
+            "☀"
+          ],
+          "correctAnswer": "4",
+          "hint": "Números ajudam a contar.",
+          "at": "01/10/2026, 08:18:56"
+        },
+        {
+          "questionId": "fase-1-p-quais-letras-16",
+          "question": "Qual grupo tem somente letras?",
+          "answer": "A B C",
+          "correct": true,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "2 4 6",
+            "○ △ □",
+            "A B C"
+          ],
+          "correctAnswer": "A B C",
+          "hint": "Letras não são números nem desenhos.",
+          "at": "01/10/2026, 08:18:57"
+        },
+        {
+          "questionId": "fase-1-p-quantidade-6-17",
+          "question": "Qual grupo tem seis bolinhas?",
+          "answer": "●●●●●●",
+          "correct": true,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "●●●●",
+            "●●●●●●",
+            "●●●●●"
+          ],
+          "correctAnswer": "●●●●●●",
+          "hint": "Conte uma por uma.",
+          "at": "01/10/2026, 08:18:58"
+        },
+        {
+          "questionId": "fase-1-p-blocos-2-1-9",
+          "question": "Com dois blocos e mais um bloco, quantos há?",
+          "answer": "3",
+          "correct": true,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "3",
+            "4",
+            "2"
+          ],
+          "correctAnswer": "3",
+          "hint": "Junte os blocos.",
+          "visual": "🧱 🧱 + 🧱",
+          "at": "01/10/2026, 08:18:59"
+        },
+        {
+          "questionId": "fase-1-p-nome-animal-5",
+          "question": "Qual pode ser o nome deste animal?",
+          "answer": "LUA",
+          "correct": false,
+          "worldId": 2,
+          "phase": 0,
+          "kind": "choice",
+          "options": [
+            "GATO",
+            "LUA",
+            "MESA"
+          ],
+          "correctAnswer": "GATO",
+          "hint": "Olhe para o bichinho e escolha seu nome.",
+          "visual": "🐱",
+          "at": "01/10/2026, 08:19:02"
+        }
+      ],
+      "reward": {
+        "coins": 16,
+        "xp": 17,
+        "egg": false,
+        "eggRarity": "comum",
+        "title": "Fase 1 concluída"
+      },
+      "teacherName": "Professor(a)",
+      "worldOrderVersion": 2
+    },
+    "completions": {
+      "2:0": {
+        "score": 3,
+        "total": 8,
+        "date": "2026-10-01T11:19:03.333Z"
+      }
+    },
+    "worldApprovals": {}
+  },
+  "student-angelo-ciccillo": {
+    "id": "student-angelo-ciccillo",
+    "name": "Angelo Ciccillo",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-angelo-ciccillo",
+      "name": "Angelo Ciccillo",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-anna-alice-pereira": {
+    "id": "student-anna-alice-pereira",
+    "name": "Anna Alice Pereira",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-anna-alice-pereira",
+      "name": "Anna Alice Pereira",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-anthony-rezende": {
+    "id": "student-anthony-rezende",
+    "name": "ANTHONY REZENDE",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-anthony-rezende",
+      "name": "ANTHONY REZENDE",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-anthony-zaia": {
+    "id": "student-anthony-zaia",
+    "name": "Anthony Zaia",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-anthony-zaia",
+      "name": "Anthony Zaia",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-arthur-miguel": {
+    "id": "student-arthur-miguel",
+    "name": "Arthur Miguel",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-arthur-miguel",
+      "name": "Arthur Miguel",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-benicio-maia": {
+    "id": "student-benicio-maia",
+    "name": "BENÍCIO MAIA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-benicio-maia",
+      "name": "BENÍCIO MAIA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-benicio-zaia": {
+    "id": "student-benicio-zaia",
+    "name": "Benício Zaia",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-benicio-zaia",
+      "name": "Benício Zaia",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-benjamim-sales": {
+    "id": "student-benjamim-sales",
+    "name": "BENJAMIM SALES",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-benjamim-sales",
+      "name": "BENJAMIM SALES",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-benjamin-luz": {
+    "id": "student-benjamin-luz",
+    "name": "Benjamin Luz",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-benjamin-luz",
+      "name": "Benjamin Luz",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-bernardo-alves": {
+    "id": "student-bernardo-alves",
+    "name": "Bernardo Alves",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-bernardo-alves",
+      "name": "Bernardo Alves",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-brendha-araujo": {
+    "id": "student-brendha-araujo",
+    "name": "Brendha Araujo",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-brendha-araujo",
+      "name": "Brendha Araujo",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-cecilia-gomes": {
+    "id": "student-cecilia-gomes",
+    "name": "Cecília Gomes",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-cecilia-gomes",
+      "name": "Cecília Gomes",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-cecilia-raiol": {
+    "id": "student-cecilia-raiol",
+    "name": "Cecília Raiol",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-cecilia-raiol",
+      "name": "Cecília Raiol",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-cecilia-ziemba": {
+    "id": "student-cecilia-ziemba",
+    "name": "Cecília Ziemba",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-cecilia-ziemba",
+      "name": "Cecília Ziemba",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-davi-de-souza-belentani": {
+    "id": "student-davi-de-souza-belentani",
+    "name": "Davi de Souza Belentani",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-davi-de-souza-belentani",
+      "name": "Davi de Souza Belentani",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-davi-souza-ventura": {
+    "id": "student-davi-souza-ventura",
+    "name": "DAVI SOUZA VENTURA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-davi-souza-ventura",
+      "name": "DAVI SOUZA VENTURA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-emanuelly-gomes": {
+    "id": "student-emanuelly-gomes",
+    "name": "Emanuelly Gomes",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-emanuelly-gomes",
+      "name": "Emanuelly Gomes",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-gabriel-henrique-da-silva": {
+    "id": "student-gabriel-henrique-da-silva",
+    "name": "GABRIEL HENRIQUE DA SILVA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-gabriel-henrique-da-silva",
+      "name": "GABRIEL HENRIQUE DA SILVA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-helena-ferreira": {
+    "id": "student-helena-ferreira",
+    "name": "HELENA FERREIRA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-helena-ferreira",
+      "name": "HELENA FERREIRA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-heloisa-troiani": {
+    "id": "student-heloisa-troiani",
+    "name": "Heloísa Troiani",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-heloisa-troiani",
+      "name": "Heloísa Troiani",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-henrique-fernandes": {
+    "id": "student-henrique-fernandes",
+    "name": "Henrique Fernandes",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-henrique-fernandes",
+      "name": "Henrique Fernandes",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-isaque-ferreira": {
+    "id": "student-isaque-ferreira",
+    "name": "ISAQUE FERREIRA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-isaque-ferreira",
+      "name": "ISAQUE FERREIRA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-liz-farina": {
+    "id": "student-liz-farina",
+    "name": "Liz Farina",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-liz-farina",
+      "name": "Liz Farina",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-lorena-vitoria-bispo": {
+    "id": "student-lorena-vitoria-bispo",
+    "name": "Lorena Vitoria Bispo",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-lorena-vitoria-bispo",
+      "name": "Lorena Vitoria Bispo",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-maria-alice-lima": {
+    "id": "student-maria-alice-lima",
+    "name": "MARIA ALICE LIMA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-maria-alice-lima",
+      "name": "MARIA ALICE LIMA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-maria-clara-vilhalba": {
+    "id": "student-maria-clara-vilhalba",
+    "name": "MARIA CLARA VILHALBA",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-maria-clara-vilhalba",
+      "name": "MARIA CLARA VILHALBA",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-mariah-zinezzi": {
+    "id": "student-mariah-zinezzi",
+    "name": "Mariah Zinezzi",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-mariah-zinezzi",
+      "name": "Mariah Zinezzi",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-paola-bezerra": {
+    "id": "student-paola-bezerra",
+    "name": "Paola Bezerra",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-paola-bezerra",
+      "name": "Paola Bezerra",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-pedro-henrique": {
+    "id": "student-pedro-henrique",
+    "name": "PEDRO HENRIQUE",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-pedro-henrique",
+      "name": "PEDRO HENRIQUE",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-sofia-cochi": {
+    "id": "student-sofia-cochi",
+    "name": "SOFIA COCHI",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-sofia-cochi",
+      "name": "SOFIA COCHI",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-taina-cochi": {
+    "id": "student-taina-cochi",
+    "name": "TAINA COCHI",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-taina-cochi",
+      "name": "TAINA COCHI",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true,
+      "sessionToken": "1790853108768-1t056a4104t"
+    },
+    "gameState": {
+      "screen": "continue",
+      "profile": {
+        "placementCompleted": false,
+        "studentId": "student-taina-cochi",
+        "name": "TAINA COCHI",
+        "partner": "Lumi",
+        "currentWorld": 0,
+        "recommendedWorld": 0,
+        "coins": 20,
+        "xp": 0,
+        "eggs": 0,
+        "eggCollection": [],
+        "petLevel": 1,
+        "petCare": 30,
+        "petName": "Faísca",
+        "petStage": "filhote",
+        "petSpecies": "raposa",
+        "audioEnabled": true,
+        "sessionToken": "1790853108768-1t056a4104t"
+      },
+      "setupAudioEnabled": true,
+      "placementIndex": 0,
+      "placementScore": 0,
+      "placementAttempts": 0,
+      "placementResults": [],
+      "placementQueue": [
+        {
+          "id": "nivel-o-acento",
+          "kind": "choice",
+          "prompt": "Qual escrita está correta?",
+          "options": [
+            "mamãe",
+            "mamae",
+            "mãmae"
+          ],
+          "answer": "mamãe",
+          "hint": "Observe o til e o acento."
+        },
+        {
+          "id": "nivel-p-letra",
+          "kind": "choice",
+          "prompt": "Qual destes é uma letra?",
+          "options": [
+            "M",
+            "8",
+            "△"
+          ],
+          "answer": "M",
+          "hint": "Letras servem para escrever."
+        },
+        {
+          "id": "nivel-o-cedilha",
+          "kind": "choice",
+          "prompt": "Qual palavra está correta?",
+          "options": [
+            "CORASAO",
+            "CORASÃO",
+            "CORAÇÃO"
+          ],
+          "answer": "CORAÇÃO",
+          "hint": "A cedilha faz som de S antes de A."
+        },
+        {
+          "id": "nivel-g-quantidade",
+          "kind": "choice",
+          "prompt": "CONTE AS ESTRELAS ABAIXO.",
+          "options": [
+            "3",
+            "2",
+            "4"
+          ],
+          "answer": "3",
+          "hint": "CONTE CADA ESTRELA.",
+          "visual": "★ ★ ★"
+        },
+        {
+          "id": "nivel-s-monta",
+          "kind": "order",
+          "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+          "options": [
+            "TO",
+            "PA"
+          ],
+          "answer": "PATO",
+          "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+          "visual": "🦆",
+          "audioText": "PATO",
+          "targetWord": "PATO"
+        },
+        {
+          "id": "nivel-s-inicio",
+          "kind": "choice",
+          "prompt": "Qual sílaba começa BO-LA?",
+          "options": [
+            "BA",
+            "BO",
+            "LA"
+          ],
+          "answer": "BO",
+          "hint": "Fale devagar: BO-LA.",
+          "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
+          "targetWord": "BOLA"
+        },
+        {
+          "id": "nivel-sa-completa",
+          "kind": "choice",
+          "prompt": "Complete: CA _ A",
+          "options": [
+            "T",
+            "P",
+            "S"
+          ],
+          "answer": "S",
+          "hint": "A palavra é CASA.",
+          "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
+          "targetWord": "CASA"
+        },
+        {
+          "id": "nivel-g-risco",
+          "kind": "draw",
+          "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
+          "answer": "__drawing__",
+          "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
+          "visual": "〰"
+        },
+        {
+          "id": "nivel-a-frase",
+          "kind": "choice",
+          "prompt": "Qual frase está escrita corretamente?",
+          "options": [
+            "O gato dorme.",
+            "Dorme gato o.",
+            "gato O dorme."
+          ],
+          "answer": "O gato dorme.",
+          "hint": "Frases começam com maiúscula e terminam com ponto."
+        },
+        {
+          "id": "nivel-a-problema",
+          "kind": "choice",
+          "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+          "options": [
+            "2",
+            "4",
+            "3"
+          ],
+          "answer": "3",
+          "hint": "Comece com cinco e retire duas."
+        },
+        {
+          "id": "nivel-sa-ditado",
+          "kind": "choice",
+          "prompt": "Qual escrita corresponde a MESA?",
+          "options": [
+            "MEZA",
+            "SEMA",
+            "MESA"
+          ],
+          "answer": "MESA",
+          "hint": "Procure M-E-S-A.",
+          "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
+          "targetWord": "MESA"
+        },
+        {
+          "id": "nivel-p-numero",
+          "kind": "choice",
+          "prompt": "Qual destes é um número?",
+          "options": [
+            "B",
+            "7",
+            "☁"
+          ],
+          "answer": "7",
+          "hint": "Números ajudam a contar."
+        },
+        {
+          "id": "nivel-g-forma",
+          "kind": "choice",
+          "prompt": "Qual forma é redonda?",
+          "options": [
+            "○",
+            "△",
+            "□"
+          ],
+          "answer": "○",
+          "hint": "Procure a forma que parece uma bola."
+        },
+        {
+          "id": "nivel-o-rr",
+          "kind": "choice",
+          "prompt": "Qual palavra está escrita corretamente?",
+          "options": [
+            "CARRO",
+            "CARO",
+            "CARRU"
+          ],
+          "answer": "CARRO",
+          "hint": "O som forte de R no meio usa RR."
+        },
+        {
+          "id": "nivel-p-tamanho",
+          "kind": "choice",
+          "prompt": "Qual palavra tem mais letras?",
+          "options": [
+            "BOLA",
+            "SOL",
+            "BORBOLETA"
+          ],
+          "answer": "BORBOLETA",
+          "hint": "Compare o tamanho das palavras."
+        },
+        {
+          "id": "nivel-a-rima",
+          "kind": "choice",
+          "prompt": "Qual palavra rima com GATO?",
+          "options": [
+            "MESA",
+            "LUA",
+            "PATO"
+          ],
+          "answer": "PATO",
+          "hint": "GATO e PATO terminam igual.",
+          "displayPrompt": "QUAL PALAVRA RIMA COM A PALAVRA OUVIDA?",
+          "targetWord": "GATO"
+        },
+        {
+          "id": "nivel-g-rabisco",
+          "kind": "choice",
+          "prompt": "Qual desenho parece uma letra?",
+          "options": [
+            "○",
+            "☀",
+            "A"
+          ],
+          "answer": "A",
+          "hint": "Uma letra pode fazer parte de uma palavra."
+        },
+        {
+          "id": "nivel-abc-a",
+          "kind": "choice",
+          "prompt": "QUAL É A LETRA A?",
+          "options": [
+            "A",
+            "M",
+            "O"
+          ],
+          "answer": "A",
+          "hint": "PROCURE A LETRA A."
+        },
+        {
+          "id": "nivel-abc-ordem",
+          "kind": "choice",
+          "prompt": "QUAL LETRA VEM DEPOIS DE C?",
+          "options": [
+            "E",
+            "B",
+            "D"
+          ],
+          "answer": "D",
+          "hint": "FALE: A, B, C, D."
+        },
+        {
+          "id": "nivel-s-palmas",
+          "kind": "choice",
+          "prompt": "Quantas sílabas tem CA-SA?",
+          "options": [
+            "2",
+            "3",
+            "1"
+          ],
+          "answer": "2",
+          "hint": "Bata duas palmas: CA / SA."
+        },
+        {
+          "id": "nivel-abc-inicial",
+          "kind": "choice",
+          "prompt": "QUAL LETRA COMEÇA BOLA?",
+          "options": [
+            "B",
+            "P",
+            "D"
+          ],
+          "answer": "B",
+          "hint": "O SOM INICIAL É BÊÊÊ.",
+          "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
+          "targetWord": "BOLA"
+        },
+        {
+          "id": "nivel-sa-final",
+          "kind": "choice",
+          "prompt": "Qual letra termina GATO?",
+          "options": [
+            "T",
+            "A",
+            "O"
+          ],
+          "answer": "O",
+          "hint": "Olhe para o fim da palavra.",
+          "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
+          "targetWord": "GATO"
+        }
+      ],
+      "activeWorld": 0,
+      "selectedWorld": 0,
+      "activePhase": 0,
+      "queue": [],
+      "questionIndex": 0,
+      "attempts": 0,
+      "roundScore": 0,
+      "feedback": null,
+      "completions": {},
+      "worldApprovals": {},
+      "answers": [],
+      "reward": null,
+      "teacherName": "Professor(a)",
+      "worldOrderVersion": 2
+    },
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-helena-oliveira": {
+    "id": "student-helena-oliveira",
+    "name": "Helena Oliveira",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-helena-oliveira",
+      "name": "Helena Oliveira",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-lunna-catarina": {
+    "id": "student-lunna-catarina",
+    "name": "Lunna Catarina",
+    "profile": {
+      "placementCompleted": false,
+      "studentId": "student-lunna-catarina",
+      "name": "Lunna Catarina",
+      "partner": "Lumi",
+      "currentWorld": 0,
+      "recommendedWorld": 0,
+      "coins": 20,
+      "xp": 0,
+      "eggs": 0,
+      "eggCollection": [],
+      "petLevel": 1,
+      "petCare": 30,
+      "petName": "Faísca",
+      "petStage": "filhote",
+      "petSpecies": "raposa",
+      "audioEnabled": true
+    },
+    "gameState": {},
+    "completions": {},
+    "worldApprovals": {}
+  },
+  "student-verificacao-999": {
+    "id": "student-verificacao-999",
+    "name": "Aluno Verificacao",
+    "profile": {
+      "name": "Aluno Verificacao",
+      "placementCompleted": false,
+      "currentWorld": 0
+    },
+    "gameState": {
+      "screen": "placement"
+    },
+    "completions": {},
+    "worldApprovals": {}
+  }
+}
