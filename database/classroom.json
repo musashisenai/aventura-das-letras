@@ -2199,6 +2199,9 @@
     }
   },
   "settings": {
-    "teacherPassword": "7391846205"
+    "teacherPassword": "7391846205",
+    "restoredFromCommit": "aa5430e",
+    "restoredStudentCount": "34",
+    "restoredAnswerCount": "8"
   }
 }

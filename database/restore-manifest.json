@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "aa5430e",
+  "description": "Banco reconstruído a partir do histórico completo da turma.",
+  "studentCount": 34,
+  "answerCount": 8,
+  "includes": [
+    "database/classroom.json",
+    "database/sections/names.json",
+    "database/sections/statuses.json",
+    "database/sections/saves.json",
+    "database/sections/answers.json"
+  ]
+}
