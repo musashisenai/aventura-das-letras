@@ -197,3 +197,12 @@ button:not(:disabled):active { transform: scale(.97); }
   .teacher-layout { padding-inline: 8px; }
   .teacher-sidebar button { font-size: .7rem; padding-inline: 8px; }
 }
+
+.teacher-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .55rem; margin: 0 0 12px; }
+.teacher-pagination > span { margin-right: auto; color: #6d897e; font-size: .72rem; font-weight: 900; }
+.teacher-pagination button:disabled { opacity: .45; }
+@media (max-width: 560px) {
+  .teacher-pagination { justify-content: stretch; }
+  .teacher-pagination > span { width: 100%; margin-right: 0; }
+  .teacher-pagination button { flex: 1 1 120px; justify-content: center; }
+}
