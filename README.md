@@ -54,7 +54,7 @@ O arquivo fica organizado por aluno em `name`, `status` e `save`. `status` conce
 
 Para consultar essas informações em abas separadas no VS Code, o servidor também mantém `database/sections/names.json` (nomes), `statuses.json` (status), `saves.json` (posição e progresso) e `answers.json` (respostas). São visões geradas automaticamente; a fonte oficial continua sendo `database/classroom.json`.
 
-Na área do professor, o perfil selecionado oferece **Editar nome**, **Resetar status e teste inicial** e **Excluir perfil**. O reset apaga respostas, fases, posição e progresso do teste, deixando o aluno obrigado a refazer o teste inicial. A exclusão exige confirmação digitando o nome. Em **Meu perfil**, **Excluir todos os dados** exige confirmação visual, a frase `LIMPAR BANCO` e a senha do professor antes de remover todos os alunos.
+Na área do professor, o perfil selecionado oferece **Editar nome**, **Resetar status e teste inicial** e **Excluir perfil**. O reset apaga respostas, fases, posição e progresso do teste, deixando o aluno obrigado a refazer o teste inicial. A exclusão exige confirmação digitando o nome. Em **Meu perfil**, **Excluir todos os dados** exige confirmação visual, a senha do professor, o IP do servidor e a senha final `Pindamonhagaba` antes de remover todos os alunos.
 
 O servidor tenta sincronizar o banco com o GitHub automaticamente a cada 15 minutos. O professor também pode entrar em **Meu perfil → Salvar banco no GitHub** para fazer a sincronização imediatamente. Se estiver sem internet, o arquivo continua sendo salvo localmente e a sincronização pode ser tentada depois.
 
