@@ -5,9 +5,10 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Eye, EyeOff, FileText, Gift, Heart, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Star, Volume2, VolumeX, X } from "lucide-react";
-import { PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
+import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
+import "./activity.css";
 import "./pet-expansion.css";
 import "./profile-page.css";
 import "./teacher-password.css";
@@ -401,6 +402,7 @@ function Lesson({ state, controller }: Props) {
   const question = controller.currentQuestion();
   if (!question) return null;
   const world = WORLDS[state.activeWorld];
+  const activity = getActivityDefinition(state.activeWorld, question.activity);
   // Até o Silábico-Alfabético, a Lumi pode narrar o enunciado completo.
   // No Alfabético e no Ortográfico, somente atividades com palavra-alvo
   // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
@@ -415,6 +417,7 @@ function Lesson({ state, controller }: Props) {
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
         <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        {activity && <div className="activity-chip"><span>ATIVIDADE</span><strong>{activity.title}</strong></div>}
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
         <QuestionInteraction question={question} disabled={Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />

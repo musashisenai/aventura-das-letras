@@ -66,6 +66,9 @@ export const ACTIVITY_CATALOG: Record<number, ActivitySeed[]> = {
 };
 
 const catalog = (worldId: number): ActivityDefinition[] => ACTIVITY_CATALOG[worldId].map(([id, title, focus]) => ({ id, title, focus }));
+export function getActivityDefinition(worldId: number, activityId?: string) {
+  return activityId ? catalog(worldId).find((activity) => activity.id === activityId) : undefined;
+}
 const choice = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "choice", prompt, options, answer, hint, visual, activity, activityIndex });
 const order = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, audioText?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "order", prompt, options, answer, hint, visual, audioText, activity, activityIndex });
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });

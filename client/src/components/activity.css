@@ -1,0 +1,29 @@
+.activity-chip {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  width: fit-content;
+  margin: 18px 0 -4px;
+  padding: 7px 11px;
+  color: #19765c;
+  background: #e9fff7;
+  border: 1px solid #bfe8d5;
+  border-radius: 11px;
+}
+
+.activity-chip span {
+  font-size: .61rem;
+  font-weight: 1000;
+  letter-spacing: .08em;
+}
+
+.activity-chip strong {
+  font-size: .84rem;
+}
+
+@media (max-width: 620px) {
+  .activity-chip {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+}
