@@ -153,6 +153,7 @@ export class GameController {
   private state: GameState;
   private listeners = new Set<(state: GameState) => void>();
   private syncQueue: Promise<void> = Promise.resolve();
+  private sessionRelease: Promise<void> = Promise.resolve();
 
   constructor(demo = false, previewMenu = false) {
     this.state = this.load();
@@ -264,7 +265,7 @@ export class GameController {
   }
 
   logout() {
-    void this.releaseStudentSession();
+    this.sessionRelease = this.releaseStudentSession();
     const setupAudioEnabled = this.state.setupAudioEnabled;
     this.state = { ...initialState(), setupAudioEnabled, screen: "menu" };
     try {
@@ -302,6 +303,7 @@ export class GameController {
   }
 
   async beginProfile(name: string, _partner?: string) {
+    await this.sessionRelease;
     const safeName = name.trim() || "Exploradora";
     const audioEnabled = this.state.setupAudioEnabled;
     const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -327,6 +329,7 @@ export class GameController {
   }
 
   async resumeProfile(name: string) {
+    await this.sessionRelease;
     const normalized = name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
     if (!normalized) return "Digite o nome usado no cadastro.";
     try {
