@@ -60,12 +60,25 @@ function TreasureArt({ className = "" }: { className?: string }) {
   return <div className={`treasure-art ${className}`} role="img" aria-label="Baú de aventura, moedas e um ovo surpresa"><i className="treasure-ray ray-one" /><i className="treasure-ray ray-two" /><b className="treasure-egg">✦</b><span className="treasure-lid" /><span className="treasure-chest" /><em className="treasure-lock">★</em></div>;
 }
 
+const FEMALE_VOICE_HINTS = ["female", "feminina", "francisca", "helena", "maria", "luciana", "camila", "ana", "bruna", "fernanda", "joana", "victoria", "vitória", "sofia", "sophia"];
+
+function preferredBrazilianVoice() {
+  if (!("speechSynthesis" in window)) return undefined;
+  const voices = window.speechSynthesis.getVoices();
+  const portuguese = voices.filter((voice) => voice.lang.toLowerCase().startsWith("pt-br"));
+  const candidates = portuguese.length ? portuguese : voices.filter((voice) => voice.lang.toLowerCase().startsWith("pt"));
+  return candidates.find((voice) => FEMALE_VOICE_HINTS.some((hint) => voice.name.toLowerCase().includes(hint))) ?? candidates[0] ?? voices.find((voice) => FEMALE_VOICE_HINTS.some((hint) => voice.name.toLowerCase().includes(hint)));
+}
+
 function speak(text: string) {
   if (!("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "pt-BR";
-  utterance.rate = 0.82;
+  utterance.voice = preferredBrazilianVoice() ?? null;
+  utterance.rate = 0.88;
+  utterance.pitch = 1.08;
+  utterance.volume = 1;
   window.speechSynthesis.speak(utterance);
 }
 
