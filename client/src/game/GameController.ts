@@ -106,10 +106,12 @@ export type GameState = {
   teacherPassword: string;
   teacherName: string;
   worldOrderVersion: number;
+  questionBankVersion: number;
 };
 
 const STORAGE_KEY = "aventura-das-letras-v2";
 const LEGACY_STORAGE_KEY = "aventura-das-letras-v1";
+const QUESTION_BANK_VERSION = 3;
 const positiveHints = ["Quase! Você está quase lá!", "Tente de novo, eu acredito em você!", "Vamos olhar com calma. A Lumi tem uma pista!"];
 const safeActivityHints = [
   "Observe todas as opções com calma e compare os sons.",
@@ -154,6 +156,7 @@ function initialState(): GameState {
     teacherPassword: "7391846205",
     teacherName: "Professor(a)",
     worldOrderVersion: 2,
+    questionBankVersion: QUESTION_BANK_VERSION,
   };
 }
 
@@ -183,6 +186,7 @@ export class GameController {
       if (!raw) return initialState();
       const legacy = !rawV2;
       const saved = JSON.parse(raw) as GameState;
+      const questionBankChanged = saved.questionBankVersion !== QUESTION_BANK_VERSION;
       const reordered = !legacy && saved.worldOrderVersion !== 2;
       const shiftWorld = (worldId: number) => {
         const migrated = legacy ? worldId + 1 : reordered && worldId < 2 ? 1 - worldId : worldId;
@@ -210,7 +214,7 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const worldApprovals = Object.fromEntries(Object.entries(saved.worldApprovals ?? {}).map(([worldId, approval]) => [`${shiftWorld(Number(worldId))}`, approval]));
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, questionBankVersion: QUESTION_BANK_VERSION, queue: questionBankChanged ? [] : (saved.queue ?? []), questionIndex: questionBankChanged ? 0 : (saved.questionIndex ?? 0), attempts: questionBankChanged ? 0 : (saved.attempts ?? 0), feedback: questionBankChanged ? null : (saved.feedback ?? null), setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
