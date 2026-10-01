@@ -1,19 +1,28 @@
--- Estrutura equivalente criada automaticamente pelo servidor Node.js.
--- O banco real fica em .local-data/classroom.sqlite e não é enviado ao GitHub.
-CREATE TABLE IF NOT EXISTS students (
-  id TEXT PRIMARY KEY,
-  name_key TEXT NOT NULL DEFAULT '',
-  data TEXT NOT NULL,
-  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+# Banco de dados versionado do Aventura das Letras
 
-CREATE UNIQUE INDEX IF NOT EXISTS students_name_key_unique_idx
-  ON students (name_key) WHERE name_key <> '';
+O banco usado pelo servidor está em `database/classroom.json`.
 
-CREATE INDEX IF NOT EXISTS students_updated_at_idx
-  ON students (updated_at);
+Ele possui esta estrutura:
 
-CREATE TABLE IF NOT EXISTS settings (
-  key TEXT PRIMARY KEY,
-  value TEXT NOT NULL
-);
+```json
+{
+  "students": {
+    "id-do-aluno": {
+      "id": "id-do-aluno",
+      "profile": {
+        "name": "Nome do aluno",
+        "placementCompleted": false
+      },
+      "completions": {},
+      "worldApprovals": {},
+      "answers": [],
+      "gameState": {}
+    }
+  },
+  "settings": {
+    "teacherPassword": "7391846205"
+  }
+}
+```
+
+O Node.js lê e grava este arquivo automaticamente com escrita temporária e substituição atômica. Não é necessário instalar banco de dados, extensão ou ferramenta adicional.
