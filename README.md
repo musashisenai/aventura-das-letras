@@ -28,6 +28,8 @@ npm run start:dev
 
 Esse comando compila o frontend, inicia o servidor Node/Express e serve o jogo e a API na mesma porta. Não é necessário iniciar um segundo servidor para o banco: o arquivo JSON é aberto e atualizado pelo próprio Node.
 
+O servidor escuta a rede local. No terminal, procure a linha `Acesso pela rede local: http://...:3000/` e use esse endereço nos computadores dos alunos. `localhost` só funciona no próprio computador que está executando o servidor.
+
 Para desenvolvimento visual do frontend com Hot Module Reload, é possível usar dois terminais. No primeiro, inicie o Node e o banco JSON:
 
 ```bash
@@ -49,6 +51,8 @@ Se existir um `.local-data/students.json` de uma versão anterior, ele será mig
 Cada alteração do aluno é sincronizada com a API do servidor e salva em `database/classroom.json`. Além do nome, o registro guarda o perfil, fases concluídas, respostas, mundo atual e o estado momentâneo do jogo: tela, mundo, fase, ordem das perguntas, pergunta atual, tentativas, pontuação, feedback e progresso do teste inicial. Assim, ao continuar pelo nome, o aluno volta ao ponto salvo.
 
 O servidor tenta sincronizar o banco com o GitHub automaticamente a cada 15 minutos. O professor também pode entrar em **Meu perfil → Salvar banco no GitHub** para fazer a sincronização imediatamente. Se estiver sem internet, o arquivo continua sendo salvo localmente e a sincronização pode ser tentada depois.
+
+Quando um aluno joga em outro computador da mesma rede, o navegador envia as alterações para o Node que está rodando no computador do professor. O Node grava o progresso no mesmo `database/classroom.json`; portanto, o save não fica preso ao computador do aluno. A cada 15 minutos, ou quando o professor usa o botão, esse arquivo é commitado e enviado ao GitHub, desde que o computador servidor tenha conexão e autenticação Git configurada.
 
 Alunos cadastrados diretamente no banco devem ter `profile.placementCompleted` como `false`. Na primeira entrada, o teste inicial será obrigatório. Se o aluno sair antes de concluir esse teste, na próxima entrada ele será obrigado a começar o teste novamente desde a primeira questão; o teste incompleto não libera o mapa.
 

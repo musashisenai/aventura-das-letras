@@ -23,6 +23,8 @@ npm run start:dev
 
 Esse único comando compila o jogo, inicia o Express e abre o banco JSON versionado. Os perfis, progressos, sessões e senha ficam em `database/classroom.json`.
 
+O servidor escuta em todas as interfaces de rede (`0.0.0.0`). Ao iniciar, o terminal exibirá uma linha como `Acesso pela rede local: http://192.168.0.10:3000/`. É esse endereço, usando o IPv4 do computador do professor, que deve ser aberto nos computadores dos alunos — não use `localhost` nos computadores dos alunos.
+
 Não é obrigatório abrir dois CMDs. Se quiser Hot Module Reload para desenvolver no VS Code, use dois terminais: no primeiro execute `npm run build && npm start`; no segundo execute `npm run dev`. O Vite encaminha a API para o Node na porta 3000, então ambos continuam usando o mesmo arquivo JSON.
 
 O progresso é salvo automaticamente: nome, fases, mundo, fase, pergunta atual, tentativas e o estado do teste inicial. Se um aluno criado no banco tiver `placementCompleted` como `false`, ele será direcionado obrigatoriamente ao teste inicial. Se sair antes de terminar, terá de refazer o teste desde o começo na próxima entrada.
@@ -38,6 +40,8 @@ O servidor tenta enviar o banco ao GitHub automaticamente a cada 15 minutos. O p
 ```text
 http://192.168.0.10:3000
 ```
+
+Use o endereço exato mostrado no terminal do professor. Todos os computadores precisam estar na mesma rede e o Windows Firewall deve permitir o Node.js em redes privadas.
 
 Os alunos não precisam instalar o projeto nem configurar banco. Eles apenas acessam o IP do computador do professor.
 

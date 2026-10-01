@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import os from "node:os";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -170,10 +171,15 @@ async function startServer() {
   const staticPath = process.env.NODE_ENV === "production" ? path.resolve(__dirname, "public") : path.resolve(__dirname, "..", "dist", "public");
   app.use(express.static(staticPath));
   app.get("*", (_req, res) => res.sendFile(path.join(staticPath, "index.html")));
-  const port = process.env.PORT || 3000;
+  const port = Number(process.env.PORT || 3000);
   const autosyncTimer = setInterval(() => { void syncDatabaseToGit(); }, 15 * 60 * 1000);
   autosyncTimer.unref();
-  server.listen(port, () => console.log(`Servidor do jogo rodando em http://localhost:${port}/`));
+  server.listen(port, "0.0.0.0", () => {
+    console.log(`Servidor do jogo rodando em http://localhost:${port}/`);
+    const networkAddresses = Object.values(os.networkInterfaces()).flatMap((interfaces) => (interfaces ?? []).filter((item) => item.family === "IPv4" && !item.internal).map((item) => `http://${item.address}:${port}/`));
+    if (networkAddresses.length) console.log(`Acesso pela rede local: ${networkAddresses.join(" | ")}`);
+    else console.log("Acesso pela rede local: não foi encontrado um IPv4 ativo; verifique a rede e o firewall.");
+  });
 }
 
 startServer().catch(console.error);
