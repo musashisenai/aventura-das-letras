@@ -74,7 +74,7 @@ Os mundos são definidos em `client/src/game/content.ts` e apresentados na segui
 6. **Alfabético** — céu das frases leitoras;
 7. **Ortográfico** — biblioteca dos sons especiais.
 
-Cada mundo possui um banco de perguntas maior que a quantidade exibida em uma fase. O jogo seleciona e rotaciona perguntas do banco, gerando uma fila de oito desafios por fase. A oitava posição é tratada como desafio final do mundo.
+Cada mundo possui um banco de 80 perguntas, organizado em 10 atividades inspiradas no plano pedagógico, com 8 variações por atividade. A trilha distribui 8 perguntas exclusivas em cada uma das 7 fases e no desafio final; a ordem é embaralhada dentro do bloco da fase, sem repetir uma pergunta em outra fase da mesma partida. A oitava posição de cada fila continua sendo a descoberta final daquela fase.
 
 O professor pode liberar o próximo mundo quando o aluno conclui as fases do mundo atual e alcança pelo menos 70% de desempenho, conforme a lógica de aprovação implementada no controlador e no painel docente.
 
