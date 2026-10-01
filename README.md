@@ -30,22 +30,6 @@ Esse comando compila o frontend, inicia o servidor Node/Express e serve o jogo e
 
 O servidor escuta a rede local. No terminal, procure a linha `Acesso pela rede local: http://...:3000/` e use esse endereço nos computadores dos alunos. `localhost` só funciona no próprio computador que está executando o servidor.
 
-Para desenvolvimento visual do frontend com Hot Module Reload, é possível usar dois terminais. No primeiro, inicie o Node e o banco JSON:
-
-```bash
-npm run build && npm start
-```
-
-No segundo, inicie o Vite:
-
-```bash
-npm run dev
-```
-
-O Vite encaminha `/api` para o Node na porta 3000; portanto, mesmo nesse modo, o jogo continua usando o mesmo arquivo JSON. Para uso normal, prefira apenas `npm run start:dev`.
-
-Se existir um `.local-data/students.json` de uma versão anterior, ele será migrado automaticamente para `database/classroom.json` na primeira execução. O arquivo antigo é mantido como cópia de segurança.
-
 ### O que é salvo
 
 Cada alteração do aluno é sincronizada com a API do servidor e salva em `database/classroom.json`. Além do nome, o registro guarda o perfil, fases concluídas, respostas, mundo atual e o estado momentâneo do jogo: tela, mundo, fase, ordem das perguntas, pergunta atual, tentativas, pontuação, feedback e progresso do teste inicial. Assim, ao continuar pelo nome, o aluno volta ao ponto salvo.
