@@ -1,0 +1,28 @@
+{
+  "description": "Ilustrações para substituir os emojis das atividades.",
+  "status": "generated",
+  "assets": [
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "world-0.png",
+      "path": "database/sections/images/world-0.png",
+      "role": "Ilustração-base do mundo e referências visuais das atividades",
+      "status": "generated",
+      "format": "PNG",
+      "width": 2176,
+      "height": 1632
+    },
+    {
+      "worldId": 1,
+      "world": "Mundo do Alfabeto",
+      "file": "world-1.png",
+      "path": "database/sections/images/world-1.png",
+      "role": "Ilustração-base do mundo e referências visuais das atividades",
+      "status": "generated",
+      "format": "PNG",
+      "width": 2176,
+      "height": 1632
+    }
+  ]
+}

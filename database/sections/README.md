@@ -9,6 +9,7 @@ O servidor Node mantém estas visões legíveis no VS Code e as atualiza automat
 - `saves.json`: perfil, posição, fases e estado salvo.
 - `answers.json`: respostas dos alunos.
 - `questions/`: perguntas organizadas em subabas por mundo, com oito fases e oito perguntas por fase.
+- `images/`: ilustrações versionadas para substituir os emojis das atividades, com subabas por mundo.
 
 ## Restauração atual
 
