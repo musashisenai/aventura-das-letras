@@ -15,7 +15,7 @@ cd aventura-das-letras
 3. Instale as dependências:
 
 ```bash
-npm install --include=dev --legacy-peer-deps
+npm install --include=dev --include=optional --legacy-peer-deps
 ```
 
 O banco está dentro do próprio repositório em `database/classroom.json`. O VS Code abre esse arquivo nativamente, sem extensão. O Node.js lê e grava o arquivo automaticamente sempre que houver alteração no jogo.
