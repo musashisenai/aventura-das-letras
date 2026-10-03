@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -27,6 +27,7 @@ export type GameQuestion = {
   activity?: string;
   activityIndex?: number;
   seedTarget?: number;
+  lanternTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -74,6 +75,7 @@ const choice = (id: string, prompt: string, options: string[], answer: string, h
 const order = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, audioText?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "order", prompt, options, answer, hint, visual, audioText, activity, activityIndex });
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });
 const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
+const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -140,10 +142,21 @@ const GARATUJA_PHASE_ONE: GameQuestion[] = [
   seedRain(6, "Siga a trilha pontilhada e acenda as sementes.", "Acompanhe os pontos com um gesto contínuo.", 9),
   seedRain(7, "Complete o canteiro e revele a flor da Lumi.", "Explore todo o espaço de terra. O jardim floresce quando estiver pronto.", 10),
 ];
+const GARATUJA_PHASE_TWO: GameQuestion[] = [
+  lantern(0, "Encontre os brinquedos escondidos no quarto escuro.", "Passe a lanterna devagar e procure os pontos que brilham.", 2),
+  lantern(1, "Ilumine a trilha e descubra quem está esperando.", "A luz acompanha seu dedo. Explore os cantinhos sem pressa.", 2),
+  lantern(2, "Procure as duas surpresas atrás da noite.", "Quando a luz passar por um objeto, ele vai reagir.", 2),
+  lantern(3, "Acenda os objetos escondidos para abrir a janela.", "Você não precisa acertar um ponto pequeno: ilumine áreas grandes.", 3),
+  lantern(4, "Explore o céu escuro e encontre as formas brilhantes.", "Mova o dedo em círculos para ampliar sua busca.", 3),
+  lantern(5, "Revele os amigos que estão brincando no escuro.", "A cada descoberta, a tela fica um pouco mais iluminada.", 3),
+  lantern(6, "Passe a luz pelo mapa e encontre os sinais secretos.", "Siga de um lado ao outro e observe as reações.", 4),
+  lantern(7, "Ilumine o quarto inteiro e revele a grande surpresa.", "Procure todos os brilhos. A última descoberta abre a passagem.", 4),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
   if (worldId === 0 && phase === 0) return GARATUJA_PHASE_ONE;
+  if (worldId === 0 && phase === 1) return GARATUJA_PHASE_TWO;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

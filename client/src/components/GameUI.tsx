@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Search, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
@@ -471,9 +471,31 @@ function WordBuilder({ question, disabled = false, onAnswer }: { question: GameQ
 
 function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string, drawing?: string) => void }) {
   if (question.kind === "seed-rain") return <SeedRainInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "lantern") return <LanternInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+function LanternInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [searching, setSearching] = useState(false);
+  const [found, setFound] = useState<number[]>([]);
+  const [lightPoint, setLightPoint] = useState<{ x: number; y: number } | null>(null);
+  const target = question.lanternTarget ?? 2;
+  const objectPositions = useMemo(() => (question.activityIndex ?? 0) % 2 === 0 ? [[18, 26], [78, 32], [42, 70], [87, 76]] : [[76, 22], [24, 39], [67, 61], [18, 78]], [question.id, question.activityIndex]);
+  useEffect(() => { setFound([]); setSearching(false); setLightPoint(null); const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "rgba(10, 20, 42, .92)"; ctx.fillRect(0, 0, canvas.width, canvas.height); } }, [question.id]);
+  useEffect(() => { if (found.length < target) return; const timer = window.setTimeout(onComplete, 500); return () => window.clearTimeout(timer); }, [found.length, target, onComplete]);
+  const drawMask = (point: { x: number; y: number } | null) => { const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "rgba(10, 20, 42, .92)"; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.globalCompositeOperation = "destination-out"; ctx.shadowBlur = 18; ctx.shadowColor = "rgba(255, 224, 124, .8)"; found.forEach((index) => { const [x, y] = objectPositions[index]; ctx.beginPath(); ctx.arc((x / 100) * canvas.width, (y / 100) * canvas.height, 72, 0, Math.PI * 2); ctx.fill(); }); if (point) { ctx.beginPath(); ctx.arc(point.x, point.y, 82, 0, Math.PI * 2); ctx.fill(); } ctx.shadowBlur = 0; ctx.globalCompositeOperation = "source-over"; };
+  const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
+  const inspect = (point: { x: number; y: number }) => { const next = [...found]; objectPositions.forEach(([x, y], index) => { if (!next.includes(index) && Math.hypot(point.x - (x / 100) * 900, point.y - (y / 100) * 330) < 86) next.push(index); }); if (next.length !== found.length) setFound(next); };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled) return; const point = position(event); setLightPoint(point); drawMask(point); inspect(point); };
+  const start = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled) return; setSearching(true); event.currentTarget.setPointerCapture(event.pointerId); move(event); };
+  const stop = () => { setSearching(false); setLightPoint(null); drawMask(null); };
+  return <div className={`lantern-activity ${found.length >= target ? "completed" : ""}`}>
+    <div className="lantern-toolbar"><div><span className="lantern-kicker"><Flashlight size={15} /> MISSÃO NOTURNA</span><strong>Acenda e descubra</strong></div><div className="lantern-counter"><b>{found.length}</b><span>/ {target} descobertas</span></div></div>
+    <div className="lantern-scene" aria-label="Cena escura para explorar com uma lanterna"><div className="lantern-backdrop"><span className="lantern-moon" /><span className="lantern-star star-a" /><span className="lantern-star star-b" /><span className="lantern-hill hill-a" /><span className="lantern-hill hill-b" />{objectPositions.map(([x, y], index) => <span className={`lantern-object lantern-object-${index}`} style={{ left: `${x}%`, top: `${y}%`, opacity: found.includes(index) ? 1 : .16 }} key={`${x}-${y}`}><Search size={34} /></span>)}</div><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={searching ? move : undefined} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste a lanterna para procurar" />{lightPoint && <span className="lantern-glow" style={{ left: `${(lightPoint.x / 900) * 100}%`, top: `${(lightPoint.y / 330) * 100}%` }} />}</div>
+    <div className="lantern-footer"><p>{found.length >= target ? "Você encontrou tudo. A noite ficou cheia de descobertas." : "Arraste a lanterna pela cena. Quando algo aparecer, você encontrou uma surpresa."}</p><div className="lantern-progress" aria-label={`${found.length} de ${target} descobertas`}><i style={{ width: `${(found.length / target) * 100}%` }} /></div></div>
+  </div>;
 }
 function SeedRainInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

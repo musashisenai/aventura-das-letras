@@ -92,98 +92,84 @@
     ],
     "fase-2": [
       {
-        "id": "fase-2-g-reto-0",
-        "kind": "choice",
-        "prompt": "Qual traço parece uma estrada retinha?",
-        "options": [
-          "〰",
-          "—",
-          "⌇"
-        ],
-        "answer": "—",
-        "hint": "Uma estrada reta não faz ondas."
+        "id": "fase-2-g-dedos-lanterna-1",
+        "kind": "lantern",
+        "prompt": "Encontre os brinquedos escondidos no quarto escuro.",
+        "answer": "LUZ COMPLETA 1",
+        "hint": "Passe a lanterna devagar e procure os pontos que brilham.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 0,
+        "lanternTarget": 2
       },
       {
-        "id": "fase-2-g-rabisco-letra-1",
-        "kind": "choice",
-        "prompt": "Qual rabisco parece uma letra?",
-        "options": [
-          "A",
-          "☁",
-          "○"
-        ],
-        "answer": "A",
-        "hint": "As letras têm partes que podemos usar para escrever."
+        "id": "fase-2-g-dedos-lanterna-2",
+        "kind": "lantern",
+        "prompt": "Ilumine a trilha e descubra quem está esperando.",
+        "answer": "LUZ COMPLETA 2",
+        "hint": "A luz acompanha seu dedo. Explore os cantinhos sem pressa.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 1,
+        "lanternTarget": 2
       },
       {
-        "id": "fase-2-g-conte-estrelas-2",
-        "kind": "choice",
-        "prompt": "Quantas estrelas estão no céu?",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "answer": "5",
-        "hint": "Conte as estrelas devagar.",
-        "visual": "★ ★ ★ ★ ★"
+        "id": "fase-2-g-dedos-lanterna-3",
+        "kind": "lantern",
+        "prompt": "Procure as duas surpresas atrás da noite.",
+        "answer": "LUZ COMPLETA 3",
+        "hint": "Quando a luz passar por um objeto, ele vai reagir.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 2,
+        "lanternTarget": 2
       },
       {
-        "id": "fase-2-g-quadrado-3",
-        "kind": "choice",
-        "prompt": "Qual forma tem quatro lados iguais?",
-        "options": [
-          "○",
-          "□",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Olhe para os quatro ladinhos."
+        "id": "fase-2-g-dedos-lanterna-4",
+        "kind": "lantern",
+        "prompt": "Acenda os objetos escondidos para abrir a janela.",
+        "answer": "LUZ COMPLETA 4",
+        "hint": "Você não precisa acertar um ponto pequeno: ilumine áreas grandes.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 3,
+        "lanternTarget": 3
       },
       {
-        "id": "fase-2-g-desenhe-peixe-4",
-        "kind": "draw",
-        "prompt": "Desenhe um peixe para o lago da Lumi.",
-        "answer": "__drawing__",
-        "hint": "Pode ser do jeito que você imaginar.",
-        "visual": "🐟"
+        "id": "fase-2-g-dedos-lanterna-5",
+        "kind": "lantern",
+        "prompt": "Explore o céu escuro e encontre as formas brilhantes.",
+        "answer": "LUZ COMPLETA 5",
+        "hint": "Mova o dedo em círculos para ampliar sua busca.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 4,
+        "lanternTarget": 3
       },
       {
-        "id": "fase-2-g-triangulo-5",
-        "kind": "choice",
-        "prompt": "Qual forma tem três pontas?",
-        "options": [
-          "□",
-          "△",
-          "○"
-        ],
-        "answer": "△",
-        "hint": "Conte as pontinhas: uma, duas, três."
+        "id": "fase-2-g-dedos-lanterna-6",
+        "kind": "lantern",
+        "prompt": "Revele os amigos que estão brincando no escuro.",
+        "answer": "LUZ COMPLETA 6",
+        "hint": "A cada descoberta, a tela fica um pouco mais iluminada.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 5,
+        "lanternTarget": 3
       },
       {
-        "id": "fase-2-g-mais-bolinhas-6",
-        "kind": "choice",
-        "prompt": "Em qual grupo há mais bolinhas?",
-        "options": [
-          "●●",
-          "●●●●",
-          "●"
-        ],
-        "answer": "●●●●",
-        "hint": "Conte cada grupo antes de escolher."
+        "id": "fase-2-g-dedos-lanterna-7",
+        "kind": "lantern",
+        "prompt": "Passe a luz pelo mapa e encontre os sinais secretos.",
+        "answer": "LUZ COMPLETA 7",
+        "hint": "Siga de um lado ao outro e observe as reações.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 6,
+        "lanternTarget": 4
       },
       {
-        "id": "fase-2-g-soma-1-2-7",
-        "kind": "choice",
-        "prompt": "Quantas frutas ficam juntas?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Uma fruta e mais duas frutas.",
-        "visual": "🍎 + 🍎 🍎"
+        "id": "fase-2-g-dedos-lanterna-8",
+        "kind": "lantern",
+        "prompt": "Ilumine o quarto inteiro e revele a grande surpresa.",
+        "answer": "LUZ COMPLETA 8",
+        "hint": "Procure todos os brilhos. A última descoberta abre a passagem.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 7,
+        "lanternTarget": 4
       }
     ],
     "fase-3": [
