@@ -478,26 +478,36 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
 function SeedRainInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);
-  const [seedCount, setSeedCount] = useState(0);
+  const [coverage, setCoverage] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [plantCount, setPlantCount] = useState(0);
   const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const coveredPoints = useRef<boolean[]>([]);
   const target = question.seedTarget ?? 5;
-  useEffect(() => { setSeedCount(0); setPlantCount(0); setCompleted(false); setDrawing(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }, [question.id]);
-  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 260); return () => window.clearTimeout(timer); }, [completed, onComplete]);
+  const guidePoints = useMemo(() => {
+    const paths = [
+      [[90, 265], [170, 235], [250, 250], [330, 215], [410, 230], [490, 190], [570, 205], [650, 170], [740, 185], [820, 145]],
+      [[115, 290], [185, 275], [255, 290], [325, 265], [395, 280], [465, 250], [535, 265], [605, 235], [675, 250], [745, 220]],
+      [[180, 175], [240, 145], [300, 160], [360, 130], [420, 145], [480, 115], [540, 130], [600, 100], [660, 115], [720, 90]],
+    ];
+    return paths.flatMap((path) => path.flatMap(([x, y], index) => index === path.length - 1 ? [[x, y]] : Array.from({ length: 3 }, (_, step) => [x + ((path[index + 1][0] - x) * step) / 3, y + ((path[index + 1][1] - y) * step) / 3])));
+  }, [question.id]);
+  const guidePaths = useMemo(() => ["M90 265 C170 225 250 270 330 215 S490 225 570 205 S740 145 820 145", "M115 290 C185 265 255 305 325 265 S465 280 535 265 S675 220 745 220", "M180 175 C240 135 300 180 360 130 S480 150 540 130 S660 85 720 90"], []);
+  useEffect(() => { coveredPoints.current = guidePoints.map(() => false); setCoverage(0); setPlantCount(0); setCompleted(false); setDrawing(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }, [question.id, guidePoints]);
+  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 420); return () => window.clearTimeout(timer); }, [completed, onComplete]);
   const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
-  const sprinkle = () => { setSeedCount((current) => { const next = Math.min(target, current + 1); if (next >= target) setCompleted(true); return next; }); setPlantCount((current) => Math.min(target, current + 1)); };
-  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 18; ctx.strokeStyle = "rgba(255, 207, 116, .9)"; lastPoint.current = point; setDrawing(true); sprinkle(); canvas.setPointerCapture(event.pointerId); };
-  const paint = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawing || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); const previous = lastPoint.current; if (!previous || Math.hypot(point.x - previous.x, point.y - previous.y) > 40) { sprinkle(); lastPoint.current = point; } };
+  const markCovered = (point: { x: number; y: number }) => { const radius = 30; const next = [...coveredPoints.current]; let changed = false; guidePoints.forEach(([x, y], index) => { if (!next[index] && Math.hypot(point.x - x, point.y - y) <= radius) { next[index] = true; changed = true; } }); if (!changed) return; coveredPoints.current = next; const percent = Math.round((next.filter(Boolean).length / next.length) * 100); setCoverage(percent); setPlantCount(Math.min(4, Math.floor(percent / 22))); if (percent >= 80) setCompleted(true); };
+  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 18; ctx.strokeStyle = "rgba(255, 207, 116, .92)"; lastPoint.current = point; setDrawing(true); markCovered(point); canvas.setPointerCapture(event.pointerId); };
+  const paint = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawing || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); markCovered(point); lastPoint.current = point; };
   const stop = () => { setDrawing(false); lastPoint.current = null; };
   return <div className={`seed-rain-activity ${completed ? "completed" : ""}`}>
-    <div className="seed-rain-toolbar"><div><span className="seed-rain-kicker"><Droplets size={15} /> CANTEIRO VIVO</span><strong>Faça a terra florescer</strong></div><div className="seed-rain-counter"><b>{seedCount}</b><span>/ {target} sementes</span></div></div>
+    <div className="seed-rain-toolbar"><div><span className="seed-rain-kicker"><Droplets size={15} /> CANTEIRO VIVO</span><strong>Faça a terra florescer</strong></div><div className="seed-rain-counter"><b>{coverage}%</b><span>da trilha preenchida</span></div></div>
     <div className="seed-rain-scene" aria-label="Canteiro interativo para plantar sementes">
       <div className="seed-rain-sky"><span className="seed-rain-cloud cloud-one" /><span className="seed-rain-cloud cloud-two" /><span className="seed-rain-sun" /></div>
-      <div className="seed-rain-soil"><span className="soil-line line-one" /><span className="soil-line line-two" /><span className="soil-line line-three" />{Array.from({ length: plantCount }).map((_, index) => <span className="seed-rain-plant" style={{ left: `${12 + ((index * 23) % 78)}%` }} key={index}><Sprout size={22 + (index % 3) * 4} /></span>)}{completed && <span className="seed-rain-flower"><Flower2 size={42} /></span>}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={paint} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste o dedo para plantar" /></div>
-      <div className="seed-rain-instruction">Arraste pela terra para plantar</div>
+      <div className="seed-rain-soil"><svg className="seed-rain-guides" viewBox="0 0 900 330" aria-hidden="true">{guidePaths.map((path) => <path d={path} key={path} />)}</svg>{Array.from({ length: plantCount }).map((_, index) => <span className="seed-rain-plant" style={{ left: `${18 + index * 20}%` }} key={index}><Sprout size={24 + (index % 2) * 5} /></span>)}{completed && <span className="seed-rain-flower"><Flower2 size={42} /></span>}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={paint} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste o dedo sobre as linhas pontilhadas" /></div>
+      <div className="seed-rain-instruction">Preencha as linhas pontilhadas</div>
     </div>
-    <div className="seed-rain-footer"><p>{completed ? "O canteiro floresceu. Sua marca fez a vida aparecer." : "Cada caminho deixa uma semente e faz uma nova folha nascer."}</p><div className="seed-rain-progress" aria-label={`${seedCount} de ${target} sementes plantadas`}><i style={{ width: `${(seedCount / target) * 100}%` }} /></div></div>
+    <div className="seed-rain-footer"><p>{completed ? "Muito bem. Você preencheu a trilha e fez o canteiro florescer." : `Cubra as linhas pontilhadas. As plantas aparecem aos poucos e a flor nasce aos 80%.`}</p><div className="seed-rain-progress" aria-label={`${coverage}% da trilha preenchida`}><i style={{ width: `${coverage}%` }} /></div></div>
   </div>;
 }
 function DrawingPad({ disabled, onSend }: { disabled: boolean; onSend: (drawing: string) => void }) {
