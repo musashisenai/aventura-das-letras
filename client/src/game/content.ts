@@ -156,14 +156,14 @@ const GARATUJA_PHASE_TWO: GameQuestion[] = [
   lantern(7, "Ilumine o quarto inteiro e revele a grande surpresa.", "Procure todos os brilhos. A última descoberta abre a passagem.", 4),
 ];
 const GARATUJA_PHASE_THREE: GameQuestion[] = [
-  sandTracks(0, "Faça pegadas na areia e leve a trilha até o mar.", "Arraste devagar. Cada movimento deixa um sulco macio na areia.", 5),
-  sandTracks(1, "Desenhe um caminho de pegadas perto das conchas.", "Você pode fazer curvas largas. A areia guarda cada marca.", 5),
-  sandTracks(2, "Atravesse a praia com seus passos de areia.", "Siga de um lado ao outro e observe a trilha aparecer.", 6),
-  sandTracks(3, "Faça duas trilhas que se encontram na areia.", "Mude de direção quando quiser. Toda pegada conta.", 6),
-  sandTracks(4, "Leve as pegadas até a sombra do coqueiro.", "Passe por áreas diferentes da praia, sem precisar ser preciso.", 7),
-  sandTracks(5, "Crie uma grande espiral na areia molhada.", "Faça um movimento contínuo e sinta o caminho ganhar textura.", 7),
-  sandTracks(6, "Marque a areia com uma trilha comprida e tranquila.", "O som do mar acompanha o seu gesto.", 8),
-  sandTracks(7, "Complete a praia com suas pegadas e revele o farol.", "Explore bastante a areia. O farol aparece quando a trilha estiver pronta.", 8),
+  sandTracks(0, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 5),
+  sandTracks(1, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 5),
+  sandTracks(2, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 6),
+  sandTracks(3, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 6),
+  sandTracks(4, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 7),
+  sandTracks(5, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 7),
+  sandTracks(6, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
+  sandTracks(7, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
 ];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
