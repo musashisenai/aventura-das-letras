@@ -23,6 +23,7 @@ export type GameQuestion = {
   answer: string;
   hint: string;
   visual?: string;
+  sceneAsset?: string;
   audioText?: string;
   activity?: string;
   activityIndex?: number;
@@ -77,7 +78,7 @@ const order = (id: string, prompt: string, options: string[], answer: string, hi
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });
 const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
 const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
-const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget });
+const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sceneAsset: "pegadas-coqueiro" });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];

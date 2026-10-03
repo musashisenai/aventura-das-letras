@@ -23,6 +23,20 @@
       "format": "PNG",
       "width": 2176,
       "height": 1632
+    },
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "pegadas-coqueiro.png",
+      "path": "database/sections/images/pegadas-coqueiro.png",
+      "publicPath": "client/public/assets/pegadas-coqueiro.png",
+      "role": "Coqueiro animado da atividade Pegadas na Areia, com sombra aplicada no layout",
+      "activity": "pegadas-areia",
+      "status": "generated",
+      "format": "PNG",
+      "width": 768,
+      "height": 768,
+      "transparent": true
     }
   ]
 }

@@ -181,7 +181,8 @@
         "hint": "Arraste devagar. Cada movimento deixa um sulco macio na areia.",
         "activity": "pegadas-areia",
         "activityIndex": 0,
-        "sandTarget": 5
+        "sandTarget": 5,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-2",
@@ -191,7 +192,8 @@
         "hint": "Você pode fazer curvas largas. A areia guarda cada marca.",
         "activity": "pegadas-areia",
         "activityIndex": 1,
-        "sandTarget": 5
+        "sandTarget": 5,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-3",
@@ -201,7 +203,8 @@
         "hint": "Siga de um lado ao outro e observe a trilha aparecer.",
         "activity": "pegadas-areia",
         "activityIndex": 2,
-        "sandTarget": 6
+        "sandTarget": 6,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-4",
@@ -211,7 +214,8 @@
         "hint": "Mude de direção quando quiser. Toda pegada conta.",
         "activity": "pegadas-areia",
         "activityIndex": 3,
-        "sandTarget": 6
+        "sandTarget": 6,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-5",
@@ -221,7 +225,8 @@
         "hint": "Passe por áreas diferentes da praia, sem precisar ser preciso.",
         "activity": "pegadas-areia",
         "activityIndex": 4,
-        "sandTarget": 7
+        "sandTarget": 7,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-6",
@@ -231,7 +236,8 @@
         "hint": "Faça um movimento contínuo e sinta o caminho ganhar textura.",
         "activity": "pegadas-areia",
         "activityIndex": 5,
-        "sandTarget": 7
+        "sandTarget": 7,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-7",
@@ -241,7 +247,8 @@
         "hint": "O som do mar acompanha o seu gesto.",
         "activity": "pegadas-areia",
         "activityIndex": 6,
-        "sandTarget": 8
+        "sandTarget": 8,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
         "id": "fase-3-g-pegadas-areia-8",
@@ -251,7 +258,8 @@
         "hint": "Explore bastante a areia. O farol aparece quando a trilha estiver pronta.",
         "activity": "pegadas-areia",
         "activityIndex": 7,
-        "sandTarget": 8
+        "sandTarget": 8,
+        "sceneAsset": "pegadas-coqueiro"
       }
     ],
     "fase-4": [
