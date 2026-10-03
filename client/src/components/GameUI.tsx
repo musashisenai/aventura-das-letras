@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Footprints, Gift, Heart, Leaf, Lightbulb, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Sun, Volume2, VolumeX, Wheat, Waves, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
@@ -472,9 +472,30 @@ function WordBuilder({ question, disabled = false, onAnswer }: { question: GameQ
 function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string, drawing?: string) => void }) {
   if (question.kind === "seed-rain") return <SeedRainInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "lantern") return <LanternInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "sand-tracks") return <SandTracksInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+function SandTracksInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [walking, setWalking] = useState(false);
+  const [tracks, setTracks] = useState<{ x: number; y: number; angle: number }[]>([]);
+  const [completed, setCompleted] = useState(false);
+  const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const target = question.sandTarget ?? 5;
+  useEffect(() => { setWalking(false); setTracks([]); setCompleted(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }, [question.id]);
+  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 520); return () => window.clearTimeout(timer); }, [completed, onComplete]);
+  const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
+  const leaveTrack = (point: { x: number; y: number }) => { const previous = lastPoint.current; if (!previous || Math.hypot(point.x - previous.x, point.y - previous.y) >= 76) { const angle = previous ? Math.atan2(point.y - previous.y, point.x - previous.x) * (180 / Math.PI) : -8; setTracks((current) => { const next = [...current, { x: point.x, y: point.y, angle }].slice(-12); if (next.length >= target) setCompleted(true); return next; }); lastPoint.current = point; } };
+  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineWidth = 16; ctx.strokeStyle = "rgba(112, 74, 43, .48)"; setWalking(true); leaveTrack(point); canvas.setPointerCapture(event.pointerId); };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!walking || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); leaveTrack(point); };
+  const stop = () => { setWalking(false); lastPoint.current = null; };
+  return <div className={`sand-tracks-activity ${completed ? "completed" : ""}`}>
+    <div className="sand-toolbar"><div><span className="sand-kicker"><Footprints size={15} /> PRAIA DAS MARCAS</span><strong>Deixe sua pegada na areia</strong></div><div className="sand-counter"><b>{tracks.length}</b><span>/ {target} marcas</span></div></div>
+    <div className="sand-scene" aria-label="Praia interativa para criar pegadas"><div className="sand-sky"><Sun className="sand-sun" size={42} /><span className="sand-cloud sand-cloud-one" /><span className="sand-cloud sand-cloud-two" /></div><div className="sand-beach"><span className="sand-wave-line"><Waves size={42} /></span><span className="sand-dune dune-one" /><span className="sand-dune dune-two" /><span className="sand-shell shell-one" /><span className="sand-shell shell-two" />{tracks.map((track, index) => <span className="sand-footprint" style={{ left: `${(track.x / 900) * 100}%`, top: `${(track.y / 330) * 100}%`, transform: `translate(-50%, -50%) rotate(${track.angle}deg)` }} key={`${track.x}-${track.y}-${index}`}><Footprints size={30 + Math.min(index, 5) * 3} /></span>)}{completed && <span className="sand-lighthouse"><Lightbulb size={66} /></span>}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste para criar pegadas" /></div></div>
+    <div className="sand-footer"><p>{completed ? "A praia guardou suas pegadas. O farol acendeu para mostrar o caminho." : "Arraste pela areia. Cada marca deixa uma pegada e um caminho diferente."}</p><div className="sand-progress" aria-label={`${tracks.length} de ${target} marcas`}><i style={{ width: `${Math.min(100, (tracks.length / target) * 100)}%` }} /></div></div>
+  </div>;
 }
 function LanternInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

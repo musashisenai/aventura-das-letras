@@ -174,100 +174,84 @@
     ],
     "fase-3": [
       {
-        "id": "fase-3-g-quadrado-0",
-        "kind": "choice",
-        "prompt": "Qual forma tem quatro lados iguais?",
-        "options": [
-          "○",
-          "□",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Olhe para os quatro ladinhos."
+        "id": "fase-3-g-pegadas-areia-1",
+        "kind": "sand-tracks",
+        "prompt": "Faça pegadas na areia e leve a trilha até o mar.",
+        "answer": "PEGADAS COMPLETAS 1",
+        "hint": "Arraste devagar. Cada movimento deixa um sulco macio na areia.",
+        "activity": "pegadas-areia",
+        "activityIndex": 0,
+        "sandTarget": 5
       },
       {
-        "id": "fase-3-g-desenhe-peixe-1",
-        "kind": "draw",
-        "prompt": "Desenhe um peixe para o lago da Lumi.",
-        "answer": "__drawing__",
-        "hint": "Pode ser do jeito que você imaginar.",
-        "visual": "🐟"
+        "id": "fase-3-g-pegadas-areia-2",
+        "kind": "sand-tracks",
+        "prompt": "Desenhe um caminho de pegadas perto das conchas.",
+        "answer": "PEGADAS COMPLETAS 2",
+        "hint": "Você pode fazer curvas largas. A areia guarda cada marca.",
+        "activity": "pegadas-areia",
+        "activityIndex": 1,
+        "sandTarget": 5
       },
       {
-        "id": "fase-3-g-triangulo-2",
-        "kind": "choice",
-        "prompt": "Qual forma tem três pontas?",
-        "options": [
-          "□",
-          "△",
-          "○"
-        ],
-        "answer": "△",
-        "hint": "Conte as pontinhas: uma, duas, três."
+        "id": "fase-3-g-pegadas-areia-3",
+        "kind": "sand-tracks",
+        "prompt": "Atravesse a praia com seus passos de areia.",
+        "answer": "PEGADAS COMPLETAS 3",
+        "hint": "Siga de um lado ao outro e observe a trilha aparecer.",
+        "activity": "pegadas-areia",
+        "activityIndex": 2,
+        "sandTarget": 6
       },
       {
-        "id": "fase-3-g-mais-bolinhas-3",
-        "kind": "choice",
-        "prompt": "Em qual grupo há mais bolinhas?",
-        "options": [
-          "●●",
-          "●●●●",
-          "●"
-        ],
-        "answer": "●●●●",
-        "hint": "Conte cada grupo antes de escolher."
+        "id": "fase-3-g-pegadas-areia-4",
+        "kind": "sand-tracks",
+        "prompt": "Faça duas trilhas que se encontram na areia.",
+        "answer": "PEGADAS COMPLETAS 4",
+        "hint": "Mude de direção quando quiser. Toda pegada conta.",
+        "activity": "pegadas-areia",
+        "activityIndex": 3,
+        "sandTarget": 6
       },
       {
-        "id": "fase-3-g-soma-1-2-4",
-        "kind": "choice",
-        "prompt": "Quantas frutas ficam juntas?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Uma fruta e mais duas frutas.",
-        "visual": "🍎 + 🍎 🍎"
+        "id": "fase-3-g-pegadas-areia-5",
+        "kind": "sand-tracks",
+        "prompt": "Leve as pegadas até a sombra do coqueiro.",
+        "answer": "PEGADAS COMPLETAS 5",
+        "hint": "Passe por áreas diferentes da praia, sem precisar ser preciso.",
+        "activity": "pegadas-areia",
+        "activityIndex": 4,
+        "sandTarget": 7
       },
       {
-        "id": "fase-3-g-desenho-5",
-        "kind": "choice",
-        "prompt": "Qual é um desenho de verdade?",
-        "options": [
-          "☀",
-          "A",
-          "3"
-        ],
-        "answer": "☀",
-        "hint": "Desenhos mostram coisas que vemos no mundo."
+        "id": "fase-3-g-pegadas-areia-6",
+        "kind": "sand-tracks",
+        "prompt": "Crie uma grande espiral na areia molhada.",
+        "answer": "PEGADAS COMPLETAS 6",
+        "hint": "Faça um movimento contínuo e sinta o caminho ganhar textura.",
+        "activity": "pegadas-areia",
+        "activityIndex": 5,
+        "sandTarget": 7
       },
       {
-        "id": "fase-3-g-cor-forma-6",
-        "kind": "choice",
-        "prompt": "Qual forma parece uma janela?",
-        "options": [
-          "□",
-          "○",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Uma janela costuma ter quatro lados."
+        "id": "fase-3-g-pegadas-areia-7",
+        "kind": "sand-tracks",
+        "prompt": "Marque a areia com uma trilha comprida e tranquila.",
+        "answer": "PEGADAS COMPLETAS 7",
+        "hint": "O som do mar acompanha o seu gesto.",
+        "activity": "pegadas-areia",
+        "activityIndex": 6,
+        "sandTarget": 8
       },
       {
-        "id": "fase-3-g-sol-7",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
-        "options": [
-          "O",
-          "S",
-          "L"
-        ],
-        "answer": "SOL",
-        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
-        "visual": "☀️",
-        "audioText": "SOL",
-        "targetWord": "SOL"
+        "id": "fase-3-g-pegadas-areia-8",
+        "kind": "sand-tracks",
+        "prompt": "Complete a praia com suas pegadas e revele o farol.",
+        "answer": "PEGADAS COMPLETAS 8",
+        "hint": "Explore bastante a areia. O farol aparece quando a trilha estiver pronta.",
+        "activity": "pegadas-areia",
+        "activityIndex": 7,
+        "sandTarget": 8
       }
     ],
     "fase-4": [

@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -28,6 +28,7 @@ export type GameQuestion = {
   activityIndex?: number;
   seedTarget?: number;
   lanternTarget?: number;
+  sandTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -76,6 +77,7 @@ const order = (id: string, prompt: string, options: string[], answer: string, hi
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });
 const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
 const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
+const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -152,11 +154,22 @@ const GARATUJA_PHASE_TWO: GameQuestion[] = [
   lantern(6, "Passe a luz pelo mapa e encontre os sinais secretos.", "Siga de um lado ao outro e observe as reações.", 4),
   lantern(7, "Ilumine o quarto inteiro e revele a grande surpresa.", "Procure todos os brilhos. A última descoberta abre a passagem.", 4),
 ];
+const GARATUJA_PHASE_THREE: GameQuestion[] = [
+  sandTracks(0, "Faça pegadas na areia e leve a trilha até o mar.", "Arraste devagar. Cada movimento deixa um sulco macio na areia.", 5),
+  sandTracks(1, "Desenhe um caminho de pegadas perto das conchas.", "Você pode fazer curvas largas. A areia guarda cada marca.", 5),
+  sandTracks(2, "Atravesse a praia com seus passos de areia.", "Siga de um lado ao outro e observe a trilha aparecer.", 6),
+  sandTracks(3, "Faça duas trilhas que se encontram na areia.", "Mude de direção quando quiser. Toda pegada conta.", 6),
+  sandTracks(4, "Leve as pegadas até a sombra do coqueiro.", "Passe por áreas diferentes da praia, sem precisar ser preciso.", 7),
+  sandTracks(5, "Crie uma grande espiral na areia molhada.", "Faça um movimento contínuo e sinta o caminho ganhar textura.", 7),
+  sandTracks(6, "Marque a areia com uma trilha comprida e tranquila.", "O som do mar acompanha o seu gesto.", 8),
+  sandTracks(7, "Complete a praia com suas pegadas e revele o farol.", "Explore bastante a areia. O farol aparece quando a trilha estiver pronta.", 8),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
   if (worldId === 0 && phase === 0) return GARATUJA_PHASE_ONE;
   if (worldId === 0 && phase === 1) return GARATUJA_PHASE_TWO;
+  if (worldId === 0 && phase === 2) return GARATUJA_PHASE_THREE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

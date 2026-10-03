@@ -64,7 +64,7 @@ export type AnswerLog = {
   usedHint?: boolean;
   worldId: number;
   phase: number;
-  kind?: "choice" | "order" | "draw" | "seed-rain" | "lantern";
+  kind?: "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks";
   options?: string[];
   correctAnswer?: string;
   hint?: string;
