@@ -111,3 +111,10 @@
 @keyframes goal-arrive { from { opacity: 0; transform: translateX(-24px) rotate(-7deg) scale(.6); } to { opacity: 1; transform: translateX(0) rotate(-7deg) scale(1); } }
 @media (max-width: 620px) { .sand-palm { right: -1%; bottom: 1%; width: 176px; height: 194px; }.sand-palm-shadow { right: 0; width: 148px; }.sand-goal-mark { right: 8%; bottom: 13%; } }
 @media (prefers-reduced-motion: reduce) { .sand-tracks-activity.completed .sand-goal-mark { animation: none; } }
+
+/* Camadas da composição: a palmeira fica à frente do céu e atravessa o horizonte sem ser cortada. */
+.sand-sky { z-index: 1; }
+.sand-beach { z-index: 2; overflow: visible; }
+.sand-palm { z-index: 12; }
+.sand-palm-shadow { z-index: 3; }
+.sand-scene > .sand-beach canvas { z-index: 8; }
