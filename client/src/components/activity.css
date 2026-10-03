@@ -50,3 +50,18 @@
 .seed-rain-guides { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
 .seed-rain-guides path { fill: none; stroke: rgba(255, 232, 169, .9); stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 22; filter: drop-shadow(0 2px 0 rgba(80, 45, 32, .18)); }
 .seed-rain-activity.completed .seed-rain-guides path { stroke: rgba(255, 246, 197, .98); }
+
+/* Crescimento em estágios: a cena fica mais generosa conforme a criança percorre a trilha. */
+.seed-rain-plant { bottom: 10%; width: 72px; height: 86px; color: #3f9b62; transform-origin: bottom center; filter: drop-shadow(0 6px 0 rgba(51, 88, 55, .2)); }
+.seed-rain-plant svg { width: 100%; height: 100%; stroke-width: 2.2; }
+.seed-rain-plant::before { content: ""; position: absolute; bottom: -3px; width: 48px; height: 13px; border-radius: 50%; background: rgba(66, 42, 33, .25); }
+.seed-rain-plant.plant-1 { color: #48a866; bottom: 7%; }.seed-rain-plant.plant-2 { color: #63b777; bottom: 25%; transform: scale(1.08); }.seed-rain-plant.plant-3 { color: #359456; bottom: 11%; transform: scale(1.24); }.seed-rain-plant.plant-4 { color: #ecb84c; bottom: 29%; transform: scale(1.15); }.seed-rain-plant.plant-5 { color: #54ab66; right: 10%; bottom: 8%; transform: scale(1.38); }
+.seed-rain-flower { width: 94px; height: 104px; right: 9%; bottom: 32%; color: #ee6e61; transform-origin: bottom center; filter: drop-shadow(0 7px 0 rgba(89, 47, 39, .22)); }
+.seed-rain-flower::before { content: ""; position: absolute; z-index: -1; bottom: 3px; left: 41px; width: 9px; height: 70px; border-radius: 99px; background: #4d9e61; transform: rotate(-5deg); }
+.seed-rain-flower svg { width: 100%; height: 100%; stroke-width: 1.9; }
+.seed-rain-activity.completed .seed-rain-flower { animation: seed-flower-grand .8s cubic-bezier(.2,1.4,.5,1) both; }
+.seed-rain-activity.completed .seed-rain-plant { animation: seed-plant-grand .55s cubic-bezier(.2,1.35,.5,1) both; }
+@keyframes seed-plant-grand { 0% { opacity: 0; transform: translateY(22px) scale(.2); } 70% { transform: translateY(-3px) scale(1.14); } 100% { opacity: 1; } }
+@keyframes seed-flower-grand { 0% { opacity: 0; transform: translateY(22px) scale(.15) rotate(-18deg); } 65% { transform: translateY(-5px) scale(1.18) rotate(5deg); } 100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
+@media (max-width: 620px) { .seed-rain-plant { width: 56px; height: 66px; }.seed-rain-flower { width: 72px; height: 80px; right: 7%; } }
+@media (prefers-reduced-motion: reduce) { .seed-rain-activity.completed .seed-rain-plant, .seed-rain-activity.completed .seed-rain-flower { animation: none; } }
