@@ -65,3 +65,5 @@
 @keyframes seed-flower-grand { 0% { opacity: 0; transform: translateY(22px) scale(.15) rotate(-18deg); } 65% { transform: translateY(-5px) scale(1.18) rotate(5deg); } 100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
 @media (max-width: 620px) { .seed-rain-plant { width: 56px; height: 66px; }.seed-rain-flower { width: 72px; height: 80px; right: 7%; } }
 @media (prefers-reduced-motion: reduce) { .seed-rain-activity.completed .seed-rain-plant, .seed-rain-activity.completed .seed-rain-flower { animation: none; } }
+
+.seed-rain-plant.plant-5 { right: auto; }
