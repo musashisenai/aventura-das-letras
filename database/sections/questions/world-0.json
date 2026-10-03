@@ -10,94 +10,84 @@
   "phases": {
     "fase-1": [
       {
-        "id": "fase-1-g-desenhe-sol-0",
-        "kind": "draw",
-        "prompt": "Desenhe um sol para iluminar a trilha.",
-        "answer": "__drawing__",
-        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
-        "visual": "☀️"
+        "id": "fase-1-g-chuva-sementes-1",
+        "kind": "seed-rain",
+        "prompt": "Faça as sementes nascerem seguindo um caminho de terra.",
+        "answer": "CHUVA COMPLETA 1",
+        "hint": "Arraste o dedo devagar pela terra e observe as primeiras folhas.",
+        "activity": "chuva-sementes",
+        "activityIndex": 0,
+        "seedTarget": 3
       },
       {
-        "id": "fase-1-g-conte-3-1",
-        "kind": "choice",
-        "prompt": "Quantas bolinhas azuis você vê?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Aponte uma bolinha de cada vez.",
-        "visual": "🔵 🔵 🔵"
+        "id": "fase-1-g-chuva-sementes-2",
+        "kind": "seed-rain",
+        "prompt": "Leve a chuva de sementes até o canteiro azul.",
+        "answer": "CHUVA COMPLETA 2",
+        "hint": "Trace uma linha contínua até o canteiro marcado.",
+        "activity": "chuva-sementes",
+        "activityIndex": 1,
+        "seedTarget": 4
       },
       {
-        "id": "fase-1-g-circulo-2",
-        "kind": "choice",
-        "prompt": "Qual forma é redonda como uma bola?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "○",
-        "hint": "Pense em uma bola bem redondinha."
+        "id": "fase-1-g-chuva-sementes-3",
+        "kind": "seed-rain",
+        "prompt": "Crie um caminho curvo para a flor abrir.",
+        "answer": "CHUVA COMPLETA 3",
+        "hint": "O caminho pode ser grande e livre. A flor acompanha o seu gesto.",
+        "activity": "chuva-sementes",
+        "activityIndex": 2,
+        "seedTarget": 5
       },
       {
-        "id": "fase-1-g-reto-3",
-        "kind": "choice",
-        "prompt": "Qual traço parece uma estrada retinha?",
-        "options": [
-          "〰",
-          "—",
-          "⌇"
-        ],
-        "answer": "—",
-        "hint": "Uma estrada reta não faz ondas."
+        "id": "fase-1-g-chuva-sementes-4",
+        "kind": "seed-rain",
+        "prompt": "Plante sementes em dois caminhos que se encontram.",
+        "answer": "CHUVA COMPLETA 4",
+        "hint": "Faça dois traços que cruzem a terra e espalhem pontos de vida.",
+        "activity": "chuva-sementes",
+        "activityIndex": 3,
+        "seedTarget": 6
       },
       {
-        "id": "fase-1-g-rabisco-letra-4",
-        "kind": "choice",
-        "prompt": "Qual rabisco parece uma letra?",
-        "options": [
-          "A",
-          "☁",
-          "○"
-        ],
-        "answer": "A",
-        "hint": "As letras têm partes que podemos usar para escrever."
+        "id": "fase-1-g-chuva-sementes-5",
+        "kind": "seed-rain",
+        "prompt": "Cubra a faixa de terra com um traço comprido.",
+        "answer": "CHUVA COMPLETA 5",
+        "hint": "Passe o dedo de uma ponta até a outra sem pressa.",
+        "activity": "chuva-sementes",
+        "activityIndex": 4,
+        "seedTarget": 7
       },
       {
-        "id": "fase-1-g-conte-estrelas-5",
-        "kind": "choice",
-        "prompt": "Quantas estrelas estão no céu?",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "answer": "5",
-        "hint": "Conte as estrelas devagar.",
-        "visual": "★ ★ ★ ★ ★"
+        "id": "fase-1-g-chuva-sementes-6",
+        "kind": "seed-rain",
+        "prompt": "Faça nascer um pequeno jardim com seus movimentos.",
+        "answer": "CHUVA COMPLETA 6",
+        "hint": "Mude a direção quando quiser. Cada marca ajuda o jardim a crescer.",
+        "activity": "chuva-sementes",
+        "activityIndex": 5,
+        "seedTarget": 8
       },
       {
-        "id": "fase-1-g-quadrado-6",
-        "kind": "choice",
-        "prompt": "Qual forma tem quatro lados iguais?",
-        "options": [
-          "○",
-          "□",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Olhe para os quatro ladinhos."
+        "id": "fase-1-g-chuva-sementes-7",
+        "kind": "seed-rain",
+        "prompt": "Siga a trilha pontilhada e acenda as sementes.",
+        "answer": "CHUVA COMPLETA 7",
+        "hint": "Acompanhe os pontos com um gesto contínuo.",
+        "activity": "chuva-sementes",
+        "activityIndex": 6,
+        "seedTarget": 9
       },
       {
-        "id": "fase-1-g-desenhe-peixe-7",
-        "kind": "draw",
-        "prompt": "Desenhe um peixe para o lago da Lumi.",
-        "answer": "__drawing__",
-        "hint": "Pode ser do jeito que você imaginar.",
-        "visual": "🐟"
+        "id": "fase-1-g-chuva-sementes-8",
+        "kind": "seed-rain",
+        "prompt": "Complete o canteiro e revele a flor da Lumi.",
+        "answer": "CHUVA COMPLETA 8",
+        "hint": "Explore todo o espaço de terra. O jardim floresce quando estiver pronto.",
+        "activity": "chuva-sementes",
+        "activityIndex": 7,
+        "seedTarget": 10
       }
     ],
     "fase-2": [

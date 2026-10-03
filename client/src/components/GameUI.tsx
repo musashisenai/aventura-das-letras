@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Eye, EyeOff, FileText, Gift, Heart, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Star, Volume2, VolumeX, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flower2, Gift, Heart, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
@@ -470,11 +470,36 @@ function WordBuilder({ question, disabled = false, onAnswer }: { question: GameQ
 }
 
 function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string, drawing?: string) => void }) {
+  if (question.kind === "seed-rain") return <SeedRainInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
 }
-
+function SeedRainInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [drawing, setDrawing] = useState(false);
+  const [seedCount, setSeedCount] = useState(0);
+  const [completed, setCompleted] = useState(false);
+  const [plantCount, setPlantCount] = useState(0);
+  const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const target = question.seedTarget ?? 5;
+  useEffect(() => { setSeedCount(0); setPlantCount(0); setCompleted(false); setDrawing(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }, [question.id]);
+  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 260); return () => window.clearTimeout(timer); }, [completed, onComplete]);
+  const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
+  const sprinkle = () => { setSeedCount((current) => { const next = Math.min(target, current + 1); if (next >= target) setCompleted(true); return next; }); setPlantCount((current) => Math.min(target, current + 1)); };
+  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 18; ctx.strokeStyle = "rgba(255, 207, 116, .9)"; lastPoint.current = point; setDrawing(true); sprinkle(); canvas.setPointerCapture(event.pointerId); };
+  const paint = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawing || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); const previous = lastPoint.current; if (!previous || Math.hypot(point.x - previous.x, point.y - previous.y) > 40) { sprinkle(); lastPoint.current = point; } };
+  const stop = () => { setDrawing(false); lastPoint.current = null; };
+  return <div className={`seed-rain-activity ${completed ? "completed" : ""}`}>
+    <div className="seed-rain-toolbar"><div><span className="seed-rain-kicker"><Droplets size={15} /> CANTEIRO VIVO</span><strong>Faça a terra florescer</strong></div><div className="seed-rain-counter"><b>{seedCount}</b><span>/ {target} sementes</span></div></div>
+    <div className="seed-rain-scene" aria-label="Canteiro interativo para plantar sementes">
+      <div className="seed-rain-sky"><span className="seed-rain-cloud cloud-one" /><span className="seed-rain-cloud cloud-two" /><span className="seed-rain-sun" /></div>
+      <div className="seed-rain-soil"><span className="soil-line line-one" /><span className="soil-line line-two" /><span className="soil-line line-three" />{Array.from({ length: plantCount }).map((_, index) => <span className="seed-rain-plant" style={{ left: `${12 + ((index * 23) % 78)}%` }} key={index}><Sprout size={22 + (index % 3) * 4} /></span>)}{completed && <span className="seed-rain-flower"><Flower2 size={42} /></span>}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={paint} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste o dedo para plantar" /></div>
+      <div className="seed-rain-instruction">Arraste pela terra para plantar</div>
+    </div>
+    <div className="seed-rain-footer"><p>{completed ? "O canteiro floresceu. Sua marca fez a vida aparecer." : "Cada caminho deixa uma semente e faz uma nova folha nascer."}</p><div className="seed-rain-progress" aria-label={`${seedCount} de ${target} sementes plantadas`}><i style={{ width: `${(seedCount / target) * 100}%` }} /></div></div>
+  </div>;
+}
 function DrawingPad({ disabled, onSend }: { disabled: boolean; onSend: (drawing: string) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = useState(false);

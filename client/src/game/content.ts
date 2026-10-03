@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -26,6 +26,7 @@ export type GameQuestion = {
   audioText?: string;
   activity?: string;
   activityIndex?: number;
+  seedTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -72,6 +73,7 @@ export function getActivityDefinition(worldId: number, activityId?: string) {
 const choice = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "choice", prompt, options, answer, hint, visual, activity, activityIndex });
 const order = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, audioText?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "order", prompt, options, answer, hint, visual, audioText, activity, activityIndex });
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });
+const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -128,9 +130,20 @@ function buildWorldBank(worldId: number): GameQuestion[] {
   return result;
 }
 const WORLD_QUESTION_BANKS: Record<number, GameQuestion[]> = Object.fromEntries(WORLDS.map((world) => [world.id, buildWorldBank(world.id)]));
+const GARATUJA_PHASE_ONE: GameQuestion[] = [
+  seedRain(0, "Faça as sementes nascerem seguindo um caminho de terra.", "Arraste o dedo devagar pela terra e observe as primeiras folhas.", 3),
+  seedRain(1, "Leve a chuva de sementes até o canteiro azul.", "Trace uma linha contínua até o canteiro marcado.", 4),
+  seedRain(2, "Crie um caminho curvo para a flor abrir.", "O caminho pode ser grande e livre. A flor acompanha o seu gesto.", 5),
+  seedRain(3, "Plante sementes em dois caminhos que se encontram.", "Faça dois traços que cruzem a terra e espalhem pontos de vida.", 6),
+  seedRain(4, "Cubra a faixa de terra com um traço comprido.", "Passe o dedo de uma ponta até a outra sem pressa.", 7),
+  seedRain(5, "Faça nascer um pequeno jardim com seus movimentos.", "Mude a direção quando quiser. Cada marca ajuda o jardim a crescer.", 8),
+  seedRain(6, "Siga a trilha pontilhada e acenda as sementes.", "Acompanhe os pontos com um gesto contínuo.", 9),
+  seedRain(7, "Complete o canteiro e revele a flor da Lumi.", "Explore todo o espaço de terra. O jardim floresce quando estiver pronto.", 10),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
+  if (worldId === 0 && phase === 0) return GARATUJA_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre
