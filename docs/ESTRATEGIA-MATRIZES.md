@@ -185,6 +185,29 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 
 **Economia técnica:** a atividade usa DOM, CSS e o ícone vetorial `Hammer` já disponível em `lucide-react`; não depende de imagem, áudio novo ou geração de asset.
 
+### Mundo Sílaba + Letra · Fase 1 — Ponte do Som
+
+**Nome provisório do mundo:** o mundo continua oficialmente como **Mundo Silábico-Alfabético**, com o rótulo de interface **Sílaba + Letra**. A futura troca para **Silábico Sonoro** fica registrada como decisão de nomenclatura posterior e não altera esta implementação.
+
+**Atividade-matriz:** completar uma sílaba apresentada dentro de uma palavra, escolhendo a letra que corresponde ao som e conferindo a construção.
+
+**Objetivo pedagógico:** aproximar a consciência silábica da representação alfabética. A criança já reconhece a parte falada — por exemplo, `LA` — e passa a localizar a letra que inicia ou completa essa sílaba na palavra, sem precisar digitar.
+
+**Mecânica aprovada:** uma palavra aparece com uma lacuna, a sílaba-alvo é destacada como pista oral/visual e as letras disponíveis são apresentadas como cartões. A criança seleciona uma letra e confirma; a resposta passa pelo fluxo central de acerto, erro, dica e registro.
+
+**Plano das 8 variações implementado:**
+
+1. **CASA** — sílaba final SA, três distratores claros e disposição em fila.
+2. **BOLA** — sílaba inicial de LA, distratores próximos e disposição em arco.
+3. **GATO** — letra inicial da sílaba GA, mudança de posição da lacuna.
+4. **PATO** — vogal interna da sílaba PA, grade de opções.
+5. **JACARÉ** — sílaba medial CA, consoantes visualmente próximas.
+6. **ELEFANTE** — sílaba LE em palavra maior, grade e maior carga visual.
+7. **BORBOLETA** — início da sílaba BO em palavra longa, distratores B/D/P.
+8. **ABACAXI** — desafio final com sílaba medial BA, quatro opções e composição visual mais exigente.
+
+**Economia técnica:** a matriz usa um único componente React, CSS determinístico e os ícones `Volume2` e `Check` já disponíveis; não gera imagem, áudio ou vídeo novo.
+
 ### Desafio final — Festival Final da Lumi
 
 Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um voo guiado até a colmeia da Lumi.

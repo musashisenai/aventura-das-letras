@@ -488,9 +488,29 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "shield-magic") return <ShieldMagicInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "syllable-hammer") return <SyllableHammerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "syllable-letter") return <SyllableLetterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+
+function SyllableLetterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const options = question.soundOptions ?? question.options ?? [];
+  const [selected, setSelected] = useState<string | null>(null);
+  useEffect(() => setSelected(null), [question.id]);
+  const submit = () => { if (!disabled && selected) onAnswer(selected); };
+  const [before, after] = (question.soundPattern ?? "_").split("_");
+  return <div className={`syllable-letter-activity sound-layout-${question.soundLayout ?? "row"} sound-challenge-${question.soundChallenge ?? "direct"}`}>
+    <div className="syllable-letter-toolbar"><div><span className="syllable-letter-kicker"><Volume2 size={15} /> PONTE DO SOM</span><strong>Sílaba + Letra</strong></div><div className="syllable-letter-counter"><b>{selected ? "1" : "0"}</b><span>letra escolhida</span></div></div>
+    <div className="syllable-letter-scene">
+      <div className="syllable-letter-word" aria-label={`Palavra ${question.soundWord ?? ""}`}><span>{before}</span><b className={selected ? "filled" : "empty"}>{selected ?? "?"}</b><span>{after}</span></div>
+      <div className="syllable-letter-sound"><span>OUÇA E FALE</span><strong>{question.soundSyllable}</strong><small>Esta sílaba precisa de uma letra.</small></div>
+      <div className="syllable-letter-bridge" aria-hidden="true"><i /><i /><i /></div>
+    </div>
+    <p className="syllable-letter-instruction">Escolha a letra que combina com o som de <strong>{question.soundSyllable}</strong> para formar <strong>{question.soundWord}</strong>.</p>
+    <div className="syllable-letter-options" role="radiogroup" aria-label="Letras disponíveis">{options.map((option, index) => <button key={`${option}-${index}`} type="button" className={selected === option ? "selected" : ""} onClick={() => !disabled && setSelected(option)} disabled={disabled} role="radio" aria-checked={selected === option}>{option}</button>)}</div>
+    <button type="button" className="syllable-letter-confirm primary-action compact" onClick={submit} disabled={disabled || !selected}><Check size={18} /> Conferir letra</button>
+  </div>;
 }
 
 function CookieMoldInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {

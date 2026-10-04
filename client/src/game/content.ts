@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer" | "syllable-letter";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -54,6 +54,12 @@ export type GameQuestion = {
   syllableParts?: string[];
   hammerStyle?: "single" | "steady" | "alternating" | "sequence";
   hammerTempo?: "calm" | "normal" | "challenge";
+  soundWord?: string;
+  soundSyllable?: string;
+  soundPattern?: string;
+  soundOptions?: string[];
+  soundLayout?: "row" | "arc" | "grid";
+  soundChallenge?: "direct" | "near" | "position" | "combined";
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -83,7 +89,7 @@ export const ACTIVITY_CATALOG: Record<number, ActivitySeed[]> = {
     ["martelo-pedacos", "O Martelo dos Pedaços", "uma marca por sílaba"], ["maquina-chicletes", "A Máquina de Chicletes", "contagem silábica"], ["pistas-skate", "Pistas de Skate", "segmentação em partes"], ["lancador-foguetes", "Lançador de Foguetes", "estágios da palavra"], ["carimbador-passaportes", "O Carimbador de Passaportes", "quantidade de sílabas"], ["degraus-musicais", "Degraus Musicais", "ritmo da fala"], ["alvo-flechas", "Alvo de Flechas Cegas", "uma ação por pedaço"], ["maestro-tambores", "O Maestro dos Tambores", "sequência de batidas"], ["balanco-macacos", "Balanço dos Macacos", "segmentação oral"], ["pipocas-quantidade", "Estoura-Pipocas de Quantidade", "ritmo e contagem"],
   ],
   4: [
-    ["colheita-vogais", "A Colheita das Vogais", "vogais proeminentes"], ["teclado-vogais", "Teclado das Vogais Mágicas", "sequência sonora"], ["bolhas-som", "O Atirador de Bolhas de Som", "som e grafia"], ["trem-fonemas", "O Trem dos Fonemas", "completar espaços"], ["pinguim-faminto", "Alimentando o Pinguim Faminto", "vogais das sílabas"], ["codigo-elevador", "O Código do Elevador", "sons em ordem"], ["pescaria-consoantes", "Pescaria de Consoantes Fortes", "consoantes estruturais"], ["degraus-eco", "Os Degraus do Eco Fonético", "letra possível para o som"], ["detetive-som", "Detetive do Som Escondido", "letras ausentes"], ["tijolos-sonoros", "O Encaixe dos Tijolos Sonoros", "construção sonora"],
+    ["colheita-vogais", "A Ponte do Som", "sílaba e letra"], ["teclado-vogais", "Teclado das Vogais Mágicas", "sequência sonora"], ["bolhas-som", "O Atirador de Bolhas de Som", "som e grafia"], ["trem-fonemas", "O Trem dos Fonemas", "completar espaços"], ["pinguim-faminto", "Alimentando o Pinguim Faminto", "vogais das sílabas"], ["codigo-elevador", "O Código do Elevador", "sons em ordem"], ["pescaria-consoantes", "Pescaria de Consoantes Fortes", "consoantes estruturais"], ["degraus-eco", "Os Degraus do Eco Fonético", "letra possível para o som"], ["detetive-som", "Detetive do Som Escondido", "letras ausentes"], ["tijolos-sonoros", "O Encaixe dos Tijolos Sonoros", "construção sonora"],
   ],
   5: [
     ["maquina-escrever", "A Máquina de Escrever a Jato", "digitação de palavras"], ["ponte-textos", "O Construtor de Pontes de Textos", "escrita autônoma"], ["batalha-rimas", "Batalha de Rimas Alfabéticas", "rimas escritas"], ["mensageiro-reino", "O Mensageiro do Reino", "frase ditada"], ["decodificador-diarios", "Decodificador de Diários", "ordem das letras"], ["garimpeiro-letras", "O Garimpeiro de Letras", "ordem ortográfica"], ["baloes-rpg", "Balões de Diálogo de RPG", "transcrição"], ["labirinto-escrito", "O Enigma do Labirinto Escrito", "autonomia plena"], ["sopa-letrinhas", "O Chef da Sopa de Letrinhas", "seleção e ordem"], ["corrida-digitacao", "Corrida de Obstáculos de Digitação", "escrita sob desafio"],
@@ -111,6 +117,7 @@ const beeFlight = (variant: number, prompt: string, hint: string, beeTarget: num
 const cookieMold = (variant: number, prompt: string, hint: string, target: string, options: string[], config: Pick<GameQuestion, "cookieCase" | "cookieLayout" | "cookieChallenge">): GameQuestion => ({ id: `fase-1-abc-molde-biscoito-${variant + 1}`, kind: "cookie-mold", prompt, answer: target, hint, activity: "molde-biscoito", activityIndex: variant, cookieTarget: target, cookieOptions: options, ...config });
 const shieldMagic = (variant: number, prompt: string, hint: string, items: string[], config: Pick<GameQuestion, "shieldLayout" | "shieldMotion">): GameQuestion => ({ id: `fase-1-p-escudo-magico-${variant + 1}`, kind: "shield-magic", prompt, answer: `ESCUDO PROTEGE ${variant + 1}`, hint, activity: "escudo-magico", activityIndex: variant, shieldItems: items, shieldTarget: items.filter((item) => /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)).length, ...config });
 const syllableHammer = (variant: number, prompt: string, hint: string, parts: string[], config: Pick<GameQuestion, "hammerStyle" | "hammerTempo">): GameQuestion => ({ id: `fase-1-s-martelo-pedacos-${variant + 1}`, kind: "syllable-hammer", prompt, answer: `BATIDAS COMPLETAS ${variant + 1}`, hint, activity: "martelo-pedacos", activityIndex: variant, syllableParts: parts, ...config });
+const syllableLetter = (variant: number, prompt: string, hint: string, word: string, syllable: string, pattern: string, answer: string, options: string[], config: Pick<GameQuestion, "soundLayout" | "soundChallenge">): GameQuestion => ({ id: `fase-1-sa-ponte-som-${variant + 1}`, kind: "syllable-letter", prompt, answer, hint, activity: "colheita-vogais", activityIndex: variant, soundWord: word, soundSyllable: syllable, soundPattern: pattern, soundOptions: options, ...config });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -147,6 +154,17 @@ const SILABICO_PHASE_ONE: GameQuestion[] = [
   syllableHammer(5, "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.", "Cada vagão representa uma parte falada. Marque BI, CI, CLE e TA.", ["BI", "CI", "CLE", "TA"], { hammerStyle: "sequence", hammerTempo: "normal" }),
   syllableHammer(6, "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.", "Pronuncie devagar: BOR / BO / LE / TA. O martelo precisa acompanhar quatro batidas.", ["BOR", "BO", "LE", "TA"], { hammerStyle: "sequence", hammerTempo: "challenge" }),
   syllableHammer(7, "DESAFIO FINAL: COMPLETE A PALAVRA A-BA-CA-XI.", "Ouça seu próprio ritmo e bata uma vez em cada parte, sem apertar a mesma marca duas vezes.", ["A", "BA", "CA", "XI"], { hammerStyle: "sequence", hammerTempo: "challenge" }),
+];
+
+const SILABICO_ALFABETICO_PHASE_ONE: GameQuestion[] = [
+  syllableLetter(0, "COMPLETE A SÍLABA SA E FORME CASA.", "Fale CA-SA devagar. A letra S fecha a segunda sílaba.", "CASA", "SA", "CA_ A", "S", ["S", "T", "P"], { soundLayout: "row", soundChallenge: "direct" }),
+  syllableLetter(1, "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.", "Diga BO-LA. A letra L aparece no começo da sílaba LA.", "BOLA", "LA", "BO_ A", "L", ["L", "R", "M"], { soundLayout: "arc", soundChallenge: "near" }),
+  syllableLetter(2, "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.", "O primeiro som de GATO começa com G.", "GATO", "GA", "_ATO", "G", ["G", "C", "D"], { soundLayout: "row", soundChallenge: "position" }),
+  syllableLetter(3, "COMPLETE A SÍLABA PA EM PATO.", "Fale PA-TO. A vogal A fica entre P e T.", "PATO", "PA", "P_ TO", "A", ["A", "O", "E"], { soundLayout: "grid", soundChallenge: "position" }),
+  syllableLetter(4, "FAÇA A SÍLABA CA APARECER EM JACARÉ.", "Separe JA-CA-RÉ e complete a sílaba CA com C.", "JACARÉ", "CA", "JA_ ARÉ", "C", ["C", "G", "K"], { soundLayout: "arc", soundChallenge: "near" }),
+  syllableLetter(5, "COMPLETE A SÍLABA LE DE ELEFANTE.", "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.", "ELEFANTE", "LE", "E_ EFANTE", "L", ["L", "R", "N"], { soundLayout: "grid", soundChallenge: "combined" }),
+  syllableLetter(6, "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.", "Fale BOR-BO-LE-TA. A sílaba BO começa com B.", "BORBOLETA", "BO", "BOR_ OLETA", "B", ["B", "D", "P"], { soundLayout: "grid", soundChallenge: "combined" }),
+  syllableLetter(7, "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.", "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.", "ABACAXI", "BA", "A_ ACAXI", "B", ["B", "P", "D", "V"], { soundLayout: "grid", soundChallenge: "combined" }),
 ];
 
 function addActivity(question: GameQuestion, activity: ActivityDefinition, worldId: number, variant: number): GameQuestion {
@@ -294,6 +312,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 1 && phase === 0) return ALFABETO_PHASE_ONE;
   if (worldId === 2 && phase === 0) return PRE_SILABICO_PHASE_ONE;
   if (worldId === 3 && phase === 0) return SILABICO_PHASE_ONE;
+  if (worldId === 4 && phase === 0) return SILABICO_ALFABETICO_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

@@ -10,118 +10,198 @@
   "phases": {
     "fase-1": [
       {
-        "id": "fase-1-sa-casa-0",
-        "kind": "choice",
-        "prompt": "Complete a palavra: CA _ A",
+        "id": "fase-1-sa-ponte-som-1",
+        "kind": "syllable-letter",
+        "prompt": "COMPLETE A SÍLABA SA E FORME CASA.",
         "options": [
           "S",
           "T",
           "P"
         ],
         "answer": "S",
-        "hint": "É o lugar em que moramos: CASA.",
-        "visual": "🏠",
-        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
-        "targetWord": "CASA"
-      },
-      {
-        "id": "fase-1-sa-gato-1",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-        "options": [
+        "hint": "Fale CA-SA devagar. A letra S fecha a segunda sílaba.",
+        "activity": "colheita-vogais",
+        "activityIndex": 0,
+        "soundWord": "CASA",
+        "soundSyllable": "SA",
+        "soundPattern": "CA_ A",
+        "soundOptions": [
+          "S",
           "T",
-          "G",
-          "A",
-          "O"
+          "P"
         ],
-        "answer": "GATO",
-        "hint": "OLHE PARA O GATINHO E EXPERIMENTE AS LETRAS.",
-        "visual": "🐱",
-        "audioText": "GATO",
-        "targetWord": "GATO"
+        "soundLayout": "row",
+        "soundChallenge": "direct"
       },
       {
-        "id": "fase-1-sa-vogal-2",
-        "kind": "choice",
-        "prompt": "Qual destas letras é uma vogal?",
+        "id": "fase-1-sa-ponte-som-2",
+        "kind": "syllable-letter",
+        "prompt": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
         "options": [
-          "E",
-          "M",
-          "R"
+          "L",
+          "R",
+          "M"
         ],
-        "answer": "E",
-        "hint": "As vogais fazem sons que podemos cantar."
+        "answer": "L",
+        "hint": "Diga BO-LA. A letra L aparece no começo da sílaba LA.",
+        "activity": "colheita-vogais",
+        "activityIndex": 1,
+        "soundWord": "BOLA",
+        "soundSyllable": "LA",
+        "soundPattern": "BO_ A",
+        "soundOptions": [
+          "L",
+          "R",
+          "M"
+        ],
+        "soundLayout": "arc",
+        "soundChallenge": "near"
       },
       {
-        "id": "fase-1-sa-final-pato-3",
-        "kind": "choice",
-        "prompt": "Qual letra termina PATO?",
+        "id": "fase-1-sa-ponte-som-3",
+        "kind": "syllable-letter",
+        "prompt": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
+        "options": [
+          "G",
+          "C",
+          "D"
+        ],
+        "answer": "G",
+        "hint": "O primeiro som de GATO começa com G.",
+        "activity": "colheita-vogais",
+        "activityIndex": 2,
+        "soundWord": "GATO",
+        "soundSyllable": "GA",
+        "soundPattern": "_ATO",
+        "soundOptions": [
+          "G",
+          "C",
+          "D"
+        ],
+        "soundLayout": "row",
+        "soundChallenge": "position"
+      },
+      {
+        "id": "fase-1-sa-ponte-som-4",
+        "kind": "syllable-letter",
+        "prompt": "COMPLETE A SÍLABA PA EM PATO.",
         "options": [
           "A",
           "O",
-          "T"
-        ],
-        "answer": "O",
-        "hint": "Olhe para a última letra escrita.",
-        "displayPrompt": "QUAL LETRA TERMINA A PALAVRA OUVIDA?",
-        "targetWord": "PATO"
-      },
-      {
-        "id": "fase-1-sa-ditado-4",
-        "kind": "choice",
-        "prompt": "Qual escrita combina com a palavra falada GATO?",
-        "options": [
-          "GATO",
-          "GOTA",
-          "TACO"
-        ],
-        "answer": "GATO",
-        "hint": "Procure G-A-T-O.",
-        "displayPrompt": "QUAL ESCRITA COMBINA COM A PALAVRA OUVIDA?",
-        "targetWord": "GATO"
-      },
-      {
-        "id": "fase-1-sa-soma-gatos-5",
-        "kind": "choice",
-        "prompt": "Três gatos e mais dois gatos são quantos?",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "answer": "5",
-        "hint": "Junte três e dois.",
-        "visual": "🐱🐱🐱 + 🐱🐱"
-      },
-      {
-        "id": "fase-1-sa-conserte-6",
-        "kind": "choice",
-        "prompt": "A palavra CASA está assim: CAA. Qual letra falta?",
-        "options": [
-          "S",
-          "M",
-          "L"
-        ],
-        "answer": "S",
-        "hint": "Coloque S para formar CASA.",
-        "displayPrompt": "QUAL LETRA FALTA NA PALAVRA OUVIDA?",
-        "targetWord": "CASA"
-      },
-      {
-        "id": "fase-1-sa-mesa-7",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DO MÓVEL DA FIGURA?",
-        "options": [
-          "A",
-          "M",
-          "S",
           "E"
         ],
-        "answer": "MESA",
-        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS LETRAS.",
-        "visual": "🍽️",
-        "audioText": "MESA",
-        "targetWord": "MESA"
+        "answer": "A",
+        "hint": "Fale PA-TO. A vogal A fica entre P e T.",
+        "activity": "colheita-vogais",
+        "activityIndex": 3,
+        "soundWord": "PATO",
+        "soundSyllable": "PA",
+        "soundPattern": "P_ TO",
+        "soundOptions": [
+          "A",
+          "O",
+          "E"
+        ],
+        "soundLayout": "grid",
+        "soundChallenge": "position"
+      },
+      {
+        "id": "fase-1-sa-ponte-som-5",
+        "kind": "syllable-letter",
+        "prompt": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+        "options": [
+          "C",
+          "G",
+          "K"
+        ],
+        "answer": "C",
+        "hint": "Separe JA-CA-RÉ e complete a sílaba CA com C.",
+        "activity": "colheita-vogais",
+        "activityIndex": 4,
+        "soundWord": "JACARÉ",
+        "soundSyllable": "CA",
+        "soundPattern": "JA_ ARÉ",
+        "soundOptions": [
+          "C",
+          "G",
+          "K"
+        ],
+        "soundLayout": "arc",
+        "soundChallenge": "near"
+      },
+      {
+        "id": "fase-1-sa-ponte-som-6",
+        "kind": "syllable-letter",
+        "prompt": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+        "options": [
+          "L",
+          "R",
+          "N"
+        ],
+        "answer": "L",
+        "hint": "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.",
+        "activity": "colheita-vogais",
+        "activityIndex": 5,
+        "soundWord": "ELEFANTE",
+        "soundSyllable": "LE",
+        "soundPattern": "E_ EFANTE",
+        "soundOptions": [
+          "L",
+          "R",
+          "N"
+        ],
+        "soundLayout": "grid",
+        "soundChallenge": "combined"
+      },
+      {
+        "id": "fase-1-sa-ponte-som-7",
+        "kind": "syllable-letter",
+        "prompt": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+        "options": [
+          "B",
+          "D",
+          "P"
+        ],
+        "answer": "B",
+        "hint": "Fale BOR-BO-LE-TA. A sílaba BO começa com B.",
+        "activity": "colheita-vogais",
+        "activityIndex": 6,
+        "soundWord": "BORBOLETA",
+        "soundSyllable": "BO",
+        "soundPattern": "BOR_ OLETA",
+        "soundOptions": [
+          "B",
+          "D",
+          "P"
+        ],
+        "soundLayout": "grid",
+        "soundChallenge": "combined"
+      },
+      {
+        "id": "fase-1-sa-ponte-som-8",
+        "kind": "syllable-letter",
+        "prompt": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+        "options": [
+          "B",
+          "P",
+          "D",
+          "V"
+        ],
+        "answer": "B",
+        "hint": "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.",
+        "activity": "colheita-vogais",
+        "activityIndex": 7,
+        "soundWord": "ABACAXI",
+        "soundSyllable": "BA",
+        "soundPattern": "A_ ACAXI",
+        "soundOptions": [
+          "B",
+          "P",
+          "D",
+          "V"
+        ],
+        "soundLayout": "grid",
+        "soundChallenge": "combined"
       }
     ],
     "fase-2": [
