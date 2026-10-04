@@ -632,10 +632,10 @@
         "placementCompleted": true,
         "currentWorld": 6,
         "recommendedWorld": 6,
-        "activeScreen": "map",
+        "activeScreen": "lesson",
         "activeWorld": 4,
         "activePhase": 0,
-        "questionIndex": 0
+        "questionIndex": 7
       },
       "save": {
         "profile": {
@@ -655,7 +655,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791118422272-kobykfi1i1"
+          "sessionToken": "1791123201089-ji0aue7wkle"
         },
         "completions": {},
         "worldApprovals": {},
@@ -755,10 +755,107 @@
             "kind": "shield-magic",
             "correctAnswer": "ESCUDO PROTEGE 6",
             "at": "04/10/2026, 10:21:26"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-7",
+            "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+            "answer": "D",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "at": "04/10/2026, 10:39:02"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-7",
+            "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+            "answer": "P",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "hint": "Fale as opções devagar e escolha a que combina melhor.",
+            "at": "04/10/2026, 10:39:07"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-6",
+            "question": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+            "answer": "L",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "L",
+            "at": "04/10/2026, 10:39:18"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-8",
+            "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+            "answer": "B",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "at": "04/10/2026, 10:39:22"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-4",
+            "question": "COMPLETE A SÍLABA PA EM PATO.",
+            "answer": "A",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "A",
+            "at": "04/10/2026, 10:39:28"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-5",
+            "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+            "answer": "C",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "C",
+            "at": "04/10/2026, 10:39:31"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-2",
+            "question": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+            "answer": "L",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "L",
+            "at": "04/10/2026, 10:39:34"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-1",
+            "question": "COMPLETE A SÍLABA SA E FORME CASA.",
+            "answer": "S",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "S",
+            "at": "04/10/2026, 11:13:38"
           }
         ],
         "gameState": {
-          "screen": "map",
+          "screen": "lesson",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-angelo-ciccillo",
@@ -776,7 +873,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791118422272-kobykfi1i1"
+            "sessionToken": "1791123201089-ji0aue7wkle"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -923,129 +1020,162 @@
           "activePhase": 0,
           "queue": [
             {
-              "id": "fase-1-w4-degraus-eco-1-7",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de BOLO?",
-              "options": [
-                "X",
-                "U",
-                "O"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "⭐",
-              "activity": "degraus-eco",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-pescaria-consoantes-1-6",
-              "kind": "choice",
-              "prompt": "Qual letra aparece no trecho sonoro destacado de LATA?",
-              "options": [
-                "A",
-                "B",
-                "T"
-              ],
-              "answer": "A",
-              "hint": "Ouça o som e escolha a letra que o representa.",
-              "visual": "🍎",
-              "activity": "pescaria-consoantes",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-teclado-vogais-1-1",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de GATO?",
-              "options": [
-                "U",
-                "X",
-                "O"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🐟",
-              "activity": "teclado-vogais",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-bolhas-som-1-2",
-              "kind": "choice",
-              "prompt": "Qual letra aparece no trecho sonoro destacado de CASA?",
-              "options": [
-                "B",
-                "A",
-                "T"
-              ],
-              "answer": "A",
-              "hint": "Ouça o som e escolha a letra que o representa.",
-              "visual": "🌼",
-              "activity": "bolhas-som",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-pinguim-faminto-1-4",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de FADA?",
-              "options": [
-                "A",
-                "U",
-                "X"
-              ],
-              "answer": "A",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🏠",
-              "activity": "pinguim-faminto",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-trem-fonemas-1-3",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de SAPO?",
-              "options": [
-                "U",
-                "X",
-                "O"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🚗",
-              "activity": "trem-fonemas",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-colheita-vogais-1-0",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de BOLA?",
-              "options": [
-                "O",
-                "U",
-                "X"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "☀️",
+              "id": "fase-1-sa-ponte-som-7",
+              "kind": "syllable-letter",
+              "prompt": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+              "answer": "B",
+              "hint": "Fale BOR-BO-LE-TA. A sílaba BO começa com B.",
               "activity": "colheita-vogais",
-              "activityIndex": 0
+              "activityIndex": 6,
+              "soundWord": "BORBOLETA",
+              "soundSyllable": "BO",
+              "soundPattern": "BOR_ OLETA",
+              "soundOptions": [
+                "B",
+                "D",
+                "P"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
             },
             {
-              "id": "fase-1-w4-codigo-elevador-1-5",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de VACA?",
-              "options": [
-                "X",
-                "U",
-                "A"
+              "id": "fase-1-sa-ponte-som-6",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+              "answer": "L",
+              "hint": "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.",
+              "activity": "colheita-vogais",
+              "activityIndex": 5,
+              "soundWord": "ELEFANTE",
+              "soundSyllable": "LE",
+              "soundPattern": "E_ EFANTE",
+              "soundOptions": [
+                "L",
+                "R",
+                "N"
               ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-8",
+              "kind": "syllable-letter",
+              "prompt": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+              "answer": "B",
+              "hint": "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.",
+              "activity": "colheita-vogais",
+              "activityIndex": 7,
+              "soundWord": "ABACAXI",
+              "soundSyllable": "BA",
+              "soundPattern": "A_ ACAXI",
+              "soundOptions": [
+                "B",
+                "P",
+                "D",
+                "V"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-4",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA PA EM PATO.",
               "answer": "A",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🐝",
-              "activity": "codigo-elevador",
-              "activityIndex": 0
+              "hint": "Fale PA-TO. A vogal A fica entre P e T.",
+              "activity": "colheita-vogais",
+              "activityIndex": 3,
+              "soundWord": "PATO",
+              "soundSyllable": "PA",
+              "soundPattern": "P_ TO",
+              "soundOptions": [
+                "A",
+                "O",
+                "E"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "position"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-5",
+              "kind": "syllable-letter",
+              "prompt": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+              "answer": "C",
+              "hint": "Separe JA-CA-RÉ e complete a sílaba CA com C.",
+              "activity": "colheita-vogais",
+              "activityIndex": 4,
+              "soundWord": "JACARÉ",
+              "soundSyllable": "CA",
+              "soundPattern": "JA_ ARÉ",
+              "soundOptions": [
+                "C",
+                "G",
+                "K"
+              ],
+              "soundLayout": "arc",
+              "soundChallenge": "near"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-2",
+              "kind": "syllable-letter",
+              "prompt": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+              "answer": "L",
+              "hint": "Diga BO-LA. A letra L aparece no começo da sílaba LA.",
+              "activity": "colheita-vogais",
+              "activityIndex": 1,
+              "soundWord": "BOLA",
+              "soundSyllable": "LA",
+              "soundPattern": "BO_ A",
+              "soundOptions": [
+                "L",
+                "R",
+                "M"
+              ],
+              "soundLayout": "arc",
+              "soundChallenge": "near"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-1",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA SA E FORME CASA.",
+              "answer": "S",
+              "hint": "Fale CA-SA devagar. A letra S fecha a segunda sílaba.",
+              "activity": "colheita-vogais",
+              "activityIndex": 0,
+              "soundWord": "CASA",
+              "soundSyllable": "SA",
+              "soundPattern": "CA_ A",
+              "soundOptions": [
+                "S",
+                "T",
+                "P"
+              ],
+              "soundLayout": "row",
+              "soundChallenge": "direct"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-3",
+              "kind": "syllable-letter",
+              "prompt": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
+              "answer": "G",
+              "hint": "O primeiro som de GATO começa com G.",
+              "activity": "colheita-vogais",
+              "activityIndex": 2,
+              "soundWord": "GATO",
+              "soundSyllable": "GA",
+              "soundPattern": "_ATO",
+              "soundOptions": [
+                "G",
+                "C",
+                "D"
+              ],
+              "soundLayout": "row",
+              "soundChallenge": "position"
             }
           ],
-          "questionIndex": 0,
+          "questionIndex": 7,
           "attempts": 0,
-          "roundScore": 0,
+          "roundScore": 6,
           "feedback": null,
           "completions": {},
           "worldApprovals": {},
@@ -1145,6 +1275,103 @@
               "kind": "shield-magic",
               "correctAnswer": "ESCUDO PROTEGE 6",
               "at": "04/10/2026, 10:21:26"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-7",
+              "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+              "answer": "D",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "at": "04/10/2026, 10:39:02"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-7",
+              "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+              "answer": "P",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "hint": "Fale as opções devagar e escolha a que combina melhor.",
+              "at": "04/10/2026, 10:39:07"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-6",
+              "question": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+              "answer": "L",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "L",
+              "at": "04/10/2026, 10:39:18"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-8",
+              "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+              "answer": "B",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "at": "04/10/2026, 10:39:22"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-4",
+              "question": "COMPLETE A SÍLABA PA EM PATO.",
+              "answer": "A",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "A",
+              "at": "04/10/2026, 10:39:28"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-5",
+              "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+              "answer": "C",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "C",
+              "at": "04/10/2026, 10:39:31"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-2",
+              "question": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+              "answer": "L",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "L",
+              "at": "04/10/2026, 10:39:34"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-1",
+              "question": "COMPLETE A SÍLABA SA E FORME CASA.",
+              "answer": "S",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "S",
+              "at": "04/10/2026, 11:13:38"
             }
           ],
           "reward": null,
@@ -1154,10 +1381,10 @@
         }
       },
       "activeSession": {
-        "token": "1791118422272-kobykfi1i1",
-        "lastSeen": 1791120198462
+        "token": "1791123201089-ji0aue7wkle",
+        "lastSeen": 1791123951782
       },
-      "updatedAt": "2026-10-04T13:21:39.637Z"
+      "updatedAt": "2026-10-04T14:13:41.751Z"
     },
     "student-anna-alice-pereira": {
       "id": "student-anna-alice-pereira",
