@@ -168,7 +168,7 @@
 .magnet-toolbar strong { display: block; margin-top: 3px; color: #25493f; font: 800 1.2rem/1.05 "Baloo 2"; }
 .magnet-counter { display: flex; align-items: baseline; gap: 5px; padding: 6px 10px; border-radius: 10px; color: #34725f; background: #e9f7ed; font-size: .7rem; font-weight: 900; white-space: nowrap; }
 .magnet-counter b { color: #c77d25; font: 900 1.35rem/1 "Baloo 2"; }
-.magnet-scene { position: relative; overflow: hidden; border: 3px solid #fff; border-radius: 22px 17px 21px 16px; background: #eef8ef; box-shadow: inset 0 0 0 1px rgba(46, 111, 88, .18), 0 7px 0 rgba(25, 118, 92, .12); touch-action: none; user-select: none; }
+.magnet-scene { position: relative; overflow: hidden; border: 3px solid #fff; border-radius: 22px 17px 21px 16px; background: linear-gradient(145deg, #dff3df, #a8d8b2); box-shadow: inset 0 0 0 1px rgba(46, 111, 88, .18), 0 7px 0 rgba(25, 118, 92, .12); touch-action: none; user-select: none; }
 .magnet-scene canvas { display: block; width: 100%; height: auto; min-height: 240px; cursor: grab; touch-action: none; }
 .magnet-scene canvas:active { cursor: grabbing; }
 .magnet-complete-badge { position: absolute; z-index: 2; left: 50%; top: 50%; display: grid; place-items: center; width: 64px; height: 64px; color: #fff; border: 4px solid #fff8c9; border-radius: 50%; background: #3da878; box-shadow: 0 0 0 8px rgba(247, 207, 92, .25), 0 8px 0 rgba(37, 104, 76, .2); transform: translate(-50%, -50%); animation: magnet-complete .6s cubic-bezier(.2,1.3,.5,1) both; pointer-events: none; }

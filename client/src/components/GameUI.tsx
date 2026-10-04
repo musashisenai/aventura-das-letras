@@ -572,7 +572,7 @@ function MagnetPaintInteraction({ question, disabled, onComplete }: { question: 
     const filings = Array.from({ length: 150 }, (_, index) => ({ x: 34 + ((index * 83) % 832), y: 24 + ((index * 47) % 282), length: 3 + (index % 5), phase: index * .71 }));
     let frame = 0;
     const render = (time: number) => {
-      const gradient = ctx.createLinearGradient(0, 0, 900, 330); gradient.addColorStop(0, "#fff8df"); gradient.addColorStop(1, "#eaf8f2"); ctx.fillStyle = gradient; ctx.fillRect(0, 0, 900, 330);
+      const gradient = ctx.createLinearGradient(0, 0, 900, 330); gradient.addColorStop(0, "#dff3df"); gradient.addColorStop(1, "#a8d8b2"); ctx.fillStyle = gradient; ctx.fillRect(0, 0, 900, 330);
       ctx.strokeStyle = "rgba(82, 131, 106, .1)"; ctx.lineWidth = 1; for (let x = 30; x < 900; x += 45) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 330); ctx.stroke(); } for (let y = 25; y < 330; y += 45) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(900, y); ctx.stroke(); }
       ctx.lineCap = "round"; trailRef.current.forEach((point, index) => { const next = trailRef.current[index + 1]; if (!next) return; ctx.strokeStyle = `rgba(42, 105, 91, ${Math.max(.05, index / trailRef.current.length * .34)})`; ctx.lineWidth = 2 + (index % 3); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineTo(next.x, next.y); ctx.stroke(); });
       ctx.save(); ctx.setLineDash([8, 10]); ctx.strokeStyle = "rgba(44, 120, 96, .28)"; ctx.lineWidth = 3; ctx.beginPath(); checkpoints.forEach((point, index) => index === 0 ? ctx.moveTo(point.x, point.y) : ctx.lineTo(point.x, point.y)); ctx.closePath(); ctx.stroke(); ctx.restore();
