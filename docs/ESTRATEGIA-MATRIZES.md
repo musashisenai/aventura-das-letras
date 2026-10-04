@@ -270,3 +270,18 @@ O guia estratégico estabelece **8 mundos**, enquanto o catálogo atual do repos
 ## Implementação — Mundo da Garatuja · Fase 3
 
 A Fase 3 foi evoluída para oito configurações reais sem substituir seu renderer de Canvas nem alterar o objetivo de criar pegadas até o coqueiro. As variações implementadas são: rota reta; curva; ondas; zigue-zague; escolha entre a rota do coqueiro e um desvio; percurso em sequência de três cores; rota de precisão com checkpoints mais próximos e tolerância menor; e desafio ramificado com desvios distratores. Todas continuam disponíveis como oito itens `sand-tracks` da atividade `pegadas-areia`, inclusive a etapa correspondente no desafio final.
+
+
+## Mundo Alfabético · Fase 1 — Máquina de Escrever a Jato
+
+A Fase 1 do Mundo Alfabético (ID 5) deixa de usar a pergunta genérica do banco e passa a oferecer oito variações da mesma matriz jogável. A criança ouve apenas a palavra-alvo, vê uma ilustração sem a grafia pronta e a escreve em um teclado grande, que funciona por toque ou teclado físico. O balão sobe com a contagem regressiva, em direção aos espinhos localizados no topo, conforme a lista do usuário; o limite aumenta junto com o tamanho das palavras e, ao terminar, abre uma tentativa orientada em vez de perder progresso.
+
+Progressão: **SOL → PATO → BOLA → CASA → JANELA → MACACO → ELEFANTE → BORBOLETA**. As primeiras variações consolidam palavras curtas e a sequência de letras; as últimas aumentam extensão e segmentação oral. A palavra escrita não aparece no enunciado visual, para a matriz praticar escrita alfabética em vez de simples cópia.
+
+## Mundo Ortográfico · Fase 1 — Filtro de Água dos Dígrafos
+
+A Fase 1 do Mundo Ortográfico (ID 6) passa a usar uma única matriz de válvulas identificadas exclusivamente como **CH, X, S e Z**: a criança ouve uma palavra, vê o espaço incompleto, seleciona uma dessas opções e libera o fluxo. A progressão cobre **CHUVA, PEIXE, CASA, ZEBRA, CHUCHU, MOCHILA, XÍCARA e ROSA**, trabalhando CH em posições diferentes e contrastando X, S e Z, inclusive o S entre vogais com som de Z. Nota didática: X, S e Z são letras (não dígrafos); são mantidas como contrastes ortográficos coerentes com o título e os exemplos do plano de atividades.
+
+## Vozes e integração
+
+Cada descoberta das duas fases possui faixas WAV individuais de **palavra-alvo** e **dica**, geradas com a voz **Leda (pt-BR)**; os manifestos também oferecem os dois pacotes concatenados. O feedback de acerto e incentivo reutiliza as faixas Leda compartilhadas. A UI preserva a regra existente para os mundos Alfabético e Ortográfico: não lê o enunciado completo; reproduz a palavra-alvo e as dicas, respeitando o foco auditivo dessas etapas. Os assets estão espelhados no catálogo do banco, sem alteração de dados de alunos.

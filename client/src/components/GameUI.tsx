@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEven
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Hammer, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Shield, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { buildSandTrackGeometry } from "@/game/sandTracks";
+import { feedbackVoicePath, voicePackPath } from "@/game/voicepacks";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
 import cartoonTreeAsset from "@/assets/arvore-openclipart.png";
@@ -108,21 +109,6 @@ function ponteSomSyllablePath(question: GameQuestion | undefined) {
   return ["sa", "la", "ga", "pa", "ca", "le", "bo", "ba"].includes(syllable) ? `/assets/syllable-${syllable}.wav` : undefined;
 }
 
-function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint", questionId?: string) {
-  const idVariant = questionId?.match(/-(\d+)$/)?.[1];
-  const variant = idVariant ? Number(idVariant) : questionIndex !== undefined ? questionIndex + 1 : undefined;
-  if (worldId === 3 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w3-phase1/${kind}-${variant}.wav`;
-  if (worldId === 4 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w4-phase1/${kind}-${variant}.wav`;
-  return undefined;
-}
-
-function feedbackVoicePath(worldId: number | undefined, phase: number | undefined, tone: "success" | "hint" | "continue") {
-  if (worldId !== 3 || phase !== 0) return undefined;
-  if (tone === "success") return "/assets/voicepacks/feedback/success.wav";
-  if (tone === "continue") return "/assets/voicepacks/feedback/encouragement.wav";
-  return undefined;
-}
-
 function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false, worldId?: number, phase?: number, questionIndex?: number) {
   const narration = wordOnly
     ? question?.targetWord ?? question?.audioText
@@ -132,7 +118,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       return;
     }
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? voicePackPath(worldId, phase, questionIndex, "word", question?.id) : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     let audio: HTMLAudioElement | undefined;
     const timer = window.setTimeout(() => {
       if (localPath) {
@@ -151,7 +137,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
 
   return () => {
     if (!enabled || !narration) return;
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? voicePackPath(worldId, phase, questionIndex, "word", question?.id) : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     if (localPath) {
       const audio = new Audio(localPath);
       audio.volume = 1;
@@ -168,19 +154,28 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
   return wordOnly ? "Ouvir palavra" : "Ouvir pergunta";
 }
 
-function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number) {
+function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number, questionId?: string) {
   useEffect(() => {
     if (!enabled || !feedback?.text) return;
-    const localPath = feedback.tone === "hint" ? voicePackPath(worldId, phase, questionIndex, "hint") : feedbackVoicePath(worldId, phase, feedback.tone);
-    let audio: HTMLAudioElement | undefined;
+    const hintPath = feedback.tone === "hint" || feedback.tone === "continue" ? voicePackPath(worldId, phase, questionIndex, "hint", questionId) : undefined;
+    const feedbackPath = feedback.tone === "hint" ? undefined : feedbackVoicePath(worldId, phase, feedback.tone);
+    const appendSpecificHint = feedback.tone === "continue" && (worldId === 5 || worldId === 6) && phase === 0 && hintPath;
+    const paths = appendSpecificHint ? [feedbackPath, hintPath].filter((path): path is string => Boolean(path)) : [feedback.tone === "hint" ? hintPath : feedbackPath].filter((path): path is string => Boolean(path));
+    const audios: HTMLAudioElement[] = [];
+    let cancelled = false;
+    const play = (index: number) => {
+      if (cancelled) return;
+      if (index >= paths.length) { if (paths.length === 0) speak(feedback.text); return; }
+      const audio = new Audio(paths[index]); audios.push(audio); audio.volume = 1;
+      audio.onended = () => play(index + 1);
+      audio.onerror = () => index + 1 < paths.length ? play(index + 1) : speak(feedback.text);
+      void audio.play().catch(() => index + 1 < paths.length ? play(index + 1) : speak(feedback.text));
+    };
     const timer = window.setTimeout(() => {
-      if (localPath) {
-        audio = new Audio(localPath);
-        void audio.play().catch(() => speak(feedback.text));
-      } else speak(feedback.text);
+      if (paths.length) play(0); else speak(feedback.text);
     }, 180);
-    return () => { window.clearTimeout(timer); audio?.pause(); };
-  }, [enabled, feedback?.text, feedback?.tone, worldId, phase, questionIndex]);
+    return () => { cancelled = true; window.clearTimeout(timer); audios.forEach((audio) => { audio.pause(); audio.currentTime = 0; }); };
+  }, [enabled, feedback?.text, feedback?.tone, worldId, phase, questionIndex, questionId]);
 }
 
 function usePlacementResultNarration(results: GameState["placementResults"], enabled: boolean) {
@@ -469,22 +464,23 @@ function Lesson({ state, controller }: Props) {
   // No Alfabético e no Ortográfico, somente atividades com palavra-alvo
   // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
   const audioAvailable = state.profile?.audioEnabled !== false;
-  const essentialAudioAvailable = Boolean(question.targetWord ?? question.audioText);
-  const playNarration = useQuestionNarration(question, audioAvailable, false, state.activeWorld, state.activePhase, state.questionIndex);
-  const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
-  useFeedbackNarration(state.feedback, audioAvailable, state.activeWorld, state.activePhase, state.questionIndex);
+  const questionAudioAvailable = audioAvailable && state.activeWorld <= 4;
+  const essentialAudioAvailable = audioAvailable && Boolean(question.targetWord ?? question.audioText);
+  const playNarration = useQuestionNarration(question, questionAudioAvailable, false, state.activeWorld, state.activePhase, state.questionIndex);
+  const playWord = useQuestionNarration(question, essentialAudioAvailable, true, state.activeWorld, state.activePhase, state.questionIndex);
+  useFeedbackNarration(state.feedback, audioAvailable, state.activeWorld, state.activePhase, state.questionIndex, question.id);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
-        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{questionAudioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         {state.activePhase === 7 && <div className="final-challenge-banner"><span><Sparkles size={16} /> FESTIVAL FINAL DA LUMI</span><strong>Complete as oito descobertas e leve a abelhinha até a colmeia final.</strong><small>Cada etapa reúne uma habilidade que você praticou nesta trilha.</small></div>}
         {activity && <div className="activity-chip"><span>ATIVIDADE</span><strong>{activity.title}</strong></div>}
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
-        <QuestionInteraction question={question} disabled={question.kind === "cookie-mold" ? Boolean(state.feedback) : Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
-        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone === "hint" && question.kind === "cookie-mold" ? <button className="retry-button" onClick={() => controller.retry()}><RotateCcw size={20} /> Tentar de novo</button> : state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
+        <QuestionInteraction question={question} disabled={question.kind === "cookie-mold" || question.kind === "jet-writer" || question.kind === "digraph-filter" ? Boolean(state.feedback) : Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
+        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone === "hint" && ["cookie-mold", "jet-writer", "digraph-filter"].includes(question.kind) ? <button className="retry-button" onClick={() => controller.retry()}><RotateCcw size={20} /> Tentar de novo</button> : state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
       </section>
     </section>
   </main>;
@@ -542,12 +538,93 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "paint-roller") return <PaintRollerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "bee-flight") return <BeeFlightInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
+  if (question.kind === "jet-writer") return <JetWriterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
+  if (question.kind === "digraph-filter") return <DigraphFilterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "shield-magic") return <ShieldMagicInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "syllable-hammer") return <SyllableHammerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "syllable-letter") return <SyllableLetterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+
+function JetWriterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const target = (question.targetWord ?? question.answer).toUpperCase();
+  const totalSeconds = question.writerSeconds ?? 60;
+  const [typed, setTyped] = useState("");
+  const [remaining, setRemaining] = useState(totalSeconds);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const answerRef = useRef(onAnswer);
+  const timeoutSubmitted = useRef(false);
+  const previousDisabled = useRef(disabled);
+  answerRef.current = onAnswer;
+  const hasTyped = typed.length > 0;
+  const progress = Math.min(100, Math.max(0, ((totalSeconds - remaining) / totalSeconds) * 100));
+
+  useEffect(() => {
+    setTyped(""); setRemaining(totalSeconds); timeoutSubmitted.current = false;
+  }, [question.id, totalSeconds]);
+  useEffect(() => {
+    if (previousDisabled.current && !disabled) { setTyped(""); setRemaining(totalSeconds); timeoutSubmitted.current = false; }
+    previousDisabled.current = disabled;
+  }, [disabled, totalSeconds]);
+  useEffect(() => {
+    if (disabled || !hasTyped) return;
+    const interval = window.setInterval(() => setRemaining((current) => Math.max(0, current - 1)), 1000);
+    return () => window.clearInterval(interval);
+  }, [question.id, disabled, hasTyped]);
+  useEffect(() => {
+    if (remaining === 0 && hasTyped && !disabled && !timeoutSubmitted.current) {
+      timeoutSubmitted.current = true;
+      answerRef.current("__tempo_esgotado__");
+    }
+  }, [remaining, hasTyped, disabled]);
+
+  const updateTyped = (value: string) => setTyped(value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, target.length));
+  const addLetter = (letter: string) => {
+    if (disabled || typed.length >= target.length) return;
+    setTyped((current) => `${current}${letter}`.slice(0, target.length));
+    inputRef.current?.focus();
+  };
+  const submit = () => { if (!disabled && typed.length === target.length) onAnswer(typed); };
+  const rows = ["ABCDEFGHI", "JKLMNOPQR", "STUVWXYZ"];
+
+  return <section className="jet-writer-activity" aria-label="Máquina de Escrever a Jato">
+    <header className="jet-writer-toolbar"><div><span className="jet-writer-kicker">BALÃO DE ENSAIO</span><strong>A Máquina de Escrever a Jato</strong></div><div className="jet-writer-counter" role="status" aria-live="polite"><b>{remaining}</b><span>segundos</span></div></header>
+    <div className="jet-writer-scene">
+      <div className="jet-writer-cloud cloud-one" aria-hidden="true">☁</div><div className="jet-writer-cloud cloud-two" aria-hidden="true">☁</div>
+      <div className="jet-writer-balloon" style={{ bottom: `${Math.min(46, progress * 0.46)}%` }} aria-hidden="true"><span>{question.visual ?? "⭐"}</span><small>{typed.length} / {target.length} letras</small></div>
+      <div className="jet-writer-spikes" aria-hidden="true"><span>▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲</span><small>Não deixe o balão alcançar os espinhos do alto</small></div>
+    </div>
+    <div className="jet-writer-progress" role="progressbar" aria-label="Progresso do balão" aria-valuemin={0} aria-valuemax={target.length} aria-valuenow={typed.length}><i style={{ width: `${(typed.length / target.length) * 100}%` }} /></div>
+    <label className="jet-writer-input-label" htmlFor={`jet-word-${question.id}`}>Sua palavra</label>
+    <input ref={inputRef} id={`jet-word-${question.id}`} className="jet-writer-input" type="text" value={typed} placeholder={Array.from({ length: target.length }, () => "_ ").join("").trim()} maxLength={target.length} autoComplete="off" autoCapitalize="characters" spellCheck={false} inputMode="none" aria-label={`Digite a palavra, ${typed.length} de ${target.length} letras`} onChange={(event) => updateTyped(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") submit(); }} disabled={disabled} />
+    <div className="jet-writer-keyboard" role="group" aria-label="Teclado de letras">
+      {rows.map((row) => <div className="jet-key-row" key={row}>{Array.from(row).map((letter) => <button type="button" key={letter} className="jet-letter-key" onPointerDown={(event) => event.preventDefault()} onClick={() => addLetter(letter)} disabled={disabled || typed.length >= target.length} aria-label={`Letra ${letter}`}>{letter}</button>)}</div>)}
+      <div className="jet-key-row jet-key-actions"><button type="button" onPointerDown={(event) => event.preventDefault()} onClick={() => setTyped((current) => current.slice(0, -1))} disabled={disabled || !typed} aria-label="Apagar a última letra">⌫ Apagar</button><button type="button" onPointerDown={(event) => event.preventDefault()} onClick={() => setTyped("")} disabled={disabled || !typed}>Limpar</button></div>
+    </div>
+    <footer className="jet-writer-footer"><p>Toque nas letras ou use o teclado físico. A palavra-alvo pode ser ouvida novamente.</p><button className="primary-action compact" onClick={submit} disabled={disabled || typed.length !== target.length}>Enviar balão <Check size={18} /></button></footer>
+  </section>;
+}
+
+function DigraphFilterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const options = question.options ?? [];
+  const pattern = question.orthographicPattern ?? "□";
+  const [selected, setSelected] = useState<string | null>(null);
+  useEffect(() => setSelected(null), [question.id]);
+  return <section className="digraph-filter-activity" aria-label="Filtro de Água dos Dígrafos">
+    <header className="digraph-filter-toolbar"><div><span className="digraph-filter-kicker">CANOS DA ORTOGRAFIA</span><strong>Filtro de Água dos Dígrafos</strong></div><div className="digraph-filter-counter"><b>{selected ? "1" : "0"}</b><span>válvula escolhida</span></div></header>
+    <div className="digraph-filter-scene">
+      <div className="digraph-filter-drops" aria-hidden="true">💧　💧　💧</div>
+      <div className="digraph-word" aria-label={`Palavra incompleta: ${pattern.replace("□", "espaço")}`}>
+        {Array.from(pattern).map((character, index) => character === "□" ? <b className={selected ? "filled" : "empty"} key={`blank-${index}`}>{selected ?? "?"}</b> : <span key={`${character}-${index}`}>{character}</span>)}
+      </div>
+      <div className="digraph-filter-flow" aria-hidden="true"><i /><i /><i /><span>→</span></div>
+      <small>ÁGUA DA PALAVRA</small>
+    </div>
+    <div className="digraph-valves" role="radiogroup" aria-label="Válvulas de letras disponíveis">{options.map((option, index) => <button type="button" key={`${option}-${index}`} className={`digraph-valve ${selected === option ? "selected" : ""}`} onClick={() => !disabled && setSelected(option)} disabled={disabled} role="radio" aria-checked={selected === option} aria-label={`Válvula ${option}`}><span className="digraph-valve-wheel" aria-hidden="true">✦</span><strong>{option}</strong><small>VÁLVULA {index + 1}</small></button>)}</div>
+    <footer className="digraph-filter-footer"><p>{selected ? `A válvula ${selected} está pronta para liberar o fluxo.` : "Escolha as letras que completam a palavra ouvida."}</p><button className="primary-action compact" onClick={() => selected && onAnswer(selected)} disabled={disabled || !selected}>Liberar água <Check size={18} /></button></footer>
+  </section>;
 }
 
 function SyllableLetterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {

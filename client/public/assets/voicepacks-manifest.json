@@ -57,11 +57,77 @@
         "voicepacks/w4-phase1/hint-7.wav",
         "voicepacks/w4-phase1/hint-8.wav"
       ]
+    },
+    "world-5-phase-0": {
+      "worldId": 5,
+      "phase": 0,
+      "activity": "maquina-escrever",
+      "wordPack": "voicepack-w5-phase1-words.wav",
+      "hintPack": "voicepack-w5-phase1-hints.wav",
+      "segments": 8,
+      "wordSegments": [
+        "voicepacks/w5-phase1/word-1.wav",
+        "voicepacks/w5-phase1/word-2.wav",
+        "voicepacks/w5-phase1/word-3.wav",
+        "voicepacks/w5-phase1/word-4.wav",
+        "voicepacks/w5-phase1/word-5.wav",
+        "voicepacks/w5-phase1/word-6.wav",
+        "voicepacks/w5-phase1/word-7.wav",
+        "voicepacks/w5-phase1/word-8.wav"
+      ],
+      "hintSegments": [
+        "voicepacks/w5-phase1/hint-1.wav",
+        "voicepacks/w5-phase1/hint-2.wav",
+        "voicepacks/w5-phase1/hint-3.wav",
+        "voicepacks/w5-phase1/hint-4.wav",
+        "voicepacks/w5-phase1/hint-5.wav",
+        "voicepacks/w5-phase1/hint-6.wav",
+        "voicepacks/w5-phase1/hint-7.wav",
+        "voicepacks/w5-phase1/hint-8.wav"
+      ]
+    },
+    "world-6-phase-0": {
+      "worldId": 6,
+      "phase": 0,
+      "activity": "filtro-digrafos",
+      "wordPack": "voicepack-w6-phase1-words.wav",
+      "hintPack": "voicepack-w6-phase1-hints.wav",
+      "segments": 8,
+      "wordSegments": [
+        "voicepacks/w6-phase1/word-1.wav",
+        "voicepacks/w6-phase1/word-2.wav",
+        "voicepacks/w6-phase1/word-3.wav",
+        "voicepacks/w6-phase1/word-4.wav",
+        "voicepacks/w6-phase1/word-5.wav",
+        "voicepacks/w6-phase1/word-6.wav",
+        "voicepacks/w6-phase1/word-7.wav",
+        "voicepacks/w6-phase1/word-8.wav"
+      ],
+      "hintSegments": [
+        "voicepacks/w6-phase1/hint-1.wav",
+        "voicepacks/w6-phase1/hint-2.wav",
+        "voicepacks/w6-phase1/hint-3.wav",
+        "voicepacks/w6-phase1/hint-4.wav",
+        "voicepacks/w6-phase1/hint-5.wav",
+        "voicepacks/w6-phase1/hint-6.wav",
+        "voicepacks/w6-phase1/hint-7.wav",
+        "voicepacks/w6-phase1/hint-8.wav"
+      ]
     }
   },
   "feedback": {
     "voice": "Leda",
     "world-3-phase-0": {
+      "success": "voicepacks/feedback/success.wav",
+      "encouragement": "voicepacks/feedback/encouragement.wav",
+      "retry": "voicepacks/feedback/retry.wav"
+    },
+    "world-5-phase-0": {
+      "success": "voicepacks/feedback/success.wav",
+      "encouragement": "voicepacks/feedback/encouragement.wav",
+      "retry": "voicepacks/feedback/retry.wav"
+    },
+    "world-6-phase-0": {
       "success": "voicepacks/feedback/success.wav",
       "encouragement": "voicepacks/feedback/encouragement.wav",
       "retry": "voicepacks/feedback/retry.wav"

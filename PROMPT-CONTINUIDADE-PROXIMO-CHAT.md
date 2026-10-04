@@ -609,9 +609,11 @@ Quando houver dúvida que altere significativamente a intenção do usuário, pa
 
 ---
 
-## PRÓXIMO TRABALHO RECOMENDADO
+## ESTADO E CONTINUIDADE APÓS AS MATRIZES PRIORIZADAS
 
-A Fase 3, **Pegadas na Areia**, já recebeu oito configurações distintas de rota, com variação geométrica, desvios e progressão de precisão. A próxima revisão de variedade recomendada é a Fase 4, **Espanta-Mosquitos**. Preserve a regra aprovada de exatamente oito mosquitos em todas as versões, os visuais minimalistas e o áudio proporcional; planeje diferenças de trajetória, velocidade, zona de proteção e padrões de voo sem reconstruir a mecânica central.
+Por solicitação do usuário, foram concluídas a Fase 1 do Mundo Alfabético (ID 5, **Máquina de Escrever a Jato**) e a Fase 1 do Mundo Ortográfico (ID 6, **Filtro de Água dos Dígrafos**). Cada fase apresenta oito variações jogáveis; a primeira progride de palavras curtas a longas sem mostrar a resposta escrita, e a segunda mantém as quatro válvulas **CH, X, S e Z**. Ambas usam segmentos Leda em português brasileiro para palavra-alvo e dica, com cópias sincronizadas no manifesto e catálogo do banco. O balão agora sobe em direção aos espinhos no topo, conforme a lista do usuário.
+
+Os testes de conteúdo, respostas, rotas de áudio, WAVs, cópias distribuídas, compilação TypeScript e build devem ser repetidos antes de publicar. O QA visual deve confirmar as oito opções das duas fases no painel de desenvolvedor, sem gravar respostas de alunos. **Não retomar a recomendação antiga da Fase 4 da Garatuja**: após este escopo, confirmar com o usuário qual combinação de mundo/fase priorizar a seguir, preservando o plano de oito mundos, oito fases e oito variações por fase.
 
 ---
 

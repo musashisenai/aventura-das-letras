@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer" | "syllable-letter";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer" | "syllable-letter" | "jet-writer" | "digraph-filter";
 export type SandPattern = "straight" | "curve" | "waves" | "zigzag" | "fork" | "color-order" | "precision" | "branched";
 export type GameQuestion = {
   id: string;
@@ -62,6 +62,8 @@ export type GameQuestion = {
   soundOptions?: string[];
   soundLayout?: "row" | "arc" | "grid";
   soundChallenge?: "direct" | "near" | "position" | "combined";
+  writerSeconds?: number;
+  orthographicPattern?: string;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -120,6 +122,8 @@ const cookieMold = (variant: number, prompt: string, hint: string, target: strin
 const shieldMagic = (variant: number, prompt: string, hint: string, items: string[], config: Pick<GameQuestion, "shieldLayout" | "shieldMotion">): GameQuestion => ({ id: `fase-1-p-escudo-magico-${variant + 1}`, kind: "shield-magic", prompt, answer: `ESCUDO PROTEGE ${variant + 1}`, hint, activity: "escudo-magico", activityIndex: variant, shieldItems: items, shieldTarget: items.filter((item) => /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)).length, ...config });
 const syllableHammer = (variant: number, prompt: string, hint: string, parts: string[], config: Pick<GameQuestion, "hammerStyle" | "hammerTempo">): GameQuestion => ({ id: `fase-1-s-martelo-pedacos-${variant + 1}`, kind: "syllable-hammer", prompt, answer: `BATIDAS COMPLETAS ${variant + 1}`, hint, activity: "martelo-pedacos", activityIndex: variant, syllableParts: parts, ...config });
 const syllableLetter = (variant: number, prompt: string, hint: string, word: string, syllable: string, pattern: string, answer: string, options: string[], config: Pick<GameQuestion, "soundLayout" | "soundChallenge">): GameQuestion => ({ id: `fase-1-sa-ponte-som-${variant + 1}`, kind: "syllable-letter", prompt, answer, hint, activity: "colheita-vogais", activityIndex: variant, soundWord: word, soundSyllable: syllable, soundPattern: pattern, soundOptions: options, ...config });
+const jetWriter = (variant: number, word: string, prompt: string, hint: string, visual: string, writerSeconds: number): GameQuestion => ({ id: `fase-1-a-maquina-escrever-${variant + 1}`, kind: "jet-writer", prompt, displayPrompt: "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.", answer: word, targetWord: word, hint, visual, activity: "maquina-escrever", activityIndex: variant, writerSeconds });
+const digraphFilter = (variant: number, word: string, pattern: string, answer: string, options: string[], prompt: string, hint: string): GameQuestion => ({ id: `fase-1-o-filtro-digrafos-${variant + 1}`, kind: "digraph-filter", prompt, displayPrompt: "ESCUTE A PALAVRA E ESCOLHA A VÁLVULA QUE COMPLETA O CANO.", answer, targetWord: word, orthographicPattern: pattern, options, hint, visual: "💧", activity: "filtro-digrafos", activityIndex: variant });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -167,6 +171,28 @@ const SILABICO_ALFABETICO_PHASE_ONE: GameQuestion[] = [
   syllableLetter(5, "COMPLETE A SÍLABA LE DE ELEFANTE.", "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.", "ELEFANTE", "LE", "E_ EFANTE", "L", ["L", "R", "N"], { soundLayout: "grid", soundChallenge: "combined" }),
   syllableLetter(6, "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.", "Fale BOR-BO-LE-TA. A sílaba BO começa com B.", "BORBOLETA", "BO", "BOR_ OLETA", "B", ["B", "D", "P"], { soundLayout: "grid", soundChallenge: "combined" }),
   syllableLetter(7, "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.", "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.", "ABACAXI", "BA", "A_ ACAXI", "B", ["B", "P", "D", "V"], { soundLayout: "grid", soundChallenge: "combined" }),
+];
+
+const ALFABETICO_PHASE_ONE: GameQuestion[] = [
+  jetWriter(0, "SOL", "Ouça a palavra e escreva-a no balão antes que ele toque os espinhos no alto.", "SOL tem três letras. Escute devagar: S, depois O, e termine com L.", "☀️", 45),
+  jetWriter(1, "PATO", "Ouça a palavra e escreva-a no balão antes que ele atravesse o rio.", "PATO começa com P e termina com O. Escute os dois sons que ficam no meio.", "🦆", 45),
+  jetWriter(2, "BOLA", "Ouça a palavra e escreva cada letra para ajudar o balão a ganhar altura.", "BOLA começa com B. Depois do B vêm O, L e A, nessa ordem.", "⚽", 50),
+  jetWriter(3, "CASA", "Ouça a palavra e digite cada letra para ajudar a Lumi a encontrar a porta.", "CASA tem quatro letras. Escute: C, A, S, A. Não pule nenhuma.", "🏠", 50),
+  jetWriter(4, "JANELA", "Ouça a palavra, pense nos sons e escreva cada letra na ordem.", "JANELA começa com J e termina com A. Escute os sons entre essas letras.", "🪟", 65),
+  jetWriter(5, "MACACO", "Ouça a palavra e escreva-a letra por letra para o balão subir até a árvore.", "MACACO tem seis letras e começa com M. Repita os sons devagar e confira cada posição.", "🐒", 70),
+  jetWriter(6, "ELEFANTE", "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.", "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.", "🐘", 85),
+  jetWriter(7, "BORBOLETA", "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.", "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.", "🦋", 95),
+];
+
+const ORTOGRAFICO_PHASE_ONE: GameQuestion[] = [
+  digraphFilter(0, "CHUVA", "□UVA", "CH", ["CH", "X", "S", "Z"], "Ouça a palavra e escolha a válvula que completa o começo.", "A palavra começa com duas letras que juntas fazem o som de ch. Procure a válvula CH."),
+  digraphFilter(1, "PEIXE", "PEI□E", "X", ["X", "CH", "S", "Z"], "Ouça a palavra e escolha a válvula que completa o som no meio.", "Em PEIXE, esse som é escrito com a letra X. Escolha a válvula X."),
+  digraphFilter(2, "CASA", "CA□A", "S", ["S", "Z", "CH", "X"], "Ouça a palavra e escolha a válvula que completa a letra que falta.", "CASA se escreve com S entre as vogais. Escolha a válvula S."),
+  digraphFilter(3, "ZEBRA", "□EBRA", "Z", ["Z", "S", "X", "CH"], "Ouça a palavra e escolha a válvula que abre a palavra.", "ZEBRA começa com a letra Z. Procure essa válvula no encanamento."),
+  digraphFilter(4, "CHUCHU", "CHU□U", "CH", ["S", "CH", "X", "Z"], "Ouça a palavra e escolha as letras que completam o espaço.", "Em CHUCHU, o som no espaço é escrito com duas letras juntas: CH."),
+  digraphFilter(5, "MOCHILA", "MO□ILA", "CH", ["X", "Z", "CH", "S"], "Ouça a palavra e escolha as letras que completam o som do meio.", "MOCHILA tem o som de ch entre MO e I. Complete com CH."),
+  digraphFilter(6, "XÍCARA", "□ÍCARA", "X", ["CH", "X", "Z", "S"], "Ouça a palavra e escolha a válvula que abre a palavra.", "XÍCARA começa com a letra X. Procure a válvula xis."),
+  digraphFilter(7, "ROSA", "RO□A", "S", ["Z", "S", "CH", "X"], "Ouça a palavra e escolha a válvula que completa o espaço.", "ROSA tem som de z entre vogais, mas se escreve com S. Escolha essa válvula."),
 ];
 
 function addActivity(question: GameQuestion, activity: ActivityDefinition, worldId: number, variant: number): GameQuestion {
@@ -315,6 +341,8 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 2 && phase === 0) return PRE_SILABICO_PHASE_ONE;
   if (worldId === 3 && phase === 0) return SILABICO_PHASE_ONE;
   if (worldId === 4 && phase === 0) return SILABICO_ALFABETICO_PHASE_ONE;
+  if (worldId === 5 && phase === 0) return ALFABETICO_PHASE_ONE;
+  if (worldId === 6 && phase === 0) return ORTOGRAFICO_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

@@ -120,3 +120,15 @@ Validação registrada: o menu foi capturado em desktop e em 375 px. A escolha �
 - [x] Criar testes automatizados para geometria, progressão, cores, desvios e catálogo das oito perguntas.
 
 Validação concluída: `pnpm check`, `pnpm build`, `pnpm test` (inclui `node tests/mascot-layout.test.mjs`), o teste das oito rotas e `git diff --check` passaram. O primeiro bloqueio foi a ausência de `node_modules` no checkout; as dependências foram instaladas com `pnpm install --frozen-lockfile`. O build apenas reportou o aviso preexistente de bundle JavaScript acima de 500 kB.
+
+
+## Mundo Alfabético · Fase 1 e Mundo Ortográfico · Fase 1
+
+- [x] Criar oito variações de escrita autônoma na Máquina de Escrever a Jato, com palavras progressivas e resposta ausente do enunciado visual.
+- [x] Criar oito variações do Filtro de Água dos Dígrafos, com quatro válvulas constantes (CH, X, S e Z) e pistas específicas.
+- [x] Integrar oito segmentos Leda de palavra-alvo e oito de dica para cada matriz, além do feedback compartilhado.
+- [x] Atualizar os resolvedores de áudio, respeitar a preferência de áudio do perfil, sincronizar manifestos, metadados e cópias dos assets.
+- [x] Preservar a mecânica do balão subindo até os espinhos no topo e o envio/retentativa da resposta.
+- [x] Adicionar testes de progressão, não vazamento da resposta, opções, caminho de WAV, validade de arquivos e igualdade das cópias distribuídas.
+
+Validação de fala: transcrições das oito faixas regeneradas do Mundo Ortográfico conferiram palavras e dicas, inclusive XÍCARA e o contraste do S em ROSA. O banco versionado mantém a mudança de conteúdo sem apagar respostas nem conclusões dos alunos. A próxima prioridade de mundo/fase ainda não foi definida pelo usuário.
