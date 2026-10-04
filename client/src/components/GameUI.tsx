@@ -23,7 +23,7 @@ type RemoteStudent = { id: string; profile: { name: string; currentWorld: number
 const PHASES_PER_WORLD = 8;
 const SCENE_ASSETS: Record<string, string> = { "pegadas-coqueiro": palmTreeAsset };
 const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
-const answerStatusLabel = (answer: GameState["answers"][number]) => answer.usedHint ? "COM DICA" : answer.correct ? "ACERTO" : "ERRO";
+const answerStatusLabel = (answer: GameState["answers"][number]) => answer.correct && answer.usedHint ? "CONSEGUIU COM DICA" : answer.usedHint ? "COM DICA" : answer.correct ? "ACERTO" : "ERRO";
 const answerStatusClass = (answer: GameState["answers"][number]) => answer.correct && !answer.usedHint ? "status-correct" : "status-help";
 
 function studentReportRow(student: RemoteStudent) {
@@ -427,8 +427,8 @@ function Lesson({ state, controller }: Props) {
         {activity && <div className="activity-chip"><span>ATIVIDADE</span><strong>{activity.title}</strong></div>}
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
-        <QuestionInteraction question={question} disabled={Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
-        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
+        <QuestionInteraction question={question} disabled={question.kind === "cookie-mold" ? Boolean(state.feedback) : Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
+        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone === "hint" && question.kind === "cookie-mold" ? <button className="retry-button" onClick={() => controller.retry()}><RotateCcw size={20} /> Tentar de novo</button> : state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
       </section>
     </section>
   </main>;

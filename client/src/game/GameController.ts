@@ -560,7 +560,7 @@ export class GameController {
     const correct = question.kind === "draw" ? Boolean(drawing) : value === question.answer;
     const attempts = this.state.attempts + 1;
     const usedHint = attempts > 1;
-    const hint = usedHint ? activityHint() : undefined;
+    const hint = usedHint ? question.kind === "cookie-mold" ? question.hint : activityHint() : undefined;
     this.state.answers = [
       ...this.state.answers,
       { questionId: question.id, question: question.prompt, answer: value || "DESENHO ENVIADO", correct, usedHint, worldId: this.state.activeWorld, phase: this.state.activePhase, kind: question.kind, options: question.options, correctAnswer: question.answer, hint, visual: question.visual, drawing, at: new Date().toLocaleString("pt-BR") },
@@ -569,6 +569,9 @@ export class GameController {
     if (correct) {
       this.state.roundScore += 1;
       this.state.feedback = { tone: "success", text: "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada." };
+    } else if (question.kind === "cookie-mold") {
+      this.state.attempts = attempts;
+      this.state.feedback = { tone: "hint", text: `A Lumi dá uma pista: ${question.hint ?? "compare o desenho da letra com calma."}` };
     } else if (attempts === 1) {
       this.state.attempts = attempts;
       this.state.feedback = { tone: "hint", text: `Tente novamente, não desista! ${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${activityHint()}` };
@@ -579,8 +582,14 @@ export class GameController {
     this.emit();
   }
 
+  retry() {
+    if (this.state.feedback?.tone !== "hint") return;
+    this.state.feedback = null;
+    this.emit();
+  }
+
   next() {
-    if (!this.state.feedback) return;
+    if (!this.state.feedback || this.state.feedback.tone === "hint") return;
     if (this.state.questionIndex >= 7) {
       this.finishPhase();
       return;

@@ -259,3 +259,20 @@
 .cookie-mold-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; }.cookie-mold-footer p { margin: 0; color: #795a45; font-size: .82rem; font-weight: 800; line-height: 1.35; }.cookie-mold-footer .primary-action { white-space: nowrap; }.cookie-mold-activity:has(.cookie-mold-option.selected) .cookie-mold-target { border-color: #e4a33e; }.cookie-mold-activity.completed .cookie-mold-board { border-color: #f4c763; }
 @media (max-width: 680px) { .cookie-mold-activity { padding: 12px; }.cookie-mold-toolbar { align-items: flex-start; }.cookie-mold-toolbar strong { font-size: 1.08rem; }.cookie-mold-board { grid-template-columns: 1fr; gap: 5px; padding: 15px; }.cookie-mold-divider { transform: rotate(90deg); justify-self: center; }.cookie-mold-target { min-height: 145px; }.cookie-mold-options { grid-template-columns: repeat(3, 1fr); }.cookie-layout-grid .cookie-mold-options { grid-template-columns: repeat(2, 1fr); }.cookie-mold-cookie { width: 68px; height: 68px; }.cookie-mold-cookie b { font-size: 2.65rem; }.cookie-mold-footer { align-items: stretch; flex-direction: column; }.cookie-mold-footer .primary-action { justify-content: center; } }
 @media (prefers-reduced-motion: reduce) { .cookie-mold-option { transition: none; } }
+
+/* O erro convida a tentar novamente, sem liberar avanço. */
+.retry-button {
+  animation: cookie-retry-pulse 1.35s ease-in-out infinite;
+  box-shadow: 0 5px 0 rgba(156, 103, 18, .24);
+}
+.retry-button:hover,
+.retry-button:focus-visible {
+  animation-play-state: paused;
+  transform: translateY(-2px) rotate(-1deg);
+}
+@keyframes cookie-retry-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  45% { transform: scale(1.045) rotate(-1deg); }
+  70% { transform: scale(1.02) rotate(1deg); }
+}
+@media (prefers-reduced-motion: reduce) { .retry-button { animation: none; } }
