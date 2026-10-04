@@ -5,3 +5,7 @@
 - O protótipo usa `localStorage` no lugar de autenticação e banco remoto; por isso, professor, respostas e desenhos funcionam no mesmo navegador/dispositivo.
 - Para captura previsível, `?demo` abre uma conta de demonstração diretamente no mapa.
 
+## Regra permanente de execução
+
+- **Otimização de créditos é prioridade máxima:** antes de gerar qualquer imagem, áudio ou vídeo, preferir CSS, Canvas, SVG, assets já existentes e código determinístico. Só gerar um asset novo quando houver necessidade real e autorização no escopo.
+- Cada melhoria funcional deve ser validada (`pnpm check`, `pnpm build`, testes relevantes e revisão visual quando aplicável) e publicada em um **commit separado, rastreável e sincronizado com `origin/main`**.
