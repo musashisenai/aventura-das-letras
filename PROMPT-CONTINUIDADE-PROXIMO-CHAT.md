@@ -615,6 +615,16 @@ Por solicitação do usuário, foram conferidas três Fases 1: Mundo Silábico (
 
 Os testes de conteúdo, respostas, sorteio das letras genéricas, rotas de áudio, WAVs, cópias distribuídas, compilação TypeScript e build devem ser repetidos antes de publicar. O QA visual deve confirmar as oito opções das três fases no painel de desenvolvedor, sem gravar respostas de alunos. **Não retomar a recomendação antiga da Fase 4 da Garatuja**: após este escopo, confirmar com o usuário qual combinação de mundo/fase priorizar a seguir, preservando o plano de oito mundos, oito fases e oito variações por fase.
 
+## Continuidade — cobertura Leda de todas as fases (04/10/2026)
+
+O objetivo corrente, confirmado pelo usuário, é integrar narração Leda brasileira às **56 fases dos sete mundos atualmente catalogados**. O inventário dos bancos e caminhos esperados registra 875 destinos: **817 estão presentes nos diretórios do cliente e do banco e são idênticos; faltam 58**. O manifesto e os metadados completos devem permanecer sem publicação parcial.
+
+Foram reaproveitadas 114 faixas existentes somente quando papel e texto falado coincidem; outros 26 destinos receberam recortes de WAV Leda já gerados, depois de verificação ASR. W6 e as fases anteriores não aparecem no backlog de áudio atual. As pendências exatas são cinco falas únicas: dois enunciados — “Complete e organize a palavra ouvida: LATA.” e “Complete e organize a palavra ouvida: BOLO.” — para as fases 7 e 8 do Mundo Silábico-Alfabético; e três dicas — “Comece pelo primeiro som e siga até o fim.”, “Compare o som do final das duas palavras.” e “Ouça, pense nos sons e organize todas as letras.” — reutilizadas nas oito variações de cada fase 2–8 do Mundo Alfabético. Isso preenche os 58 caminhos faltantes quando as cinco falas forem geradas e segmentadas.
+
+O gerador `manus-tools/generate_speech` retornou `creditNotEnough` durante esta retomada. Não repetir chamadas até que esteja disponível; qualquer dúvida sobre créditos/conta deve ser direcionada a https://help.manus.im. Índice de síntese: `/tmp/leda-batch/unique-index.json`; preparação: `/tmp/leda-batch/prepare_unique_phases.mjs`; segmentação: `/tmp/leda-batch/process_phases.mjs`; reaproveitamento: `/tmp/leda-batch/reuse_existing_leda_tracks.mjs`.
+
+QA atual: `pnpm check`, `pnpm build` e `git diff --check` passam. `pnpm test` ainda falha na guarda de cobertura porque o manifesto não registra `world-0-phase-0`; não afrouxar o teste. Branch local `main` tem alterações e assets não consolidados; **nenhum commit/push foi feito nesta retomada**. Após gerar as cinco falas, validar ASR, produzir os 58 arquivos espelhados, sincronizar manifesto/metadados, rodar a suíte completa e só então publicar.
+
 ---
 
 ## MENSAGEM FINAL AO NOVO AGENTE

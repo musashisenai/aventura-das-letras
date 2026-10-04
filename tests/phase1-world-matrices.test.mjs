@@ -1,11 +1,16 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { transform } from "esbuild";
+import { build } from "esbuild";
 
 async function importTypeScript(path) {
-  const source = await readFile(new URL(path, import.meta.url), "utf8");
-  const { code } = await transform(source, { loader: "ts", format: "esm" });
-  return import(`data:text/javascript;base64,${Buffer.from(code).toString("base64")}`);
+  const { outputFiles } = await build({
+    entryPoints: [new URL(path, import.meta.url).pathname],
+    bundle: true,
+    write: false,
+    format: "esm",
+    platform: "node",
+  });
+  return import(`data:text/javascript;base64,${Buffer.from(outputFiles[0].text).toString("base64")}`);
 }
 
 const content = await importTypeScript("../client/src/game/content.ts");
@@ -17,6 +22,9 @@ const orthography = content.getQuestionBank(6, 0);
 const learnerUI = await readFile(new URL("../client/src/components/GameUI.tsx", import.meta.url), "utf8");
 const expectedWords = ["SOL", "PATO", "BOLA", "CASA", "JANELA", "MACACO", "ELEFANTE", "BORBOLETA"];
 const expectedOrthographicWords = ["CHUVA", "PEIXE", "CASA", "ZEBRA", "CHUCHU", "MOCHILA", "XÍCARA", "ROSA"];
+const world2Questions = Array.from({ length: 8 }, (_, phase) => content.getQuestionBank(2, phase)).flat();
+assert.ok(world2Questions.some((question) => question.prompt === "Qual item é uma letra? Escolha a letra para continuar."), "O Mundo 2 deve usar a instrução revisada de identificação de letras");
+assert.ok(world2Questions.every((question) => !question.prompt.includes("deve entrar no ") && !question.prompt.includes("deve entrar na ")), "As instruções do Mundo 2 não devem conter destinos com artigo/preposição incompatíveis");
 
 assert.equal(spelling.length, 8, "A Fase 1 do Mundo Alfabético deve apresentar oito variações");
 assert.ok(spelling.every((question) => question.kind === "jet-writer" && question.activity === "maquina-escrever"), "As oito variações alfabéticas devem usar a matriz jogável Máquina de Escrever a Jato");
@@ -53,41 +61,58 @@ assert.ok(syllabicPack, "O pacote Leda da Fase 1 Silábica deve estar registrado
 assert.equal(syllabicPack.activity, "martelo-pedacos", "A voz Leda silábica deve apontar para o Martelo dos Pedaços");
 assert.equal(syllabicPack.promptSegments.length, 8, "A matriz silábica deve ter oito faixas de enunciado Leda");
 assert.equal(syllabicPack.hintSegments.length, 8, "A matriz silábica deve ter oito faixas de dica Leda");
-for (const [index, question] of syllabic.entries()) {
-  assert.equal(voice.voicePackPath(3, 0, index, "prompt", question.id), `/assets/${syllabicPack.promptSegments[index]}`, `A descoberta silábica ${index + 1} deve resolver seu enunciado Leda`);
-  assert.equal(voice.voicePackPath(3, 0, index, "hint", question.id), `/assets/${syllabicPack.hintSegments[index]}`, `A descoberta silábica ${index + 1} deve resolver sua dica Leda`);
+const audioPaths = new Set();
+const metadata = JSON.parse(await readFile(new URL("../database/sections/audio/metadata.json", import.meta.url), "utf8"));
+const metadataByPublicPath = new Map(metadata.assets.filter((asset) => asset.voice === "Leda").map((asset) => [asset.publicPath, asset]));
+for (let worldId = 0; worldId < 7; worldId++) {
+  for (let phase = 0; phase < 8; phase++) {
+    const key = `world-${worldId}-phase-${phase}`;
+    const pack = manifest.packs[key];
+    assert.ok(pack, `O pacote Leda ${key} deve estar registrado`);
+    assert.equal(pack.worldId, worldId, `O pacote ${key} deve identificar o mundo`);
+    assert.equal(pack.phase, phase + 1, `O pacote ${key} deve identificar a fase humana`);
+    assert.equal(pack.segments, 8, `O pacote ${key} deve representar oito variações`);
+    assert.ok(manifest.feedback[key], `O pacote ${key} deve mapear o feedback Leda`);
+    const bank = content.getQuestionBank(worldId, phase);
+    assert.equal(bank.length, 8, `A fase ${key} deve conter oito perguntas`);
+    for (const [index, question] of bank.entries()) {
+      const kinds = ["hint"];
+      if (worldId <= 4) kinds.push("prompt");
+      if (question.targetWord || question.audioText) kinds.push("word");
+      for (const kind of kinds) {
+        const relPath = pack[`${kind}Segments`]?.[index];
+        assert.ok(relPath, `A faixa ${kind} da variação ${index + 1} em ${key} deve estar no manifesto`);
+        const expectedPath = `/assets/${relPath}`;
+        assert.equal(voice.voicePackPath(worldId, phase, (index + 3) % 8, kind, question.id), expectedPath, `O ID estável deve localizar a faixa certa mesmo após embaralhamento: ${key}/${kind}/${index + 1}`);
+        audioPaths.add(relPath);
+      }
+      if (worldId >= 5) assert.equal(voice.voicePackPath(worldId, phase, index, "prompt", question.id), undefined, "Os mundos Alfabético e Ortográfico não devem narrar o enunciado inteiro");
+    }
+  }
 }
-for (const audioPath of [...syllabicPack.promptSegments, ...syllabicPack.hintSegments]) {
+assert.equal(Object.keys(manifest.packs).length, 56, "O manifesto deve cobrir exatamente 7 mundos por 8 fases");
+assert.equal(voice.feedbackVoicePath(undefined, undefined, "success"), "/assets/voicepacks/feedback/success.wav", "A faixa Leda de sucesso deve ser global");
+assert.equal(voice.feedbackVoicePath(undefined, undefined, "continue"), "/assets/voicepacks/feedback/encouragement.wav", "O incentivo Leda deve ser global");
+assert.ok(learnerUI.includes("feedback.tone === \"continue\" && Boolean(hintPath)"), "A segunda tentativa deve reproduzir a dica específica em todos os mundos");
+
+for (const audioPath of audioPaths) {
   const audio = await readFile(new URL(`../client/public/assets/${audioPath}`, import.meta.url));
   const mirroredAudio = await readFile(new URL(`../database/sections/audio/${audioPath}`, import.meta.url));
-  assert.ok(audio.equals(mirroredAudio), `${audioPath} deve permanecer idêntico entre os assets públicos e o catálogo do banco`);
-  assert.equal(audio.subarray(0, 4).toString(), "RIFF", `${audioPath} deve ser WAV válido`);
-}
-for (const [worldId, activity] of [[5, "maquina-escrever"], [6, "filtro-digrafos"]]) {
-  const key = `world-${worldId}-phase-0`;
-  const pack = manifest.packs[key];
-  assert.ok(pack, `O pacote de voz ${key} deve estar registrado`);
-  assert.equal(pack.activity, activity, `O pacote ${key} deve apontar para a atividade correta`);
-  assert.equal(pack.segments, 8, `O pacote ${key} deve ter oito segmentos`);
-  assert.equal(pack.wordSegments.length, 8, `O pacote ${key} deve ter oito faixas de palavra-alvo`);
-  assert.equal(pack.hintSegments.length, 8, `O pacote ${key} deve ter oito faixas de dica`);
-  assert.ok(pack.wordPack && pack.hintPack, `O pacote ${key} deve incluir as faixas concatenadas`);
-  for (const audioPath of [...pack.wordSegments, ...pack.hintSegments, pack.wordPack, pack.hintPack]) {
-    const audio = await readFile(new URL(`../client/public/assets/${audioPath}`, import.meta.url));
-    const mirroredAudio = await readFile(new URL(`../database/sections/audio/${audioPath}`, import.meta.url));
-    assert.ok(audio.equals(mirroredAudio), `${audioPath} deve ser idêntico entre os assets públicos e o catálogo do banco`);
+  assert.ok(audio.equals(mirroredAudio), `${audioPath} deve ser idêntico entre assets e catálogo do banco`);
+  const extension = audioPath.split(".").at(-1);
+  if (extension === "wav") {
     assert.equal(audio.subarray(0, 4).toString(), "RIFF", `${audioPath} deve ser WAV válido`);
     assert.equal(audio.subarray(8, 12).toString(), "WAVE", `${audioPath} deve conter cabeçalho WAVE`);
+  } else {
+    assert.ok(audio.subarray(0, 3).toString() === "ID3" || (audio[0] === 0xff && (audio[1] & 0xe0) === 0xe0), `${audioPath} deve conter quadros MP3`);
   }
-  const bank = worldId === 5 ? spelling : orthography;
-  for (const [index, question] of bank.entries()) {
-    assert.equal(voice.voicePackPath(worldId, 0, index, "word", question.id), `/assets/${pack.wordSegments[index]}`, `A descoberta ${index + 1} do mundo ${worldId} deve resolver sua própria palavra Leda`);
-    assert.equal(voice.voicePackPath(worldId, 0, index, "hint", question.id), `/assets/${pack.hintSegments[index]}`, `A descoberta ${index + 1} do mundo ${worldId} deve resolver sua própria dica Leda`);
-    assert.equal(voice.voicePackPath(worldId, 0, index, "prompt", question.id), undefined, "Os mundos Alfabético e Ortográfico não devem narrar o enunciado inteiro");
-  }
-  assert.equal(voice.feedbackVoicePath(worldId, 0, "success"), "/assets/voicepacks/feedback/success.wav", "O acerto deve usar a faixa Leda compartilhada");
-  assert.equal(voice.feedbackVoicePath(worldId, 0, "continue"), "/assets/voicepacks/feedback/encouragement.wav", "O incentivo deve usar a faixa Leda compartilhada");
+  const asset = metadataByPublicPath.get(`client/public/assets/${audioPath}`);
+  assert.ok(asset, `${audioPath} deve possuir metadados Leda`);
+  assert.equal(asset.voice, "Leda");
+  assert.equal(asset.language, "pt-BR");
+  assert.ok(asset.durationSeconds > 0, `${audioPath} deve ter duração positiva nos metadados`);
 }
-assert.ok(manifest.feedback["world-5-phase-0"] && manifest.feedback["world-6-phase-0"], "As duas matrizes devem apontar para as faixas Leda de sucesso e encorajamento");
+assert.ok(metadataByPublicPath.has("client/public/assets/voicepacks/feedback/success.wav"), "O feedback de sucesso Leda deve continuar registrado");
+assert.ok(metadataByPublicPath.has("client/public/assets/voicepacks/feedback/encouragement.wav"), "O feedback de encorajamento Leda deve continuar registrado");
 
-console.log("OK: oito variações no Martelo Silábico e nas matrizes Alfabética/Ortográfica; sorteio de letras, progressão, opções e áudio Leda validados.");
+console.log(`OK: oito variações nas 56 fases, ${audioPaths.size} segmentos Leda resolvidos, espelhados e com metadados; matrizes pedagógicas e regras de narração validadas.`);

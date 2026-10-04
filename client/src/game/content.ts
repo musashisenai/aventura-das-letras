@@ -217,7 +217,7 @@ function buildWorldBank(worldId: number): GameQuestion[] {
         if ([1, 6].includes(activityIndex)) question.audioText = answer;
       } else if (worldId === 2) {
         const options = letters[(variant + 2) % letters.length]; const answer = options[(activityIndex + 1) % 3];
-        question = choice(id, activityIndex % 2 === 0 ? `Qual item é uma letra e deve entrar no ${activity.title.toLowerCase()}?` : "Qual grupo representa uma escrita?", [answer, "7", "◇"], answer, "Letras formam palavras; números e símbolos têm outras funções.", visual);
+        question = choice(id, activityIndex % 2 === 0 ? "Qual item é uma letra? Escolha a letra para continuar." : "Qual grupo representa uma escrita?", [answer, "7", "◇"], answer, "Letras formam palavras; números e símbolos têm outras funções.", visual);
         if (activityIndex === 1) question = choice(id, "Qual palavra é mais comprida para o objeto mostrado?", ["PÉ", "SOL", "BORBOLETA"], "BORBOLETA", "Compare quantas letras aparecem.", visual);
         if (activityIndex === 4) question = choice(id, "Qual cartão possui escrita?", ["DESENHO", "LUA", "RABISCO"], "LUA", "Procure o cartão formado por letras.", visual);
       } else if (worldId === 3) {

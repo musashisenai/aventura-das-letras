@@ -160,7 +160,7 @@ function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: b
     if (!enabled || !feedback?.text) return;
     const hintPath = feedback.tone === "hint" || feedback.tone === "continue" ? voicePackPath(worldId, phase, questionIndex, "hint", questionId) : undefined;
     const feedbackPath = feedback.tone === "hint" ? undefined : feedbackVoicePath(worldId, phase, feedback.tone);
-    const appendSpecificHint = feedback.tone === "continue" && (worldId === 5 || worldId === 6) && phase === 0 && hintPath;
+    const appendSpecificHint = feedback.tone === "continue" && Boolean(hintPath);
     const paths = appendSpecificHint ? [feedbackPath, hintPath].filter((path): path is string => Boolean(path)) : [feedback.tone === "hint" ? hintPath : feedbackPath].filter((path): path is string => Boolean(path));
     const audios: HTMLAudioElement[] = [];
     let cancelled = false;

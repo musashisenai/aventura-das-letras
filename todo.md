@@ -137,3 +137,18 @@ Validação de fala: transcrições das oito faixas regeneradas do Mundo Ortogr�
 ## Revisão após feedback · Mundo Silábico — Fase 1
 
 A Fase 1 do Martelo dos Pedaços já existia no catálogo com oito variações e voz Leda. Esta revisão alinha a mecânica à lista original: cada batida agora revela uma letra maiúscula genérica na pedra correspondente, sem valor sonoro. Os testes verificam o banco, o sorteio de letras e as faixas Leda existentes. A estratégia e o prompt de continuidade registram a correção.
+
+
+## Cobertura Leda — todas as 56 fases
+
+- [x] Auditar e alinhar os caminhos dos segmentos Leda para os bancos de perguntas dos sete mundos.
+- [x] Processar e sincronizar os segmentos Leda que já estavam disponíveis.
+- [x] Reaproveitar somente gravações Leda com texto falado idêntico; foram distribuídas 114 faixas de mesma fala entre destinos e mais 26 arquivos derivados de trechos já gravados, validados por transcrição e espelhados no banco.
+- [ ] Gerar cinco falas únicas restantes, segmentar, conferir por ASR, completar os 58 destinos e sincronizar manifesto/metadados.
+- [ ] Reexecutar a suíte completa, validar no painel de desenvolvedor e só então criar commit e enviar para `origin/main`.
+
+Inventário em 04/10/2026: **817 de 875 caminhos esperados** estão presentes no cliente e no banco, byte a byte iguais. Faltam 58: os enunciados “Complete e organize a palavra ouvida: LATA.” e “Complete e organize a palavra ouvida: BOLO.” (um destino cada, Mundo Silábico-Alfabético, fases 7 e 8) e as oito dicas de cada uma das fases 2–8 do Mundo Alfabético: “Comece pelo primeiro som e siga até o fim.”, “Compare o som do final das duas palavras.” e “Ouça, pense nos sons e organize todas as letras.”
+
+Os recortes de VACA (enunciado e palavra), LATA e BOLO foram extraídos de uma gravação Leda existente; ASR confirmou o texto do enunciado e os alvos, com BOLO reconhecido foneticamente como “Bolu”. O gerador de fala retornou `creditNotEnough`; não repetir chamadas enquanto indisponível. Para suporte sobre créditos/conta, encaminhar a pessoa a https://help.manus.im.
+
+Validação atual: `pnpm check`, `pnpm build` e `git diff --check` passam. `pnpm test` falha intencionalmente na asserção de manifesto integral (`world-0-phase-0` não está registrado): não relaxar a regressão nem publicar o conjunto parcial. Nenhum commit/push foi feito nesta retomada; a branch `main` contém alterações locais e assets ainda não consolidados.
