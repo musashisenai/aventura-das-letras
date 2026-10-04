@@ -57,6 +57,40 @@
       "width": 626,
       "height": 626,
       "generatedAsset": false
+    },
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "arvore-openclipart.png",
+      "path": "client/src/assets/arvore-openclipart.png",
+      "role": "Árvore cartoon em camadas no cenário do Voo da Abelha.",
+      "activity": "voo-abelha",
+      "status": "approved",
+      "format": "PNG",
+      "width": 637,
+      "height": 771,
+      "transparent": true,
+      "generatedAsset": false,
+      "license": "Public Domain",
+      "source": "Openclipart",
+      "sourceUrl": "https://openclipart.org/detail/292510/cartoon-tree-isolated"
+    },
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "colmeia-openclipart.png",
+      "path": "client/src/assets/colmeia-openclipart.png",
+      "role": "Colmeia cartoon usada como destino final da rota.",
+      "activity": "voo-abelha",
+      "status": "approved",
+      "format": "PNG",
+      "width": 800,
+      "height": 500,
+      "transparent": true,
+      "generatedAsset": false,
+      "license": "Public Domain",
+      "source": "Openclipart",
+      "sourceUrl": "https://openclipart.org/detail/341209/beehive"
     }
   ]
 }

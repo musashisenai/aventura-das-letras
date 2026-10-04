@@ -8,6 +8,8 @@ import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp,
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
+import cartoonTreeAsset from "@/assets/arvore-openclipart.png";
+import publicBeehiveAsset from "@/assets/colmeia-openclipart.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
@@ -611,8 +613,12 @@ function BeeFlightInteraction({ question, disabled, onComplete }: { question: Ga
   useEffect(() => {
     const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return;
     let frame = 0;
-    const drawTree = (x: number, y: number, scale: number) => { ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale); ctx.fillStyle = "#8a5b3d"; ctx.fillRect(-8, -76, 16, 76); ctx.fillStyle = "#5eaa68"; [[-26, -76, 27], [5, -91, 32], [30, -70, 25], [0, -119, 25]].forEach(([leafX, leafY, radius]) => { ctx.beginPath(); ctx.arc(leafX, leafY, radius, 0, Math.PI * 2); ctx.fill(); }); ctx.fillStyle = "rgba(255,255,255,.2)"; ctx.beginPath(); ctx.arc(-8, -101, 9, 0, Math.PI * 2); ctx.fill(); ctx.restore(); };
-    const drawHive = (x: number, y: number, active: boolean) => { ctx.save(); ctx.translate(x, y); ctx.fillStyle = active ? "#f2bd42" : "#d9a649"; ctx.strokeStyle = "#825432"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-24, 20); ctx.quadraticCurveTo(-27, -18, 0, -30); ctx.quadraticCurveTo(27, -18, 24, 20); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.strokeStyle = "rgba(130,84,50,.7)"; ctx.lineWidth = 5; [-12, 0, 12].forEach((stripe) => { ctx.beginPath(); ctx.moveTo(stripe - 7, -22); ctx.lineTo(stripe - 4, 20); ctx.stroke(); }); ctx.fillStyle = "#fff4cf"; ctx.beginPath(); ctx.arc(0, -4, 8, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = "#825432"; ctx.beginPath(); ctx.arc(0, -4, 3, 0, Math.PI * 2); ctx.fill(); ctx.restore(); };
+    const treeImage = new Image(); treeImage.src = cartoonTreeAsset;
+    const hiveImage = new Image(); hiveImage.src = publicBeehiveAsset;
+    const drawTreeFallback = (x: number, y: number, scale: number) => { ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale); ctx.fillStyle = "#8a5b3d"; ctx.fillRect(-8, -76, 16, 76); ctx.fillStyle = "#5eaa68"; [[-26, -76, 27], [5, -91, 32], [30, -70, 25], [0, -119, 25]].forEach(([leafX, leafY, radius]) => { ctx.beginPath(); ctx.arc(leafX, leafY, radius, 0, Math.PI * 2); ctx.fill(); }); ctx.fillStyle = "rgba(255,255,255,.2)"; ctx.beginPath(); ctx.arc(-8, -101, 9, 0, Math.PI * 2); ctx.fill(); ctx.restore(); };
+    const drawTree = (x: number, y: number, scale: number) => { if (!treeImage.complete || !treeImage.naturalWidth) { drawTreeFallback(x, y, scale); return; } const width = 150 * scale; const height = 182 * scale; ctx.drawImage(treeImage, x - width / 2, y - height, width, height); };
+    const drawHiveFallback = (x: number, y: number, active: boolean) => { ctx.save(); ctx.translate(x, y); ctx.fillStyle = active ? "#f2bd42" : "#d9a649"; ctx.strokeStyle = "#825432"; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-24, 20); ctx.quadraticCurveTo(-27, -18, 0, -30); ctx.quadraticCurveTo(27, -18, 24, 20); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.strokeStyle = "rgba(130,84,50,.7)"; ctx.lineWidth = 5; [-12, 0, 12].forEach((stripe) => { ctx.beginPath(); ctx.moveTo(stripe - 7, -22); ctx.lineTo(stripe - 4, 20); ctx.stroke(); }); ctx.fillStyle = "#fff4cf"; ctx.beginPath(); ctx.arc(0, -4, 8, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = "#825432"; ctx.beginPath(); ctx.arc(0, -4, 3, 0, Math.PI * 2); ctx.fill(); ctx.restore(); };
+    const drawHive = (x: number, y: number, active: boolean) => { if (!hiveImage.complete || !hiveImage.naturalWidth) { drawHiveFallback(x, y, active); return; } if (active) { ctx.save(); ctx.shadowColor = "rgba(255,208,74,.72)"; ctx.shadowBlur = 18; ctx.drawImage(hiveImage, x - 58, y - 36, 116, 72); ctx.restore(); } else ctx.drawImage(hiveImage, x - 58, y - 36, 116, 72); };
     const render = (time: number) => {
       const sky = ctx.createLinearGradient(0, 0, 0, 330); sky.addColorStop(0, "#bcecf0"); sky.addColorStop(.68, "#e7f7cf"); sky.addColorStop(1, "#8fc978"); ctx.fillStyle = sky; ctx.fillRect(0, 0, 900, 330);
       ctx.fillStyle = "rgba(255,255,255,.72)"; [[112, 46], [365, 34], [690, 42]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 17, 0, Math.PI * 2); ctx.arc(x + 20, y + 4, 13, 0, Math.PI * 2); ctx.arc(x - 19, y + 6, 12, 0, Math.PI * 2); ctx.fill(); });
