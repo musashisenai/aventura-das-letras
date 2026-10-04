@@ -164,6 +164,27 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 
 **Economia técnica:** a cena usa DOM, CSS, animações determinísticas e o ícone vetorial já disponível em `lucide-react`; não depende de imagem, áudio novo ou geração de asset.
 
+### Mundo Silábico · Fase 1 — O Martelo dos Pedaços
+
+**Atividade-matriz:** bater uma vez para cada sílaba ouvida, registrando uma marca por parte falada da palavra.
+
+**Objetivo pedagógico:** desenvolver a percepção de que as palavras podem ser divididas em partes faladas, sem exigir ainda a correspondência completa entre cada sílaba e sua grafia. A criança pronuncia, segmenta e coordena fala, escuta e toque.
+
+**Mecânica aprovada:** a palavra aparece separada em blocos silábicos como apoio visual. A criança toca no martelo uma vez por sílaba; cada batida preenche uma marca. O avanço só acontece depois que a quantidade de batidas coincide com todas as partes da palavra.
+
+**Plano das 8 variações implementado:**
+
+1. Introdução: SOL, uma parte, uma batida e ritmo calmo.
+2. Familiarização: BO-LA, duas partes e batidas regulares.
+3. Variação: SA-PA-TO, três partes e palavra de uso infantil.
+4. Desafio: JA-CA-RÉ, três partes com ritmo alternado.
+5. Surpresa: E-LE-FAN-TE, quatro partes, incluindo uma sílaba curta.
+6. Combinação: BI-CI-CLE-TA, quatro vagões visuais em sequência.
+7. Domínio: BOR-BO-LE-TA, quatro partes e ritmo de desafio.
+8. Desafio final: A-BA-CA-XI, quatro partes, sequência completa e conclusão obrigatória.
+
+**Economia técnica:** a atividade usa DOM, CSS e o ícone vetorial `Hammer` já disponível em `lucide-react`; não depende de imagem, áudio novo ou geração de asset.
+
 ### Desafio final — Festival Final da Lumi
 
 Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um voo guiado até a colmeia da Lumi.

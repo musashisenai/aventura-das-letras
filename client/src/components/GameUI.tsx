@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Shield, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Hammer, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Shield, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
@@ -487,6 +487,7 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "bee-flight") return <BeeFlightInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "shield-magic") return <ShieldMagicInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "syllable-hammer") return <SyllableHammerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
@@ -542,6 +543,29 @@ function ShieldMagicInteraction({ question, disabled, onComplete }: { question: 
       </div>
     </div>
     <div className="shield-magic-footer"><p>{completed ? "Portão aberto! Você separou letras de números e símbolos." : "Toque somente nas letras para protegê-las com o escudo."}</p><span><Shield size={17} /> {completed ? "CIDADE PROTEGIDA" : "LETRAS PROTEGIDAS"}</span></div>
+  </div>;
+}
+
+function SyllableHammerInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const parts = question.syllableParts ?? [];
+  const [hits, setHits] = useState(0);
+  const complete = hits >= parts.length;
+  useEffect(() => setHits(0), [question.id]);
+  const strike = () => {
+    if (disabled || complete) return;
+    const next = hits + 1;
+    setHits(next);
+    if (next >= parts.length) onComplete();
+  };
+  return <div className={`syllable-hammer-activity hammer-style-${question.hammerStyle ?? "steady"} hammer-tempo-${question.hammerTempo ?? "normal"} ${complete ? "completed" : ""}`}>
+    <div className="syllable-hammer-toolbar"><div><span className="syllable-hammer-kicker"><Hammer size={15} /> OFICINA DOS PEDAÇOS</span><strong>O Martelo dos Pedaços</strong></div><div className="syllable-hammer-counter"><b>{hits}</b><span>de {parts.length} batidas</span></div></div>
+    <div className="syllable-hammer-scene">
+      <div className="syllable-hammer-sky" aria-hidden="true"><i /><i /><i /></div>
+      <div className="syllable-hammer-word" aria-label={`Palavra dividida em ${parts.length} partes`}>{parts.map((part, index) => <span key={`${part}-${index}`} className={index < hits ? "hit" : index === hits ? "current" : ""}>{part}</span>)}</div>
+      <button type="button" className="syllable-hammer-button" onClick={strike} disabled={disabled || complete} aria-label={complete ? "Palavra completa" : "Bater o martelo uma vez"}><Hammer size={52} /><strong>{complete ? "COMPLETO" : "BATER"}</strong></button>
+      <div className="syllable-hammer-blocks" aria-hidden="true">{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? "✓" : index + 1}</i>)}</div>
+    </div>
+    <div className="syllable-hammer-footer"><p>{complete ? "Muito bem! Cada batida marcou uma parte falada." : "Fale a palavra devagar e bata uma vez para cada pedaço."}</p><span><Hammer size={17} /> {complete ? "PALAVRA MARCADA" : "UMA BATIDA POR SÍLABA"}</span></div>
   </div>;
 }
 

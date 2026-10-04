@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -51,6 +51,9 @@ export type GameQuestion = {
   shieldTarget?: number;
   shieldLayout?: "row" | "scatter" | "grid";
   shieldMotion?: "still" | "float" | "orbit";
+  syllableParts?: string[];
+  hammerStyle?: "single" | "steady" | "alternating" | "sequence";
+  hammerTempo?: "calm" | "normal" | "challenge";
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -107,6 +110,7 @@ const paintRoller = (variant: number, prompt: string, hint: string, config: Pick
 const beeFlight = (variant: number, prompt: string, hint: string, beeTarget: number): GameQuestion => ({ id: `desafio-final-g-voo-abelha-${variant + 1}`, kind: "bee-flight", prompt, answer: `VOO COMPLETO ${variant + 1}`, hint, activity: "voo-abelha", activityIndex: variant, beeTarget });
 const cookieMold = (variant: number, prompt: string, hint: string, target: string, options: string[], config: Pick<GameQuestion, "cookieCase" | "cookieLayout" | "cookieChallenge">): GameQuestion => ({ id: `fase-1-abc-molde-biscoito-${variant + 1}`, kind: "cookie-mold", prompt, answer: target, hint, activity: "molde-biscoito", activityIndex: variant, cookieTarget: target, cookieOptions: options, ...config });
 const shieldMagic = (variant: number, prompt: string, hint: string, items: string[], config: Pick<GameQuestion, "shieldLayout" | "shieldMotion">): GameQuestion => ({ id: `fase-1-p-escudo-magico-${variant + 1}`, kind: "shield-magic", prompt, answer: `ESCUDO PROTEGE ${variant + 1}`, hint, activity: "escudo-magico", activityIndex: variant, shieldItems: items, shieldTarget: items.filter((item) => /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)).length, ...config });
+const syllableHammer = (variant: number, prompt: string, hint: string, parts: string[], config: Pick<GameQuestion, "hammerStyle" | "hammerTempo">): GameQuestion => ({ id: `fase-1-s-martelo-pedacos-${variant + 1}`, kind: "syllable-hammer", prompt, answer: `BATIDAS COMPLETAS ${variant + 1}`, hint, activity: "martelo-pedacos", activityIndex: variant, syllableParts: parts, ...config });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -132,6 +136,17 @@ const PRE_SILABICO_PHASE_ONE: GameQuestion[] = [
   shieldMagic(5, "PROTEJA AS LETRAS DA PALAVRA BOLA.", "Encontre B, O, L e A, mesmo com os distratores espalhados pela cidade.", ["B", "#", "O", "7", "L", "○", "A", "△"], { shieldLayout: "scatter", shieldMotion: "orbit" }),
   shieldMagic(6, "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.", "As letras C, A, S e A são as únicas escritas. Toque nelas uma vez; ignore números e símbolos.", ["C", "4", "A", "✦", "S", "9", "A", "□", "∞"], { shieldLayout: "grid", shieldMotion: "orbit" }),
   shieldMagic(7, "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.", "Encontre P, A, T, O e L. O escudo só abre quando todas as letras forem protegidas.", ["P", "3", "A", "◇", "T", "8", "O", "★", "L", "☀"], { shieldLayout: "grid", shieldMotion: "orbit" }),
+];
+
+const SILABICO_PHASE_ONE: GameQuestion[] = [
+  syllableHammer(0, "BATA UMA VEZ PARA CADA PARTE DE SOL.", "Diga SOL devagar. É uma parte falada, então o martelo bate uma vez.", ["SOL"], { hammerStyle: "single", hammerTempo: "calm" }),
+  syllableHammer(1, "MARQUE AS DUAS PARTES DE BO-LA.", "Fale BO-LA e acompanhe as duas batidas: BO / LA.", ["BO", "LA"], { hammerStyle: "steady", hammerTempo: "calm" }),
+  syllableHammer(2, "AJUDE O SAPO BATENDO AS PARTES DE SA-PA-TO.", "Separe a palavra em três pedaços falados: SA / PA / TO.", ["SA", "PA", "TO"], { hammerStyle: "steady", hammerTempo: "normal" }),
+  syllableHammer(3, "O JACARÉ PRECISA DE UMA BATIDA PARA CADA PEDAÇO.", "Diga JA-CA-RÉ sem correr. Cada pedaço recebe uma batida do martelo.", ["JA", "CA", "RÉ"], { hammerStyle: "alternating", hammerTempo: "normal" }),
+  syllableHammer(4, "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.", "Bata no ritmo da fala: E / LE / FAN / TE. Não junte os pedaços.", ["E", "LE", "FAN", "TE"], { hammerStyle: "alternating", hammerTempo: "normal" }),
+  syllableHammer(5, "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.", "Cada vagão representa uma parte falada. Marque BI, CI, CLE e TA.", ["BI", "CI", "CLE", "TA"], { hammerStyle: "sequence", hammerTempo: "normal" }),
+  syllableHammer(6, "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.", "Pronuncie devagar: BOR / BO / LE / TA. O martelo precisa acompanhar quatro batidas.", ["BOR", "BO", "LE", "TA"], { hammerStyle: "sequence", hammerTempo: "challenge" }),
+  syllableHammer(7, "DESAFIO FINAL: COMPLETE A PALAVRA A-BA-CA-XI.", "Ouça seu próprio ritmo e bata uma vez em cada parte, sem apertar a mesma marca duas vezes.", ["A", "BA", "CA", "XI"], { hammerStyle: "sequence", hammerTempo: "challenge" }),
 ];
 
 function addActivity(question: GameQuestion, activity: ActivityDefinition, worldId: number, variant: number): GameQuestion {
@@ -278,6 +293,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 7) return GARATUJA_FINAL_CHALLENGE;
   if (worldId === 1 && phase === 0) return ALFABETO_PHASE_ONE;
   if (worldId === 2 && phase === 0) return PRE_SILABICO_PHASE_ONE;
+  if (worldId === 3 && phase === 0) return SILABICO_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

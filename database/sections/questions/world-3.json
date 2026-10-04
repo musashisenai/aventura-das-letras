@@ -10,118 +10,174 @@
   "phases": {
     "fase-1": [
       {
-        "id": "fase-1-s-primeira-pato-0",
-        "kind": "choice",
-        "prompt": "Qual sílaba começa PATO?",
+        "id": "fase-1-s-martelo-pedacos-1",
+        "kind": "syllable-hammer",
+        "prompt": "BATA UMA VEZ PARA CADA PARTE DE SOL.",
         "options": [
-          "PA",
-          "TO",
-          "TA"
+          "SOL"
         ],
-        "answer": "PA",
-        "hint": "Fale em duas partes: PA-TO.",
-        "visual": "🦆",
-        "displayPrompt": "QUAL SÍLABA COMEÇA A PALAVRA OUVIDA?",
-        "targetWord": "PATO"
+        "answer": "BATIDAS COMPLETAS 1",
+        "hint": "Bata uma vez para cada parte falada de SOL.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 0,
+        "syllableParts": [
+          "SOL"
+        ],
+        "hammerStyle": "single",
+        "hammerTempo": "calm"
       },
       {
-        "id": "fase-1-s-completa-bola-1",
-        "kind": "choice",
-        "prompt": "Complete: BO ___",
-        "options": [
-          "LA",
-          "LI",
-          "LU"
-        ],
-        "answer": "LA",
-        "hint": "O brinquedo redondo é BO-LA.",
-        "visual": "⚽",
-        "displayPrompt": "QUAL SÍLABA FALTA NA PALAVRA OUVIDA?",
-        "targetWord": "BOLA"
-      },
-      {
-        "id": "fase-1-s-casa-partes-2",
-        "kind": "choice",
-        "prompt": "Quantas sílabas tem CA-SA?",
-        "options": [
-          "1",
-          "2",
-          "3"
-        ],
-        "answer": "2",
-        "hint": "Bata duas palmas: CA / SA.",
-        "displayPrompt": "QUANTAS SÍLABAS TEM A PALAVRA OUVIDA?",
-        "targetWord": "CASA"
-      },
-      {
-        "id": "fase-1-s-pato-3",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-        "options": [
-          "TO",
-          "PA"
-        ],
-        "answer": "PATO",
-        "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
-        "visual": "🦆",
-        "audioText": "PATO",
-        "targetWord": "PATO"
-      },
-      {
-        "id": "fase-1-s-ma-4",
-        "kind": "order",
-        "prompt": "JUNTE A LETRA M COM A VOGAL A.",
-        "options": [
-          "A",
-          "M"
-        ],
-        "answer": "MA",
-        "hint": "JUNTE AS DUAS LETRAS DA ESQUERDA PARA A DIREITA.",
-        "visual": "M + A",
-        "audioText": "MA",
-        "targetWord": "MA"
-      },
-      {
-        "id": "fase-1-s-primeira-bola-5",
-        "kind": "choice",
-        "prompt": "Qual parte vem primeiro em BO-LA?",
+        "id": "fase-1-s-martelo-pedacos-2",
+        "kind": "syllable-hammer",
+        "prompt": "MARQUE AS DUAS PARTES DE BO-LA.",
         "options": [
           "BO",
-          "LA",
-          "BA"
+          "LA"
         ],
-        "answer": "BO",
-        "hint": "A primeira palma é BO.",
-        "displayPrompt": "QUAL PARTE VEM PRIMEIRO NA PALAVRA OUVIDA?",
-        "targetWord": "BOLA"
+        "answer": "BATIDAS COMPLETAS 2",
+        "hint": "Fale BO-LA e acompanhe as duas batidas: BO / LA.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 1,
+        "syllableParts": [
+          "BO",
+          "LA"
+        ],
+        "hammerStyle": "steady",
+        "hammerTempo": "calm"
       },
       {
-        "id": "fase-1-s-elefante-6",
-        "kind": "choice",
-        "prompt": "Quantas palmas damos para E-LE-FAN-TE?",
+        "id": "fase-1-s-martelo-pedacos-3",
+        "kind": "syllable-hammer",
+        "prompt": "AJUDE O SAPO BATENDO AS PARTES DE SA-PA-TO.",
         "options": [
-          "3",
-          "4",
-          "5"
+          "SA",
+          "PA",
+          "TO"
         ],
-        "answer": "4",
-        "hint": "Diga bem devagar as quatro partes.",
-        "displayPrompt": "QUANTAS PALMAS DAMOS PARA A PALAVRA OUVIDA?",
-        "targetWord": "ELEFANTE"
+        "answer": "BATIDAS COMPLETAS 3",
+        "hint": "Separe a palavra em três pedaços falados: SA / PA / TO.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 2,
+        "syllableParts": [
+          "SA",
+          "PA",
+          "TO"
+        ],
+        "hammerStyle": "steady",
+        "hammerTempo": "normal"
       },
       {
-        "id": "fase-1-s-bola-7",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
+        "id": "fase-1-s-martelo-pedacos-4",
+        "kind": "syllable-hammer",
+        "prompt": "O JACARÉ PRECISA DE UMA BATIDA PARA CADA PEDAÇO.",
         "options": [
-          "LA",
-          "BO"
+          "JA",
+          "CA",
+          "RÉ"
         ],
-        "answer": "BOLA",
-        "hint": "OLHE PARA A FIGURA E EXPERIMENTE AS SÍLABAS.",
-        "visual": "⚽",
-        "audioText": "BOLA",
-        "targetWord": "BOLA"
+        "answer": "BATIDAS COMPLETAS 4",
+        "hint": "Diga JA-CA-RÉ sem correr. Cada pedaço recebe uma batida do martelo.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 3,
+        "syllableParts": [
+          "JA",
+          "CA",
+          "RÉ"
+        ],
+        "hammerStyle": "alternating",
+        "hammerTempo": "normal"
+      },
+      {
+        "id": "fase-1-s-martelo-pedacos-5",
+        "kind": "syllable-hammer",
+        "prompt": "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.",
+        "options": [
+          "E",
+          "LE",
+          "FAN",
+          "TE"
+        ],
+        "answer": "BATIDAS COMPLETAS 5",
+        "hint": "Bata no ritmo da fala: E / LE / FAN / TE. Não junte os pedaços.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 4,
+        "syllableParts": [
+          "E",
+          "LE",
+          "FAN",
+          "TE"
+        ],
+        "hammerStyle": "alternating",
+        "hammerTempo": "normal"
+      },
+      {
+        "id": "fase-1-s-martelo-pedacos-6",
+        "kind": "syllable-hammer",
+        "prompt": "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.",
+        "options": [
+          "BI",
+          "CI",
+          "CLE",
+          "TA"
+        ],
+        "answer": "BATIDAS COMPLETAS 6",
+        "hint": "Cada vagão representa uma parte falada. Marque BI, CI, CLE e TA.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 5,
+        "syllableParts": [
+          "BI",
+          "CI",
+          "CLE",
+          "TA"
+        ],
+        "hammerStyle": "sequence",
+        "hammerTempo": "normal"
+      },
+      {
+        "id": "fase-1-s-martelo-pedacos-7",
+        "kind": "syllable-hammer",
+        "prompt": "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.",
+        "options": [
+          "BOR",
+          "BO",
+          "LE",
+          "TA"
+        ],
+        "answer": "BATIDAS COMPLETAS 7",
+        "hint": "Pronuncie devagar: BOR / BO / LE / TA. O martelo precisa acompanhar quatro batidas.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 6,
+        "syllableParts": [
+          "BOR",
+          "BO",
+          "LE",
+          "TA"
+        ],
+        "hammerStyle": "sequence",
+        "hammerTempo": "challenge"
+      },
+      {
+        "id": "fase-1-s-martelo-pedacos-8",
+        "kind": "syllable-hammer",
+        "prompt": "DESAFIO FINAL: COMPLETE A PALAVRA A-BA-CA-XI.",
+        "options": [
+          "A",
+          "BA",
+          "CA",
+          "XI"
+        ],
+        "answer": "BATIDAS COMPLETAS 8",
+        "hint": "Ouça seu próprio ritmo e bata uma vez em cada parte, sem apertar a mesma marca duas vezes.",
+        "activity": "martelo-pedacos",
+        "activityIndex": 7,
+        "syllableParts": [
+          "A",
+          "BA",
+          "CA",
+          "XI"
+        ],
+        "hammerStyle": "sequence",
+        "hammerTempo": "challenge"
       }
     ],
     "fase-2": [
