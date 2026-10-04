@@ -5,7 +5,7 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
-import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
+import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
@@ -192,6 +192,7 @@ function EntryMenu({ state, controller }: Props) {
       </div>
       <p className="menu-reassurance">Você pode mudar esse combinado antes de escrever seu nome.</p>
       <button className="teacher-entry menu-teacher-entry" onClick={() => controller.openTeacher()}><Lock size={15} /> Sou professor(a)</button>
+      <button className="developer-entry" onClick={() => controller.openDeveloper()}>acesso de desenvolvimento</button>
     </section>
     <aside className="entry-menu-art" aria-label="Lumi apresenta as portas de entrada do livro-mapa">
       <span className="diorama-tab">MAPA ABERTO</span>
@@ -648,6 +649,22 @@ function Pets({ state, controller }: Props) {
   return <main className="pets-page"><Header state={state} controller={controller} back /><section className="pet-layout"><div className="pet-room paper-panel"><p className="eyebrow"><PawPrint size={16} /> Casa dos pets</p><h1>O cantinho de<br /><em>{profile.petName}.</em></h1><div className={`pet-stage ${profile.petStage === "evoluido" ? "pet-evolved" : ""}`}><div className="pet-bubble">Nível {profile.petLevel}{profile.petStage === "evoluido" ? " · EVOLUÍDO" : ""}</div><div className="egg-pet">{profile.petStage === "evoluido" ? "🦊✨" : "🐣"}</div><div className="pet-nameplate">{profile.petName} <small>{profile.petSpecies} · {profile.petStage === "evoluido" ? "forma evoluída" : "pet de aventura"}</small></div></div><div className="care-meter"><span>Energia para o próximo nível</span><div><i style={{ width: `${profile.petCare}%` }} /></div><b>{profile.petCare}%</b></div><div className="pet-actions"><button onClick={() => controller.careForPet("food")}><span>🍎</span> Alimentar <small>5 moedas</small></button><button onClick={() => controller.careForPet("care")}><span>♥</span> Cuidar <small>2 moedas</small></button><button onClick={() => controller.careForPet("play")}><span>★</span> Brincar <small>3 moedas</small></button></div><p className="pet-evolution-note">O pet evolui somente ao alcançar o nível 10. Cada cuidado custa moedas e ajuda a encher a energia.</p></div><aside className="pet-side"><section className="egg-inventory paper-panel"><TreasureArt className="inventory-treasure" /><h2>Ovos da aventura</h2><p><strong>{profile.eggs}</strong> ovo{profile.eggs === 1 ? "" : "s"} ainda não chocado{profile.eggs === 1 ? "" : "s"}</p><small>Complete missões para aquecer os ovos. Quando a barra chegar ao fim, escolha o nome do novo pet.</small>{eggs.map((egg, index) => <div className={`egg-card egg-${egg.rarity}`} key={egg.id}><span>{egg.hatched ? "🐣" : "🥚"}</span><div><strong>Ovo {rarityLabel[egg.rarity]}</strong><small>{egg.hatched ? "Já nasceu" : `${egg.progress}/${egg.required} missões`}</small></div>{!egg.hatched && egg.progress >= egg.required && <div className="hatch-form"><input value={eggName} onChange={(event) => setEggName(event.target.value)} placeholder="Nome do pet" maxLength={120} /><button onClick={() => { if (controller.hatchEgg(index, eggName)) setEggName(""); }}>Chocar</button></div>}</div>)}</section><button className="back-map-button" onClick={() => controller.goToMap()}><ArrowLeft size={19} /> Voltar ao mapa</button></aside></section></main>;
 }
 
+function Developer({ state, controller }: Props) {
+  const [key, setKey] = useState("");
+  const [error, setError] = useState("");
+  const [worldId, setWorldId] = useState(0);
+  const [phase, setPhase] = useState(0);
+  const [variant, setVariant] = useState(0);
+  const [testResult, setTestResult] = useState("");
+  const questions = useMemo(() => getQuestionBank(worldId, phase), [worldId, phase]);
+  const question = questions[variant];
+  const activity = question ? getActivityDefinition(worldId, question.activity) : undefined;
+  useEffect(() => { setVariant(0); setTestResult(""); }, [worldId, phase]);
+  if (!state.developerAuthorized) return <main className="single-game-page"><section className="developer-lock paper-panel"><Bug size={38} /><p className="eyebrow">Acesso interno</p><h1>Área de desenvolvedor</h1><p>Use a chave compartilhada para validar atividades, fases e mundos sem depender do progresso de um aluno.</p><div className="password-input-wrap"><input type="password" value={key} onChange={(event) => setKey(event.target.value)} placeholder="Chave de acesso" autoComplete="off" onKeyDown={(event) => { if (event.key === "Enter") void controller.authorizeDeveloper(key); }} /><button type="button" className="password-eye" aria-label="A chave fica oculta" disabled><Lock size={17} /></button></div><button className="primary-action" onClick={async () => { if (!(await controller.authorizeDeveloper(key))) setError("Chave de desenvolvedor não reconhecida."); }}>Entrar no laboratório <ChevronRight size={21} /></button>{error && <small className="login-error">{error}</small>}<button className="teacher-entry" onClick={() => controller.exitDeveloper()}>Voltar ao menu</button></section></main>;
+  const markTested = () => setTestResult("Interação concluída. O modo de teste não altera o progresso de alunos.");
+  return <main className="developer-page"><header className="developer-header"><div><p className="eyebrow"><Bug size={15} /> Laboratório interno</p><h1>Testes de atividades</h1><p>Selecione qualquer mundo, fase e descoberta para abrir o comportamento real da atividade.</p></div><div className="developer-header-actions"><button className="soft-action" onClick={() => controller.openTeacher()}><BookOpen size={17} /> Painel do professor</button><button className="logout-button" onClick={() => controller.exitDeveloper()}><LogOut size={17} /> Sair</button></div></header><section className="developer-layout"><aside className="developer-selector paper-panel"><label>Mundo<select value={worldId} onChange={(event) => setWorldId(Number(event.target.value))}>{WORLDS.map((world) => <option value={world.id} key={world.id}>{world.id + 1}. {world.name}</option>)}</select></label><label>Fase<select value={phase} onChange={(event) => setPhase(Number(event.target.value))}>{Array.from({ length: 8 }, (_, index) => <option value={index} key={index}>{index === 7 ? "Desafio final" : `Fase ${index + 1}`}</option>)}</select></label><label>Atividade / descoberta<select value={variant} onChange={(event) => { setVariant(Number(event.target.value)); setTestResult(""); }}>{questions.map((item, index) => <option value={index} key={item.id}>{index + 1}. {getActivityDefinition(worldId, item.activity)?.title ?? item.kind}</option>)}</select></label><div className="developer-note"><strong>Permissão ativa</strong><span>Todos os mundos e fases estão liberados somente neste laboratório.</span></div></aside><section className="developer-preview paper-panel">{question && <><div className="developer-preview-head"><div><p className="eyebrow">Prévia real · {question.kind}</p><h2>{activity?.title ?? "Atividade"}</h2></div><span>{worldId + 1}.{phase + 1}.{variant + 1}</span></div><h3>{question.prompt}</h3><FigureIllustration question={question} /><QuestionInteraction question={question} disabled={Boolean(testResult)} onAnswer={markTested} />{testResult && <div className="developer-result"><Check size={20} /> {testResult}</div>}</>}</section></section></main>;
+}
+
 function Teacher({ state, controller }: Props) {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [password, setPassword] = useState("");
@@ -847,6 +864,7 @@ export default function GameUI({ state, controller }: Props) {
     if (state.screen === "lesson") return <Lesson state={state} controller={controller} />;
     if (state.screen === "reward") return <Reward state={state} controller={controller} />;
     if (state.screen === "pets") return <Pets state={state} controller={controller} />;
+    if (state.screen === "developer") return <Developer state={state} controller={controller} />;
     return <Teacher state={state} controller={controller} />;
   }, [state, controller]);
   return <div ref={uiRef} className="game-ui">{content}</div>;

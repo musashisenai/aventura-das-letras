@@ -11,6 +11,7 @@ O servidor Node mantém estas visões legíveis no VS Code e as atualiza automat
 - `questions/`: perguntas organizadas em subabas por mundo, com oito fases e oito perguntas por fase.
 - `images/`: ilustrações versionadas para substituir os emojis das atividades, com subabas por mundo.
 - `audio/`: áudios versionados das atividades, com catálogo próprio e arquivos separados dos dados de alunos.
+- `developer/`: chave compartilhada e documentação do acesso interno para testes.
 
 ## Restauração atual
 

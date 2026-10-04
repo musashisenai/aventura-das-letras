@@ -1,0 +1,12 @@
+{
+  "role": "developer",
+  "description": "Acesso compartilhado para testes internos de todas as atividades e mundos.",
+  "accessKey": "ADL-DEV-7KQ9-4M2P-8X6R-PL5N",
+  "permissions": [
+    "teacher-dashboard",
+    "all-worlds",
+    "all-phases",
+    "activity-preview"
+  ],
+  "storagePolicy": "A autorização é temporária e não deve ser salva no perfil do aluno."
+}

@@ -5,7 +5,7 @@
 
 import { getPlacementWorld, getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
-export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher";
+export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher" | "developer";
 
 export type Profile = {
   studentId?: string;
@@ -103,6 +103,7 @@ export type GameState = {
   answers: AnswerLog[];
   reward: Reward | null;
   teacherAuthorized: boolean;
+  developerAuthorized: boolean;
   teacherPassword: string;
   teacherName: string;
   worldOrderVersion: number;
@@ -153,6 +154,7 @@ function initialState(): GameState {
     answers: [],
     reward: null,
     teacherAuthorized: false,
+    developerAuthorized: false,
     teacherPassword: "7391846205",
     teacherName: "Professor(a)",
     worldOrderVersion: 2,
@@ -214,7 +216,7 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const worldApprovals = Object.fromEntries(Object.entries(saved.worldApprovals ?? {}).map(([worldId, approval]) => [`${shiftWorld(Number(worldId))}`, approval]));
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherPassword: saved.teacherPassword || "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, questionBankVersion: QUESTION_BANK_VERSION, queue: questionBankChanged ? [] : (saved.queue ?? []), questionIndex: questionBankChanged ? 0 : (saved.questionIndex ?? 0), attempts: questionBankChanged ? 0 : (saved.attempts ?? 0), feedback: questionBankChanged ? null : (saved.feedback ?? null), setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherAuthorized: false, developerAuthorized: false, teacherPassword: saved.teacherPassword || "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, questionBankVersion: QUESTION_BANK_VERSION, queue: questionBankChanged ? [] : (saved.queue ?? []), questionIndex: questionBankChanged ? 0 : (saved.questionIndex ?? 0), attempts: questionBankChanged ? 0 : (saved.attempts ?? 0), feedback: questionBankChanged ? null : (saved.feedback ?? null), setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -233,7 +235,7 @@ export class GameController {
   }
 
   private syncCurrentStudent() {
-    const { teacherAuthorized: _teacherAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
+    const { teacherAuthorized: _teacherAuthorized, developerAuthorized: _developerAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
     const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
     this.syncQueue = this.syncQueue.then(async () => {
       try {
@@ -425,7 +427,7 @@ export class GameController {
     if (!safeName) return "Digite um nome para continuar.";
     const currentProfile = this.state.profile;
     const nextProfile = { ...currentProfile, name: safeName };
-    const { teacherAuthorized: _teacherAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
+    const { teacherAuthorized: _teacherAuthorized, developerAuthorized: _developerAuthorized, teacherPassword: _teacherPassword, ...gameState } = this.state;
     try {
       const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: currentProfile.studentId, profile: nextProfile, sessionToken: currentProfile.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState }) });
       if (!response.ok) {
@@ -660,12 +662,31 @@ export class GameController {
   openTeacher() {
     if (this.state.profile) return;
     this.state.screen = "teacher";
-    this.state.teacherAuthorized = false;
+    if (!this.state.developerAuthorized) this.state.teacherAuthorized = false;
     this.emit();
   }
 
   exitTeacher() {
+    if (this.state.developerAuthorized) this.state.screen = "developer";
+    else {
+      this.state.teacherAuthorized = false;
+      this.state.screen = "menu";
+    }
+    this.emit();
+  }
+
+  openDeveloper() {
+    if (this.state.profile) return;
+    this.state.screen = "developer";
+    this.state.developerAuthorized = false;
     this.state.teacherAuthorized = false;
+    this.emit();
+  }
+
+  exitDeveloper() {
+    this.state.developerAuthorized = false;
+    this.state.teacherAuthorized = false;
+    this.state.teacherPassword = "7391846205";
     this.state.screen = "menu";
     this.emit();
   }
@@ -685,6 +706,20 @@ export class GameController {
     }
     this.emit();
     return this.state.teacherAuthorized;
+  }
+
+  async authorizeDeveloper(key: string) {
+    try {
+      const response = await fetch("/api/developer/authorize", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ key }) });
+      this.state.developerAuthorized = response.ok;
+      this.state.teacherAuthorized = response.ok;
+      if (response.ok) this.state.teacherPassword = key;
+    } catch {
+      this.state.developerAuthorized = false;
+      this.state.teacherAuthorized = false;
+    }
+    this.emit();
+    return this.state.developerAuthorized;
   }
 
   async changeTeacherPassword(current: string, next: string, confirmation: string) {

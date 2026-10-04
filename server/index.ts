@@ -22,6 +22,7 @@ async function startServer() {
   const LEGACY_TEACHER_PASSWORD = "professor";
   const FINAL_DATABASE_CLEAR_PASSWORD = "Don't forget 3. Oct. 11";
   const databaseFile = path.resolve(__dirname, "..", "database", "classroom.json");
+  const developerAccessFile = path.resolve(__dirname, "..", "database", "sections", "developer", "access.json");
   const repositoryRoot = path.resolve(__dirname, "..");
   const legacyStudentsFile = path.resolve(__dirname, "..", ".local-data", "students.json");
   const legacyTeacherFile = path.resolve(__dirname, "..", ".local-data", "teacher.json");
@@ -66,6 +67,12 @@ async function startServer() {
     try { const legacy = JSON.parse(fs.readFileSync(legacyTeacherFile, "utf8")) as { password?: string }; if (legacy.password) password = legacy.password === LEGACY_TEACHER_PASSWORD ? DEFAULT_TEACHER_PASSWORD : legacy.password; } catch { /* primeiro uso */ }
     database.settings.teacherPassword = password; writeDatabase(database); return password;
   };
+  const getDeveloperAccessKey = () => {
+    try {
+      const access = JSON.parse(fs.readFileSync(developerAccessFile, "utf8")) as { accessKey?: string };
+      return String(access.accessKey ?? "");
+    } catch { return ""; }
+  };
   const toApiStudent = (student: StoredStudent) => ({ id: student.id, profile: { ...student.save.profile, name: student.name, studentId: student.id }, completions: student.save.completions, worldApprovals: student.save.worldApprovals, answers: student.save.answers, gameState: student.save.gameState, updatedAt: student.updatedAt });
   const fromApiStudent = (id: string, payload: Record<string, unknown>, existing?: StoredStudent): StoredStudent => {
     const profile = (payload.profile ?? existing?.save.profile ?? initialProfile(String(payload.name ?? existing?.name ?? "Aluno"), id)) as Profile;
@@ -107,12 +114,13 @@ async function startServer() {
   const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup(); writeDatabaseViews(readDatabase());
   app.use(express.json({ limit: "8mb" }));
   const asyncRoute = (handler: express.RequestHandler): express.RequestHandler => (req, res, next) => { Promise.resolve(handler(req, res, next)).catch(next); };
-  const requireTeacher = (req: express.Request) => { const database = readDatabase(); return String(req.body?.password ?? "") === getTeacherPassword(database); };
+  const requireTeacher = (req: express.Request) => { const database = readDatabase(); const password = String(req.body?.password ?? ""); return password === getTeacherPassword(database) || password === getDeveloperAccessKey(); };
   const sessionIsActive = (student: StoredStudent) => Boolean(student.activeSession?.token && student.activeSession.lastSeen && Date.now() - student.activeSession.lastSeen < 120000);
   const createSession = (student: StoredStudent, token: string) => { student.activeSession = { token, lastSeen: Date.now() }; };
 
   app.post("/api/teacher/authorize", (req, res) => { const database = readDatabase(); return String(req.body?.password ?? "") === getTeacherPassword(database) ? res.json({ ok: true }) : res.status(401).json({ error: "Senha não reconhecida." }); });
-  app.put("/api/teacher/password", (req, res) => { const database = readDatabase(); const current = String(req.body?.current ?? ""); const next = String(req.body?.next ?? ""); if (current !== getTeacherPassword(database)) return res.status(401).json({ error: "A senha atual não confere." }); if (next.trim().length < 6) return res.status(400).json({ error: "A nova senha precisa ter pelo menos 6 caracteres." }); database.settings.teacherPassword = next; writeDatabase(database); return res.json({ ok: true }); });
+  app.post("/api/developer/authorize", (req, res) => { const key = String(req.body?.key ?? ""); return key && key === getDeveloperAccessKey() ? res.json({ ok: true, role: "developer" }) : res.status(401).json({ error: "Chave de desenvolvedor não reconhecida." }); });
+  app.put("/api/teacher/password", (req, res) => { const database = readDatabase(); const current = String(req.body?.current ?? ""); const next = String(req.body?.next ?? ""); if (current !== getTeacherPassword(database) && current !== getDeveloperAccessKey()) return res.status(401).json({ error: "A senha atual não confere." }); if (next.trim().length < 6) return res.status(400).json({ error: "A nova senha precisa ter pelo menos 6 caracteres." }); database.settings.teacherPassword = next; writeDatabase(database); return res.json({ ok: true }); });
   app.post("/api/teacher/database/sync", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const result = await syncDatabaseToGit(); return result.ok ? res.json(result) : res.status(503).json(result); }));
   app.post("/api/teacher/students/:id/reset", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); const student = database.students[req.params.id]; if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); const profile = initialProfile(student.name, student.id); const reset = fromApiStudent(student.id, { profile, completions: {}, worldApprovals: {}, answers: [], gameState: { screen: "placement", placementIndex: 0, placementScore: 0, placementAttempts: 0, placementResults: [], placementQueue: [] } }); if (student.activeSession) reset.activeSession = { token: `reset-${Date.now()}`, lastSeen: Date.now() }; database.students[student.id] = reset; writeDatabase(database); return res.json({ ok: true, student: toApiStudent(database.students[student.id]) }); }));
   app.put("/api/teacher/students/:id", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); const student = database.students[req.params.id]; const name = String(req.body?.name ?? "").trim(); if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (!name) return res.status(400).json({ error: "Informe um nome." }); const duplicate = Object.values(database.students).find((item) => item.id !== student.id && normalizeStudentName(item.name) === normalizeStudentName(name)); if (duplicate) return res.status(409).json({ error: "Já existe um aluno com esse nome." }); student.name = name; student.save.profile.name = name; if (student.activeSession) student.activeSession = { token: `renamed-${Date.now()}`, lastSeen: Date.now() }; student.updatedAt = new Date().toISOString(); writeDatabase(database); return res.json({ ok: true, student: toApiStudent(student) }); }));
