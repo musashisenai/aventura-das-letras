@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -31,6 +31,7 @@ export type GameQuestion = {
   lanternTarget?: number;
   sandTarget?: number;
   mosquitoTarget?: number;
+  magnetTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -81,6 +82,7 @@ const seedRain = (variant: number, prompt: string, hint: string, seedTarget: num
 const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
 const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sceneAsset: "pegadas-coqueiro" });
 const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTarget: number): GameQuestion => ({ id: `fase-4-g-espanta-mosquitos-${variant + 1}`, kind: "mosquito-sweep", prompt, answer: `POMAR LIMPO ${variant + 1}`, hint, activity: "espanta-mosquitos", activityIndex: variant, mosquitoTarget });
+const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget: number): GameQuestion => ({ id: `fase-5-g-pintura-ima-${variant + 1}`, kind: "magnet-paint", prompt, answer: `FORMA MAGNÉTICA ${variant + 1}`, hint, activity: "pintura-ima", activityIndex: variant, magnetTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -177,6 +179,16 @@ const GARATUJA_PHASE_FOUR: GameQuestion[] = [
   mosquitoSweep(6, "SALVE A FRUTA MADURA COM GESTOS DE VARRER.", "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.", 8),
   mosquitoSweep(7, "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.", "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.", 8),
 ];
+const GARATUJA_PHASE_FIVE: GameQuestion[] = [
+  magnetPaint(0, "GUIE O ÍMÃ E DESENHE UMA FORMA COM A LIMALHA.", "Arraste a ferradura devagar; as partículas seguem o seu caminho.", 8),
+  magnetPaint(1, "CRIE UM CAMINHO CURVO COM AS PARTÍCULAS MAGNÉTICAS.", "Faça uma curva ampla e passe por todos os pontos brilhantes.", 8),
+  magnetPaint(2, "LIGUE OS PONTOS E FORME UM CÍRCULO DE LUZ.", "Aproxime a ferradura de cada ponto até ele acender.", 8),
+  magnetPaint(3, "DESENHE UMA ESPIRAL COM O ÍMÃ SEM SOLTAR O DEDO.", "Mantenha o movimento contínuo e observe as linhas fluidas.", 8),
+  magnetPaint(4, "FAÇA A LIMALHA DANÇAR E MONTE UM TRIÂNGULO.", "Passe pelos três cantos e depois complete os pontos do centro.", 8),
+  magnetPaint(5, "CRUZE O ATELIÊ E REVELE A FORMA ESCONDIDA.", "Mova o ímã em zigue-zague para juntar as partículas.", 8),
+  magnetPaint(6, "DESENHE UMA ESTRELA COM LINHAS DE FERRO.", "Passe pela ponta de cada raio; a estrela vai aparecer aos poucos.", 8),
+  magnetPaint(7, "COMPLETE A GRANDE FIGURA MAGNÉTICA DA LUMI.", "Explore toda a tela e acenda os oito pontos da forma final.", 8),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
@@ -184,6 +196,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 1) return GARATUJA_PHASE_TWO;
   if (worldId === 0 && phase === 2) return GARATUJA_PHASE_THREE;
   if (worldId === 0 && phase === 3) return GARATUJA_PHASE_FOUR;
+  if (worldId === 0 && phase === 4) return GARATUJA_PHASE_FIVE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

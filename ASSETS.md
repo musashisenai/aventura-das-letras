@@ -28,3 +28,9 @@
 | Nome | Descrição | Tamanho | Arquivo |
 |---|---|---:|---|
 | Buzz do pomar | Efeito em loop baseado na referência fornecida; volume proporcional aos mosquitos restantes | 2,57 s | `client/public/assets/mosquito-buzz.mp3` |
+
+## Pintura de Ímã
+
+| Nome | Descrição | Tipo | Arquivo |
+|---|---|---|---|
+| Ateliê magnético vetorial | Ferradura, limalha, trilhas fluidas e formas geométricas desenhadas em canvas; não depende de imagem ou áudio externo | Canvas/SVG lógico | `client/src/components/GameUI.tsx` + `client/src/components/activity.css` |

@@ -346,101 +346,84 @@
     ],
     "fase-5": [
       {
-        "id": "fase-5-g-cor-forma-0",
-        "kind": "choice",
-        "prompt": "Qual forma parece uma janela?",
-        "options": [
-          "□",
-          "○",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Uma janela costuma ter quatro lados."
+        "id": "fase-5-g-pintura-ima-1",
+        "kind": "magnet-paint",
+        "prompt": "GUIE O ÍMÃ E DESENHE UMA FORMA COM A LIMALHA.",
+        "answer": "FORMA MAGNÉTICA 1",
+        "hint": "Arraste a ferradura devagar; as partículas seguem o seu caminho.",
+        "activity": "pintura-ima",
+        "activityIndex": 0,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-sol-1",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
-        "options": [
-          "O",
-          "S",
-          "L"
-        ],
-        "answer": "SOL",
-        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
-        "visual": "☀️",
-        "audioText": "SOL",
-        "targetWord": "SOL"
+        "id": "fase-5-g-pintura-ima-2",
+        "kind": "magnet-paint",
+        "prompt": "CRIE UM CAMINHO CURVO COM AS PARTÍCULAS MAGNÉTICAS.",
+        "answer": "FORMA MAGNÉTICA 2",
+        "hint": "Faça uma curva ampla e passe por todos os pontos brilhantes.",
+        "activity": "pintura-ima",
+        "activityIndex": 1,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-conte-4-2",
-        "kind": "choice",
-        "prompt": "Quantos peixinhos nadam aqui?",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
-        "answer": "4",
-        "hint": "Conte sem pular nenhum.",
-        "visual": "🐟 🐟 🐟 🐟"
+        "id": "fase-5-g-pintura-ima-3",
+        "kind": "magnet-paint",
+        "prompt": "LIGUE OS PONTOS E FORME UM CÍRCULO DE LUZ.",
+        "answer": "FORMA MAGNÉTICA 3",
+        "hint": "Aproxime a ferradura de cada ponto até ele acender.",
+        "activity": "pintura-ima",
+        "activityIndex": 2,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-ondulado-3",
-        "kind": "choice",
-        "prompt": "Qual traço faz ondas?",
-        "options": [
-          "—",
-          "〰",
-          "|"
-        ],
-        "answer": "〰",
-        "hint": "Olhe para o traço que sobe e desce."
+        "id": "fase-5-g-pintura-ima-4",
+        "kind": "magnet-paint",
+        "prompt": "DESENHE UMA ESPIRAL COM O ÍMÃ SEM SOLTAR O DEDO.",
+        "answer": "FORMA MAGNÉTICA 4",
+        "hint": "Mantenha o movimento contínuo e observe as linhas fluidas.",
+        "activity": "pintura-ima",
+        "activityIndex": 3,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-nome-4",
-        "kind": "draw",
-        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
-        "answer": "__drawing__",
-        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
-        "visual": "✎"
+        "id": "fase-5-g-pintura-ima-5",
+        "kind": "magnet-paint",
+        "prompt": "FAÇA A LIMALHA DANÇAR E MONTE UM TRIÂNGULO.",
+        "answer": "FORMA MAGNÉTICA 5",
+        "hint": "Passe pelos três cantos e depois complete os pontos do centro.",
+        "activity": "pintura-ima",
+        "activityIndex": 4,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-dupla-forma-5",
-        "kind": "choice",
-        "prompt": "Qual forma combina com este triângulo?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "△",
-        "hint": "Procure a figura com as mesmas três pontas.",
-        "visual": "△"
+        "id": "fase-5-g-pintura-ima-6",
+        "kind": "magnet-paint",
+        "prompt": "CRUZE O ATELIÊ E REVELE A FORMA ESCONDIDA.",
+        "answer": "FORMA MAGNÉTICA 6",
+        "hint": "Mova o ímã em zigue-zague para juntar as partículas.",
+        "activity": "pintura-ima",
+        "activityIndex": 5,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-menor-grupo-6",
-        "kind": "choice",
-        "prompt": "Qual grupo tem menos estrelas?",
-        "options": [
-          "★★★",
-          "★",
-          "★★★★★"
-        ],
-        "answer": "★",
-        "hint": "Menos quer dizer a menor quantidade."
+        "id": "fase-5-g-pintura-ima-7",
+        "kind": "magnet-paint",
+        "prompt": "DESENHE UMA ESTRELA COM LINHAS DE FERRO.",
+        "answer": "FORMA MAGNÉTICA 7",
+        "hint": "Passe pela ponta de cada raio; a estrela vai aparecer aos poucos.",
+        "activity": "pintura-ima",
+        "activityIndex": 6,
+        "magnetTarget": 8
       },
       {
-        "id": "fase-5-g-numero-2-7",
-        "kind": "choice",
-        "prompt": "Qual símbolo mostra duas coisas?",
-        "options": [
-          "1",
-          "2",
-          "A"
-        ],
-        "answer": "2",
-        "hint": "Os números nos ajudam a contar."
+        "id": "fase-5-g-pintura-ima-8",
+        "kind": "magnet-paint",
+        "prompt": "COMPLETE A GRANDE FIGURA MAGNÉTICA DA LUMI.",
+        "answer": "FORMA MAGNÉTICA 8",
+        "hint": "Explore toda a tela e acenda os oito pontos da forma final.",
+        "activity": "pintura-ima",
+        "activityIndex": 7,
+        "magnetTarget": 8
       }
     ],
     "fase-6": [

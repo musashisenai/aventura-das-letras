@@ -1,6 +1,6 @@
 # Aventura das Letras — Catálogo de atividades
 
-Este documento registra as **70 atividades pedagógicas** do jogo: 10 para cada um dos 7 mundos. Cada atividade funciona como uma matriz de variações para gerar perguntas diferentes ao longo das fases. No jogo atual, essas propostas são representadas pelos formatos interativos já disponíveis: **escolha**, **ordenação** e **desenho**.
+Este documento registra as **70 atividades pedagógicas** do jogo: 10 para cada um dos 7 mundos. Cada atividade funciona como uma matriz de variações para gerar perguntas diferentes ao longo das fases. No jogo atual, essas propostas são representadas por **escolha**, **ordenação**, **desenho** e interações guiadas de toque, arraste e canvas.
 
 ## 1. Mundo da Garatuja
 

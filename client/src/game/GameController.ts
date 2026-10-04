@@ -64,7 +64,7 @@ export type AnswerLog = {
   usedHint?: boolean;
   worldId: number;
   phase: number;
-  kind?: "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep";
+  kind?: "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint";
   options?: string[];
   correctAnswer?: string;
   hint?: string;
@@ -112,7 +112,7 @@ export type GameState = {
 
 const STORAGE_KEY = "aventura-das-letras-v2";
 const LEGACY_STORAGE_KEY = "aventura-das-letras-v1";
-const QUESTION_BANK_VERSION = 3;
+const QUESTION_BANK_VERSION = 4;
 const positiveHints = ["Quase! Você está quase lá!", "Tente de novo, eu acredito em você!", "Vamos olhar com calma. A Lumi tem uma pista!"];
 const safeActivityHints = [
   "Observe todas as opções com calma e compare os sons.",

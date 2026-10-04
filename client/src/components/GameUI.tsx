@@ -477,6 +477,7 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "lantern") return <LanternInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "sand-tracks") return <SandTracksInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "mosquito-sweep") return <MosquitoSweepInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "magnet-paint") return <MagnetPaintInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
@@ -543,6 +544,50 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
     </div>
     <div className="mosquito-footer"><p>{completed ? "Muito bem! A fruta está protegida e o pomar ficou tranquilo." : "Toque perto de um mosquito, arraste com rapidez e solte longe dele."}</p><div className="mosquito-progress" aria-label={`${cleared.length} de ${target} mosquitos afastados`}><i style={{ width: `${(cleared.length / target) * 100}%` }} /></div></div>
   </div>;
+}
+function MagnetPaintInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [painted, setPainted] = useState<number[]>([]);
+  const [drawing, setDrawing] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const target = question.magnetTarget ?? 8;
+  const pointRef = useRef<{ x: number; y: number } | null>(null);
+  const drawingRef = useRef(false);
+  const paintedRef = useRef<number[]>([]);
+  const trailRef = useRef<{ x: number; y: number }[]>([]);
+  const checkpoints = useMemo(() => {
+    const layouts = [
+      [[18, 26], [34, 17], [51, 28], [67, 18], [82, 30], [70, 57], [47, 72], [23, 58]],
+      [[16, 66], [23, 45], [36, 28], [53, 19], [70, 27], [81, 46], [73, 70], [48, 82]],
+      [[20, 29], [49, 19], [78, 29], [81, 65], [50, 80], [19, 65], [35, 48], [65, 48]],
+    ];
+    return layouts[(question.activityIndex ?? 0) % layouts.length].slice(0, target).map(([x, y]) => ({ x: (x / 100) * 900, y: (y / 100) * 330 }));
+  }, [question.activityIndex, question.id, target]);
+  useEffect(() => {
+    setPainted([]); setDrawing(false); setCompleted(false); pointRef.current = null; drawingRef.current = false; paintedRef.current = []; trailRef.current = [];
+  }, [question.id]);
+  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 520); return () => window.clearTimeout(timer); }, [completed, onComplete]);
+  useEffect(() => {
+    const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return;
+    const filings = Array.from({ length: 150 }, (_, index) => ({ x: 34 + ((index * 83) % 832), y: 24 + ((index * 47) % 282), length: 3 + (index % 5), phase: index * .71 }));
+    let frame = 0;
+    const render = (time: number) => {
+      const gradient = ctx.createLinearGradient(0, 0, 900, 330); gradient.addColorStop(0, "#fff8df"); gradient.addColorStop(1, "#eaf8f2"); ctx.fillStyle = gradient; ctx.fillRect(0, 0, 900, 330);
+      ctx.strokeStyle = "rgba(82, 131, 106, .1)"; ctx.lineWidth = 1; for (let x = 30; x < 900; x += 45) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 330); ctx.stroke(); } for (let y = 25; y < 330; y += 45) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(900, y); ctx.stroke(); }
+      ctx.lineCap = "round"; trailRef.current.forEach((point, index) => { const next = trailRef.current[index + 1]; if (!next) return; ctx.strokeStyle = `rgba(42, 105, 91, ${Math.max(.05, index / trailRef.current.length * .34)})`; ctx.lineWidth = 2 + (index % 3); ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineTo(next.x, next.y); ctx.stroke(); });
+      checkpoints.forEach((point, index) => { const active = paintedRef.current.includes(index); ctx.fillStyle = active ? "#efb84b" : "rgba(25, 118, 92, .18)"; ctx.strokeStyle = active ? "#c77d25" : "rgba(25, 118, 92, .45)"; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(point.x, point.y, active ? 15 : 12, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); if (active) { ctx.fillStyle = "#fff8df"; ctx.font = "bold 17px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("✦", point.x, point.y); } });
+      filings.forEach((filing) => { let x = filing.x; let y = filing.y; const magnet = pointRef.current; if (magnet) { const dx = magnet.x - x; const dy = magnet.y - y; const distance = Math.hypot(dx, dy); if (distance < 145) { const pull = (1 - distance / 145) * 28; x += (dx / Math.max(distance, 1)) * pull; y += (dy / Math.max(distance, 1)) * pull; } } const wave = Math.sin(time / 500 + filing.phase) * 2; ctx.save(); ctx.translate(x, y + wave); ctx.rotate(Math.atan2(Math.sin(filing.phase), Math.cos(filing.phase)) + (magnet ? Math.atan2(magnet.y - y, magnet.x - x) : 0)); ctx.strokeStyle = "rgba(59, 101, 82, .55)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-filing.length, 0); ctx.lineTo(filing.length, 0); ctx.stroke(); ctx.restore(); });
+      const magnet = pointRef.current; if (magnet) { ctx.save(); ctx.translate(magnet.x, magnet.y); ctx.rotate(-.16); ctx.strokeStyle = "#164c43"; ctx.lineWidth = 17; ctx.lineCap = "round"; ctx.beginPath(); ctx.arc(0, 0, 30, Math.PI * .18, Math.PI * .82, true); ctx.stroke(); ctx.strokeStyle = "#ed6f5b"; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(-25, 17); ctx.lineTo(-19, 29); ctx.stroke(); ctx.strokeStyle = "#5e9fd0"; ctx.beginPath(); ctx.moveTo(25, 17); ctx.lineTo(19, 29); ctx.stroke(); ctx.restore(); }
+      frame = window.requestAnimationFrame(render);
+    };
+    frame = window.requestAnimationFrame(render); return () => window.cancelAnimationFrame(frame);
+  }, [checkpoints]);
+  const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * 900, y: ((event.clientY - rect.top) / rect.height) * 330 }; };
+  const mark = (point: { x: number; y: number }) => { const next = [...paintedRef.current]; checkpoints.forEach((checkpoint, index) => { if (!next.includes(index) && Math.hypot(point.x - checkpoint.x, point.y - checkpoint.y) < 55) next.push(index); }); if (next.length !== paintedRef.current.length) { paintedRef.current = next; setPainted(next); if (next.length >= target) { setCompleted(true); drawingRef.current = false; setDrawing(false); } } };
+  const start = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const point = position(event); pointRef.current = point; trailRef.current = [point]; drawingRef.current = true; setDrawing(true); mark(point); event.currentTarget.setPointerCapture(event.pointerId); };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawingRef.current || disabled || completed) return; const point = position(event); pointRef.current = point; trailRef.current = [...trailRef.current.slice(-180), point]; mark(point); };
+  const stop = () => { drawingRef.current = false; setDrawing(false); pointRef.current = null; };
+  return <div className={`magnet-paint-activity ${completed ? "completed" : ""}`}><div className="magnet-toolbar"><div><span className="magnet-kicker"><Sparkles size={15} /> ATELIÊ MAGNÉTICO</span><strong>Pinte com o ímã</strong></div><div className="magnet-counter"><b>{painted.length}</b><span>/ {target} pontos</span></div></div><div className="magnet-scene" aria-label="Tela interativa para pintar com um ímã"><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste a ferradura magnética pela tela" />{completed && <span className="magnet-complete-badge" aria-label="Forma magnética completa"><Check size={24} /></span>}</div><div className="magnet-footer"><p>{completed ? "Que desenho bonito! A limalha formou uma figura magnética." : drawing ? "Continue arrastando e observe as partículas acompanharem a ferradura." : "Toque na tela e arraste a ferradura para acender todos os pontos."}</p><div className="magnet-progress" aria-label={`${painted.length} de ${target} pontos magnéticos`}><i style={{ width: `${(painted.length / target) * 100}%` }} /></div></div></div>;
 }
 function SandTracksInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
