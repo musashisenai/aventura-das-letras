@@ -7,7 +7,6 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEven
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
-import mosquitoAsset from "@/assets/mosquito-espanta.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
@@ -537,7 +536,7 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
     <div className="mosquito-toolbar"><div><span className="mosquito-kicker"><Bug size={15} /> POMAR EM ALERTA</span><strong>Espante os mosquitos</strong></div><div className="mosquito-counter"><b>{cleared.length}</b><span>/ {target} afastados</span></div></div>
     <div className="mosquito-scene" aria-label="Pomar interativo para espantar mosquitos" onPointerDown={begin} onPointerUp={stop} onPointerCancel={stop}>
       <div className={`mosquito-fruit fruit-${(question.activityIndex ?? 0) % 3}`} aria-hidden="true"><i /><b /></div><span className="mosquito-leaf leaf-one" /><span className="mosquito-leaf leaf-two" />
-      {positions.map(([x, y], index) => <span className={`mosquito mosquito-flight-${index % 4} ${cleared.includes(index) ? "cleared" : ""} ${activeBug === index ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} key={`${x}-${y}`} aria-hidden="true"><img src={mosquitoAsset} alt="" /></span>)}
+      {positions.map(([x, y], index) => <span className={`mosquito mosquito-flight-${index % 4} ${cleared.includes(index) ? "cleared" : ""} ${activeBug === index ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} key={`${x}-${y}`} aria-hidden="true"><span className="fly-sprite"><i className="fly-wing fly-wing-left" /><i className="fly-wing fly-wing-right" /><b className="fly-body" /></span></span>)}
       {completed && <span className="mosquito-clean-badge" aria-label="Pomar limpo"><Check size={24} /></span>}
       <span className="mosquito-instruction">Comece perto de um inseto e faça um gesto rápido para fora</span>
     </div>

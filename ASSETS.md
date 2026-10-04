@@ -27,5 +27,4 @@
 
 | Nome | Descrição | Tamanho | Arquivo |
 |---|---|---:|---|
-| Mosquito Espanta | Sprite infantil transparente reutilizado com animações de voo e dispensa | 1920x1920 px | `client/src/assets/mosquito-espanta.png` |
 | Buzz do pomar | Efeito em loop baseado na referência fornecida; volume proporcional aos mosquitos restantes | 2,57 s | `client/public/assets/mosquito-buzz.mp3` |

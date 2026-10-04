@@ -37,21 +37,6 @@
       "width": 768,
       "height": 768,
       "transparent": true
-    },
-    {
-      "worldId": 0,
-      "world": "Mundo da Garatuja",
-      "file": "mosquito-espanta.png",
-      "path": "database/sections/images/mosquito-espanta.png",
-      "publicPath": "client/public/assets/mosquito-espanta.png",
-      "bundlePath": "client/src/assets/mosquito-espanta.png",
-      "role": "Sprite infantil reutilizável da atividade Espanta-Mosquitos, com animação CSS no cenário",
-      "activity": "espanta-mosquitos",
-      "status": "generated",
-      "format": "PNG",
-      "width": 1920,
-      "height": 1920,
-      "transparent": true
     }
   ]
 }
