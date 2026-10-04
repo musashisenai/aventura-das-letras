@@ -549,10 +549,45 @@ function ShieldMagicInteraction({ question, disabled, onComplete }: { question: 
 function SyllableHammerInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const parts = question.syllableParts ?? [];
   const [hits, setHits] = useState(0);
+  const audioContextRef = useRef<AudioContext | null>(null);
   const complete = hits >= parts.length;
   useEffect(() => setHits(0), [question.id]);
+  useEffect(() => () => { void audioContextRef.current?.close(); }, []);
+  const playHammerSound = () => {
+    try {
+      const AudioContextConstructor = window.AudioContext ?? (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioContextConstructor) return;
+      const context = audioContextRef.current ?? new AudioContextConstructor();
+      audioContextRef.current = context;
+      if (context.state === "suspended") void context.resume();
+      const now = context.currentTime;
+      const impact = context.createOscillator();
+      const click = context.createOscillator();
+      const impactGain = context.createGain();
+      const clickGain = context.createGain();
+      impact.type = "triangle";
+      impact.frequency.setValueAtTime(190, now);
+      impact.frequency.exponentialRampToValueAtTime(68, now + 0.11);
+      impactGain.gain.setValueAtTime(0.0001, now);
+      impactGain.gain.exponentialRampToValueAtTime(0.28, now + 0.008);
+      impactGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.13);
+      click.type = "square";
+      click.frequency.setValueAtTime(720, now);
+      click.frequency.exponentialRampToValueAtTime(130, now + 0.035);
+      clickGain.gain.setValueAtTime(0.0001, now);
+      clickGain.gain.exponentialRampToValueAtTime(0.06, now + 0.004);
+      clickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.045);
+      impact.connect(impactGain).connect(context.destination);
+      click.connect(clickGain).connect(context.destination);
+      impact.start(now); click.start(now);
+      impact.stop(now + 0.14); click.stop(now + 0.05);
+    } catch {
+      // O jogo continua sem áudio caso o navegador bloqueie a Web Audio API.
+    }
+  };
   const strike = () => {
     if (disabled || complete) return;
+    playHammerSound();
     const next = hits + 1;
     setHits(next);
     if (next >= parts.length) onComplete();
