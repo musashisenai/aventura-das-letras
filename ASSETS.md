@@ -22,3 +22,10 @@
 | Símbolo Aventura | Ícone da marca para cabeçalho e identidade | 108x108 px | `/manus-storage/logo-aventura-simbolo_5ffaf790.png` |
 | Kit de recompensa | Baú, moeda e ovos para o painel de recompensa | 180x180 px | `/manus-storage/recompensas-aventura_7af48267.png` |
 
+
+## Espanta-Mosquitos
+
+| Nome | Descrição | Tamanho | Arquivo |
+|---|---|---:|---|
+| Mosquito Espanta | Sprite infantil transparente reutilizado com animações de voo e dispensa | 1920x1920 px | `client/src/assets/mosquito-espanta.png` |
+| Buzz do pomar | Efeito sonoro original em loop; volume proporcional aos mosquitos restantes | 6 s | `client/public/assets/mosquito-buzz.mp3` |

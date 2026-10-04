@@ -10,3 +10,8 @@ Esta aba armazenará as ilustrações que substituirão os emojis usados atualme
 - `metadata.json`: catálogo, finalidade, formato e caminho de cada imagem.
 
 As imagens são assets versionados do projeto. As perguntas continuarão funcionando com os emojis atuais até que os componentes do jogo sejam atualizados para consumir estes arquivos.
+- `mosquito-espanta.png`: sprite infantil transparente reutilizado na atividade Espanta-Mosquitos, com movimento individual aplicado por CSS.
+
+## Áudio das atividades
+
+- `client/public/assets/mosquito-buzz.mp3`: efeito sonoro original em loop para o pomar; a atividade inicia o áudio após a primeira interação e reduz o volume conforme os mosquitos são afastados, silenciando ao concluir.

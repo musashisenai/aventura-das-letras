@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEven
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
+import mosquitoAsset from "@/assets/mosquito-espanta.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
@@ -487,16 +488,31 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
   const [trail, setTrail] = useState<{ x: number; y: number }[]>([]);
   const [completed, setCompleted] = useState(false);
   const startPoint = useRef<{ x: number; y: number } | null>(null);
+  const buzzRef = useRef<HTMLAudioElement | null>(null);
   const target = question.mosquitoTarget ?? 3;
   const positions = useMemo(() => {
     const layouts = [
-      [[16, 24], [82, 25], [24, 76], [76, 72], [52, 14]],
-      [[22, 35], [73, 18], [87, 69], [42, 82], [12, 67]],
-      [[15, 18], [52, 27], [84, 43], [28, 76], [68, 78]],
+      [[13, 21], [31, 14], [54, 18], [78, 22], [90, 43], [76, 64], [88, 82], [57, 87], [34, 78], [12, 70], [8, 44], [45, 42]],
+      [[19, 29], [42, 13], [69, 17], [88, 34], [80, 57], [91, 77], [60, 86], [35, 78], [13, 84], [8, 57], [23, 43], [54, 52]],
+      [[12, 16], [36, 23], [61, 14], [86, 21], [93, 52], [75, 73], [61, 90], [38, 83], [15, 91], [7, 62], [24, 48], [77, 43]],
     ];
     return layouts[(question.activityIndex ?? 0) % layouts.length].slice(0, target);
   }, [question.activityIndex, question.id, target]);
-  useEffect(() => { setCleared([]); setSweeping(false); setActiveBug(null); setTrail([]); setCompleted(false); startPoint.current = null; }, [question.id]);
+  useEffect(() => {
+    const buzz = new Audio("/assets/mosquito-buzz.mp3");
+    buzz.loop = true;
+    buzz.volume = 0.22;
+    buzzRef.current = buzz;
+    setCleared([]); setSweeping(false); setActiveBug(null); setTrail([]); setCompleted(false); startPoint.current = null;
+    return () => { buzz.pause(); buzz.currentTime = 0; buzzRef.current = null; };
+  }, [question.id]);
+  useEffect(() => {
+    const buzz = buzzRef.current;
+    if (!buzz) return;
+    const remaining = Math.max(0, 1 - cleared.length / target);
+    buzz.volume = 0.22 * remaining;
+    if (remaining === 0) buzz.pause();
+  }, [cleared.length, target]);
   useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 520); return () => window.clearTimeout(timer); }, [completed, onComplete]);
   const pointFromEvent = (event: PointerEvent<HTMLDivElement>) => { const rect = event.currentTarget.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * 100, y: ((event.clientY - rect.top) / rect.height) * 100 }; };
   const finishSweep = (point: { x: number; y: number }) => {
@@ -514,6 +530,7 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
     const point = pointFromEvent(event);
     const nearest = positions.findIndex(([x, y], index) => !cleared.includes(index) && Math.hypot(point.x - x, point.y - y) <= 12);
     if (nearest < 0) return;
+    void buzzRef.current?.play().catch(() => undefined);
     startPoint.current = point; setActiveBug(nearest); setSweeping(true); setTrail([point]); event.currentTarget.setPointerCapture(event.pointerId);
   };
   const move = (event: PointerEvent<HTMLDivElement>) => { if (!sweeping || disabled || completed) return; const point = pointFromEvent(event); setTrail((current) => [...current.slice(-9), point]); };
@@ -523,7 +540,7 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
     <div className="mosquito-scene" aria-label="Pomar interativo para espantar mosquitos" onPointerDown={begin} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop}>
       <div className={`mosquito-fruit fruit-${(question.activityIndex ?? 0) % 3}`} aria-hidden="true"><i /><b /></div><span className="mosquito-leaf leaf-one" /><span className="mosquito-leaf leaf-two" />
       <div className="mosquito-air" aria-hidden="true">{trail.map((point, index) => <i key={`${point.x}-${point.y}-${index}`} style={{ left: `${point.x}%`, top: `${point.y}%`, opacity: (index + 1) / trail.length }} />)}</div>
-      {positions.map(([x, y], index) => <span className={`mosquito ${cleared.includes(index) ? "cleared" : ""} ${activeBug === index ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} key={`${x}-${y}`} aria-hidden="true"><Bug size={30} /></span>)}
+      {positions.map(([x, y], index) => <span className={`mosquito mosquito-flight-${index % 4} ${cleared.includes(index) ? "cleared" : ""} ${activeBug === index ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} key={`${x}-${y}`} aria-hidden="true"><img src={mosquitoAsset} alt="" /></span>)}
       {completed && <span className="mosquito-clean-badge" aria-label="Pomar limpo"><Check size={24} /></span>}
       <span className="mosquito-instruction">Comece perto de um inseto e faça um gesto rápido para fora</span>
     </div>
