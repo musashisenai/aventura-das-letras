@@ -1411,7 +1411,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791127581317-jjo4ifhp8pa"
+          "sessionToken": "1791131411054-5dnzpe8h2sa"
         },
         "completions": {
           "0:0": {
@@ -1870,7 +1870,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791127581317-jjo4ifhp8pa"
+            "sessionToken": "1791131411054-5dnzpe8h2sa"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -2435,7 +2435,7 @@
           "questionBankVersion": 4
         }
       },
-      "updatedAt": "2026-10-04T15:26:21.408Z"
+      "updatedAt": "2026-10-04T16:30:11.192Z"
     },
     "student-arthur-miguel": {
       "id": "student-arthur-miguel",
@@ -2475,7 +2475,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791125626758-hn0i7jyhtu"
+          "sessionToken": "1791131422871-9107xe43pyh"
         },
         "completions": {
           "2:0": {
@@ -2702,7 +2702,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791125626758-hn0i7jyhtu"
+            "sessionToken": "1791131422871-9107xe43pyh"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -3056,11 +3056,7 @@
           "questionBankVersion": 9
         }
       },
-      "activeSession": {
-        "token": "1791125626758-hn0i7jyhtu",
-        "lastSeen": 1791127579183
-      },
-      "updatedAt": "2026-10-04T15:26:19.183Z"
+      "updatedAt": "2026-10-04T16:30:23.001Z"
     },
     "student-benicio-maia": {
       "id": "student-benicio-maia",
@@ -3533,7 +3529,7 @@
         "placementCompleted": false,
         "currentWorld": 0,
         "recommendedWorld": 0,
-        "activeScreen": "menu",
+        "activeScreen": "continue",
         "activeWorld": 0,
         "activePhase": 0,
         "questionIndex": 0
@@ -3555,14 +3551,327 @@
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
-          "audioEnabled": true
+          "audioEnabled": true,
+          "sessionToken": "1791131434402-0gl9ylw8mt3"
         },
         "completions": {},
         "worldApprovals": {},
         "answers": [],
-        "gameState": {}
+        "gameState": {
+          "screen": "continue",
+          "profile": {
+            "placementCompleted": false,
+            "studentId": "student-benicio-zaia",
+            "name": "Benício Zaia",
+            "partner": "Lumi",
+            "currentWorld": 0,
+            "recommendedWorld": 0,
+            "coins": 20,
+            "xp": 0,
+            "eggs": 0,
+            "eggCollection": [],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true,
+            "sessionToken": "1791131434402-0gl9ylw8mt3"
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 1,
+          "placementScore": 0,
+          "placementAttempts": 0,
+          "placementResults": [
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": false,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [
+            {
+              "id": "nivel-a-frase",
+              "kind": "choice",
+              "prompt": "Qual frase está escrita corretamente?",
+              "options": [
+                "Dorme gato o.",
+                "gato O dorme.",
+                "O gato dorme."
+              ],
+              "answer": "O gato dorme.",
+              "hint": "Frases começam com maiúscula e terminam com ponto."
+            },
+            {
+              "id": "nivel-s-palmas",
+              "kind": "choice",
+              "prompt": "Quantas sílabas tem CA-SA?",
+              "options": [
+                "1",
+                "2",
+                "3"
+              ],
+              "answer": "2",
+              "hint": "Bata duas palmas: CA / SA."
+            },
+            {
+              "id": "nivel-o-cedilha",
+              "kind": "choice",
+              "prompt": "Qual palavra está correta?",
+              "options": [
+                "CORASAO",
+                "CORAÇÃO",
+                "CORASÃO"
+              ],
+              "answer": "CORAÇÃO",
+              "hint": "A cedilha faz som de S antes de A."
+            },
+            {
+              "id": "nivel-g-forma",
+              "kind": "choice",
+              "prompt": "Qual forma é redonda?",
+              "options": [
+                "□",
+                "○",
+                "△"
+              ],
+              "answer": "○",
+              "hint": "Procure a forma que parece uma bola."
+            },
+            {
+              "id": "nivel-s-inicio",
+              "kind": "choice",
+              "prompt": "Qual sílaba começa BO-LA?",
+              "options": [
+                "BO",
+                "BA",
+                "LA"
+              ],
+              "answer": "BO",
+              "hint": "Fale devagar: BO-LA."
+            },
+            {
+              "id": "nivel-sa-final",
+              "kind": "choice",
+              "prompt": "Qual letra termina GATO?",
+              "options": [
+                "T",
+                "A",
+                "O"
+              ],
+              "answer": "O",
+              "hint": "Olhe para o fim da palavra."
+            },
+            {
+              "id": "nivel-sa-completa",
+              "kind": "choice",
+              "prompt": "Complete: CA _ A",
+              "options": [
+                "T",
+                "S",
+                "P"
+              ],
+              "answer": "S",
+              "hint": "A palavra é CASA."
+            },
+            {
+              "id": "nivel-g-quantidade",
+              "kind": "choice",
+              "prompt": "CONTE AS ESTRELAS ABAIXO.",
+              "options": [
+                "2",
+                "4",
+                "3"
+              ],
+              "answer": "3",
+              "hint": "CONTE CADA ESTRELA.",
+              "visual": "★ ★ ★"
+            },
+            {
+              "id": "nivel-p-numero",
+              "kind": "choice",
+              "prompt": "Qual destes é um número?",
+              "options": [
+                "☁",
+                "7",
+                "B"
+              ],
+              "answer": "7",
+              "hint": "Números ajudam a contar."
+            },
+            {
+              "id": "nivel-abc-inicial",
+              "kind": "choice",
+              "prompt": "QUAL LETRA COMEÇA BOLA?",
+              "options": [
+                "B",
+                "D",
+                "P"
+              ],
+              "answer": "B",
+              "hint": "O SOM INICIAL É BÊÊÊ."
+            },
+            {
+              "id": "nivel-o-acento",
+              "kind": "choice",
+              "prompt": "Qual escrita está correta?",
+              "options": [
+                "mãmae",
+                "mamãe",
+                "mamae"
+              ],
+              "answer": "mamãe",
+              "hint": "Observe o til e o acento."
+            },
+            {
+              "id": "nivel-abc-ordem",
+              "kind": "choice",
+              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
+              "options": [
+                "D",
+                "B",
+                "E"
+              ],
+              "answer": "D",
+              "hint": "FALE: A, B, C, D."
+            },
+            {
+              "id": "nivel-g-rabisco",
+              "kind": "choice",
+              "prompt": "Qual desenho parece uma letra?",
+              "options": [
+                "☀",
+                "A",
+                "○"
+              ],
+              "answer": "A",
+              "hint": "Uma letra pode fazer parte de uma palavra."
+            },
+            {
+              "id": "nivel-g-risco",
+              "kind": "draw",
+              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "answer": "__drawing__",
+              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
+              "visual": "〰"
+            },
+            {
+              "id": "nivel-abc-a",
+              "kind": "choice",
+              "prompt": "QUAL É A LETRA A?",
+              "options": [
+                "A",
+                "M",
+                "O"
+              ],
+              "answer": "A",
+              "hint": "PROCURE A LETRA A."
+            },
+            {
+              "id": "nivel-s-monta",
+              "kind": "order",
+              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "options": [
+                "TO",
+                "PA"
+              ],
+              "answer": "PATO",
+              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+              "visual": "🦆",
+              "audioText": "PATO"
+            },
+            {
+              "id": "nivel-sa-ditado",
+              "kind": "choice",
+              "prompt": "Qual escrita corresponde a MESA?",
+              "options": [
+                "MEZA",
+                "SEMA",
+                "MESA"
+              ],
+              "answer": "MESA",
+              "hint": "Procure M-E-S-A."
+            },
+            {
+              "id": "nivel-a-problema",
+              "kind": "choice",
+              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "options": [
+                "2",
+                "3",
+                "4"
+              ],
+              "answer": "3",
+              "hint": "Comece com cinco e retire duas."
+            },
+            {
+              "id": "nivel-p-letra",
+              "kind": "choice",
+              "prompt": "Qual destes é uma letra?",
+              "options": [
+                "M",
+                "8",
+                "△"
+              ],
+              "answer": "M",
+              "hint": "Letras servem para escrever."
+            },
+            {
+              "id": "nivel-a-rima",
+              "kind": "choice",
+              "prompt": "Qual palavra rima com GATO?",
+              "options": [
+                "PATO",
+                "LUA",
+                "MESA"
+              ],
+              "answer": "PATO",
+              "hint": "GATO e PATO terminam igual."
+            },
+            {
+              "id": "nivel-o-rr",
+              "kind": "choice",
+              "prompt": "Qual palavra está escrita corretamente?",
+              "options": [
+                "CARRU",
+                "CARRO",
+                "CARO"
+              ],
+              "answer": "CARRO",
+              "hint": "O som forte de R no meio usa RR."
+            },
+            {
+              "id": "nivel-p-tamanho",
+              "kind": "choice",
+              "prompt": "Qual palavra tem mais letras?",
+              "options": [
+                "SOL",
+                "BORBOLETA",
+                "BOLA"
+              ],
+              "answer": "BORBOLETA",
+              "hint": "Compare o tamanho das palavras."
+            }
+          ],
+          "activeWorld": 0,
+          "selectedWorld": 0,
+          "activePhase": 0,
+          "queue": [],
+          "questionIndex": 0,
+          "attempts": 0,
+          "roundScore": 0,
+          "feedback": null,
+          "completions": {},
+          "worldApprovals": {},
+          "answers": [],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 9
+        }
       },
-      "updatedAt": "2026-10-01T10:56:51.485610Z"
+      "updatedAt": "2026-10-04T16:31:01.104Z"
     },
     "student-benjamim-sales": {
       "id": "student-benjamim-sales",
@@ -5275,6 +5584,221 @@
         }
       },
       "updatedAt": "2026-10-04T15:27:06.465Z"
+    },
+    "loki-1791131468413": {
+      "id": "loki-1791131468413",
+      "name": "loki",
+      "status": {
+        "placementCompleted": true,
+        "currentWorld": 2,
+        "recommendedWorld": 2,
+        "activeScreen": "profile",
+        "activeWorld": 2,
+        "activePhase": 0,
+        "questionIndex": 0
+      },
+      "save": {
+        "profile": {
+          "placementCompleted": true,
+          "sessionToken": "1791131468413-1v5vuspq9ci",
+          "studentId": "loki-1791131468413",
+          "name": "loki",
+          "partner": "Lumi",
+          "currentWorld": 2,
+          "recommendedWorld": 2,
+          "coins": 20,
+          "xp": 0,
+          "eggs": 0,
+          "eggCollection": [],
+          "petLevel": 1,
+          "petCare": 30,
+          "petName": "Faísca",
+          "petStage": "filhote",
+          "petSpecies": "raposa",
+          "audioEnabled": true
+        },
+        "completions": {},
+        "worldApprovals": {},
+        "answers": [],
+        "gameState": {
+          "screen": "profile",
+          "profile": {
+            "placementCompleted": true,
+            "sessionToken": "1791131468413-1v5vuspq9ci",
+            "studentId": "loki-1791131468413",
+            "name": "loki",
+            "partner": "Lumi",
+            "currentWorld": 2,
+            "recommendedWorld": 2,
+            "coins": 20,
+            "xp": 0,
+            "eggs": 0,
+            "eggCollection": [],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 21,
+          "placementScore": 10,
+          "placementAttempts": 0,
+          "placementResults": [
+            {
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-acento",
+              "question": "Qual escrita está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-palmas",
+              "question": "Quantas sílabas tem CA-SA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-cedilha",
+              "question": "Qual palavra está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-final",
+              "question": "Qual letra termina GATO?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-ordem",
+              "question": "QUAL LETRA VEM DEPOIS DE C?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-rabisco",
+              "question": "Qual desenho parece uma letra?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-monta",
+              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-inicio",
+              "question": "Qual sílaba começa BO-LA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-risco",
+              "question": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "correct": true,
+              "attempts": 1,
+              "drawing": "data:image/png;base64,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"
+            },
+            {
+              "questionId": "nivel-a-problema",
+              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-letra",
+              "question": "Qual destes é uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-ditado",
+              "question": "Qual escrita corresponde a MESA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-tamanho",
+              "question": "Qual palavra tem mais letras?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-inicial",
+              "question": "QUAL LETRA COMEÇA BOLA?",
+              "correct": false,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [],
+          "activeWorld": 2,
+          "selectedWorld": 2,
+          "activePhase": 0,
+          "queue": [],
+          "questionIndex": 0,
+          "attempts": 0,
+          "roundScore": 0,
+          "feedback": null,
+          "completions": {},
+          "worldApprovals": {},
+          "answers": [],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 9
+        }
+      },
+      "updatedAt": "2026-10-04T16:31:25.866Z"
     }
   },
   "settings": {
