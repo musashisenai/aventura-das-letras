@@ -592,43 +592,66 @@ function MagnetPaintInteraction({ question, disabled, onComplete }: { question: 
   return <div className={`magnet-paint-activity ${completed ? "completed" : ""}`}><div className="magnet-toolbar"><div><span className="magnet-kicker"><Sparkles size={15} /> ATELIÊ MAGNÉTICO</span><strong>Pinte com o ímã</strong></div><div className="magnet-counter"><b>{painted.length}</b><span>/ {target} pontos</span></div></div><div className="magnet-scene" aria-label="Tela interativa para pintar com um ímã"><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste a ferradura magnética pela tela" />{completed && <span className="magnet-complete-badge" aria-label="Forma magnética completa"><Check size={24} /></span>}</div><div className="magnet-footer"><p>{completed ? "Que desenho bonito! A limalha formou uma figura magnética." : drawing ? "Continue arrastando e observe as partículas acompanharem a ferradura." : "Toque na tela e arraste a ferradura para acender todos os pontos."}</p><div className="magnet-progress" aria-label={`${painted.length} de ${target} pontos magnéticos`}><i style={{ width: `${(painted.length / target) * 100}%` }} /></div></div></div>;
   }
 function IceMeltInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [scrubbed, setScrubbed] = useState(0);
+  const artCanvasRef = useRef<HTMLCanvasElement>(null);
+  const iceCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [revealed, setRevealed] = useState(0);
   const [rubbing, setRubbing] = useState(false);
   const [completed, setCompleted] = useState(false);
   const lastPoint = useRef<{ x: number; y: number } | null>(null);
-  const scrubDistance = useRef(0);
-  const target = question.iceTarget ?? 1300;
+  const revealedCells = useRef<boolean[]>([]);
+  const revealBox = question.revealRegion ?? { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" as const };
+  const grid = { columns: 18, rows: 14 };
+  const cellCount = grid.columns * grid.rows;
+  const revealLabel = question.revealLabel ?? "imagem escondida";
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
-    if (!canvas || !context) return;
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.globalCompositeOperation = "source-over";
-    context.fillStyle = "rgba(218, 242, 250, .94)";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.strokeStyle = "rgba(255, 255, 255, .84)";
-    context.lineWidth = 3;
-    context.lineCap = "round";
-    for (let index = 0; index < 24; index += 1) {
-      const x = 28 + ((index * 137) % 820);
-      const y = 24 + ((index * 83) % 282);
-      context.beginPath();
-      context.moveTo(x - 11, y);
-      context.lineTo(x, y - 11);
-      context.lineTo(x + 11, y);
-      context.lineTo(x, y + 11);
-      context.closePath();
-      context.stroke();
+    const artCanvas = artCanvasRef.current;
+    const iceCanvas = iceCanvasRef.current;
+    const art = artCanvas?.getContext("2d");
+    const ice = iceCanvas?.getContext("2d");
+    if (!artCanvas || !iceCanvas || !art || !ice) return;
+    art.clearRect(0, 0, artCanvas.width, artCanvas.height);
+    art.save();
+    art.fillStyle = "rgba(105, 65, 45, .22)";
+    art.beginPath(); art.ellipse(450, 286, 105, 15, 0, 0, Math.PI * 2); art.fill();
+    art.fillStyle = "#d79a58";
+    art.beginPath(); art.moveTo(405, 173); art.lineTo(495, 173); art.lineTo(475, 278); art.lineTo(425, 278); art.closePath(); art.fill();
+    art.strokeStyle = "#a96c3d"; art.lineWidth = 5; art.stroke();
+    art.strokeStyle = "rgba(255, 226, 151, .72)"; art.lineWidth = 3;
+    for (let line = 0; line < 4; line += 1) { art.beginPath(); art.moveTo(421 + line * 18, 194); art.lineTo(432 + line * 10, 259); art.stroke(); }
+    art.fillStyle = "#f48a9d";
+    art.beginPath(); art.arc(450, 154, 71, 0, Math.PI * 2); art.fill();
+    art.fillStyle = "#ffb4bd";
+    art.beginPath(); art.arc(424, 136, 28, 0, Math.PI * 2); art.fill();
+    art.fillStyle = "#e75872";
+    art.beginPath(); art.arc(479, 118, 13, 0, Math.PI * 2); art.fill();
+    art.fillStyle = "#5eaf67";
+    art.beginPath(); art.moveTo(470, 108); art.lineTo(493, 88); art.lineTo(498, 118); art.closePath(); art.fill();
+    art.fillStyle = "#fff1d1";
+    [[417, 162, -0.3], [445, 184, 0.2], [476, 153, -0.5], [455, 127, 0.4], [487, 181, 0.1]].forEach(([x, y, angle]) => { art.save(); art.translate(x, y); art.rotate(angle); art.fillRect(-4, -2, 8, 4); art.restore(); });
+    art.restore();
+
+    ice.clearRect(0, 0, iceCanvas.width, iceCanvas.height);
+    ice.globalCompositeOperation = "source-over";
+    ice.fillStyle = "rgba(218, 242, 250, .94)";
+    ice.fillRect(0, 0, iceCanvas.width, iceCanvas.height);
+    ice.strokeStyle = "rgba(255, 255, 255, .9)";
+    ice.lineWidth = 3;
+    ice.lineCap = "round";
+    for (let index = 0; index < 20; index += 1) {
+      const x = 34 + ((index * 173) % 830);
+      const y = 27 + ((index * 97) % 276);
+      for (let arm = 0; arm < 6; arm += 1) {
+        const angle = (Math.PI / 3) * arm;
+        ice.beginPath(); ice.moveTo(x, y); ice.lineTo(x + Math.cos(angle) * 13, y + Math.sin(angle) * 13); ice.stroke();
+      }
     }
-    context.globalCompositeOperation = "destination-out";
-    setScrubbed(0);
-    setRubbing(false);
-    setCompleted(false);
-    scrubDistance.current = 0;
-    lastPoint.current = null;
-  }, [question.id]);
+    ice.strokeStyle = "rgba(167, 216, 231, .44)"; ice.lineWidth = 8;
+    ice.beginPath(); ice.arc(160, 130, 90, .2, 2.5); ice.stroke();
+    ice.beginPath(); ice.arc(735, 207, 110, 3.4, 5.8); ice.stroke();
+    revealedCells.current = Array.from({ length: cellCount }, () => false);
+    setRevealed(0); setRubbing(false); setCompleted(false); lastPoint.current = null;
+  }, [question.id, cellCount]);
 
   useEffect(() => {
     if (!completed) return;
@@ -637,49 +660,36 @@ function IceMeltInteraction({ question, disabled, onComplete }: { question: Game
   }, [completed, onComplete]);
 
   const pointFromEvent = (event: PointerEvent<HTMLCanvasElement>) => {
-    const canvas = canvasRef.current!;
-    const rect = canvas.getBoundingClientRect();
+    const canvas = iceCanvasRef.current!; const rect = canvas.getBoundingClientRect();
     return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height };
   };
+  const distanceToSegment = (point: { x: number; y: number }, start: { x: number; y: number }, end: { x: number; y: number }) => {
+    const dx = end.x - start.x; const dy = end.y - start.y; const length = Math.max(1, dx * dx + dy * dy); const t = Math.max(0, Math.min(1, ((point.x - start.x) * dx + (point.y - start.y) * dy) / length));
+    return Math.hypot(point.x - (start.x + t * dx), point.y - (start.y + t * dy));
+  };
   const erase = (point: { x: number; y: number }) => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
-    if (!canvas || !context) return;
-    const previous = lastPoint.current;
-    const distance = previous ? Math.hypot(point.x - previous.x, point.y - previous.y) : 0;
-    scrubDistance.current = Math.min(target, scrubDistance.current + distance);
-    context.save();
-    context.globalCompositeOperation = "destination-out";
-    context.beginPath();
-    context.arc(point.x, point.y, 30, 0, Math.PI * 2);
-    context.fill();
-    context.restore();
-    lastPoint.current = point;
-    const progress = Math.round((scrubDistance.current / target) * 100);
-    setScrubbed(progress);
-    if (progress >= 100) {
-      setCompleted(true);
-      setRubbing(false);
+    const canvas = iceCanvasRef.current; const context = canvas?.getContext("2d"); if (!canvas || !context) return;
+    const previous = lastPoint.current ?? point;
+    context.save(); context.globalCompositeOperation = "destination-out"; context.lineWidth = 62; context.lineCap = "round"; context.beginPath(); context.moveTo(previous.x, previous.y); context.lineTo(point.x, point.y); context.stroke(); context.beginPath(); context.arc(point.x, point.y, 31, 0, Math.PI * 2); context.fill(); context.restore();
+    const nextCells = [...revealedCells.current];
+    for (let row = 0; row < grid.rows; row += 1) for (let column = 0; column < grid.columns; column += 1) {
+      const index = row * grid.columns + column; if (nextCells[index]) continue;
+      const center = { x: revealBox.x + (column + .5) * revealBox.width / grid.columns, y: revealBox.y + (row + .5) * revealBox.height / grid.rows };
+      if (distanceToSegment(center, previous, point) <= 38) nextCells[index] = true;
     }
+    revealedCells.current = nextCells;
+    const progress = Math.round((nextCells.filter(Boolean).length / cellCount) * 100);
+    setRevealed(progress); lastPoint.current = point;
+    if (progress >= 100) { setCompleted(true); setRubbing(false); }
   };
-  const start = (event: PointerEvent<HTMLCanvasElement>) => {
-    if (disabled || completed) return;
-    setRubbing(true);
-    const point = pointFromEvent(event);
-    lastPoint.current = point;
-    erase(point);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-  const move = (event: PointerEvent<HTMLCanvasElement>) => {
-    if (!rubbing || disabled || completed) return;
-    erase(pointFromEvent(event));
-  };
+  const start = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; setRubbing(true); const point = pointFromEvent(event); lastPoint.current = point; erase(point); event.currentTarget.setPointerCapture(event.pointerId); };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!rubbing || disabled || completed) return; erase(pointFromEvent(event)); };
   const stop = () => { setRubbing(false); lastPoint.current = null; };
 
   return <div className={`ice-melt-activity ${completed ? "completed" : ""}`}>
-    <div className="ice-melt-toolbar"><div><span className="ice-melt-kicker"><Sparkles size={15} /> JANELA CONGELADA</span><strong>Descubra quem está escondido</strong></div><div className="ice-melt-counter"><b>{scrubbed}%</b><span>descongelado</span></div></div>
-    <div className="ice-melt-scene" aria-label="Janela congelada para esfregar e revelar um animal"><div className="ice-melt-reveal"><PawPrint size={94} strokeWidth={1.4} /><span>AMIGO ESCONDIDO</span></div><span className="ice-melt-frost frost-one" /><span className="ice-melt-frost frost-two" /><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Esfregue a camada de gelo para revelar a figura" />{completed && <span className="ice-melt-complete"><Check size={24} /></span>}</div>
-    <div className="ice-melt-footer"><p>{completed ? "Muito bem! O gelo sumiu e o amigo apareceu." : rubbing ? "Continue esfregando. A figura está aparecendo!" : "Toque e esfregue a janela congelada para descobrir o animal."}</p><div className="ice-melt-progress" aria-label={`${scrubbed}% da janela descongelada`}><i style={{ width: `${scrubbed}%` }} /></div></div>
+    <div className="ice-melt-toolbar"><div><span className="ice-melt-kicker"><Sparkles size={15} /> JANELA CONGELADA</span><strong>Revele o {revealLabel.toLowerCase()}</strong></div><div className="ice-melt-counter"><b>{revealed}%</b><span>da imagem revelada</span></div></div>
+    <div className="ice-melt-scene" data-reveal-asset={question.revealAsset} aria-label={`Janela congelada com ${revealLabel.toLowerCase()} escondido no centro`}><canvas ref={artCanvasRef} className="ice-melt-art-canvas" width="900" height="330" aria-hidden="true" /><canvas ref={iceCanvasRef} className="ice-melt-ice-canvas" width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label={`Esfregue toda a imagem do ${revealLabel.toLowerCase()} para revelar a figura`} />{completed && <span className="ice-melt-complete" aria-label={`${revealLabel} revelado`}><Check size={24} /></span>}</div>
+    <div className="ice-melt-footer"><p>{completed ? "Muito bem! Você revelou o sorvete inteiro." : rubbing ? "Continue esfregando todas as partes do sorvete." : "O sorvete está no centro. Esfregue a imagem inteira para revelar tudo."}</p><div className="ice-melt-progress" aria-label={`${revealed}% da imagem do sorvete revelada`}><i style={{ width: `${revealed}%` }} /></div></div>
   </div>;
 }
 function SandTracksInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {

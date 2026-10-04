@@ -32,7 +32,9 @@ export type GameQuestion = {
   sandTarget?: number;
   mosquitoTarget?: number;
   magnetTarget?: number;
-  iceTarget?: number;
+  revealAsset?: string;
+  revealLabel?: string;
+  revealRegion?: { x: number; y: number; width: number; height: number; coordinateSpace: "900x330" };
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -84,7 +86,7 @@ const lantern = (variant: number, prompt: string, hint: string, lanternTarget: n
 const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sceneAsset: "pegadas-coqueiro" });
 const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTarget: number): GameQuestion => ({ id: `fase-4-g-espanta-mosquitos-${variant + 1}`, kind: "mosquito-sweep", prompt, answer: `POMAR LIMPO ${variant + 1}`, hint, activity: "espanta-mosquitos", activityIndex: variant, mosquitoTarget });
 const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget: number): GameQuestion => ({ id: `fase-5-g-pintura-ima-${variant + 1}`, kind: "magnet-paint", prompt, answer: `FORMA MAGNÉTICA ${variant + 1}`, hint, activity: "pintura-ima", activityIndex: variant, magnetTarget });
-const iceMelt = (variant: number, prompt: string, hint: string, iceTarget: number): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `GELO DERRETIDO ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, iceTarget });
+const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: string, revealLabel: string): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `IMAGEM REVELADA ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, revealAsset, revealLabel, revealRegion: { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" } });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -192,14 +194,14 @@ const GARATUJA_PHASE_FIVE: GameQuestion[] = [
   magnetPaint(7, "COMPLETE A GRANDE FIGURA MAGNÉTICA DA LUMI.", "Explore toda a tela e acenda os oito pontos da forma final.", 8),
 ];
 const GARATUJA_PHASE_SIX: GameQuestion[] = [
-  iceMelt(0, "ESFREGUE O GELO E DESCUBRA O ANIMAL ESCONDIDO.", "Passe o dedo várias vezes sobre a mesma região até o gelo desaparecer.", 1300),
-  iceMelt(1, "AJUDE O ANIMAL A SAIR DA CAVERNA DE GELO.", "Faça movimentos de ida e volta. Cada passada revela um pouco mais.", 1300),
-  iceMelt(2, "DERRETA A JANELA CONGELADA E ENCONTRE A SURPRESA.", "Use o dedo como um pano macio e cubra a área congelada.", 1300),
-  iceMelt(3, "LIMPE O VIDRO GELADO PARA VER QUEM ESTÁ ATRÁS.", "Esfregue com calma; o desenho aparece conforme a camada diminui.", 1300),
-  iceMelt(4, "ABRA UM CAMINHO NO GELO PARA O AMIGO ESCONDIDO.", "Continue esfregando até a luz alcançar toda a figura.", 1300),
-  iceMelt(5, "FAÇA O GELO SUMIR E REVELE A FIGURA DA FLORESTA.", "Movimente o dedo em círculos pequenos e depois amplie a área.", 1300),
-  iceMelt(6, "DESCONGELE A TELA COM MOVIMENTOS CONTÍNUOS.", "Não precisa apertar forte: a repetição do movimento faz a descoberta.", 1300),
-  iceMelt(7, "REVELE A GRANDE SURPRESA ATRÁS DO GELO.", "Esfregue toda a janela até o animal aparecer por completo.", 1300),
+  iceMelt(0, "ESFREGUE O GELO E REVELE O SORVETE DE MORANGO.", "O sorvete está no centro da janela. Esfregue toda a imagem, sem deixar partes cobertas.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(1, "ENCONTRE O SORVETE DE MORANGO ATRÁS DO GELO.", "Passe o dedo sobre a imagem central até revelar o sorvete inteiro.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(2, "DERRETA A JANELA E DESCUBRA O SORVETE.", "A surpresa está no meio da tela. Cubra toda a figura com seus movimentos.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(3, "LIMPE O VIDRO GELADO PARA VER O SORVETE.", "Esfregue cada parte da imagem rosa e da casquinha até tudo aparecer.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(4, "ABRA UM CAMINHO NO GELO ATÉ O SORVETE.", "O sorvete está centralizado. Continue até nenhuma parte da figura ficar escondida.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(5, "FAÇA O GELO SUMIR E REVELE O SORVETE DE MORANGO.", "Movimente o dedo em círculos pequenos sobre toda a imagem central.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(6, "DESCONGELE A TELA E ENCONTRE O SORVETE.", "Não basta abrir um risco: esfregue a figura inteira para completar a descoberta.", "sorvete-morango", "Sorvete de morango"),
+  iceMelt(7, "REVELE POR COMPLETO A GRANDE SURPRESA GELADA.", "O sorvete só aparece quando toda a imagem central estiver sem gelo.", "sorvete-morango", "Sorvete de morango"),
 ];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */

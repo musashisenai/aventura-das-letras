@@ -37,6 +37,24 @@
       "width": 768,
       "height": 768,
       "transparent": true
+    },
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "sorvete-morango",
+      "path": "client/src/components/GameUI.tsx",
+      "role": "Ilustração determinística em Canvas revelada na Fase 6, centralizada na janela congelada.",
+      "activity": "descongelando-tela",
+      "revealRegion": {
+        "x": 315,
+        "y": 38,
+        "width": 270,
+        "height": 252,
+        "coordinateSpace": "900x330"
+      },
+      "status": "implemented",
+      "format": "Canvas 2D",
+      "generatedAsset": false
     }
   ]
 }

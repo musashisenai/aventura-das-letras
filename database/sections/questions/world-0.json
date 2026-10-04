@@ -428,94 +428,148 @@
     ],
     "fase-6": [
       {
-        "id": "fase-6-g-ondulado-0",
-        "kind": "choice",
-        "prompt": "Qual traço faz ondas?",
-        "options": [
-          "—",
-          "〰",
-          "|"
-        ],
-        "answer": "〰",
-        "hint": "Olhe para o traço que sobe e desce."
+        "id": "fase-6-g-descongelando-tela-1",
+        "kind": "ice-melt",
+        "prompt": "ESFREGUE O GELO E REVELE O SORVETE DE MORANGO.",
+        "answer": "IMAGEM REVELADA 1",
+        "hint": "O sorvete está no centro da janela. Esfregue toda a imagem, sem deixar partes cobertas.",
+        "activity": "descongelando-tela",
+        "activityIndex": 0,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-nome-1",
-        "kind": "draw",
-        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
-        "answer": "__drawing__",
-        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
-        "visual": "✎"
+        "id": "fase-6-g-descongelando-tela-2",
+        "kind": "ice-melt",
+        "prompt": "ENCONTRE O SORVETE DE MORANGO ATRÁS DO GELO.",
+        "answer": "IMAGEM REVELADA 2",
+        "hint": "Passe o dedo sobre a imagem central até revelar o sorvete inteiro.",
+        "activity": "descongelando-tela",
+        "activityIndex": 1,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-dupla-forma-2",
-        "kind": "choice",
-        "prompt": "Qual forma combina com este triângulo?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "△",
-        "hint": "Procure a figura com as mesmas três pontas.",
-        "visual": "△"
+        "id": "fase-6-g-descongelando-tela-3",
+        "kind": "ice-melt",
+        "prompt": "DERRETA A JANELA E DESCUBRA O SORVETE.",
+        "answer": "IMAGEM REVELADA 3",
+        "hint": "A surpresa está no meio da tela. Cubra toda a figura com seus movimentos.",
+        "activity": "descongelando-tela",
+        "activityIndex": 2,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-menor-grupo-3",
-        "kind": "choice",
-        "prompt": "Qual grupo tem menos estrelas?",
-        "options": [
-          "★★★",
-          "★",
-          "★★★★★"
-        ],
-        "answer": "★",
-        "hint": "Menos quer dizer a menor quantidade."
+        "id": "fase-6-g-descongelando-tela-4",
+        "kind": "ice-melt",
+        "prompt": "LIMPE O VIDRO GELADO PARA VER O SORVETE.",
+        "answer": "IMAGEM REVELADA 4",
+        "hint": "Esfregue cada parte da imagem rosa e da casquinha até tudo aparecer.",
+        "activity": "descongelando-tela",
+        "activityIndex": 3,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-numero-2-4",
-        "kind": "choice",
-        "prompt": "Qual símbolo mostra duas coisas?",
-        "options": [
-          "1",
-          "2",
-          "A"
-        ],
-        "answer": "2",
-        "hint": "Os números nos ajudam a contar."
+        "id": "fase-6-g-descongelando-tela-5",
+        "kind": "ice-melt",
+        "prompt": "ABRA UM CAMINHO NO GELO ATÉ O SORVETE.",
+        "answer": "IMAGEM REVELADA 5",
+        "hint": "O sorvete está centralizado. Continue até nenhuma parte da figura ficar escondida.",
+        "activity": "descongelando-tela",
+        "activityIndex": 4,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-desenhe-sol-5",
-        "kind": "draw",
-        "prompt": "Desenhe um sol para iluminar a trilha.",
-        "answer": "__drawing__",
-        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
-        "visual": "☀️"
+        "id": "fase-6-g-descongelando-tela-6",
+        "kind": "ice-melt",
+        "prompt": "FAÇA O GELO SUMIR E REVELE O SORVETE DE MORANGO.",
+        "answer": "IMAGEM REVELADA 6",
+        "hint": "Movimente o dedo em círculos pequenos sobre toda a imagem central.",
+        "activity": "descongelando-tela",
+        "activityIndex": 5,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-conte-3-6",
-        "kind": "choice",
-        "prompt": "Quantas bolinhas azuis você vê?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Aponte uma bolinha de cada vez.",
-        "visual": "🔵 🔵 🔵"
+        "id": "fase-6-g-descongelando-tela-7",
+        "kind": "ice-melt",
+        "prompt": "DESCONGELE A TELA E ENCONTRE O SORVETE.",
+        "answer": "IMAGEM REVELADA 7",
+        "hint": "Não basta abrir um risco: esfregue a figura inteira para completar a descoberta.",
+        "activity": "descongelando-tela",
+        "activityIndex": 6,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "fase-6-g-circulo-7",
-        "kind": "choice",
-        "prompt": "Qual forma é redonda como uma bola?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "○",
-        "hint": "Pense em uma bola bem redondinha."
+        "id": "fase-6-g-descongelando-tela-8",
+        "kind": "ice-melt",
+        "prompt": "REVELE POR COMPLETO A GRANDE SURPRESA GELADA.",
+        "answer": "IMAGEM REVELADA 8",
+        "hint": "O sorvete só aparece quando toda a imagem central estiver sem gelo.",
+        "activity": "descongelando-tela",
+        "activityIndex": 7,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       }
     ],
     "fase-7": [
