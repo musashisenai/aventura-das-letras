@@ -832,7 +832,7 @@ export default function GameUI({ state, controller }: Props) {
     const timers = new Map<HTMLButtonElement, number>();
     const handleClick = (event: MouseEvent) => {
       const button = (event.target as HTMLElement).closest("button");
-      if (!button || button.disabled || button.dataset.noLoading === "true" || button.classList.contains("password-eye")) return;
+      if (!button || button.disabled) return;
       if (button.dataset.loading === "true") {
         event.preventDefault();
         event.stopPropagation();

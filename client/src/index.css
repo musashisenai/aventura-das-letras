@@ -223,7 +223,7 @@ button:not(:disabled):active { transform: scale(.97); }
 
 /* Loading global: evita cliques duplicados durante transições e ações do professor. */
 .game-ui button[data-loading="true"] { position: relative; cursor: wait; pointer-events: none; opacity: .68; }
-.game-ui button[data-loading="true"]::after { content: ""; position: absolute; top: 50%; right: 10px; width: 14px; height: 14px; margin-top: -7px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: game-button-spin .65s linear infinite; }
+.game-ui button[data-loading="true"]::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: game-button-spin .65s linear infinite; }
 .game-ui button[data-loading="true"] > svg, .game-ui button[data-loading="true"] > span { opacity: .5; }
 @keyframes game-button-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .game-ui button[data-loading="true"]::after { animation: none; opacity: .7; } }
@@ -254,7 +254,7 @@ button:not(:disabled):active { transform: scale(.97); }
 
 /* Login do laboratório: acesso rápido, contrastado e separado da experiência infantil. */
 .developer-login-page { min-height: 100svh; display: grid; place-items: center; padding: clamp(18px, 4vw, 54px); background: radial-gradient(circle at 16% 12%, rgba(111, 201, 160, .2), transparent 34%), linear-gradient(135deg, #edf8f1, #f8fbff 58%, #fff7e7); }
-.developer-login-card { position: relative; display: grid; grid-template-columns: minmax(280px, .92fr) minmax(360px, 1.08fr); width: min(940px, 100%); min-height: 530px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .9); border-radius: 30px; background: rgba(255, 255, 255, .92); box-shadow: 0 28px 70px rgba(38, 93, 73, .18), 0 5px 0 rgba(25, 118, 92, .1); }
+.developer-login-card { position: relative; display: grid; grid-template-columns: minmax(330px, .92fr) minmax(430px, 1.08fr); width: min(1120px, 100%); min-height: 650px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .9); border-radius: 30px; background: rgba(255, 255, 255, .92); box-shadow: 0 28px 70px rgba(38, 93, 73, .18), 0 5px 0 rgba(25, 118, 92, .1); }
 .developer-login-hero { position: relative; overflow: hidden; padding: clamp(28px, 5vw, 58px); color: #effff6; background: linear-gradient(145deg, #123f39, #19765c 62%, #2d9773); }
 .developer-login-hero::after { content: ""; position: absolute; right: -80px; bottom: -100px; width: 300px; height: 300px; border: 1px solid rgba(255, 255, 255, .17); border-radius: 50%; box-shadow: 0 0 0 35px rgba(255,255,255,.045), 0 0 0 70px rgba(255,255,255,.035); }
 .developer-login-badge { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #d8f8e5; background: rgba(255,255,255,.1); font-size: .64rem; font-weight: 1000; letter-spacing: .1em; }
@@ -268,7 +268,7 @@ button:not(:disabled):active { transform: scale(.97); }
 .developer-orbit { position: absolute; border: 1px solid rgba(255,255,255,.17); border-radius: 50%; pointer-events: none; }
 .developer-orbit-one { right: -70px; top: 68px; width: 270px; height: 270px; }
 .developer-orbit-two { right: 60px; top: 200px; width: 120px; height: 120px; border-color: rgba(255, 200, 87, .35); }
-.developer-login-form { display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 6vw, 68px); }
+.developer-login-form { display: flex; flex-direction: column; justify-content: center; min-height: 650px; padding: clamp(38px, 6vw, 78px); }
 .developer-form-brand { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 42px; color: #19765c; font-family: "Baloo 2"; }
 .developer-form-brand .brand-emblem { width: 38px; height: 38px; border-width: 2px; border-radius: 10px 13px 10px 12px; box-shadow: 0 3px 0 #e4a82e; }
 .developer-form-brand .brand-emblem b { font-size: 1.8rem; }
@@ -283,5 +283,5 @@ button:not(:disabled):active { transform: scale(.97); }
 .developer-login-error { display: block; margin-top: 10px; }
 .developer-security-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 23px; padding: 11px 12px; border-radius: 10px; color: #648278; background: #f0f8f2; font-size: .7rem; font-weight: 800; line-height: 1.4; }.developer-security-note svg { flex: 0 0 auto; margin-top: 1px; color: #39705b; }
 .developer-back-link { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; margin-top: 20px; padding: 4px 0; color: #648278; background: transparent; font-size: .78rem; font-weight: 900; }.developer-back-link:hover { color: #19765c; }
-@media (max-width: 720px) { .developer-login-card { grid-template-columns: 1fr; }.developer-login-hero { min-height: 300px; padding: 28px; }.developer-terminal-mark { margin: 30px 0 18px; }.developer-login-checklist { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 21px; }.developer-login-form { padding: 32px 28px 36px; }.developer-form-brand { margin-bottom: 30px; } }
+@media (max-width: 720px) { .developer-login-card { grid-template-columns: 1fr; min-height: 0; }.developer-login-hero { min-height: 300px; padding: 28px; }.developer-terminal-mark { margin: 30px 0 18px; }.developer-login-checklist { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 21px; }.developer-login-form { min-height: 0; padding: 32px 28px 36px; }.developer-form-brand { margin-bottom: 30px; } }
 @media (max-width: 440px) { .developer-login-page { padding: 10px; }.developer-login-card { border-radius: 22px; }.developer-login-hero h1 { font-size: 2.7rem; }.developer-login-form { padding: 26px 21px 30px; } }
