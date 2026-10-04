@@ -17,3 +17,12 @@ Esta pasta reúne exclusivamente os arquivos de áudio versionados do jogo. Ela 
 ## Áudio atual
 
 - `mosquito-buzz.mp3`: zumbido em loop baseado diretamente na referência fornecida para a atividade Espanta-Mosquitos. O jogo reduz o volume proporcionalmente aos mosquitos restantes e silencia ao concluir.
+
+## Voz humana — Fase 1 Sílaba + Letra
+
+A matriz **Ponte do Som** usa arquivos WAV gerados com voz humana sintética de alta qualidade em português brasileiro, voz **Leda**, para:
+
+- as oito sílabas-alvo: `SA`, `LA`, `GA`, `PA`, `CA`, `LE`, `BO` e `BA`;
+- as oito instruções narradas das variações da fase.
+
+O navegador tenta reproduzir esses arquivos locais primeiro e mantém o TTS nativo como fallback de acessibilidade quando a reprodução do arquivo não estiver disponível.

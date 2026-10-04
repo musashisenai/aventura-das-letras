@@ -90,6 +90,23 @@ function speak(text: string) {
   window.speechSynthesis.speak(utterance);
 }
 
+function ponteSomVariation(question: GameQuestion | undefined) {
+  if (question?.kind !== "syllable-letter") return undefined;
+  const match = question.id.match(/ponte-som-(\d+)$/);
+  return match ? Number(match[1]) : undefined;
+}
+
+function ponteSomNarrationPath(question: GameQuestion | undefined) {
+  const variation = ponteSomVariation(question);
+  return variation ? `/assets/narration-ponte-som-${variation}.wav` : undefined;
+}
+
+function ponteSomSyllablePath(question: GameQuestion | undefined) {
+  if (question?.kind !== "syllable-letter" || !question.soundSyllable) return undefined;
+  const syllable = question.soundSyllable.toLowerCase();
+  return ["sa", "la", "ga", "pa", "ca", "le", "bo", "ba"].includes(syllable) ? `/assets/syllable-${syllable}.wav` : undefined;
+}
+
 function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false) {
   const narration = wordOnly
     ? question?.targetWord ?? question?.audioText
@@ -99,15 +116,31 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       return;
     }
-    const timer = window.setTimeout(() => speak(narration), 260);
+    const localPath = wordOnly ? undefined : ponteSomNarrationPath(question);
+    let audio: HTMLAudioElement | undefined;
+    const timer = window.setTimeout(() => {
+      if (localPath) {
+        audio = new Audio(localPath);
+        audio.volume = 1;
+        void audio.play().catch(() => speak(narration));
+      } else speak(narration);
+    }, 260);
     return () => {
       window.clearTimeout(timer);
+      audio?.pause();
+      if (audio) audio.currentTime = 0;
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     };
-  }, [enabled, narration, question?.id]);
+  }, [enabled, narration, question?.id, wordOnly]);
 
   return () => {
-    if (enabled && narration) speak(narration);
+    if (!enabled || !narration) return;
+    const localPath = wordOnly ? undefined : ponteSomNarrationPath(question);
+    if (localPath) {
+      const audio = new Audio(localPath);
+      audio.volume = 1;
+      void audio.play().catch(() => speak(narration));
+    } else speak(narration);
   };
 }
 
@@ -498,11 +531,37 @@ function SyllableLetterInteraction({ question, disabled, onAnswer }: { question:
   const options = question.soundOptions ?? question.options ?? [];
   const [selected, setSelected] = useState<string | null>(null);
   const [speaking, setSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   useEffect(() => setSelected(null), [question.id]);
-  useEffect(() => { setSpeaking(false); return () => { window.speechSynthesis?.cancel(); }; }, [question.id]);
+  useEffect(() => { setSpeaking(false); return () => { audioRef.current?.pause(); audioRef.current = null; window.speechSynthesis?.cancel(); }; }, [question.id]);
   const listenToSyllable = () => {
-    if (disabled || !window.speechSynthesis || !question.soundSyllable) return;
-    window.speechSynthesis.cancel();
+    if (disabled || !question.soundSyllable) return;
+    const localPath = ponteSomSyllablePath(question);
+    audioRef.current?.pause();
+    window.speechSynthesis?.cancel();
+    if (localPath) {
+      const audio = new Audio(localPath);
+      audioRef.current = audio;
+      audio.onplay = () => setSpeaking(true);
+      audio.onended = () => setSpeaking(false);
+      audio.onerror = () => setSpeaking(false);
+      void audio.play().catch(() => {
+        audioRef.current = null;
+        if (window.speechSynthesis) {
+          const utterance = new SpeechSynthesisUtterance(question.soundSyllable);
+          utterance.lang = "pt-BR";
+          utterance.voice = preferredBrazilianVoice() ?? null;
+          utterance.rate = 0.72;
+          utterance.pitch = 1.08;
+          utterance.onstart = () => setSpeaking(true);
+          utterance.onend = () => setSpeaking(false);
+          utterance.onerror = () => setSpeaking(false);
+          window.speechSynthesis.speak(utterance);
+        }
+      });
+      return;
+    }
+    if (!window.speechSynthesis) return;
     const utterance = new SpeechSynthesisUtterance(question.soundSyllable);
     utterance.lang = "pt-BR";
     utterance.voice = preferredBrazilianVoice() ?? null;
