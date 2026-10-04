@@ -594,9 +594,9 @@ function SyllableHammerInteraction({ question, disabled, onComplete }: { questio
   };
   return <div className={`syllable-hammer-activity hammer-style-${question.hammerStyle ?? "steady"} hammer-tempo-${question.hammerTempo ?? "normal"} ${complete ? "completed" : ""}`}>
     <div className="syllable-hammer-toolbar"><div><span className="syllable-hammer-kicker"><Hammer size={15} /> OFICINA DOS PEDAÇOS</span><strong>O Martelo dos Pedaços</strong></div><div className="syllable-hammer-counter"><b>{hits}</b><span>de {parts.length} batidas</span></div></div>
+    <div className="syllable-hammer-word" aria-label={`Palavra dividida em ${parts.length} partes`}>{parts.map((part, index) => <span key={`${part}-${index}`} className={index < hits ? "hit" : index === hits ? "current" : ""}>{part}</span>)}</div>
     <div className="syllable-hammer-scene">
       <div className="syllable-hammer-sky" aria-hidden="true"><i /><i /><i /></div>
-      <div className="syllable-hammer-word" aria-label={`Palavra dividida em ${parts.length} partes`}>{parts.map((part, index) => <span key={`${part}-${index}`} className={index < hits ? "hit" : index === hits ? "current" : ""}>{part}</span>)}</div>
       <button type="button" className="syllable-hammer-button" onClick={strike} disabled={disabled || complete} aria-label={complete ? "Palavra completa" : "Bater o martelo uma vez"}><Hammer size={52} /><strong>{complete ? "COMPLETO" : "BATER"}</strong></button>
       <div className="syllable-hammer-blocks" aria-hidden="true">{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? "✓" : index + 1}</i>)}</div>
     </div>
