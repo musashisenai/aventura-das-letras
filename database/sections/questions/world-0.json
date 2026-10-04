@@ -782,9 +782,9 @@
       {
         "id": "desafio-final-garat-08-abelha",
         "kind": "bee-flight",
-        "prompt": "Guie a abelhinha da Lumi até a flor final.",
+        "prompt": "Guie a abelhinha da Lumi até a colmeia final.",
         "answer": "VOO COMPLETO 8",
-        "hint": "Siga os nove pontos da rota sem sair do caminho. Quando chegar à flor, o Festival termina.",
+        "hint": "Siga os nove pontos da rota sem sair do caminho. Quando chegar à colmeia, o Festival termina.",
         "activity": "voo-abelha",
         "activityIndex": 7,
         "beeTarget": 9

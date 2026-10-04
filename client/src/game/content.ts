@@ -230,7 +230,7 @@ const GARATUJA_FINAL_CHALLENGE: GameQuestion[] = [
   { ...magnetPaint(7, "FORME O EMBLEMA DA LUMI COM O ÍMÃ.", "Acenda todos os pontos e deixe a forma magnética completa.", 8), id: "desafio-final-garat-05-ima" },
   { ...iceMelt(7, "DESCONGELE A SURPRESA DO FESTIVAL.", "Esfregue toda a imagem central até revelar por completo o sorvete.", "sorvete-morango", "Sorvete de morango"), id: "desafio-final-garat-06-gelo" },
   { ...paintRoller(7, "PINTE O GRANDE MURAL DE ENCERRAMENTO.", "Cubra as oito faixas na ordem, alternando o sentido e seguindo o zigue-zague.", { rollerRows: 8, rollerColumns: 20, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#D8689A" }), id: "desafio-final-garat-07-mural" },
-  { ...beeFlight(7, "GUIE A ABELHINHA DA LUMI ATÉ A FLOR FINAL.", "Siga os nove pontos da rota sem sair do caminho. Quando chegar à flor, o Festival termina.", 9), id: "desafio-final-garat-08-abelha" },
+  { ...beeFlight(7, "GUIE A ABELHINHA DA LUMI ATÉ A COLMEIA FINAL.", "Siga os nove pontos da rota sem sair do caminho. Quando chegar à colmeia, o Festival termina.", 9), id: "desafio-final-garat-08-abelha" },
 ];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
