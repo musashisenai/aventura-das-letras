@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEven
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
+import iceCreamAsset from "@/assets/sorvete-morango.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
@@ -611,25 +612,14 @@ function IceMeltInteraction({ question, disabled, onComplete }: { question: Game
     const ice = iceCanvas?.getContext("2d");
     if (!artCanvas || !iceCanvas || !art || !ice) return;
     art.clearRect(0, 0, artCanvas.width, artCanvas.height);
-    art.save();
-    art.fillStyle = "rgba(105, 65, 45, .22)";
-    art.beginPath(); art.ellipse(450, 286, 105, 15, 0, 0, Math.PI * 2); art.fill();
-    art.fillStyle = "#d79a58";
-    art.beginPath(); art.moveTo(405, 173); art.lineTo(495, 173); art.lineTo(475, 278); art.lineTo(425, 278); art.closePath(); art.fill();
-    art.strokeStyle = "#a96c3d"; art.lineWidth = 5; art.stroke();
-    art.strokeStyle = "rgba(255, 226, 151, .72)"; art.lineWidth = 3;
-    for (let line = 0; line < 4; line += 1) { art.beginPath(); art.moveTo(421 + line * 18, 194); art.lineTo(432 + line * 10, 259); art.stroke(); }
-    art.fillStyle = "#f48a9d";
-    art.beginPath(); art.arc(450, 154, 71, 0, Math.PI * 2); art.fill();
-    art.fillStyle = "#ffb4bd";
-    art.beginPath(); art.arc(424, 136, 28, 0, Math.PI * 2); art.fill();
-    art.fillStyle = "#e75872";
-    art.beginPath(); art.arc(479, 118, 13, 0, Math.PI * 2); art.fill();
-    art.fillStyle = "#5eaf67";
-    art.beginPath(); art.moveTo(470, 108); art.lineTo(493, 88); art.lineTo(498, 118); art.closePath(); art.fill();
-    art.fillStyle = "#fff1d1";
-    [[417, 162, -0.3], [445, 184, 0.2], [476, 153, -0.5], [455, 127, 0.4], [487, 181, 0.1]].forEach(([x, y, angle]) => { art.save(); art.translate(x, y); art.rotate(angle); art.fillRect(-4, -2, 8, 4); art.restore(); });
-    art.restore();
+    const drawIceCream = () => {
+      const size = Math.min(revealBox.width, revealBox.height);
+      art.drawImage(iceCreamImage, revealBox.x + (revealBox.width - size) / 2, revealBox.y + (revealBox.height - size) / 2, size, size);
+    };
+    const iceCreamImage = new Image();
+    iceCreamImage.onload = drawIceCream;
+    iceCreamImage.src = iceCreamAsset;
+    if (iceCreamImage.complete) drawIceCream();
 
     ice.clearRect(0, 0, iceCanvas.width, iceCanvas.height);
     ice.globalCompositeOperation = "source-over";
@@ -651,7 +641,7 @@ function IceMeltInteraction({ question, disabled, onComplete }: { question: Game
     ice.beginPath(); ice.arc(735, 207, 110, 3.4, 5.8); ice.stroke();
     revealedCells.current = Array.from({ length: cellCount }, () => false);
     setRevealed(0); setRubbing(false); setCompleted(false); lastPoint.current = null;
-  }, [question.id, cellCount]);
+  }, [question.id, cellCount, revealBox.height, revealBox.width, revealBox.x, revealBox.y]);
 
   useEffect(() => {
     if (!completed) return;
