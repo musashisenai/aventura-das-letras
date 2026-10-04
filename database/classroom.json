@@ -632,7 +632,7 @@
         "placementCompleted": true,
         "currentWorld": 6,
         "recommendedWorld": 6,
-        "activeScreen": "lesson",
+        "activeScreen": "map",
         "activeWorld": 4,
         "activePhase": 0,
         "questionIndex": 0
@@ -743,10 +743,22 @@
             "kind": "syllable-hammer",
             "correctAnswer": "BATIDAS COMPLETAS 5",
             "at": "04/10/2026, 09:54:12"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-6",
+            "question": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
+            "answer": "ESCUDO PROTEGE 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 6",
+            "at": "04/10/2026, 10:21:26"
           }
         ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "map",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-angelo-ciccillo",
@@ -911,18 +923,48 @@
           "activePhase": 0,
           "queue": [
             {
-              "id": "fase-1-w4-pinguim-faminto-1-4",
+              "id": "fase-1-w4-degraus-eco-1-7",
               "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de FADA?",
+              "prompt": "Qual letra ajuda a completar o som de BOLO?",
+              "options": [
+                "X",
+                "U",
+                "O"
+              ],
+              "answer": "O",
+              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
+              "visual": "⭐",
+              "activity": "degraus-eco",
+              "activityIndex": 0
+            },
+            {
+              "id": "fase-1-w4-pescaria-consoantes-1-6",
+              "kind": "choice",
+              "prompt": "Qual letra aparece no trecho sonoro destacado de LATA?",
               "options": [
                 "A",
-                "X",
-                "U"
+                "B",
+                "T"
               ],
               "answer": "A",
+              "hint": "Ouça o som e escolha a letra que o representa.",
+              "visual": "🍎",
+              "activity": "pescaria-consoantes",
+              "activityIndex": 0
+            },
+            {
+              "id": "fase-1-w4-teclado-vogais-1-1",
+              "kind": "choice",
+              "prompt": "Qual letra ajuda a completar o som de GATO?",
+              "options": [
+                "U",
+                "X",
+                "O"
+              ],
+              "answer": "O",
               "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🏠",
-              "activity": "pinguim-faminto",
+              "visual": "🐟",
+              "activity": "teclado-vogais",
               "activityIndex": 0
             },
             {
@@ -930,9 +972,9 @@
               "kind": "choice",
               "prompt": "Qual letra aparece no trecho sonoro destacado de CASA?",
               "options": [
+                "B",
                 "A",
-                "T",
-                "B"
+                "T"
               ],
               "answer": "A",
               "hint": "Ouça o som e escolha a letra que o representa.",
@@ -941,12 +983,42 @@
               "activityIndex": 0
             },
             {
+              "id": "fase-1-w4-pinguim-faminto-1-4",
+              "kind": "choice",
+              "prompt": "Qual letra ajuda a completar o som de FADA?",
+              "options": [
+                "A",
+                "U",
+                "X"
+              ],
+              "answer": "A",
+              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
+              "visual": "🏠",
+              "activity": "pinguim-faminto",
+              "activityIndex": 0
+            },
+            {
+              "id": "fase-1-w4-trem-fonemas-1-3",
+              "kind": "choice",
+              "prompt": "Qual letra ajuda a completar o som de SAPO?",
+              "options": [
+                "U",
+                "X",
+                "O"
+              ],
+              "answer": "O",
+              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
+              "visual": "🚗",
+              "activity": "trem-fonemas",
+              "activityIndex": 0
+            },
+            {
               "id": "fase-1-w4-colheita-vogais-1-0",
               "kind": "choice",
               "prompt": "Qual letra ajuda a completar o som de BOLA?",
               "options": [
-                "U",
                 "O",
+                "U",
                 "X"
               ],
               "answer": "O",
@@ -960,74 +1032,14 @@
               "kind": "choice",
               "prompt": "Qual letra ajuda a completar o som de VACA?",
               "options": [
-                "A",
                 "X",
-                "U"
+                "U",
+                "A"
               ],
               "answer": "A",
               "hint": "Fale cada sílaba e perceba a vogal mais forte.",
               "visual": "🐝",
               "activity": "codigo-elevador",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-degraus-eco-1-7",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de BOLO?",
-              "options": [
-                "O",
-                "X",
-                "U"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "⭐",
-              "activity": "degraus-eco",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-teclado-vogais-1-1",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de GATO?",
-              "options": [
-                "X",
-                "O",
-                "U"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🐟",
-              "activity": "teclado-vogais",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-pescaria-consoantes-1-6",
-              "kind": "choice",
-              "prompt": "Qual letra aparece no trecho sonoro destacado de LATA?",
-              "options": [
-                "B",
-                "T",
-                "A"
-              ],
-              "answer": "A",
-              "hint": "Ouça o som e escolha a letra que o representa.",
-              "visual": "🍎",
-              "activity": "pescaria-consoantes",
-              "activityIndex": 0
-            },
-            {
-              "id": "fase-1-w4-trem-fonemas-1-3",
-              "kind": "choice",
-              "prompt": "Qual letra ajuda a completar o som de SAPO?",
-              "options": [
-                "O",
-                "X",
-                "U"
-              ],
-              "answer": "O",
-              "hint": "Fale cada sílaba e perceba a vogal mais forte.",
-              "visual": "🚗",
-              "activity": "trem-fonemas",
               "activityIndex": 0
             }
           ],
@@ -1121,6 +1133,18 @@
               "kind": "syllable-hammer",
               "correctAnswer": "BATIDAS COMPLETAS 5",
               "at": "04/10/2026, 09:54:12"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-6",
+              "question": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
+              "answer": "ESCUDO PROTEGE 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 6",
+              "at": "04/10/2026, 10:21:26"
             }
           ],
           "reward": null,
@@ -1131,9 +1155,9 @@
       },
       "activeSession": {
         "token": "1791118422272-kobykfi1i1",
-        "lastSeen": 1791119271777
+        "lastSeen": 1791120198462
       },
-      "updatedAt": "2026-10-04T12:54:35.417Z"
+      "updatedAt": "2026-10-04T13:21:39.637Z"
     },
     "student-anna-alice-pereira": {
       "id": "student-anna-alice-pereira",
