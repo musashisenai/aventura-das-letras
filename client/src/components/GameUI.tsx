@@ -109,6 +109,7 @@ function ponteSomSyllablePath(question: GameQuestion | undefined) {
 
 function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint") {
   if (worldId === 3 && phase === 0 && questionIndex !== undefined && questionIndex >= 0 && questionIndex < 8) return `/assets/voicepacks/w3-phase1/${kind}-${questionIndex + 1}.wav`;
+  if (worldId === 4 && phase === 0 && questionIndex !== undefined && questionIndex >= 0 && questionIndex < 8) return `/assets/voicepacks/w4-phase1/${kind}-${questionIndex + 1}.wav`;
   return undefined;
 }
 

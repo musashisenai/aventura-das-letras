@@ -29,6 +29,34 @@
         "voicepacks/w3-phase1/hint-7.wav",
         "voicepacks/w3-phase1/hint-8.wav"
       ]
+    },
+    "world-4-phase-0": {
+      "worldId": 4,
+      "phase": 0,
+      "activity": "colheita-vogais",
+      "promptPack": "voicepacks/w4-phase1-prompts.wav",
+      "hintPack": "voicepacks/w4-phase1-hints.wav",
+      "segments": 8,
+      "promptSegments": [
+        "voicepacks/w4-phase1/prompt-1.wav",
+        "voicepacks/w4-phase1/prompt-2.wav",
+        "voicepacks/w4-phase1/prompt-3.wav",
+        "voicepacks/w4-phase1/prompt-4.wav",
+        "voicepacks/w4-phase1/prompt-5.wav",
+        "voicepacks/w4-phase1/prompt-6.wav",
+        "voicepacks/w4-phase1/prompt-7.wav",
+        "voicepacks/w4-phase1/prompt-8.wav"
+      ],
+      "hintSegments": [
+        "voicepacks/w4-phase1/hint-1.wav",
+        "voicepacks/w4-phase1/hint-2.wav",
+        "voicepacks/w4-phase1/hint-3.wav",
+        "voicepacks/w4-phase1/hint-4.wav",
+        "voicepacks/w4-phase1/hint-5.wav",
+        "voicepacks/w4-phase1/hint-6.wav",
+        "voicepacks/w4-phase1/hint-7.wav",
+        "voicepacks/w4-phase1/hint-8.wav"
+      ]
     }
   }
 }
