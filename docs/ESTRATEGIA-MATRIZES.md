@@ -124,6 +124,23 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 7. Domínio: oito faixas estreitas com guia de zigue-zague e tolerância visual menor.
 8. Desafio final: mural com oito faixas, vinte células por faixa, ordem, alternância e zigue-zague.
 
+### Desafio final — Festival Final da Lumi
+
+Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um desenho livre da medalha da aventura.
+
+**Sequência oficial:**
+
+1. Acender a trilha final de sementes.
+2. Iluminar quatro sinais secretos.
+3. Completar oito marcas na rota da praia.
+4. Proteger a fruta afastando oito mosquitos.
+5. Formar o emblema magnético com oito pontos.
+6. Revelar integralmente o sorvete escondido no gelo.
+7. Cobrir o mural final com oito faixas em zigue-zague.
+8. Desenhar a medalha da própria aventura.
+
+O desafio reutiliza os componentes aprovados, mantém oito descobertas e altera apenas a composição narrativa e o nível final de exigência. A conclusão segue o mesmo fluxo de pontuação e recompensa do controlador, com o ovo lendário reservado para esta etapa.
+
 ## O que será transformado antes de novas fases
 
 - Os componentes atuais continuarão sendo os renderizadores das matrizes.

@@ -696,98 +696,98 @@
     ],
     "fase-8": [
       {
-        "id": "desafio-g-conte-3-0",
-        "kind": "choice",
-        "prompt": "Quantas bolinhas azuis você vê?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Aponte uma bolinha de cada vez.",
-        "visual": "🔵 🔵 🔵"
+        "id": "desafio-final-garat-01-sementes",
+        "kind": "seed-rain",
+        "prompt": "Acenda a primeira estrela do Festival da Lumi.",
+        "answer": "CHUVA COMPLETA 8",
+        "hint": "Trace toda a trilha de sementes para abrir o portão do jardim.",
+        "activity": "chuva-sementes",
+        "activityIndex": 7,
+        "seedTarget": 10
       },
       {
-        "id": "desafio-g-circulo-1",
-        "kind": "choice",
-        "prompt": "Qual forma é redonda como uma bola?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "○",
-        "hint": "Pense em uma bola bem redondinha."
+        "id": "desafio-final-garat-02-lanterna",
+        "kind": "lantern",
+        "prompt": "Ilumine o mapa e encontre os sinais secretos.",
+        "answer": "LUZ COMPLETA 8",
+        "hint": "Passe a luz com calma pelos quatro pontos escondidos.",
+        "activity": "dedos-lanterna",
+        "activityIndex": 7,
+        "lanternTarget": 4
       },
       {
-        "id": "desafio-g-reto-2",
-        "kind": "choice",
-        "prompt": "Qual traço parece uma estrada retinha?",
-        "options": [
-          "〰",
-          "—",
-          "⌇"
-        ],
-        "answer": "—",
-        "hint": "Uma estrada reta não faz ondas."
+        "id": "desafio-final-garat-03-pegadas",
+        "kind": "sand-tracks",
+        "prompt": "Leve as pegadas até a praia da festa.",
+        "answer": "PEGADAS COMPLETAS 8",
+        "hint": "Siga os oito pontos sem pular a rota até chegar ao coqueiro.",
+        "activity": "pegadas-areia",
+        "activityIndex": 7,
+        "sandTarget": 8,
+        "sceneAsset": "pegadas-coqueiro"
       },
       {
-        "id": "desafio-g-rabisco-letra-3",
-        "kind": "choice",
-        "prompt": "Qual rabisco parece uma letra?",
-        "options": [
-          "A",
-          "☁",
-          "○"
-        ],
-        "answer": "A",
-        "hint": "As letras têm partes que podemos usar para escrever."
+        "id": "desafio-final-garat-04-pomar",
+        "kind": "mosquito-sweep",
+        "prompt": "Proteja a fruta da festa.",
+        "answer": "POMAR LIMPO 8",
+        "hint": "Afaste os oito mosquitos com gestos rápidos, sempre para longe da fruta.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 7,
+        "mosquitoTarget": 8
       },
       {
-        "id": "desafio-g-conte-estrelas-4",
-        "kind": "choice",
-        "prompt": "Quantas estrelas estão no céu?",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "answer": "5",
-        "hint": "Conte as estrelas devagar.",
-        "visual": "★ ★ ★ ★ ★"
+        "id": "desafio-final-garat-05-ima",
+        "kind": "magnet-paint",
+        "prompt": "Forme o emblema da Lumi com o ímã.",
+        "answer": "FORMA MAGNÉTICA 8",
+        "hint": "Acenda todos os pontos e deixe a forma magnética completa.",
+        "activity": "pintura-ima",
+        "activityIndex": 7,
+        "magnetTarget": 8
       },
       {
-        "id": "desafio-g-quadrado-5",
-        "kind": "choice",
-        "prompt": "Qual forma tem quatro lados iguais?",
-        "options": [
-          "○",
-          "□",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Olhe para os quatro ladinhos."
+        "id": "desafio-final-garat-06-gelo",
+        "kind": "ice-melt",
+        "prompt": "Descongele a surpresa do festival.",
+        "answer": "IMAGEM REVELADA 8",
+        "hint": "Esfregue toda a imagem central até revelar por completo o sorvete.",
+        "activity": "descongelando-tela",
+        "activityIndex": 7,
+        "revealAsset": "sorvete-morango",
+        "revealLabel": "Sorvete de morango",
+        "revealRegion": {
+          "x": 315,
+          "y": 38,
+          "width": 270,
+          "height": 252,
+          "coordinateSpace": "900x330"
+        }
       },
       {
-        "id": "desafio-g-desenhe-peixe-6",
+        "id": "desafio-final-garat-07-mural",
+        "kind": "paint-roller",
+        "prompt": "Pinte o grande mural de encerramento.",
+        "answer": "PINTURA COMPLETA 8",
+        "hint": "Cubra as oito faixas na ordem, alternando o sentido e seguindo o zigue-zague.",
+        "activity": "rolo-pintura",
+        "activityIndex": 7,
+        "rollerRows": 8,
+        "rollerColumns": 20,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "zigzag",
+        "rollerColor": "#D8689A"
+      },
+      {
+        "id": "desafio-final-garat-08-desenho",
         "kind": "draw",
-        "prompt": "Desenhe um peixe para o lago da Lumi.",
+        "prompt": "Desenhe a medalha da sua aventura.",
         "answer": "__drawing__",
-        "hint": "Pode ser do jeito que você imaginar.",
-        "visual": "🐟"
-      },
-      {
-        "id": "desafio-g-triangulo-7",
-        "kind": "choice",
-        "prompt": "Qual forma tem três pontas?",
-        "options": [
-          "□",
-          "△",
-          "○"
-        ],
-        "answer": "△",
-        "hint": "Conte as pontinhas: uma, duas, três."
+        "hint": "Faça uma estrela, um coração ou qualquer desenho para comemorar tudo o que você aprendeu.",
+        "visual": "✦",
+        "activity": "festival-final",
+        "activityIndex": 7
       }
     ]
   }

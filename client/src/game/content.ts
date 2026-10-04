@@ -82,6 +82,7 @@ export const ACTIVITY_CATALOG: Record<number, ActivitySeed[]> = {
 
 const catalog = (worldId: number): ActivityDefinition[] => ACTIVITY_CATALOG[worldId].map(([id, title, focus]) => ({ id, title, focus }));
 export function getActivityDefinition(worldId: number, activityId?: string) {
+  if (worldId === 0 && activityId === "festival-final") return { id: "festival-final", title: "Festival Final da Lumi", focus: "celebração das descobertas" };
   return activityId ? catalog(worldId).find((activity) => activity.id === activityId) : undefined;
 }
 const choice = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "choice", prompt, options, answer, hint, visual, activity, activityIndex });
@@ -220,6 +221,16 @@ const GARATUJA_PHASE_SEVEN: GameQuestion[] = [
   paintRoller(6, "DOMINE O ROLO NAS FAIXAS ESTREITAS.", "Mantenha o rolo dentro da faixa e avance de cima para baixo, sem pular nenhuma.", { rollerRows: 8, rollerColumns: 18, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#4B91D1" }),
   paintRoller(7, "COMPLETE O GRANDE MURAL COM O ROLO.", "Cubra as oito faixas estreitas na ordem, alternando o sentido e seguindo o zigue-zague.", { rollerRows: 8, rollerColumns: 20, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#D8689A" }),
 ];
+const GARATUJA_FINAL_CHALLENGE: GameQuestion[] = [
+  { ...seedRain(7, "ACENDA A PRIMEIRA ESTRELA DO FESTIVAL DA LUMI.", "Trace toda a trilha de sementes para abrir o portão do jardim.", 10), id: "desafio-final-garat-01-sementes" },
+  { ...lantern(7, "ILUMINE O MAPA E ENCONTRE OS SINAIS SECRETOS.", "Passe a luz com calma pelos quatro pontos escondidos.", 4), id: "desafio-final-garat-02-lanterna" },
+  { ...sandTracks(7, "LEVE AS PEGADAS ATÉ A PRAIA DA FESTA.", "Siga os oito pontos sem pular a rota até chegar ao coqueiro.", 8), id: "desafio-final-garat-03-pegadas" },
+  { ...mosquitoSweep(7, "PROTEJA A FRUTA DA FESTA.", "Afaste os oito mosquitos com gestos rápidos, sempre para longe da fruta.", 8), id: "desafio-final-garat-04-pomar" },
+  { ...magnetPaint(7, "FORME O EMBLEMA DA LUMI COM O ÍMÃ.", "Acenda todos os pontos e deixe a forma magnética completa.", 8), id: "desafio-final-garat-05-ima" },
+  { ...iceMelt(7, "DESCONGELE A SURPRESA DO FESTIVAL.", "Esfregue toda a imagem central até revelar por completo o sorvete.", "sorvete-morango", "Sorvete de morango"), id: "desafio-final-garat-06-gelo" },
+  { ...paintRoller(7, "PINTE O GRANDE MURAL DE ENCERRAMENTO.", "Cubra as oito faixas na ordem, alternando o sentido e seguindo o zigue-zague.", { rollerRows: 8, rollerColumns: 20, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#D8689A" }), id: "desafio-final-garat-07-mural" },
+  { ...draw("desafio-final-garat-08-desenho", "DESENHE A MEDALHA DA SUA AVENTURA.", "Faça uma estrela, um coração ou qualquer desenho para comemorar tudo o que você aprendeu.", "✦", "festival-final", 7) },
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
@@ -230,6 +241,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 4) return GARATUJA_PHASE_FIVE;
   if (worldId === 0 && phase === 5) return GARATUJA_PHASE_SIX;
   if (worldId === 0 && phase === 6) return GARATUJA_PHASE_SEVEN;
+  if (worldId === 0 && phase === 7) return GARATUJA_FINAL_CHALLENGE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre
