@@ -107,7 +107,12 @@ function ponteSomSyllablePath(question: GameQuestion | undefined) {
   return ["sa", "la", "ga", "pa", "ca", "le", "bo", "ba"].includes(syllable) ? `/assets/syllable-${syllable}.wav` : undefined;
 }
 
-function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false) {
+function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint") {
+  if (worldId === 3 && phase === 0 && questionIndex !== undefined && questionIndex >= 0 && questionIndex < 8) return `/assets/voicepacks/w3-phase1/${kind}-${questionIndex + 1}.wav`;
+  return undefined;
+}
+
+function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false, worldId?: number, phase?: number, questionIndex?: number) {
   const narration = wordOnly
     ? question?.targetWord ?? question?.audioText
     : question?.prompt;
@@ -116,7 +121,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       return;
     }
-    const localPath = wordOnly ? undefined : ponteSomNarrationPath(question);
+    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt") ?? ponteSomNarrationPath(question);
     let audio: HTMLAudioElement | undefined;
     const timer = window.setTimeout(() => {
       if (localPath) {
@@ -131,11 +136,11 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if (audio) audio.currentTime = 0;
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     };
-  }, [enabled, narration, question?.id, wordOnly]);
+  }, [enabled, narration, question?.id, wordOnly, worldId, phase, questionIndex]);
 
   return () => {
     if (!enabled || !narration) return;
-    const localPath = wordOnly ? undefined : ponteSomNarrationPath(question);
+    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt") ?? ponteSomNarrationPath(question);
     if (localPath) {
       const audio = new Audio(localPath);
       audio.volume = 1;
@@ -152,12 +157,19 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
   return wordOnly ? "Ouvir palavra" : "Ouvir pergunta";
 }
 
-function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean) {
+function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number) {
   useEffect(() => {
     if (!enabled || !feedback?.text) return;
-    const timer = window.setTimeout(() => speak(feedback.text), 180);
-    return () => window.clearTimeout(timer);
-  }, [enabled, feedback?.text, feedback?.tone]);
+    const localPath = feedback.tone === "hint" ? voicePackPath(worldId, phase, questionIndex, "hint") : undefined;
+    let audio: HTMLAudioElement | undefined;
+    const timer = window.setTimeout(() => {
+      if (localPath) {
+        audio = new Audio(localPath);
+        void audio.play().catch(() => speak(feedback.text));
+      } else speak(feedback.text);
+    }, 180);
+    return () => { window.clearTimeout(timer); audio?.pause(); };
+  }, [enabled, feedback?.text, feedback?.tone, worldId, phase, questionIndex]);
 }
 
 function usePlacementResultNarration(results: GameState["placementResults"], enabled: boolean) {
@@ -447,9 +459,9 @@ function Lesson({ state, controller }: Props) {
   // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
   const audioAvailable = state.profile?.audioEnabled !== false;
   const essentialAudioAvailable = Boolean(question.targetWord ?? question.audioText);
-  const playNarration = useQuestionNarration(question, audioAvailable);
+  const playNarration = useQuestionNarration(question, audioAvailable, false, state.activeWorld, state.activePhase, state.questionIndex);
   const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
-  useFeedbackNarration(state.feedback, audioAvailable);
+  useFeedbackNarration(state.feedback, audioAvailable, state.activeWorld, state.activePhase, state.questionIndex);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
