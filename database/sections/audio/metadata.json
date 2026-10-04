@@ -1,0 +1,22 @@
+{
+  "description": "Catálogo versionado exclusivamente para os áudios usados nas atividades e na experiência do jogo.",
+  "status": "generated",
+  "assets": [
+    {
+      "worldId": 0,
+      "world": "Mundo da Garatuja",
+      "file": "mosquito-buzz.mp3",
+      "path": "database/sections/audio/mosquito-buzz.mp3",
+      "publicPath": "client/public/assets/mosquito-buzz.mp3",
+      "role": "Zumbido cartunesco em loop da atividade Espanta-Mosquitos",
+      "activity": "espanta-mosquitos",
+      "status": "generated",
+      "format": "MP3",
+      "durationSeconds": 6.03,
+      "sampleRate": 44100,
+      "channels": 2,
+      "loop": true,
+      "volumeBehavior": "Reduz proporcionalmente aos mosquitos restantes e silencia ao concluir"
+    }
+  ]
+}
