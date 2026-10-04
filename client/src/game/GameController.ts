@@ -216,7 +216,11 @@ export class GameController {
       const placementQueue = saved.placementQueue?.length ? saved.placementQueue : (saved.screen === "placement" ? shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) : []);
       const setupAudioEnabled = saved.setupAudioEnabled ?? profile?.audioEnabled ?? true;
       const worldApprovals = Object.fromEntries(Object.entries(saved.worldApprovals ?? {}).map(([worldId, approval]) => [`${shiftWorld(Number(worldId))}`, approval]));
-      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherAuthorized: false, developerAuthorized: false, teacherPassword: saved.teacherPassword || "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, questionBankVersion: QUESTION_BANK_VERSION, queue: questionBankChanged ? [] : (saved.queue ?? []), questionIndex: questionBankChanged ? 0 : (saved.questionIndex ?? 0), attempts: questionBankChanged ? 0 : (saved.attempts ?? 0), feedback: questionBankChanged ? null : (saved.feedback ?? null), setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
+      const hydrated = { ...initialState(), ...saved, screen: "menu" as const, teacherAuthorized: false, developerAuthorized: false, teacherPassword: "7391846205", teacherName: saved.teacherName || "Professor(a)", worldOrderVersion: 2, questionBankVersion: QUESTION_BANK_VERSION, queue: questionBankChanged ? [] : (saved.queue ?? []), questionIndex: questionBankChanged ? 0 : (saved.questionIndex ?? 0), attempts: questionBankChanged ? 0 : (saved.attempts ?? 0), feedback: questionBankChanged ? null : (saved.feedback ?? null), setupAudioEnabled, placementQueue, activeWorld: shiftWorld(saved.activeWorld ?? 0), selectedWorld, profile, completions, worldApprovals, answers };
+      try {
+        const { teacherAuthorized: _teacherAuthorized, developerAuthorized: _developerAuthorized, teacherPassword: _teacherPassword, ...safeSaved } = saved;
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(safeSaved));
+      } catch { /* a limpeza é melhor esforço quando o armazenamento está bloqueado */ }
       const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(hydrated.screen);
       return requiresProfile && !hydrated.profile ? initialState() : hydrated;
     } catch {
@@ -226,7 +230,8 @@ export class GameController {
 
   private emit() {
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+      const { teacherAuthorized: _teacherAuthorized, developerAuthorized: _developerAuthorized, teacherPassword: _teacherPassword, ...persistedState } = this.state;
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(persistedState));
     } catch {
       // O jogo continua funcionando mesmo se o navegador bloquear armazenamento local.
     }
@@ -349,11 +354,9 @@ export class GameController {
     const normalized = name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
     if (!normalized) return "Digite o nome usado no cadastro.";
     try {
-      const response = await fetch("/api/students");
-      if (!response.ok) return "Não foi possível consultar os alunos agora.";
-      const students = await response.json() as Array<{ id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> }>;
-      const saved = students.find((student) => student.profile?.name?.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR") === normalized);
-      if (!saved) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
+      const response = await fetch("/api/students/lookup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name }) });
+      if (!response.ok) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
+      const saved = await response.json() as { id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> };
       const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
       const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) });
       if (!claim.ok) {
@@ -365,7 +368,7 @@ export class GameController {
       const savedGameState = saved.gameState;
       const freshPlacement = () => ({ placementIndex: 0, placementScore: 0, placementAttempts: 0, placementResults: [], placementQueue: shuffle(PLACEMENT_QUESTIONS).map((question) => ({ ...question, options: question.options ? shuffle(question.options) : undefined })) });
       const resumed = profile.placementCompleted && savedGameState ? { ...initialState(), ...savedGameState } : { ...initialState(), ...freshPlacement() };
-      this.state = { ...resumed, screen: profile.placementCompleted ? (savedGameState?.screen && savedGameState.screen !== "placement" ? savedGameState.screen : "map") : "placement", setupAudioEnabled: audioEnabled, profile, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: savedGameState?.activeWorld ?? profile.currentWorld, selectedWorld: savedGameState?.selectedWorld ?? profile.currentWorld, teacherAuthorized: false, teacherPassword: "7391846205" };
+      this.state = { ...resumed, screen: profile.placementCompleted ? (savedGameState?.screen && savedGameState.screen !== "placement" ? savedGameState.screen : "map") : "placement", setupAudioEnabled: audioEnabled, profile, completions: saved.completions ?? {}, worldApprovals: saved.worldApprovals ?? {}, answers: saved.answers ?? [], activeWorld: savedGameState?.activeWorld ?? profile.currentWorld, selectedWorld: savedGameState?.selectedWorld ?? profile.currentWorld, teacherAuthorized: false, developerAuthorized: false, teacherPassword: "7391846205" };
       this.emit();
       return null;
     } catch {

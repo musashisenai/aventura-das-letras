@@ -214,9 +214,9 @@ function Welcome({ state, controller }: Props) {
     if (!safeName) return setNameError("Digite um nome para continuar.");
     setSaving(true); setNameError("");
     try {
-      const students = await fetch("/api/students").then((response) => response.ok ? response.json() : []) as RemoteStudent[];
       const currentId = state.profile?.studentId;
-      if (students.some((student) => student.id !== currentId && normalizeStudentName(student.profile.name) === normalizeStudentName(safeName))) {
+      const lookup = await fetch("/api/students/lookup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: safeName }) });
+      if (lookup.ok && (await lookup.json() as { id?: string }).id !== currentId) {
         const resumeError = await controller.resumeProfile(safeName);
         if (resumeError) setNameError(resumeError);
         return;
@@ -689,7 +689,7 @@ function Teacher({ state, controller }: Props) {
   const [studentPage, setStudentPage] = useState(0);
   useEffect(() => {
     if (!state.teacherAuthorized) return;
-    const refresh = () => fetch("/api/students").then((response) => response.ok ? response.json() : []).then((students: RemoteStudent[]) => { const ordered = [...students].sort((a, b) => normalizeStudentName(a.profile.name).localeCompare(normalizeStudentName(b.profile.name), "pt-BR")); setRemoteStudents(ordered); setSelectedStudentId((current) => current || ordered[0]?.id || ""); }).catch(() => undefined);
+    const refresh = () => fetch("/api/teacher/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }).then((response) => response.ok ? response.json() : []).then((students: RemoteStudent[]) => { const ordered = [...students].sort((a, b) => normalizeStudentName(a.profile.name).localeCompare(normalizeStudentName(b.profile.name), "pt-BR")); setRemoteStudents(ordered); setSelectedStudentId((current) => current || ordered[0]?.id || ""); }).catch(() => undefined);
     refresh();
     const timer = window.setInterval(refresh, 4000);
     return () => window.clearInterval(timer);
@@ -748,7 +748,7 @@ function Teacher({ state, controller }: Props) {
     setRemoteStudents([]); setSelectedStudentId(""); window.alert(result.message ?? "Banco limpo.");
   };
   const openTab = (next: TeacherTab) => setTab(next);
-  const updateSelected = async (student: RemoteStudent) => { await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...student, teacherOverride: true }) }); setRemoteStudents((items) => items.map((item) => item.id === student.id ? student : item)); };
+  const updateSelected = async (student: RemoteStudent) => { const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...student, password: state.teacherPassword, teacherOverride: true }) }); if (response.ok) setRemoteStudents((items) => items.map((item) => item.id === student.id ? student : item)); };
   const registerStudent = async () => { setRegisteringStudent(true); setStudentMessage(""); const error = await controller.registerStudent(newStudentName); if (error) setStudentMessage(error); else { setStudentMessage("Aluno cadastrado. Na primeira entrada, ele fará o teste inicial antes de acessar o jogo."); setNewStudentName(""); } setRegisteringStudent(false); };
   const syncDatabase = async () => { setDatabaseSyncing(true); setDatabaseSyncMessage(""); try { const response = await fetch("/api/teacher/database/sync", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }); const result = await response.json().catch(() => ({})) as { message?: string; error?: string }; setDatabaseSyncMessage(result.message ?? result.error ?? "Não foi possível salvar o banco agora."); } catch { setDatabaseSyncMessage("O banco continua salvo neste computador, mas a sincronização não está disponível agora."); } finally { setDatabaseSyncing(false); } };
   const registrationPanel = <section className="teacher-profile-card paper-panel"><div><p className="eyebrow"><PawPrint size={15} /> Cadastro de aluno</p><h2>Adicionar aluno à turma</h2><p>Cadastre o nome uma vez. Na primeira entrada, o aluno fará o teste inicial; depois poderá continuar a aventura pelo menu usando esse mesmo nome.</p></div><div className="teacher-profile-edit"><input value={newStudentName} onChange={(event) => setNewStudentName(event.target.value)} placeholder="Nome do aluno" maxLength={120} onKeyDown={(event) => { if (event.key === "Enter") void registerStudent(); }} /><button className="primary-action compact" disabled={registeringStudent} onClick={() => void registerStudent()}>Cadastrar <Check size={17} /></button></div>{studentMessage && <small className={studentMessage.startsWith("Aluno cadastrado") ? "password-success" : "login-error"}>{studentMessage}</small>}</section>;
