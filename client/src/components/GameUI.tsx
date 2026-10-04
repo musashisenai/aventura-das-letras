@@ -618,17 +618,21 @@ function PaintRollerInteraction({ question, disabled, onComplete }: { question: 
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#fff8e9"; context.fillRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "rgba(255, 255, 255, .72)"; context.fillRect(24, top, 852, height);
-    context.lineWidth = 2; context.setLineDash([9, 9]); context.strokeStyle = "rgba(122, 91, 61, .24)";
+    const wall = context.createLinearGradient(0, 0, 900, 330); wall.addColorStop(0, "#fff3ca"); wall.addColorStop(.52, "#f8d994"); wall.addColorStop(1, "#e9a86e"); context.fillStyle = wall; context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "rgba(255, 255, 255, .2)"; for (let dot = 0; dot < 70; dot += 1) { const x = 18 + ((dot * 97) % 864); const y = 12 + ((dot * 53) % 306); context.beginPath(); context.arc(x, y, dot % 3 === 0 ? 2 : 1, 0, Math.PI * 2); context.fill(); }
+    context.fillStyle = "rgba(255, 252, 238, .9)"; context.fillRect(24, top - 7, 852, height + 14);
+    context.fillStyle = "rgba(122, 91, 61, .08)"; context.fillRect(32, top + 5, 836, height + 5);
+    for (let row = 0; row < rows; row += 1) { const y = top + row * laneHeight + 7; const active = !ordered || row === activeRow; context.fillStyle = active ? "rgba(255, 247, 224, .94)" : "rgba(239, 224, 193, .62)"; context.fillRect(42, y, 816, laneHeight - 14); context.strokeStyle = active ? "rgba(255, 255, 255, .96)" : "rgba(194, 166, 122, .4)"; context.lineWidth = active ? 2 : 1; context.strokeRect(42, y, 816, laneHeight - 14); }
+    context.lineWidth = 2; context.setLineDash([7, 10]); context.strokeStyle = "rgba(122, 91, 61, .25)";
     for (let row = 0; row <= rows; row += 1) { const y = top + row * laneHeight; context.beginPath(); context.moveTo(24, y); context.lineTo(876, y); context.stroke(); }
-    context.setLineDash([10, 12]); context.strokeStyle = "rgba(122, 91, 61, .35)";
+    context.setLineDash([9, 11]); context.strokeStyle = "rgba(122, 91, 61, .38)";
     for (let row = 0; row < rows; row += 1) {
       const y = top + row * laneHeight + laneHeight / 2;
       const fromLeft = direction === "left" || (direction === "alternate" && row % 2 === 0);
-      context.beginPath();
+      context.setLineDash([9, 11]); context.beginPath();
       if (pattern === "zigzag") { for (let step = 0; step <= 12; step += 1) { const x = fromLeft ? 48 + step * 67 : 852 - step * 67; const offset = step % 2 ? -laneHeight * .16 : laneHeight * .16; step === 0 ? context.moveTo(x, y + offset) : context.lineTo(x, y + offset); } } else { context.moveTo(fromLeft ? 48 : 852, y); context.lineTo(fromLeft ? 852 : 48, y); }
       context.stroke();
+      const badgeX = fromLeft ? 58 : 842; context.setLineDash([]); context.fillStyle = "rgba(122, 91, 61, .65)"; context.font = "800 15px sans-serif"; context.textAlign = fromLeft ? "left" : "right"; context.textBaseline = "middle"; context.fillText(`${row + 1}`, badgeX, y);
     }
     context.setLineDash([]);
     setPaintedCells(Array.from({ length: totalCells }, () => false)); setPainting(false); paintingRef.current = false; setCompleted(false); setRollerPoint(null); lastPoint.current = null;
@@ -647,13 +651,13 @@ function PaintRollerInteraction({ question, disabled, onComplete }: { question: 
     const canvas = canvasRef.current; const context = canvas?.getContext("2d"); if (!canvas || !context) return;
     const previous = lastPoint.current ?? point;
     const row = Math.max(0, Math.min(rows - 1, Math.floor((point.y - top) / laneHeight)));
-    context.save(); context.strokeStyle = color; context.globalAlpha = .82; context.lineWidth = Math.max(34, laneHeight * .62); context.lineCap = "round"; context.beginPath(); context.moveTo(previous.x, previous.y); context.lineTo(point.x, point.y); context.stroke(); context.restore();
+    context.save(); context.strokeStyle = color; context.globalAlpha = .86; context.shadowColor = "rgba(112, 73, 43, .22)"; context.shadowBlur = 5; context.lineWidth = Math.max(34, laneHeight * .62); context.lineCap = "round"; context.beginPath(); context.moveTo(previous.x, previous.y); context.lineTo(point.x, point.y); context.stroke(); context.shadowBlur = 0; context.strokeStyle = "rgba(255, 255, 255, .24)"; context.globalAlpha = .7; context.lineWidth = Math.max(4, laneHeight * .1); context.beginPath(); context.moveTo(previous.x, previous.y - laneHeight * .12); context.lineTo(point.x, point.y - laneHeight * .12); context.stroke(); context.restore();
     setPaintedCells((current) => { const next = [...current]; for (let column = 0; column < columns; column += 1) { const center = { x: 48 + (column + .5) * 804 / columns, y: top + row * laneHeight + laneHeight / 2 }; const index = row * columns + column; if ((!ordered || row === activeRow) && distanceToSegment(center, previous, point) <= laneHeight * .52) next[index] = true; } if (next.every(Boolean)) { setCompleted(true); setPainting(false); paintingRef.current = false; } return next; });
     lastPoint.current = point; setRollerPoint(point);
   };
   const start = (event: PointerEvent<HTMLCanvasElement>) => {
     if (disabled || completed) return;
-    const point = position(event); const row = Math.max(0, Math.min(rows - 1, Math.floor((point.y - top) / laneHeight))); const fromLeft = expectedFromLeft(row); const validRow = !ordered || row === activeRow; const validSide = !ordered || (fromLeft ? point.x < 150 : point.x > 750);
+    const point = position(event); const row = Math.max(0, Math.min(rows - 1, Math.floor((point.y - top) / laneHeight))); const fromLeft = expectedFromLeft(row); const validRow = !ordered || row === activeRow; const currentRowHasPaint = paintedCells.slice(activeRow * columns, (activeRow + 1) * columns).some(Boolean); const validSide = !ordered || currentRowHasPaint || (fromLeft ? point.x < 150 : point.x > 750);
     if (!validRow || !validSide) return;
     paintingRef.current = true; setPainting(true); lastPoint.current = point; paint(point); event.currentTarget.setPointerCapture(event.pointerId);
   };
