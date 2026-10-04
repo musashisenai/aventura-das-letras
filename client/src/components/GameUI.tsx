@@ -497,14 +497,29 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
 function SyllableLetterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
   const options = question.soundOptions ?? question.options ?? [];
   const [selected, setSelected] = useState<string | null>(null);
+  const [speaking, setSpeaking] = useState(false);
   useEffect(() => setSelected(null), [question.id]);
+  useEffect(() => { setSpeaking(false); return () => { window.speechSynthesis?.cancel(); }; }, [question.id]);
+  const listenToSyllable = () => {
+    if (disabled || !window.speechSynthesis || !question.soundSyllable) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(question.soundSyllable);
+    utterance.lang = "pt-BR";
+    utterance.voice = preferredBrazilianVoice() ?? null;
+    utterance.rate = 0.72;
+    utterance.pitch = 1.08;
+    utterance.onstart = () => setSpeaking(true);
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    window.speechSynthesis.speak(utterance);
+  };
   const submit = () => { if (!disabled && selected) onAnswer(selected); };
   const [before, after] = (question.soundPattern ?? "_").split("_");
   return <div className={`syllable-letter-activity sound-layout-${question.soundLayout ?? "row"} sound-challenge-${question.soundChallenge ?? "direct"}`}>
     <div className="syllable-letter-toolbar"><div><span className="syllable-letter-kicker"><Volume2 size={15} /> PONTE DO SOM</span><strong>Sílaba + Letra</strong></div><div className="syllable-letter-counter"><b>{selected ? "1" : "0"}</b><span>letra escolhida</span></div></div>
     <div className="syllable-letter-scene">
       <div className="syllable-letter-word" aria-label={`Palavra ${question.soundWord ?? ""}`}><span>{before}</span><b className={selected ? "filled" : "empty"}>{selected ?? "?"}</b><span>{after}</span></div>
-      <div className="syllable-letter-sound"><span>OUÇA E FALE</span><strong>{question.soundSyllable}</strong><small>Esta sílaba precisa de uma letra.</small></div>
+      <div className="syllable-letter-sound"><span>OUÇA E FALE</span><strong>{question.soundSyllable}</strong><button type="button" className={`syllable-letter-listen ${speaking ? "speaking" : ""}`} onClick={listenToSyllable} disabled={disabled} aria-label={`Ouvir a sílaba ${question.soundSyllable}`}><Volume2 size={18} /> {speaking ? "Ouvindo..." : "Ouvir sílaba"}</button><small>Esta sílaba precisa de uma letra.</small></div>
       <div className="syllable-letter-bridge" aria-hidden="true"><i /><i /><i /></div>
     </div>
     <p className="syllable-letter-instruction">Escolha a letra que combina com o som de <strong>{question.soundSyllable}</strong> para formar <strong>{question.soundWord}</strong>.</p>
