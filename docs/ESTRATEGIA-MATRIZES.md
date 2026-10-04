@@ -107,6 +107,23 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 7. Domínio: estrela ou forma composta com maior precisão de aproximação.
 8. Desafio final: forma completa com rota, ordem, distratores e recompensa visual final.
 
+### Fase 7 — Rolo de Pintura Gigante
+
+**Atividade-matriz:** conduzir um rolo pelas faixas de um mural para cobrir toda a área com tinta.
+
+**O que foi implementado e será reaproveitado:** um único Canvas com cobertura por células, rolo visual acompanhado pelo ponteiro, progresso percentual, orientação de direção e conclusão somente após a cobertura integral.
+
+**Plano das 8 variações implementado:**
+
+1. Introdução: três faixas largas, movimento direto da esquerda para a direita.
+2. Familiarização: quatro faixas largas, alternando o lado de início.
+3. Variação: cinco faixas e ordem obrigatória de cima para baixo.
+4. Desafio: seis faixas mais estreitas, ordem e alternância de direção.
+5. Surpresa: seis faixas em guia de zigue-zague, com liberação sequencial.
+6. Combinação: sete faixas, ordem obrigatória e sentidos alternados.
+7. Domínio: oito faixas estreitas com guia de zigue-zague e tolerância visual menor.
+8. Desafio final: mural com oito faixas, vinte células por faixa, ordem, alternância e zigue-zague.
+
 ## O que será transformado antes de novas fases
 
 - Os componentes atuais continuarão sendo os renderizadores das matrizes.

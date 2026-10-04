@@ -480,6 +480,7 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "mosquito-sweep") return <MosquitoSweepInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "magnet-paint") return <MagnetPaintInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "ice-melt") return <IceMeltInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "paint-roller") return <PaintRollerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
@@ -592,6 +593,80 @@ function MagnetPaintInteraction({ question, disabled, onComplete }: { question: 
   const stop = () => { drawingRef.current = false; setDrawing(false); };
   return <div className={`magnet-paint-activity ${completed ? "completed" : ""}`}><div className="magnet-toolbar"><div><span className="magnet-kicker"><Sparkles size={15} /> ATELIÊ MAGNÉTICO</span><strong>Pinte com o ímã</strong></div><div className="magnet-counter"><b>{painted.length}</b><span>/ {target} pontos</span></div></div><div className="magnet-scene" aria-label="Tela interativa para pintar com um ímã"><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste a ferradura magnética pela tela" />{completed && <span className="magnet-complete-badge" aria-label="Forma magnética completa"><Check size={24} /></span>}</div><div className="magnet-footer"><p>{completed ? "Que desenho bonito! A limalha formou uma figura magnética." : drawing ? "Continue arrastando e observe as partículas acompanharem a ferradura." : "Toque na tela e arraste a ferradura para acender todos os pontos."}</p><div className="magnet-progress" aria-label={`${painted.length} de ${target} pontos magnéticos`}><i style={{ width: `${(painted.length / target) * 100}%` }} /></div></div></div>;
   }
+function PaintRollerInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [paintedCells, setPaintedCells] = useState<boolean[]>([]);
+  const [painting, setPainting] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [rollerPoint, setRollerPoint] = useState<{ x: number; y: number } | null>(null);
+  const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const paintingRef = useRef(false);
+  const rows = question.rollerRows ?? 3;
+  const columns = question.rollerColumns ?? 10;
+  const ordered = question.rollerOrdered ?? false;
+  const direction = question.rollerDirection ?? "left";
+  const pattern = question.rollerPattern ?? "straight";
+  const color = question.rollerColor ?? "#F6B84B";
+  const totalCells = rows * columns;
+  const top = 28;
+  const height = 274;
+  const laneHeight = height / rows;
+  const activeRow = paintedCells.reduce((current, _, index) => { const row = Math.floor(index / columns); const start = row * columns; return ordered && paintedCells.slice(start, start + columns).every(Boolean) ? Math.max(current, row + 1) : current; }, 0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#fff8e9"; context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "rgba(255, 255, 255, .72)"; context.fillRect(24, top, 852, height);
+    context.lineWidth = 2; context.setLineDash([9, 9]); context.strokeStyle = "rgba(122, 91, 61, .24)";
+    for (let row = 0; row <= rows; row += 1) { const y = top + row * laneHeight; context.beginPath(); context.moveTo(24, y); context.lineTo(876, y); context.stroke(); }
+    context.setLineDash([10, 12]); context.strokeStyle = "rgba(122, 91, 61, .35)";
+    for (let row = 0; row < rows; row += 1) {
+      const y = top + row * laneHeight + laneHeight / 2;
+      const fromLeft = direction === "left" || (direction === "alternate" && row % 2 === 0);
+      context.beginPath();
+      if (pattern === "zigzag") { for (let step = 0; step <= 12; step += 1) { const x = fromLeft ? 48 + step * 67 : 852 - step * 67; const offset = step % 2 ? -laneHeight * .16 : laneHeight * .16; step === 0 ? context.moveTo(x, y + offset) : context.lineTo(x, y + offset); } } else { context.moveTo(fromLeft ? 48 : 852, y); context.lineTo(fromLeft ? 852 : 48, y); }
+      context.stroke();
+    }
+    context.setLineDash([]);
+    setPaintedCells(Array.from({ length: totalCells }, () => false)); setPainting(false); paintingRef.current = false; setCompleted(false); setRollerPoint(null); lastPoint.current = null;
+  }, [question.id, rows, columns, direction, pattern, totalCells, laneHeight]);
+
+  useEffect(() => {
+    if (!completed) return;
+    const timer = window.setTimeout(onComplete, 520);
+    return () => window.clearTimeout(timer);
+  }, [completed, onComplete]);
+
+  const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
+  const distanceToSegment = (point: { x: number; y: number }, start: { x: number; y: number }, end: { x: number; y: number }) => { const dx = end.x - start.x; const dy = end.y - start.y; const length = Math.max(1, dx * dx + dy * dy); const t = Math.max(0, Math.min(1, ((point.x - start.x) * dx + (point.y - start.y) * dy) / length)); return Math.hypot(point.x - (start.x + t * dx), point.y - (start.y + t * dy)); };
+  const expectedFromLeft = (row: number) => direction === "left" || (direction === "alternate" && row % 2 === 0);
+  const paint = (point: { x: number; y: number }) => {
+    const canvas = canvasRef.current; const context = canvas?.getContext("2d"); if (!canvas || !context) return;
+    const previous = lastPoint.current ?? point;
+    const row = Math.max(0, Math.min(rows - 1, Math.floor((point.y - top) / laneHeight)));
+    context.save(); context.strokeStyle = color; context.globalAlpha = .82; context.lineWidth = Math.max(34, laneHeight * .62); context.lineCap = "round"; context.beginPath(); context.moveTo(previous.x, previous.y); context.lineTo(point.x, point.y); context.stroke(); context.restore();
+    setPaintedCells((current) => { const next = [...current]; for (let column = 0; column < columns; column += 1) { const center = { x: 48 + (column + .5) * 804 / columns, y: top + row * laneHeight + laneHeight / 2 }; const index = row * columns + column; if ((!ordered || row === activeRow) && distanceToSegment(center, previous, point) <= laneHeight * .52) next[index] = true; } if (next.every(Boolean)) { setCompleted(true); setPainting(false); paintingRef.current = false; } return next; });
+    lastPoint.current = point; setRollerPoint(point);
+  };
+  const start = (event: PointerEvent<HTMLCanvasElement>) => {
+    if (disabled || completed) return;
+    const point = position(event); const row = Math.max(0, Math.min(rows - 1, Math.floor((point.y - top) / laneHeight))); const fromLeft = expectedFromLeft(row); const validRow = !ordered || row === activeRow; const validSide = !ordered || (fromLeft ? point.x < 150 : point.x > 750);
+    if (!validRow || !validSide) return;
+    paintingRef.current = true; setPainting(true); lastPoint.current = point; paint(point); event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!paintingRef.current || disabled || completed) return; paint(position(event)); };
+  const stop = () => { paintingRef.current = false; setPainting(false); lastPoint.current = null; };
+  const progress = Math.round((paintedCells.filter(Boolean).length / totalCells) * 100);
+  return <div className={`paint-roller-activity ${completed ? "completed" : ""}`}>
+    <div className="paint-roller-toolbar"><div><span className="paint-roller-kicker"><Sparkles size={15} /> PAREDE DE CORES</span><strong>Rolo de Pintura Gigante</strong></div><div className="paint-roller-counter"><b>{progress}%</b><span>pintado</span></div></div>
+    <div className="paint-roller-scene" aria-label="Mural interativo para pintar com um rolo"><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste o rolo pelas faixas de pintura" />{rollerPoint && painting && <span className="paint-roller-cursor" style={{ left: `${(rollerPoint.x / 900) * 100}%`, top: `${(rollerPoint.y / 330) * 100}%`, borderColor: color }} aria-hidden="true"><i style={{ background: color }} /></span>}{completed && <span className="paint-roller-complete" aria-label="Mural completamente pintado"><Check size={24} /></span>}</div>
+    <div className="paint-roller-footer"><p>{completed ? "Muito bem! O mural ficou colorido." : painting ? "Continue passando o rolo pela faixa." : ordered ? `Comece na faixa ${activeRow + 1} e siga a ordem indicada.` : "Toque em uma faixa e arraste o rolo de uma ponta à outra."}</p><div className="paint-roller-progress" aria-label={`${progress}% do mural pintado`}><i style={{ width: `${progress}%`, background: color }} /></div></div>
+  </div>;
+}
+
 function IceMeltInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const artCanvasRef = useRef<HTMLCanvasElement>(null);
   const iceCanvasRef = useRef<HTMLCanvasElement>(null);

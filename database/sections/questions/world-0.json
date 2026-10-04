@@ -574,98 +574,124 @@
     ],
     "fase-7": [
       {
-        "id": "fase-7-g-menor-grupo-0",
-        "kind": "choice",
-        "prompt": "Qual grupo tem menos estrelas?",
-        "options": [
-          "★★★",
-          "★",
-          "★★★★★"
-        ],
-        "answer": "★",
-        "hint": "Menos quer dizer a menor quantidade."
+        "id": "fase-7-g-rolo-pintura-1",
+        "kind": "paint-roller",
+        "prompt": "PASSE O ROLO E PINTE AS TRÊS FAIXAS.",
+        "answer": "PINTURA COMPLETA 1",
+        "hint": "Comece pela esquerda e cubra cada faixa até o fim.",
+        "activity": "rolo-pintura",
+        "activityIndex": 0,
+        "rollerRows": 3,
+        "rollerColumns": 10,
+        "rollerOrdered": false,
+        "rollerDirection": "left",
+        "rollerPattern": "straight",
+        "rollerColor": "#F6B84B"
       },
       {
-        "id": "fase-7-g-numero-2-1",
-        "kind": "choice",
-        "prompt": "Qual símbolo mostra duas coisas?",
-        "options": [
-          "1",
-          "2",
-          "A"
-        ],
-        "answer": "2",
-        "hint": "Os números nos ajudam a contar."
+        "id": "fase-7-g-rolo-pintura-2",
+        "kind": "paint-roller",
+        "prompt": "CUBRA AS QUATRO FAIXAS COM O ROLO.",
+        "answer": "PINTURA COMPLETA 2",
+        "hint": "As faixas são largas. Siga de uma ponta à outra, alternando os lados.",
+        "activity": "rolo-pintura",
+        "activityIndex": 1,
+        "rollerRows": 4,
+        "rollerColumns": 12,
+        "rollerOrdered": false,
+        "rollerDirection": "alternate",
+        "rollerPattern": "straight",
+        "rollerColor": "#F28C5C"
       },
       {
-        "id": "fase-7-g-desenhe-sol-2",
-        "kind": "draw",
-        "prompt": "Desenhe um sol para iluminar a trilha.",
-        "answer": "__drawing__",
-        "hint": "Use o dedo ou o mouse. O seu desenho vai para o portfólio.",
-        "visual": "☀️"
+        "id": "fase-7-g-rolo-pintura-3",
+        "kind": "paint-roller",
+        "prompt": "PINTE AS FAIXAS DE CIMA PARA BAIXO.",
+        "answer": "PINTURA COMPLETA 3",
+        "hint": "Agora siga a ordem: comece na faixa de cima e só depois passe para a próxima.",
+        "activity": "rolo-pintura",
+        "activityIndex": 2,
+        "rollerRows": 5,
+        "rollerColumns": 14,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "straight",
+        "rollerColor": "#E978A5"
       },
       {
-        "id": "fase-7-g-conte-3-3",
-        "kind": "choice",
-        "prompt": "Quantas bolinhas azuis você vê?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Aponte uma bolinha de cada vez.",
-        "visual": "🔵 🔵 🔵"
+        "id": "fase-7-g-rolo-pintura-4",
+        "kind": "paint-roller",
+        "prompt": "PREENCHA AS SEIS FAIXAS SEM DEIXAR BURACOS.",
+        "answer": "PINTURA COMPLETA 4",
+        "hint": "Use movimentos contínuos e alterne o lado de início em cada faixa.",
+        "activity": "rolo-pintura",
+        "activityIndex": 3,
+        "rollerRows": 6,
+        "rollerColumns": 16,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "straight",
+        "rollerColor": "#9B7BD1"
       },
       {
-        "id": "fase-7-g-circulo-4",
-        "kind": "choice",
-        "prompt": "Qual forma é redonda como uma bola?",
-        "options": [
-          "△",
-          "○",
-          "□"
-        ],
-        "answer": "○",
-        "hint": "Pense em uma bola bem redondinha."
+        "id": "fase-7-g-rolo-pintura-5",
+        "kind": "paint-roller",
+        "prompt": "SIGA O CAMINHO EM ZIGUE-ZAGUE COM O ROLO.",
+        "answer": "PINTURA COMPLETA 5",
+        "hint": "Passe pela faixa na ordem indicada; a próxima só acende quando a anterior estiver completa.",
+        "activity": "rolo-pintura",
+        "activityIndex": 4,
+        "rollerRows": 6,
+        "rollerColumns": 16,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "zigzag",
+        "rollerColor": "#57AFC1"
       },
       {
-        "id": "fase-7-g-reto-5",
-        "kind": "choice",
-        "prompt": "Qual traço parece uma estrada retinha?",
-        "options": [
-          "〰",
-          "—",
-          "⌇"
-        ],
-        "answer": "—",
-        "hint": "Uma estrada reta não faz ondas."
+        "id": "fase-7-g-rolo-pintura-6",
+        "kind": "paint-roller",
+        "prompt": "PINTE SETE FAIXAS ALTERNANDO O SENTIDO.",
+        "answer": "PINTURA COMPLETA 6",
+        "hint": "Uma faixa começa à esquerda, a seguinte começa à direita. Cubra todas por inteiro.",
+        "activity": "rolo-pintura",
+        "activityIndex": 5,
+        "rollerRows": 7,
+        "rollerColumns": 18,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "straight",
+        "rollerColor": "#6DBB75"
       },
       {
-        "id": "fase-7-g-rabisco-letra-6",
-        "kind": "choice",
-        "prompt": "Qual rabisco parece uma letra?",
-        "options": [
-          "A",
-          "☁",
-          "○"
-        ],
-        "answer": "A",
-        "hint": "As letras têm partes que podemos usar para escrever."
+        "id": "fase-7-g-rolo-pintura-7",
+        "kind": "paint-roller",
+        "prompt": "DOMINE O ROLO NAS FAIXAS ESTREITAS.",
+        "answer": "PINTURA COMPLETA 7",
+        "hint": "Mantenha o rolo dentro da faixa e avance de cima para baixo, sem pular nenhuma.",
+        "activity": "rolo-pintura",
+        "activityIndex": 6,
+        "rollerRows": 8,
+        "rollerColumns": 18,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "zigzag",
+        "rollerColor": "#4B91D1"
       },
       {
-        "id": "fase-7-g-conte-estrelas-7",
-        "kind": "choice",
-        "prompt": "Quantas estrelas estão no céu?",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "answer": "5",
-        "hint": "Conte as estrelas devagar.",
-        "visual": "★ ★ ★ ★ ★"
+        "id": "fase-7-g-rolo-pintura-8",
+        "kind": "paint-roller",
+        "prompt": "COMPLETE O GRANDE MURAL COM O ROLO.",
+        "answer": "PINTURA COMPLETA 8",
+        "hint": "Cubra as oito faixas estreitas na ordem, alternando o sentido e seguindo o zigue-zague.",
+        "activity": "rolo-pintura",
+        "activityIndex": 7,
+        "rollerRows": 8,
+        "rollerColumns": 20,
+        "rollerOrdered": true,
+        "rollerDirection": "alternate",
+        "rollerPattern": "zigzag",
+        "rollerColor": "#D8689A"
       }
     ],
     "fase-8": [

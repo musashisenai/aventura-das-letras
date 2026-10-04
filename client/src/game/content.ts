@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -35,6 +35,12 @@ export type GameQuestion = {
   revealAsset?: string;
   revealLabel?: string;
   revealRegion?: { x: number; y: number; width: number; height: number; coordinateSpace: "900x330" };
+  rollerRows?: number;
+  rollerColumns?: number;
+  rollerOrdered?: boolean;
+  rollerDirection?: "left" | "right" | "alternate";
+  rollerPattern?: "straight" | "zigzag";
+  rollerColor?: string;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -87,6 +93,7 @@ const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: n
 const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTarget: number): GameQuestion => ({ id: `fase-4-g-espanta-mosquitos-${variant + 1}`, kind: "mosquito-sweep", prompt, answer: `POMAR LIMPO ${variant + 1}`, hint, activity: "espanta-mosquitos", activityIndex: variant, mosquitoTarget });
 const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget: number): GameQuestion => ({ id: `fase-5-g-pintura-ima-${variant + 1}`, kind: "magnet-paint", prompt, answer: `FORMA MAGNÉTICA ${variant + 1}`, hint, activity: "pintura-ima", activityIndex: variant, magnetTarget });
 const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: string, revealLabel: string): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `IMAGEM REVELADA ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, revealAsset, revealLabel, revealRegion: { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" } });
+const paintRoller = (variant: number, prompt: string, hint: string, config: Pick<GameQuestion, "rollerRows" | "rollerColumns" | "rollerOrdered" | "rollerDirection" | "rollerPattern" | "rollerColor">): GameQuestion => ({ id: `fase-7-g-rolo-pintura-${variant + 1}`, kind: "paint-roller", prompt, answer: `PINTURA COMPLETA ${variant + 1}`, hint, activity: "rolo-pintura", activityIndex: variant, ...config });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -203,6 +210,16 @@ const GARATUJA_PHASE_SIX: GameQuestion[] = [
   iceMelt(6, "DESCONGELE A TELA E ENCONTRE O SORVETE.", "Não basta abrir um risco: esfregue a figura inteira para completar a descoberta.", "sorvete-morango", "Sorvete de morango"),
   iceMelt(7, "REVELE POR COMPLETO A GRANDE SURPRESA GELADA.", "O sorvete só aparece quando toda a imagem central estiver sem gelo.", "sorvete-morango", "Sorvete de morango"),
 ];
+const GARATUJA_PHASE_SEVEN: GameQuestion[] = [
+  paintRoller(0, "PASSE O ROLO E PINTE AS TRÊS FAIXAS.", "Comece pela esquerda e cubra cada faixa até o fim.", { rollerRows: 3, rollerColumns: 10, rollerOrdered: false, rollerDirection: "left", rollerPattern: "straight", rollerColor: "#F6B84B" }),
+  paintRoller(1, "CUBRA AS QUATRO FAIXAS COM O ROLO.", "As faixas são largas. Siga de uma ponta à outra, alternando os lados.", { rollerRows: 4, rollerColumns: 12, rollerOrdered: false, rollerDirection: "alternate", rollerPattern: "straight", rollerColor: "#F28C5C" }),
+  paintRoller(2, "PINTE AS FAIXAS DE CIMA PARA BAIXO.", "Agora siga a ordem: comece na faixa de cima e só depois passe para a próxima.", { rollerRows: 5, rollerColumns: 14, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "straight", rollerColor: "#E978A5" }),
+  paintRoller(3, "PREENCHA AS SEIS FAIXAS SEM DEIXAR BURACOS.", "Use movimentos contínuos e alterne o lado de início em cada faixa.", { rollerRows: 6, rollerColumns: 16, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "straight", rollerColor: "#9B7BD1" }),
+  paintRoller(4, "SIGA O CAMINHO EM ZIGUE-ZAGUE COM O ROLO.", "Passe pela faixa na ordem indicada; a próxima só acende quando a anterior estiver completa.", { rollerRows: 6, rollerColumns: 16, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#57AFC1" }),
+  paintRoller(5, "PINTE SETE FAIXAS ALTERNANDO O SENTIDO.", "Uma faixa começa à esquerda, a seguinte começa à direita. Cubra todas por inteiro.", { rollerRows: 7, rollerColumns: 18, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "straight", rollerColor: "#6DBB75" }),
+  paintRoller(6, "DOMINE O ROLO NAS FAIXAS ESTREITAS.", "Mantenha o rolo dentro da faixa e avance de cima para baixo, sem pular nenhuma.", { rollerRows: 8, rollerColumns: 18, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#4B91D1" }),
+  paintRoller(7, "COMPLETE O GRANDE MURAL COM O ROLO.", "Cubra as oito faixas estreitas na ordem, alternando o sentido e seguindo o zigue-zague.", { rollerRows: 8, rollerColumns: 20, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#D8689A" }),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
@@ -212,6 +229,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 3) return GARATUJA_PHASE_FOUR;
   if (worldId === 0 && phase === 4) return GARATUJA_PHASE_FIVE;
   if (worldId === 0 && phase === 5) return GARATUJA_PHASE_SIX;
+  if (worldId === 0 && phase === 6) return GARATUJA_PHASE_SEVEN;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre
