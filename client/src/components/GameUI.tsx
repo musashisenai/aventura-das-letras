@@ -488,7 +488,7 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
   const [completed, setCompleted] = useState(false);
   const startPoint = useRef<{ x: number; y: number } | null>(null);
   const buzzRef = useRef<HTMLAudioElement | null>(null);
-  const target = question.mosquitoTarget ?? 3;
+  const target = question.mosquitoTarget ?? 8;
   const positions = useMemo(() => {
     const layouts = [
       [[10, 17], [25, 10], [43, 20], [62, 11], [80, 18], [92, 35], [84, 54], [94, 74], [77, 90], [57, 82], [39, 93], [19, 82], [7, 65], [15, 45], [46, 44], [70, 48], [34, 34], [61, 67], [27, 88], [51, 94], [74, 86]],

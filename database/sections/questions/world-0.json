@@ -271,7 +271,7 @@
         "hint": "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.",
         "activity": "espanta-mosquitos",
         "activityIndex": 0,
-        "mosquitoTarget": 17
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-2",
@@ -281,7 +281,7 @@
         "hint": "Cada gesto deve sair de perto de um inseto e terminar longe dele.",
         "activity": "espanta-mosquitos",
         "activityIndex": 1,
-        "mosquitoTarget": 19
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-3",
@@ -291,7 +291,7 @@
         "hint": "Aponte para um mosquito, arraste com firmeza e solte depois de afastá-lo.",
         "activity": "espanta-mosquitos",
         "activityIndex": 2,
-        "mosquitoTarget": 17
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-4",
@@ -301,7 +301,7 @@
         "hint": "Faça um flick curto e veloz em uma direção diferente para cada mosquito.",
         "activity": "espanta-mosquitos",
         "activityIndex": 3,
-        "mosquitoTarget": 21
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-5",
@@ -311,7 +311,7 @@
         "hint": "O movimento começa perto do inseto; um toque parado não conta.",
         "activity": "espanta-mosquitos",
         "activityIndex": 4,
-        "mosquitoTarget": 19
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-6",
@@ -321,7 +321,7 @@
         "hint": "Procure os insetos ao redor e empurre cada um para além da borda.",
         "activity": "espanta-mosquitos",
         "activityIndex": 5,
-        "mosquitoTarget": 21
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-7",
@@ -331,7 +331,7 @@
         "hint": "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.",
         "activity": "espanta-mosquitos",
         "activityIndex": 6,
-        "mosquitoTarget": 19
+        "mosquitoTarget": 8
       },
       {
         "id": "fase-4-g-espanta-mosquitos-8",
@@ -341,7 +341,7 @@
         "hint": "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.",
         "activity": "espanta-mosquitos",
         "activityIndex": 7,
-        "mosquitoTarget": 21
+        "mosquitoTarget": 8
       }
     ],
     "fase-5": [

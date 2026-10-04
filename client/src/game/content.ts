@@ -168,14 +168,14 @@ const GARATUJA_PHASE_THREE: GameQuestion[] = [
   sandTracks(7, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
 ];
 const GARATUJA_PHASE_FOUR: GameQuestion[] = [
-  mosquitoSweep(0, "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.", "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.", 3),
-  mosquitoSweep(1, "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.", "Cada gesto deve sair de perto de um inseto e terminar longe dele.", 4),
-  mosquitoSweep(2, "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.", "Aponte para um mosquito, arraste com firmeza e solte depois de afastá-lo.", 3),
-  mosquitoSweep(3, "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.", "Faça um flick curto e veloz em uma direção diferente para cada mosquito.", 5),
-  mosquitoSweep(4, "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.", "O movimento começa perto do inseto; um toque parado não conta.", 4),
-  mosquitoSweep(5, "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.", "Procure os insetos ao redor e empurre cada um para além da borda.", 5),
-  mosquitoSweep(6, "SALVE A FRUTA MADURA COM GESTOS DE VARRER.", "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.", 4),
-  mosquitoSweep(7, "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.", "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.", 5),
+  mosquitoSweep(0, "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.", "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.", 8),
+  mosquitoSweep(1, "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.", "Cada gesto deve sair de perto de um inseto e terminar longe dele.", 8),
+  mosquitoSweep(2, "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.", "Aponte para um mosquito, arraste com firmeza e solte depois de afastá-lo.", 8),
+  mosquitoSweep(3, "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.", "Faça um flick curto e veloz em uma direção diferente para cada mosquito.", 8),
+  mosquitoSweep(4, "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.", "O movimento começa perto do inseto; um toque parado não conta.", 8),
+  mosquitoSweep(5, "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.", "Procure os insetos ao redor e empurre cada um para além da borda.", 8),
+  mosquitoSweep(6, "SALVE A FRUTA MADURA COM GESTOS DE VARRER.", "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.", 8),
+  mosquitoSweep(7, "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.", "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.", 8),
 ];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
