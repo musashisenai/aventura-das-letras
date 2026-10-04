@@ -148,8 +148,8 @@ const PRE_SILABICO_PHASE_ONE: GameQuestion[] = [
 const SILABICO_PHASE_ONE: GameQuestion[] = [
   syllableHammer(0, "BATA UMA VEZ PARA CADA PARTE DE SOL.", "Diga SOL devagar. É uma parte falada, então o martelo bate uma vez.", ["SOL"], { hammerStyle: "single", hammerTempo: "calm" }),
   syllableHammer(1, "MARQUE AS DUAS PARTES DE BO-LA.", "Fale BO-LA e acompanhe as duas batidas: BO / LA.", ["BO", "LA"], { hammerStyle: "steady", hammerTempo: "calm" }),
-  syllableHammer(2, "AJUDE O SAPO BATENDO AS PARTES DE SA-PA-TO.", "Separe a palavra em três pedaços falados: SA / PA / TO.", ["SA", "PA", "TO"], { hammerStyle: "steady", hammerTempo: "normal" }),
-  syllableHammer(3, "O JACARÉ PRECISA DE UMA BATIDA PARA CADA PEDAÇO.", "Diga JA-CA-RÉ sem correr. Cada pedaço recebe uma batida do martelo.", ["JA", "CA", "RÉ"], { hammerStyle: "alternating", hammerTempo: "normal" }),
+  syllableHammer(2, "MARQUE AS TRÊS PARTES DE JA-CA-RÉ.", "Diga JA-CA-RÉ sem correr. Cada pedaço recebe uma batida do martelo.", ["JA", "CA", "RÉ"], { hammerStyle: "steady", hammerTempo: "normal" }),
+  syllableHammer(3, "O MACACO PRECISA DE UMA BATIDA PARA CADA PEDAÇO.", "Separe MA-CA-CO devagar. O martelo acompanha as três partes faladas.", ["MA", "CA", "CO"], { hammerStyle: "alternating", hammerTempo: "normal" }),
   syllableHammer(4, "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.", "Bata no ritmo da fala: E / LE / FAN / TE. Não junte os pedaços.", ["E", "LE", "FAN", "TE"], { hammerStyle: "alternating", hammerTempo: "normal" }),
   syllableHammer(5, "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.", "Cada vagão representa uma parte falada. Marque BI, CI, CLE e TA.", ["BI", "CI", "CLE", "TA"], { hammerStyle: "sequence", hammerTempo: "normal" }),
   syllableHammer(6, "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.", "Pronuncie devagar: BOR / BO / LE / TA. O martelo precisa acompanhar quatro batidas.", ["BOR", "BO", "LE", "TA"], { hammerStyle: "sequence", hammerTempo: "challenge" }),

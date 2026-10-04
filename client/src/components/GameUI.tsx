@@ -107,9 +107,18 @@ function ponteSomSyllablePath(question: GameQuestion | undefined) {
   return ["sa", "la", "ga", "pa", "ca", "le", "bo", "ba"].includes(syllable) ? `/assets/syllable-${syllable}.wav` : undefined;
 }
 
-function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint") {
-  if (worldId === 3 && phase === 0 && questionIndex !== undefined && questionIndex >= 0 && questionIndex < 8) return `/assets/voicepacks/w3-phase1/${kind}-${questionIndex + 1}.wav`;
-  if (worldId === 4 && phase === 0 && questionIndex !== undefined && questionIndex >= 0 && questionIndex < 8) return `/assets/voicepacks/w4-phase1/${kind}-${questionIndex + 1}.wav`;
+function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint", questionId?: string) {
+  const idVariant = questionId?.match(/-(\d+)$/)?.[1];
+  const variant = idVariant ? Number(idVariant) : questionIndex !== undefined ? questionIndex + 1 : undefined;
+  if (worldId === 3 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w3-phase1/${kind}-${variant}.wav`;
+  if (worldId === 4 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w4-phase1/${kind}-${variant}.wav`;
+  return undefined;
+}
+
+function feedbackVoicePath(worldId: number | undefined, phase: number | undefined, tone: "success" | "hint" | "continue") {
+  if (worldId !== 3 || phase !== 0) return undefined;
+  if (tone === "success") return "/assets/voicepacks/feedback/success.wav";
+  if (tone === "continue") return "/assets/voicepacks/feedback/encouragement.wav";
   return undefined;
 }
 
@@ -122,7 +131,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       return;
     }
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt") ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     let audio: HTMLAudioElement | undefined;
     const timer = window.setTimeout(() => {
       if (localPath) {
@@ -141,7 +150,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
 
   return () => {
     if (!enabled || !narration) return;
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt") ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     if (localPath) {
       const audio = new Audio(localPath);
       audio.volume = 1;
@@ -161,7 +170,7 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
 function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number) {
   useEffect(() => {
     if (!enabled || !feedback?.text) return;
-    const localPath = feedback.tone === "hint" ? voicePackPath(worldId, phase, questionIndex, "hint") : undefined;
+    const localPath = feedback.tone === "hint" ? voicePackPath(worldId, phase, questionIndex, "hint") : feedbackVoicePath(worldId, phase, feedback.tone);
     let audio: HTMLAudioElement | undefined;
     const timer = window.setTimeout(() => {
       if (localPath) {

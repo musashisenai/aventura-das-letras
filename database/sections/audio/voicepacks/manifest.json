@@ -58,5 +58,13 @@
         "voicepacks/w4-phase1/hint-8.wav"
       ]
     }
+  },
+  "feedback": {
+    "voice": "Leda",
+    "world-3-phase-0": {
+      "success": "voicepacks/feedback/success.wav",
+      "encouragement": "voicepacks/feedback/encouragement.wav",
+      "retry": "voicepacks/feedback/retry.wav"
+    }
   }
 }
