@@ -478,6 +478,7 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "sand-tracks") return <SandTracksInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "mosquito-sweep") return <MosquitoSweepInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "magnet-paint") return <MagnetPaintInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "ice-melt") return <IceMeltInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
@@ -589,6 +590,97 @@ function MagnetPaintInteraction({ question, disabled, onComplete }: { question: 
   const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!drawingRef.current || disabled || completed) return; const point = position(event); pointRef.current = point; trailRef.current = [...trailRef.current.slice(-180), point]; mark(point); };
   const stop = () => { drawingRef.current = false; setDrawing(false); };
   return <div className={`magnet-paint-activity ${completed ? "completed" : ""}`}><div className="magnet-toolbar"><div><span className="magnet-kicker"><Sparkles size={15} /> ATELIÊ MAGNÉTICO</span><strong>Pinte com o ímã</strong></div><div className="magnet-counter"><b>{painted.length}</b><span>/ {target} pontos</span></div></div><div className="magnet-scene" aria-label="Tela interativa para pintar com um ímã"><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste a ferradura magnética pela tela" />{completed && <span className="magnet-complete-badge" aria-label="Forma magnética completa"><Check size={24} /></span>}</div><div className="magnet-footer"><p>{completed ? "Que desenho bonito! A limalha formou uma figura magnética." : drawing ? "Continue arrastando e observe as partículas acompanharem a ferradura." : "Toque na tela e arraste a ferradura para acender todos os pontos."}</p><div className="magnet-progress" aria-label={`${painted.length} de ${target} pontos magnéticos`}><i style={{ width: `${(painted.length / target) * 100}%` }} /></div></div></div>;
+  }
+function IceMeltInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [scrubbed, setScrubbed] = useState(0);
+  const [rubbing, setRubbing] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const scrubDistance = useRef(0);
+  const target = question.iceTarget ?? 1300;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.globalCompositeOperation = "source-over";
+    context.fillStyle = "rgba(218, 242, 250, .94)";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.strokeStyle = "rgba(255, 255, 255, .84)";
+    context.lineWidth = 3;
+    context.lineCap = "round";
+    for (let index = 0; index < 24; index += 1) {
+      const x = 28 + ((index * 137) % 820);
+      const y = 24 + ((index * 83) % 282);
+      context.beginPath();
+      context.moveTo(x - 11, y);
+      context.lineTo(x, y - 11);
+      context.lineTo(x + 11, y);
+      context.lineTo(x, y + 11);
+      context.closePath();
+      context.stroke();
+    }
+    context.globalCompositeOperation = "destination-out";
+    setScrubbed(0);
+    setRubbing(false);
+    setCompleted(false);
+    scrubDistance.current = 0;
+    lastPoint.current = null;
+  }, [question.id]);
+
+  useEffect(() => {
+    if (!completed) return;
+    const timer = window.setTimeout(onComplete, 520);
+    return () => window.clearTimeout(timer);
+  }, [completed, onComplete]);
+
+  const pointFromEvent = (event: PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current!;
+    const rect = canvas.getBoundingClientRect();
+    return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height };
+  };
+  const erase = (point: { x: number; y: number }) => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+    const previous = lastPoint.current;
+    const distance = previous ? Math.hypot(point.x - previous.x, point.y - previous.y) : 0;
+    scrubDistance.current = Math.min(target, scrubDistance.current + distance);
+    context.save();
+    context.globalCompositeOperation = "destination-out";
+    context.beginPath();
+    context.arc(point.x, point.y, 30, 0, Math.PI * 2);
+    context.fill();
+    context.restore();
+    lastPoint.current = point;
+    const progress = Math.round((scrubDistance.current / target) * 100);
+    setScrubbed(progress);
+    if (progress >= 100) {
+      setCompleted(true);
+      setRubbing(false);
+    }
+  };
+  const start = (event: PointerEvent<HTMLCanvasElement>) => {
+    if (disabled || completed) return;
+    setRubbing(true);
+    const point = pointFromEvent(event);
+    lastPoint.current = point;
+    erase(point);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => {
+    if (!rubbing || disabled || completed) return;
+    erase(pointFromEvent(event));
+  };
+  const stop = () => { setRubbing(false); lastPoint.current = null; };
+
+  return <div className={`ice-melt-activity ${completed ? "completed" : ""}`}>
+    <div className="ice-melt-toolbar"><div><span className="ice-melt-kicker"><Sparkles size={15} /> JANELA CONGELADA</span><strong>Descubra quem está escondido</strong></div><div className="ice-melt-counter"><b>{scrubbed}%</b><span>descongelado</span></div></div>
+    <div className="ice-melt-scene" aria-label="Janela congelada para esfregar e revelar um animal"><div className="ice-melt-reveal"><PawPrint size={94} strokeWidth={1.4} /><span>AMIGO ESCONDIDO</span></div><span className="ice-melt-frost frost-one" /><span className="ice-melt-frost frost-two" /><canvas ref={canvasRef} width="900" height="330" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Esfregue a camada de gelo para revelar a figura" />{completed && <span className="ice-melt-complete"><Check size={24} /></span>}</div>
+    <div className="ice-melt-footer"><p>{completed ? "Muito bem! O gelo sumiu e o amigo apareceu." : rubbing ? "Continue esfregando. A figura está aparecendo!" : "Toque e esfregue a janela congelada para descobrir o animal."}</p><div className="ice-melt-progress" aria-label={`${scrubbed}% da janela descongelada`}><i style={{ width: `${scrubbed}%` }} /></div></div>
+  </div>;
 }
 function SandTracksInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
