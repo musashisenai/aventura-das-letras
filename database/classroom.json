@@ -632,10 +632,10 @@
         "placementCompleted": true,
         "currentWorld": 6,
         "recommendedWorld": 6,
-        "activeScreen": "lesson",
-        "activeWorld": 4,
+        "activeScreen": "continue",
+        "activeWorld": 3,
         "activePhase": 0,
-        "questionIndex": 7
+        "questionIndex": 0
       },
       "save": {
         "profile": {
@@ -655,7 +655,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791123201089-ji0aue7wkle"
+          "sessionToken": "1791124466170-xne5qo8hjtr"
         },
         "completions": {},
         "worldApprovals": {},
@@ -852,10 +852,34 @@
             "kind": "syllable-letter",
             "correctAnswer": "S",
             "at": "04/10/2026, 11:13:38"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-5",
+            "question": "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.",
+            "answer": "BATIDAS COMPLETAS 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 5",
+            "at": "04/10/2026, 11:35:25"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-2",
+            "question": "MARQUE AS DUAS PARTES DE BO-LA.",
+            "answer": "BATIDAS COMPLETAS 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 2",
+            "at": "04/10/2026, 11:35:35"
           }
         ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "continue",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-angelo-ciccillo",
@@ -873,7 +897,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791123201089-ji0aue7wkle"
+            "sessionToken": "1791124466170-xne5qo8hjtr"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -1015,167 +1039,13 @@
             }
           ],
           "placementQueue": [],
-          "activeWorld": 4,
-          "selectedWorld": 4,
+          "activeWorld": 3,
+          "selectedWorld": 3,
           "activePhase": 0,
-          "queue": [
-            {
-              "id": "fase-1-sa-ponte-som-7",
-              "kind": "syllable-letter",
-              "prompt": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
-              "answer": "B",
-              "hint": "Fale BOR-BO-LE-TA. A sílaba BO começa com B.",
-              "activity": "colheita-vogais",
-              "activityIndex": 6,
-              "soundWord": "BORBOLETA",
-              "soundSyllable": "BO",
-              "soundPattern": "BOR_ OLETA",
-              "soundOptions": [
-                "B",
-                "D",
-                "P"
-              ],
-              "soundLayout": "grid",
-              "soundChallenge": "combined"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-6",
-              "kind": "syllable-letter",
-              "prompt": "COMPLETE A SÍLABA LE DE ELEFANTE.",
-              "answer": "L",
-              "hint": "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.",
-              "activity": "colheita-vogais",
-              "activityIndex": 5,
-              "soundWord": "ELEFANTE",
-              "soundSyllable": "LE",
-              "soundPattern": "E_ EFANTE",
-              "soundOptions": [
-                "L",
-                "R",
-                "N"
-              ],
-              "soundLayout": "grid",
-              "soundChallenge": "combined"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-8",
-              "kind": "syllable-letter",
-              "prompt": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
-              "answer": "B",
-              "hint": "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.",
-              "activity": "colheita-vogais",
-              "activityIndex": 7,
-              "soundWord": "ABACAXI",
-              "soundSyllable": "BA",
-              "soundPattern": "A_ ACAXI",
-              "soundOptions": [
-                "B",
-                "P",
-                "D",
-                "V"
-              ],
-              "soundLayout": "grid",
-              "soundChallenge": "combined"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-4",
-              "kind": "syllable-letter",
-              "prompt": "COMPLETE A SÍLABA PA EM PATO.",
-              "answer": "A",
-              "hint": "Fale PA-TO. A vogal A fica entre P e T.",
-              "activity": "colheita-vogais",
-              "activityIndex": 3,
-              "soundWord": "PATO",
-              "soundSyllable": "PA",
-              "soundPattern": "P_ TO",
-              "soundOptions": [
-                "A",
-                "O",
-                "E"
-              ],
-              "soundLayout": "grid",
-              "soundChallenge": "position"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-5",
-              "kind": "syllable-letter",
-              "prompt": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
-              "answer": "C",
-              "hint": "Separe JA-CA-RÉ e complete a sílaba CA com C.",
-              "activity": "colheita-vogais",
-              "activityIndex": 4,
-              "soundWord": "JACARÉ",
-              "soundSyllable": "CA",
-              "soundPattern": "JA_ ARÉ",
-              "soundOptions": [
-                "C",
-                "G",
-                "K"
-              ],
-              "soundLayout": "arc",
-              "soundChallenge": "near"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-2",
-              "kind": "syllable-letter",
-              "prompt": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
-              "answer": "L",
-              "hint": "Diga BO-LA. A letra L aparece no começo da sílaba LA.",
-              "activity": "colheita-vogais",
-              "activityIndex": 1,
-              "soundWord": "BOLA",
-              "soundSyllable": "LA",
-              "soundPattern": "BO_ A",
-              "soundOptions": [
-                "L",
-                "R",
-                "M"
-              ],
-              "soundLayout": "arc",
-              "soundChallenge": "near"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-1",
-              "kind": "syllable-letter",
-              "prompt": "COMPLETE A SÍLABA SA E FORME CASA.",
-              "answer": "S",
-              "hint": "Fale CA-SA devagar. A letra S fecha a segunda sílaba.",
-              "activity": "colheita-vogais",
-              "activityIndex": 0,
-              "soundWord": "CASA",
-              "soundSyllable": "SA",
-              "soundPattern": "CA_ A",
-              "soundOptions": [
-                "S",
-                "T",
-                "P"
-              ],
-              "soundLayout": "row",
-              "soundChallenge": "direct"
-            },
-            {
-              "id": "fase-1-sa-ponte-som-3",
-              "kind": "syllable-letter",
-              "prompt": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
-              "answer": "G",
-              "hint": "O primeiro som de GATO começa com G.",
-              "activity": "colheita-vogais",
-              "activityIndex": 2,
-              "soundWord": "GATO",
-              "soundSyllable": "GA",
-              "soundPattern": "_ATO",
-              "soundOptions": [
-                "G",
-                "C",
-                "D"
-              ],
-              "soundLayout": "row",
-              "soundChallenge": "position"
-            }
-          ],
-          "questionIndex": 7,
+          "queue": [],
+          "questionIndex": 0,
           "attempts": 0,
-          "roundScore": 6,
+          "roundScore": 2,
           "feedback": null,
           "completions": {},
           "worldApprovals": {},
@@ -1372,19 +1242,39 @@
               "kind": "syllable-letter",
               "correctAnswer": "S",
               "at": "04/10/2026, 11:13:38"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-5",
+              "question": "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.",
+              "answer": "BATIDAS COMPLETAS 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 5",
+              "at": "04/10/2026, 11:35:25"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-2",
+              "question": "MARQUE AS DUAS PARTES DE BO-LA.",
+              "answer": "BATIDAS COMPLETAS 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 2",
+              "at": "04/10/2026, 11:35:35"
             }
           ],
           "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
-          "questionBankVersion": 7
+          "questionBankVersion": 8
         }
       },
-      "activeSession": {
-        "token": "1791123201089-ji0aue7wkle",
-        "lastSeen": 1791123951782
-      },
-      "updatedAt": "2026-10-04T14:13:41.751Z"
+      "updatedAt": "2026-10-04T14:48:22.028Z"
     },
     "student-anna-alice-pereira": {
       "id": "student-anna-alice-pereira",
@@ -1521,7 +1411,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791117353069-en37x7gmcuf"
+          "sessionToken": "1791125617729-mbktu3c6t5"
         },
         "completions": {
           "0:0": {
@@ -1980,7 +1870,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791117353069-en37x7gmcuf"
+            "sessionToken": "1791125617729-mbktu3c6t5"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -2545,19 +2435,23 @@
           "questionBankVersion": 4
         }
       },
-      "updatedAt": "2026-10-04T12:35:53.236Z"
+      "activeSession": {
+        "token": "1791125617729-mbktu3c6t5",
+        "lastSeen": 1791125617842
+      },
+      "updatedAt": "2026-10-04T14:53:37.771Z"
     },
     "student-arthur-miguel": {
       "id": "student-arthur-miguel",
       "name": "Arthur Miguel",
       "status": {
         "placementCompleted": true,
-        "currentWorld": 1,
-        "recommendedWorld": 1,
-        "activeScreen": "profile",
-        "activeWorld": 1,
-        "activePhase": 0,
-        "questionIndex": 0
+        "currentWorld": 2,
+        "recommendedWorld": 2,
+        "activeScreen": "lesson",
+        "activeWorld": 2,
+        "activePhase": 1,
+        "questionIndex": 3
       },
       "save": {
         "profile": {
@@ -2565,43 +2459,254 @@
           "studentId": "student-arthur-miguel",
           "name": "Arthur Miguel",
           "partner": "Lumi",
-          "currentWorld": 1,
-          "recommendedWorld": 1,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
+          "currentWorld": 2,
+          "recommendedWorld": 2,
+          "coins": 46,
+          "xp": 32,
+          "eggs": 1,
+          "eggCollection": [
+            {
+              "id": "egg-1791125658449",
+              "rarity": "epico",
+              "progress": 0,
+              "required": 4,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791116922822-qsh0a32y8x9"
+          "sessionToken": "1791125626758-hn0i7jyhtu"
         },
-        "completions": {},
+        "completions": {
+          "2:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-04T14:54:18.448Z"
+          }
+        },
         "worldApprovals": {},
-        "answers": [],
+        "answers": [
+          {
+            "questionId": "fase-1-p-escudo-magico-2",
+            "question": "LEVANTE O ESCUDO PARA AS LETRAS B E A.",
+            "answer": "ESCUDO PROTEGE 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 2",
+            "at": "04/10/2026, 11:53:55"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-3",
+            "question": "A CIDADE MISTUROU LETRAS E NÚMEROS. PROTEJA AS LETRAS.",
+            "answer": "ESCUDO PROTEGE 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 3",
+            "at": "04/10/2026, 11:53:59"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-5",
+            "question": "O ESCUDO PRECISA SEPARAR ESCRITA DE DESENHO.",
+            "answer": "ESCUDO PROTEGE 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 5",
+            "at": "04/10/2026, 11:54:01"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-7",
+            "question": "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.",
+            "answer": "ESCUDO PROTEGE 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 7",
+            "at": "04/10/2026, 11:54:06"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-8",
+            "question": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
+            "answer": "ESCUDO PROTEGE 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 8",
+            "at": "04/10/2026, 11:54:09"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-6",
+            "question": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
+            "answer": "ESCUDO PROTEGE 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 6",
+            "at": "04/10/2026, 11:54:12"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-4",
+            "question": "DEFENDA AS TRÊS LETRAS DO PORTÃO.",
+            "answer": "ESCUDO PROTEGE 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 4",
+            "at": "04/10/2026, 11:54:15"
+          },
+          {
+            "questionId": "fase-1-p-escudo-magico-1",
+            "question": "PROTEJA A LETRA M COM O ESCUDO.",
+            "answer": "ESCUDO PROTEGE 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 0,
+            "kind": "shield-magic",
+            "correctAnswer": "ESCUDO PROTEGE 1",
+            "at": "04/10/2026, 11:54:17"
+          },
+          {
+            "questionId": "fase-2-w2-cofre-letras-2-5",
+            "question": "Qual item é uma letra e deve entrar no cofre das letras?",
+            "answer": "7",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "F",
+              "◇",
+              "7"
+            ],
+            "correctAnswer": "F",
+            "visual": "⭐",
+            "at": "04/10/2026, 11:54:22"
+          },
+          {
+            "questionId": "fase-2-w2-cofre-letras-2-5",
+            "question": "Qual item é uma letra e deve entrar no cofre das letras?",
+            "answer": "◇",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 2,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "F",
+              "◇",
+              "7"
+            ],
+            "correctAnswer": "F",
+            "hint": "Observe todas as opções com calma e compare os sons.",
+            "visual": "⭐",
+            "at": "04/10/2026, 11:54:23"
+          },
+          {
+            "questionId": "fase-2-w2-robo-literario-2-2",
+            "question": "Qual grupo representa uma escrita?",
+            "answer": "F",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "7",
+              "F",
+              "◇"
+            ],
+            "correctAnswer": "F",
+            "visual": "🏠",
+            "at": "04/10/2026, 11:54:24"
+          },
+          {
+            "questionId": "fase-2-w2-arqueologia-2-7",
+            "question": "Qual item é uma letra e deve entrar no arqueologia egípcia?",
+            "answer": "7",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 2,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "7",
+              "E",
+              "◇"
+            ],
+            "correctAnswer": "E",
+            "visual": "🐟",
+            "at": "04/10/2026, 11:54:27"
+          },
+          {
+            "questionId": "fase-2-w2-arqueologia-2-7",
+            "question": "Qual item é uma letra e deve entrar no arqueologia egípcia?",
+            "answer": "E",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 2,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "7",
+              "E",
+              "◇"
+            ],
+            "correctAnswer": "E",
+            "hint": "Fale as opções devagar e escolha a que combina melhor.",
+            "visual": "🐟",
+            "at": "04/10/2026, 11:54:27"
+          }
+        ],
         "gameState": {
-          "screen": "profile",
+          "screen": "lesson",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-arthur-miguel",
             "name": "Arthur Miguel",
             "partner": "Lumi",
-            "currentWorld": 1,
-            "recommendedWorld": 1,
-            "coins": 20,
-            "xp": 0,
-            "eggs": 0,
-            "eggCollection": [],
+            "currentWorld": 2,
+            "recommendedWorld": 2,
+            "coins": 46,
+            "xp": 32,
+            "eggs": 1,
+            "eggCollection": [
+              {
+                "id": "egg-1791125658449",
+                "rarity": "epico",
+                "progress": 0,
+                "required": 4,
+                "hatched": false
+              }
+            ],
             "petLevel": 1,
             "petCare": 30,
             "petName": "Faísca",
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791116922822-qsh0a32y8x9"
+            "sessionToken": "1791125626758-hn0i7jyhtu"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -2743,24 +2848,344 @@
             }
           ],
           "placementQueue": [],
-          "activeWorld": 1,
-          "selectedWorld": 1,
-          "activePhase": 0,
-          "queue": [],
-          "questionIndex": 0,
+          "activeWorld": 2,
+          "selectedWorld": 2,
+          "activePhase": 1,
+          "queue": [
+            {
+              "id": "fase-2-w2-cofre-letras-2-5",
+              "kind": "choice",
+              "prompt": "Qual item é uma letra e deve entrar no cofre das letras?",
+              "options": [
+                "F",
+                "◇",
+                "7"
+              ],
+              "answer": "F",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "⭐",
+              "activity": "cofre-letras",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-robo-literario-2-2",
+              "kind": "choice",
+              "prompt": "Qual grupo representa uma escrita?",
+              "options": [
+                "7",
+                "F",
+                "◇"
+              ],
+              "answer": "F",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "🏠",
+              "activity": "robo-literario",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-arqueologia-2-7",
+              "kind": "choice",
+              "prompt": "Qual item é uma letra e deve entrar no arqueologia egípcia?",
+              "options": [
+                "7",
+                "E",
+                "◇"
+              ],
+              "answer": "E",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "🐟",
+              "activity": "arqueologia",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-cartas-postais-2-3",
+              "kind": "choice",
+              "prompt": "Qual cartão possui escrita?",
+              "options": [
+                "RABISCO",
+                "LUA",
+                "DESENHO"
+              ],
+              "answer": "LUA",
+              "hint": "Procure o cartão formado por letras.",
+              "visual": "🐝",
+              "activity": "cartas-postais",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-baloes-peso-2-0",
+              "kind": "choice",
+              "prompt": "Qual palavra é mais comprida para o objeto mostrado?",
+              "options": [
+                "BORBOLETA",
+                "SOL",
+                "PÉ"
+              ],
+              "answer": "BORBOLETA",
+              "hint": "Compare quantas letras aparecem.",
+              "visual": "🌼",
+              "activity": "baloes-peso",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-mapa-tesouro-2-6",
+              "kind": "choice",
+              "prompt": "Qual grupo representa uma escrita?",
+              "options": [
+                "◇",
+                "L",
+                "7"
+              ],
+              "answer": "L",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "☀️",
+              "activity": "mapa-tesouro",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-pintura-codigo-2-1",
+              "kind": "choice",
+              "prompt": "Qual item é uma letra e deve entrar no pintura por código?",
+              "options": [
+                "E",
+                "◇",
+                "7"
+              ],
+              "answer": "E",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "🚗",
+              "activity": "pintura-codigo",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w2-carimbos-2-4",
+              "kind": "choice",
+              "prompt": "Qual grupo representa uma escrita?",
+              "options": [
+                "7",
+                "◇",
+                "E"
+              ],
+              "answer": "E",
+              "hint": "Letras formam palavras; números e símbolos têm outras funções.",
+              "visual": "🍎",
+              "activity": "carimbos",
+              "activityIndex": 1
+            }
+          ],
+          "questionIndex": 3,
           "attempts": 0,
-          "roundScore": 0,
+          "roundScore": 2,
           "feedback": null,
-          "completions": {},
+          "completions": {
+            "2:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-04T14:54:18.448Z"
+            }
+          },
           "worldApprovals": {},
-          "answers": [],
+          "answers": [
+            {
+              "questionId": "fase-1-p-escudo-magico-2",
+              "question": "LEVANTE O ESCUDO PARA AS LETRAS B E A.",
+              "answer": "ESCUDO PROTEGE 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 2",
+              "at": "04/10/2026, 11:53:55"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-3",
+              "question": "A CIDADE MISTUROU LETRAS E NÚMEROS. PROTEJA AS LETRAS.",
+              "answer": "ESCUDO PROTEGE 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 3",
+              "at": "04/10/2026, 11:53:59"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-5",
+              "question": "O ESCUDO PRECISA SEPARAR ESCRITA DE DESENHO.",
+              "answer": "ESCUDO PROTEGE 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 5",
+              "at": "04/10/2026, 11:54:01"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-7",
+              "question": "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.",
+              "answer": "ESCUDO PROTEGE 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 7",
+              "at": "04/10/2026, 11:54:06"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-8",
+              "question": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
+              "answer": "ESCUDO PROTEGE 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 8",
+              "at": "04/10/2026, 11:54:09"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-6",
+              "question": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
+              "answer": "ESCUDO PROTEGE 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 6",
+              "at": "04/10/2026, 11:54:12"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-4",
+              "question": "DEFENDA AS TRÊS LETRAS DO PORTÃO.",
+              "answer": "ESCUDO PROTEGE 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 4",
+              "at": "04/10/2026, 11:54:15"
+            },
+            {
+              "questionId": "fase-1-p-escudo-magico-1",
+              "question": "PROTEJA A LETRA M COM O ESCUDO.",
+              "answer": "ESCUDO PROTEGE 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 0,
+              "kind": "shield-magic",
+              "correctAnswer": "ESCUDO PROTEGE 1",
+              "at": "04/10/2026, 11:54:17"
+            },
+            {
+              "questionId": "fase-2-w2-cofre-letras-2-5",
+              "question": "Qual item é uma letra e deve entrar no cofre das letras?",
+              "answer": "7",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "F",
+                "◇",
+                "7"
+              ],
+              "correctAnswer": "F",
+              "visual": "⭐",
+              "at": "04/10/2026, 11:54:22"
+            },
+            {
+              "questionId": "fase-2-w2-cofre-letras-2-5",
+              "question": "Qual item é uma letra e deve entrar no cofre das letras?",
+              "answer": "◇",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 2,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "F",
+                "◇",
+                "7"
+              ],
+              "correctAnswer": "F",
+              "hint": "Observe todas as opções com calma e compare os sons.",
+              "visual": "⭐",
+              "at": "04/10/2026, 11:54:23"
+            },
+            {
+              "questionId": "fase-2-w2-robo-literario-2-2",
+              "question": "Qual grupo representa uma escrita?",
+              "answer": "F",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "7",
+                "F",
+                "◇"
+              ],
+              "correctAnswer": "F",
+              "visual": "🏠",
+              "at": "04/10/2026, 11:54:24"
+            },
+            {
+              "questionId": "fase-2-w2-arqueologia-2-7",
+              "question": "Qual item é uma letra e deve entrar no arqueologia egípcia?",
+              "answer": "7",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 2,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "7",
+                "E",
+                "◇"
+              ],
+              "correctAnswer": "E",
+              "visual": "🐟",
+              "at": "04/10/2026, 11:54:27"
+            },
+            {
+              "questionId": "fase-2-w2-arqueologia-2-7",
+              "question": "Qual item é uma letra e deve entrar no arqueologia egípcia?",
+              "answer": "E",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 2,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "7",
+                "E",
+                "◇"
+              ],
+              "correctAnswer": "E",
+              "hint": "Fale as opções devagar e escolha a que combina melhor.",
+              "visual": "🐟",
+              "at": "04/10/2026, 11:54:27"
+            }
+          ],
           "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
           "questionBankVersion": 7
         }
       },
-      "updatedAt": "2026-10-04T12:28:47.530Z"
+      "activeSession": {
+        "token": "1791125626758-hn0i7jyhtu",
+        "lastSeen": 1791125991782
+      },
+      "updatedAt": "2026-10-04T14:54:29.455Z"
     },
     "student-benicio-maia": {
       "id": "student-benicio-maia",
