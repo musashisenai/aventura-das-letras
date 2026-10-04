@@ -8,15 +8,17 @@
       "file": "mosquito-buzz.mp3",
       "path": "database/sections/audio/mosquito-buzz.mp3",
       "publicPath": "client/public/assets/mosquito-buzz.mp3",
-      "role": "Zumbido cartunesco em loop da atividade Espanta-Mosquitos",
+      "role": "Zumbido de mosquitos/“flies noise” usado como referência sonora direta na atividade Espanta-Mosquitos",
       "activity": "espanta-mosquitos",
-      "status": "generated",
+      "status": "reference-adapted",
       "format": "MP3",
-      "durationSeconds": 6.03,
-      "sampleRate": 44100,
+      "durationSeconds": 2.568,
+      "sampleRate": 48000,
       "channels": 2,
       "loop": true,
-      "volumeBehavior": "Reduz proporcionalmente aos mosquitos restantes e silencia ao concluir"
+      "volumeBehavior": "Reduz proporcionalmente aos mosquitos restantes e silencia ao concluir",
+      "source": "Referência fornecida pelo usuário",
+      "bitRate": 256000
     }
   ]
 }

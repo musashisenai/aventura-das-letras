@@ -16,4 +16,4 @@ Esta pasta reúne exclusivamente os arquivos de áudio versionados do jogo. Ela 
 
 ## Áudio atual
 
-- `mosquito-buzz.mp3`: zumbido cartunesco em loop usado na atividade Espanta-Mosquitos. O jogo reduz o volume proporcionalmente aos mosquitos restantes e silencia ao concluir.
+- `mosquito-buzz.mp3`: zumbido em loop baseado diretamente na referência fornecida para a atividade Espanta-Mosquitos. O jogo reduz o volume proporcionalmente aos mosquitos restantes e silencia ao concluir.

@@ -219,3 +219,11 @@ button:not(:disabled):active { transform: scale(.97); }
 ::-moz-selection { color: inherit; background: transparent; }
 .game-ui button:focus { outline: none; }
 .game-ui button:focus-visible { outline: 2px solid transparent; outline-offset: 2px; }
+
+
+/* Loading global: evita cliques duplicados durante transições e ações do professor. */
+.game-ui button[data-loading="true"] { position: relative; cursor: wait; pointer-events: none; opacity: .68; }
+.game-ui button[data-loading="true"]::after { content: ""; position: absolute; top: 50%; right: 10px; width: 14px; height: 14px; margin-top: -7px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: game-button-spin .65s linear infinite; }
+.game-ui button[data-loading="true"] > svg, .game-ui button[data-loading="true"] > span { opacity: .5; }
+@keyframes game-button-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .game-ui button[data-loading="true"]::after { animation: none; opacity: .7; } }

@@ -491,9 +491,9 @@ function MosquitoSweepInteraction({ question, disabled, onComplete }: { question
   const target = question.mosquitoTarget ?? 3;
   const positions = useMemo(() => {
     const layouts = [
-      [[10, 17], [25, 10], [43, 20], [62, 11], [80, 18], [92, 35], [84, 54], [94, 74], [77, 90], [57, 82], [39, 93], [19, 82], [7, 65], [15, 45], [46, 44], [70, 48]],
-      [[16, 24], [34, 11], [55, 16], [75, 10], [91, 28], [84, 47], [93, 67], [77, 86], [57, 92], [35, 84], [13, 91], [6, 70], [18, 53], [30, 42], [52, 51], [71, 38]],
-      [[8, 13], [28, 21], [48, 10], [68, 19], [88, 13], [95, 38], [82, 58], [90, 81], [66, 92], [46, 78], [27, 94], [9, 82], [5, 58], [21, 39], [55, 43], [73, 57]],
+      [[10, 17], [25, 10], [43, 20], [62, 11], [80, 18], [92, 35], [84, 54], [94, 74], [77, 90], [57, 82], [39, 93], [19, 82], [7, 65], [15, 45], [46, 44], [70, 48], [34, 34], [61, 67]],
+      [[16, 24], [34, 11], [55, 16], [75, 10], [91, 28], [84, 47], [93, 67], [77, 86], [57, 92], [35, 84], [13, 91], [6, 70], [18, 53], [30, 42], [52, 51], [71, 38], [42, 32], [65, 72]],
+      [[8, 13], [28, 21], [48, 10], [68, 19], [88, 13], [95, 38], [82, 58], [90, 81], [66, 92], [46, 78], [27, 94], [9, 82], [5, 58], [21, 39], [55, 43], [73, 57], [37, 62], [64, 31]],
     ];
     return layouts[(question.activityIndex ?? 0) % layouts.length].slice(0, target);
   }, [question.activityIndex, question.id, target]);
@@ -808,6 +808,33 @@ function ResponseExplorer({ entries, selectedIndex, onSelectAnswer, tab }: { ent
 }
 
 export default function GameUI({ state, controller }: Props) {
+  const uiRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = uiRef.current;
+    if (!root) return;
+    const timers = new Map<HTMLButtonElement, number>();
+    const handleClick = (event: MouseEvent) => {
+      const button = (event.target as HTMLElement).closest("button");
+      if (!button || button.disabled || button.dataset.noLoading === "true" || button.classList.contains("password-eye")) return;
+      if (button.dataset.loading === "true") {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      button.dataset.loading = "true";
+      button.setAttribute("aria-busy", "true");
+      button.setAttribute("aria-disabled", "true");
+      const timer = window.setTimeout(() => {
+        button.dataset.loading = "false";
+        button.removeAttribute("aria-busy");
+        button.removeAttribute("aria-disabled");
+        timers.delete(button);
+      }, 720);
+      timers.set(button, timer);
+    };
+    root.addEventListener("click", handleClick, true);
+    return () => { root.removeEventListener("click", handleClick, true); timers.forEach((timer) => window.clearTimeout(timer)); };
+  }, []);
   const content = useMemo(() => {
     const requiresProfile = ["profile", "map", "placement-result", "lesson", "reward", "pets"].includes(state.screen);
     if (requiresProfile && !state.profile) return <EntryMenu state={state} controller={controller} />;
@@ -823,5 +850,5 @@ export default function GameUI({ state, controller }: Props) {
     if (state.screen === "pets") return <Pets state={state} controller={controller} />;
     return <Teacher state={state} controller={controller} />;
   }, [state, controller]);
-  return <div className="game-ui">{content}</div>;
+  return <div ref={uiRef} className="game-ui">{content}</div>;
 }
