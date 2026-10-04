@@ -10,6 +10,8 @@ async function importTypeScript(path) {
 
 const content = await importTypeScript("../client/src/game/content.ts");
 const voice = await importTypeScript("../client/src/game/voicepacks.ts");
+const syllableMarks = await importTypeScript("../client/src/game/syllableMarks.ts");
+const syllabic = content.getQuestionBank(3, 0);
 const spelling = content.getQuestionBank(5, 0);
 const orthography = content.getQuestionBank(6, 0);
 const expectedWords = ["SOL", "PATO", "BOLA", "CASA", "JANELA", "MACACO", "ELEFANTE", "BORBOLETA"];
@@ -31,9 +33,32 @@ assert.ok(orthography.every((question) => !`${question.prompt} ${question.displa
 assert.ok(orthography.every((question) => question.orthographicPattern.replace("□", question.answer) === question.targetWord), "Cada válvula correta deve completar exatamente a palavra-alvo");
 assert.deepEqual(orthography.map((question) => question.answer), ["CH", "X", "S", "Z", "CH", "CH", "X", "S"], "As respostas devem variar entre CH, X, S e Z");
 
+assert.equal(syllabic.length, 8, "A Fase 1 do Mundo Silábico deve ter oito variações");
+assert.ok(syllabic.every((question) => question.kind === "syllable-hammer" && question.activity === "martelo-pedacos"), "As oito variações silábicas devem abrir o Martelo dos Pedaços");
+assert.deepEqual(syllabic.map((question) => question.syllableParts.length), [1, 2, 3, 3, 4, 4, 4, 4], "A progressão do martelo deve contar uma batida por parte falada");
+assert.ok(syllabic.every((question, index) => question.activityIndex === index && question.syllableParts.length > 0), "Cada variação silábica deve ter índice e partes correspondentes");
+assert.equal(syllableMarks.randomSyllableMark(() => 0), "A", "O sorteio de letra genérica deve ser reproduzível nos testes");
+assert.equal(syllableMarks.randomSyllableMark(() => 0.999999), "Z", "O sorteio deve cobrir todo o alfabeto");
+assert.match(syllableMarks.randomSyllableMark(() => 0.5), /^[A-Z]$/, "Cada batida deve gerar uma letra maiúscula genérica");
+
 const manifest = JSON.parse(await readFile(new URL("../client/public/assets/voicepacks-manifest.json", import.meta.url), "utf8"));
 assert.equal(manifest.voice, "Leda", "O pacote deve identificar a voz Leda");
 assert.equal(manifest.language, "pt-BR", "O pacote deve identificar português brasileiro");
+const syllabicPack = manifest.packs["world-3-phase-0"];
+assert.ok(syllabicPack, "O pacote Leda da Fase 1 Silábica deve estar registrado");
+assert.equal(syllabicPack.activity, "martelo-pedacos", "A voz Leda silábica deve apontar para o Martelo dos Pedaços");
+assert.equal(syllabicPack.promptSegments.length, 8, "A matriz silábica deve ter oito faixas de enunciado Leda");
+assert.equal(syllabicPack.hintSegments.length, 8, "A matriz silábica deve ter oito faixas de dica Leda");
+for (const [index, question] of syllabic.entries()) {
+  assert.equal(voice.voicePackPath(3, 0, index, "prompt", question.id), `/assets/${syllabicPack.promptSegments[index]}`, `A descoberta silábica ${index + 1} deve resolver seu enunciado Leda`);
+  assert.equal(voice.voicePackPath(3, 0, index, "hint", question.id), `/assets/${syllabicPack.hintSegments[index]}`, `A descoberta silábica ${index + 1} deve resolver sua dica Leda`);
+}
+for (const audioPath of [...syllabicPack.promptSegments, ...syllabicPack.hintSegments]) {
+  const audio = await readFile(new URL(`../client/public/assets/${audioPath}`, import.meta.url));
+  const mirroredAudio = await readFile(new URL(`../database/sections/audio/${audioPath}`, import.meta.url));
+  assert.ok(audio.equals(mirroredAudio), `${audioPath} deve permanecer idêntico entre os assets públicos e o catálogo do banco`);
+  assert.equal(audio.subarray(0, 4).toString(), "RIFF", `${audioPath} deve ser WAV válido`);
+}
 for (const [worldId, activity] of [[5, "maquina-escrever"], [6, "filtro-digrafos"]]) {
   const key = `world-${worldId}-phase-0`;
   const pack = manifest.packs[key];
@@ -61,4 +86,4 @@ for (const [worldId, activity] of [[5, "maquina-escrever"], [6, "filtro-digrafos
 }
 assert.ok(manifest.feedback["world-5-phase-0"] && manifest.feedback["world-6-phase-0"], "As duas matrizes devem apontar para as faixas Leda de sucesso e encorajamento");
 
-console.log("OK: oito variações por matriz, progressão pedagógica, válvulas ortográficas e pacotes Leda de palavra/dica validados.");
+console.log("OK: oito variações no Martelo Silábico e nas matrizes Alfabética/Ortográfica; sorteio de letras, progressão, opções e áudio Leda validados.");

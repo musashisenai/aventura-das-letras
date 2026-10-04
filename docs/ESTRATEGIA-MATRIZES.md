@@ -282,6 +282,10 @@ Progressão: **SOL → PATO → BOLA → CASA → JANELA → MACACO → ELEFANTE
 
 A Fase 1 do Mundo Ortográfico (ID 6) passa a usar uma única matriz de válvulas identificadas exclusivamente como **CH, X, S e Z**: a criança ouve uma palavra, vê o espaço incompleto, seleciona uma dessas opções e libera o fluxo. A progressão cobre **CHUVA, PEIXE, CASA, ZEBRA, CHUCHU, MOCHILA, XÍCARA e ROSA**, trabalhando CH em posições diferentes e contrastando X, S e Z, inclusive o S entre vogais com som de Z. Nota didática: X, S e Z são letras (não dígrafos); são mantidas como contrastes ortográficos coerentes com o título e os exemplos do plano de atividades.
 
+## Mundo Silábico · Fase 1 — O Martelo dos Pedaços
+
+A Fase 1 do Mundo Silábico (ID 3) já tinha oito perguntas do **Martelo dos Pedaços**, mas a cena marcava as pedras apenas com números e sinais de conclusão. Agora cada batida aceita gera uma letra maiúscula genérica sobre a pedra correspondente, sem associá-la ao som da sílaba; isso explicita a relação **uma batida = uma parte falada**, conforme a lista original. A progressão preserva as oito palavras/segmentações e a voz Leda existente para enunciado e dica.
+
 ## Vozes e integração
 
-Cada descoberta das duas fases possui faixas WAV individuais de **palavra-alvo** e **dica**, geradas com a voz **Leda (pt-BR)**; os manifestos também oferecem os dois pacotes concatenados. O feedback de acerto e incentivo reutiliza as faixas Leda compartilhadas. A UI preserva a regra existente para os mundos Alfabético e Ortográfico: não lê o enunciado completo; reproduz a palavra-alvo e as dicas, respeitando o foco auditivo dessas etapas. Os assets estão espelhados no catálogo do banco, sem alteração de dados de alunos.
+O Mundo Silábico tem oito faixas WAV de enunciado e oito de dica, registradas no pacote Leda (pt-BR). As fases Alfabética e Ortográfica têm oito faixas de **palavra-alvo** e oito de **dica** cada; seus enunciados completos não são narrados. O feedback de acerto e incentivo reutiliza as faixas Leda compartilhadas. Os assets distribuídos são espelhados no catálogo do banco, sem alteração de dados de alunos.

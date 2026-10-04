@@ -8,6 +8,7 @@ import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp,
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import { buildSandTrackGeometry } from "@/game/sandTracks";
 import { feedbackVoicePath, voicePackPath } from "@/game/voicepacks";
+import { randomSyllableMark } from "@/game/syllableMarks";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
 import cartoonTreeAsset from "@/assets/arvore-openclipart.png";
@@ -743,9 +744,10 @@ function ShieldMagicInteraction({ question, disabled, onComplete }: { question: 
 function SyllableHammerInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const parts = question.syllableParts ?? [];
   const [hits, setHits] = useState(0);
+  const [marks, setMarks] = useState<string[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
   const complete = hits >= parts.length;
-  useEffect(() => setHits(0), [question.id]);
+  useEffect(() => { setHits(0); setMarks([]); }, [question.id]);
   useEffect(() => () => { void audioContextRef.current?.close(); }, []);
   const playHammerSound = () => {
     try {
@@ -783,6 +785,8 @@ function SyllableHammerInteraction({ question, disabled, onComplete }: { questio
     if (disabled || complete) return;
     playHammerSound();
     const next = hits + 1;
+    const mark = randomSyllableMark();
+    setMarks((current) => [...current, mark]);
     setHits(next);
     if (next >= parts.length) onComplete();
   };
@@ -792,7 +796,7 @@ function SyllableHammerInteraction({ question, disabled, onComplete }: { questio
     <div className="syllable-hammer-scene">
       <div className="syllable-hammer-sky" aria-hidden="true"><i /><i /><i /></div>
       <button type="button" className="syllable-hammer-button" onClick={strike} disabled={disabled || complete} aria-label={complete ? "Palavra completa" : "Bater o martelo uma vez"}><Hammer size={52} /><strong>{complete ? "COMPLETO" : "BATER"}</strong></button>
-      <div className="syllable-hammer-blocks" aria-hidden="true">{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? "✓" : index + 1}</i>)}</div>
+      <div className="syllable-hammer-blocks" role="group" aria-label={`Letras genéricas geradas: ${marks.join(", ") || "nenhuma"}`}>{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? marks[index] : index + 1}</i>)}</div>
     </div>
     <div className="syllable-hammer-footer"><p>{complete ? "Muito bem! Cada batida marcou uma parte falada." : "Fale a palavra devagar e bata uma vez para cada pedaço."}</p><span><Hammer size={17} /> {complete ? "PALAVRA MARCADA" : "UMA BATIDA POR SÍLABA"}</span></div>
   </div>;

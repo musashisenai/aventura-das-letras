@@ -362,3 +362,7 @@
 
 /* A Máquina de Escrever a Jato: os espinhos ficam no alto, conforme a matriz original. */
 .jet-writer-spikes { top: 0; bottom: auto; z-index: 3; }
+
+
+/* O Martelo dos Pedaços marca cada batida com uma letra genérica, não com um acerto ortográfico. */
+.syllable-hammer-blocks i.filled { font-family: "Baloo 2", sans-serif; font-size: .85rem; letter-spacing: .02em; }

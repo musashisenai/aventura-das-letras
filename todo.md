@@ -132,3 +132,8 @@ Validação concluída: `pnpm check`, `pnpm build`, `pnpm test` (inclui `node te
 - [x] Adicionar testes de progressão, não vazamento da resposta, opções, caminho de WAV, validade de arquivos e igualdade das cópias distribuídas.
 
 Validação de fala: transcrições das oito faixas regeneradas do Mundo Ortográfico conferiram palavras e dicas, inclusive XÍCARA e o contraste do S em ROSA. O banco versionado mantém a mudança de conteúdo sem apagar respostas nem conclusões dos alunos. A próxima prioridade de mundo/fase ainda não foi definida pelo usuário.
+
+
+## Revisão após feedback · Mundo Silábico — Fase 1
+
+A Fase 1 do Martelo dos Pedaços já existia no catálogo com oito variações e voz Leda. Esta revisão alinha a mecânica à lista original: cada batida agora revela uma letra maiúscula genérica na pedra correspondente, sem valor sonoro. Os testes verificam o banco, o sorteio de letras e as faixas Leda existentes. A estratégia e o prompt de continuidade registram a correção.
