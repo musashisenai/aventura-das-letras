@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -41,6 +41,7 @@ export type GameQuestion = {
   rollerDirection?: "left" | "right" | "alternate";
   rollerPattern?: "straight" | "zigzag";
   rollerColor?: string;
+  beeTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -82,7 +83,6 @@ export const ACTIVITY_CATALOG: Record<number, ActivitySeed[]> = {
 
 const catalog = (worldId: number): ActivityDefinition[] => ACTIVITY_CATALOG[worldId].map(([id, title, focus]) => ({ id, title, focus }));
 export function getActivityDefinition(worldId: number, activityId?: string) {
-  if (worldId === 0 && activityId === "festival-final") return { id: "festival-final", title: "Festival Final da Lumi", focus: "celebração das descobertas" };
   return activityId ? catalog(worldId).find((activity) => activity.id === activityId) : undefined;
 }
 const choice = (id: string, prompt: string, options: string[], answer: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "choice", prompt, options, answer, hint, visual, activity, activityIndex });
@@ -95,6 +95,7 @@ const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTa
 const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget: number): GameQuestion => ({ id: `fase-5-g-pintura-ima-${variant + 1}`, kind: "magnet-paint", prompt, answer: `FORMA MAGNÉTICA ${variant + 1}`, hint, activity: "pintura-ima", activityIndex: variant, magnetTarget });
 const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: string, revealLabel: string): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `IMAGEM REVELADA ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, revealAsset, revealLabel, revealRegion: { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" } });
 const paintRoller = (variant: number, prompt: string, hint: string, config: Pick<GameQuestion, "rollerRows" | "rollerColumns" | "rollerOrdered" | "rollerDirection" | "rollerPattern" | "rollerColor">): GameQuestion => ({ id: `fase-7-g-rolo-pintura-${variant + 1}`, kind: "paint-roller", prompt, answer: `PINTURA COMPLETA ${variant + 1}`, hint, activity: "rolo-pintura", activityIndex: variant, ...config });
+const beeFlight = (variant: number, prompt: string, hint: string, beeTarget: number): GameQuestion => ({ id: `desafio-final-g-voo-abelha-${variant + 1}`, kind: "bee-flight", prompt, answer: `VOO COMPLETO ${variant + 1}`, hint, activity: "voo-abelha", activityIndex: variant, beeTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -229,7 +230,7 @@ const GARATUJA_FINAL_CHALLENGE: GameQuestion[] = [
   { ...magnetPaint(7, "FORME O EMBLEMA DA LUMI COM O ÍMÃ.", "Acenda todos os pontos e deixe a forma magnética completa.", 8), id: "desafio-final-garat-05-ima" },
   { ...iceMelt(7, "DESCONGELE A SURPRESA DO FESTIVAL.", "Esfregue toda a imagem central até revelar por completo o sorvete.", "sorvete-morango", "Sorvete de morango"), id: "desafio-final-garat-06-gelo" },
   { ...paintRoller(7, "PINTE O GRANDE MURAL DE ENCERRAMENTO.", "Cubra as oito faixas na ordem, alternando o sentido e seguindo o zigue-zague.", { rollerRows: 8, rollerColumns: 20, rollerOrdered: true, rollerDirection: "alternate", rollerPattern: "zigzag", rollerColor: "#D8689A" }), id: "desafio-final-garat-07-mural" },
-  { ...draw("desafio-final-garat-08-desenho", "DESENHE A MEDALHA DA SUA AVENTURA.", "Faça uma estrela, um coração ou qualquer desenho para comemorar tudo o que você aprendeu.", "✦", "festival-final", 7) },
+  { ...beeFlight(7, "GUIE A ABELHINHA DA LUMI ATÉ A FLOR FINAL.", "Siga os nove pontos da rota sem sair do caminho. Quando chegar à flor, o Festival termina.", 9), id: "desafio-final-garat-08-abelha" },
 ];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */

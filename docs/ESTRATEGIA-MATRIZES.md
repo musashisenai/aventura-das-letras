@@ -126,7 +126,7 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 
 ### Desafio final — Festival Final da Lumi
 
-Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um desenho livre da medalha da aventura.
+Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um voo guiado até a flor da Lumi.
 
 **Sequência oficial:**
 
@@ -137,7 +137,7 @@ Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa 
 5. Formar o emblema magnético com oito pontos.
 6. Revelar integralmente o sorvete escondido no gelo.
 7. Cobrir o mural final com oito faixas em zigue-zague.
-8. Desenhar a medalha da própria aventura.
+8. Guiar a abelhinha da Lumi pelos nove pontos até a flor final.
 
 O desafio reutiliza os componentes aprovados, mantém oito descobertas e altera apenas a composição narrativa e o nível final de exigência. A conclusão segue o mesmo fluxo de pontuação e recompensa do controlador, com o ovo lendário reservado para esta etapa.
 

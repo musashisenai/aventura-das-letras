@@ -780,14 +780,14 @@
         "rollerColor": "#D8689A"
       },
       {
-        "id": "desafio-final-garat-08-desenho",
-        "kind": "draw",
-        "prompt": "Desenhe a medalha da sua aventura.",
-        "answer": "__drawing__",
-        "hint": "Faça uma estrela, um coração ou qualquer desenho para comemorar tudo o que você aprendeu.",
-        "visual": "✦",
-        "activity": "festival-final",
-        "activityIndex": 7
+        "id": "desafio-final-garat-08-abelha",
+        "kind": "bee-flight",
+        "prompt": "Guie a abelhinha da Lumi até a flor final.",
+        "answer": "VOO COMPLETO 8",
+        "hint": "Siga os nove pontos da rota sem sair do caminho. Quando chegar à flor, o Festival termina.",
+        "activity": "voo-abelha",
+        "activityIndex": 7,
+        "beeTarget": 9
       }
     ]
   }
