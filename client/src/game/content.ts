@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -30,6 +30,7 @@ export type GameQuestion = {
   seedTarget?: number;
   lanternTarget?: number;
   sandTarget?: number;
+  mosquitoTarget?: number;
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -79,6 +80,7 @@ const draw = (id: string, prompt: string, hint: string, visual?: string, activit
 const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
 const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
 const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sceneAsset: "pegadas-coqueiro" });
+const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTarget: number): GameQuestion => ({ id: `fase-4-g-espanta-mosquitos-${variant + 1}`, kind: "mosquito-sweep", prompt, answer: `POMAR LIMPO ${variant + 1}`, hint, activity: "espanta-mosquitos", activityIndex: variant, mosquitoTarget });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -165,12 +167,23 @@ const GARATUJA_PHASE_THREE: GameQuestion[] = [
   sandTracks(6, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
   sandTracks(7, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
 ];
+const GARATUJA_PHASE_FOUR: GameQuestion[] = [
+  mosquitoSweep(0, "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.", "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.", 3),
+  mosquitoSweep(1, "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.", "Cada gesto deve sair de perto de um inseto e terminar longe dele.", 4),
+  mosquitoSweep(2, "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.", "Aponte para um mosquito, arraste com firmeza e solte depois de afastá-lo.", 3),
+  mosquitoSweep(3, "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.", "Faça um flick curto e veloz em uma direção diferente para cada mosquito.", 5),
+  mosquitoSweep(4, "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.", "O movimento começa perto do inseto; um toque parado não conta.", 4),
+  mosquitoSweep(5, "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.", "Procure os insetos ao redor e empurre cada um para além da borda.", 5),
+  mosquitoSweep(6, "SALVE A FRUTA MADURA COM GESTOS DE VARRER.", "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.", 4),
+  mosquitoSweep(7, "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.", "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.", 5),
+];
 
 /** Um bloco exclusivo de 8 perguntas para cada fase (0..6) e para o final (7). */
 export function getQuestionBank(worldId: number, phase: number): GameQuestion[] {
   if (worldId === 0 && phase === 0) return GARATUJA_PHASE_ONE;
   if (worldId === 0 && phase === 1) return GARATUJA_PHASE_TWO;
   if (worldId === 0 && phase === 2) return GARATUJA_PHASE_THREE;
+  if (worldId === 0 && phase === 3) return GARATUJA_PHASE_FOUR;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

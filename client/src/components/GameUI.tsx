@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
@@ -475,9 +475,60 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "seed-rain") return <SeedRainInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "lantern") return <LanternInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "sand-tracks") return <SandTracksInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "mosquito-sweep") return <MosquitoSweepInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+function MosquitoSweepInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const [cleared, setCleared] = useState<number[]>([]);
+  const [sweeping, setSweeping] = useState(false);
+  const [activeBug, setActiveBug] = useState<number | null>(null);
+  const [trail, setTrail] = useState<{ x: number; y: number }[]>([]);
+  const [completed, setCompleted] = useState(false);
+  const startPoint = useRef<{ x: number; y: number } | null>(null);
+  const target = question.mosquitoTarget ?? 3;
+  const positions = useMemo(() => {
+    const layouts = [
+      [[16, 24], [82, 25], [24, 76], [76, 72], [52, 14]],
+      [[22, 35], [73, 18], [87, 69], [42, 82], [12, 67]],
+      [[15, 18], [52, 27], [84, 43], [28, 76], [68, 78]],
+    ];
+    return layouts[(question.activityIndex ?? 0) % layouts.length].slice(0, target);
+  }, [question.activityIndex, question.id, target]);
+  useEffect(() => { setCleared([]); setSweeping(false); setActiveBug(null); setTrail([]); setCompleted(false); startPoint.current = null; }, [question.id]);
+  useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 520); return () => window.clearTimeout(timer); }, [completed, onComplete]);
+  const pointFromEvent = (event: PointerEvent<HTMLDivElement>) => { const rect = event.currentTarget.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * 100, y: ((event.clientY - rect.top) / rect.height) * 100 }; };
+  const finishSweep = (point: { x: number; y: number }) => {
+    if (activeBug === null || !startPoint.current) return;
+    const distance = Math.hypot(point.x - startPoint.current.x, point.y - startPoint.current.y);
+    if (distance < 18) return;
+    const startFromFruit = Math.hypot(startPoint.current.x - 50, startPoint.current.y - 55);
+    const endFromFruit = Math.hypot(point.x - 50, point.y - 55);
+    const reachedEdge = point.x < 8 || point.x > 92 || point.y < 8 || point.y > 92;
+    if (!reachedEdge && endFromFruit < startFromFruit + 8) return;
+    setCleared((current) => { const next = current.includes(activeBug) ? current : [...current, activeBug]; if (next.length >= target) setCompleted(true); return next; });
+  };
+  const begin = (event: PointerEvent<HTMLDivElement>) => {
+    if (disabled || completed) return;
+    const point = pointFromEvent(event);
+    const nearest = positions.findIndex(([x, y], index) => !cleared.includes(index) && Math.hypot(point.x - x, point.y - y) <= 12);
+    if (nearest < 0) return;
+    startPoint.current = point; setActiveBug(nearest); setSweeping(true); setTrail([point]); event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const move = (event: PointerEvent<HTMLDivElement>) => { if (!sweeping || disabled || completed) return; const point = pointFromEvent(event); setTrail((current) => [...current.slice(-9), point]); };
+  const stop = (event: PointerEvent<HTMLDivElement>) => { if (sweeping) finishSweep(pointFromEvent(event)); setSweeping(false); setActiveBug(null); startPoint.current = null; setTrail([]); };
+  return <div className={`mosquito-sweep-activity ${completed ? "completed" : ""}`}>
+    <div className="mosquito-toolbar"><div><span className="mosquito-kicker"><Bug size={15} /> POMAR EM ALERTA</span><strong>Espante os mosquitos</strong></div><div className="mosquito-counter"><b>{cleared.length}</b><span>/ {target} afastados</span></div></div>
+    <div className="mosquito-scene" aria-label="Pomar interativo para espantar mosquitos" onPointerDown={begin} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop}>
+      <div className={`mosquito-fruit fruit-${(question.activityIndex ?? 0) % 3}`} aria-hidden="true"><i /><b /></div><span className="mosquito-leaf leaf-one" /><span className="mosquito-leaf leaf-two" />
+      <div className="mosquito-air" aria-hidden="true">{trail.map((point, index) => <i key={`${point.x}-${point.y}-${index}`} style={{ left: `${point.x}%`, top: `${point.y}%`, opacity: (index + 1) / trail.length }} />)}</div>
+      {positions.map(([x, y], index) => <span className={`mosquito ${cleared.includes(index) ? "cleared" : ""} ${activeBug === index ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} key={`${x}-${y}`} aria-hidden="true"><Bug size={30} /></span>)}
+      {completed && <span className="mosquito-clean-badge" aria-label="Pomar limpo"><Check size={24} /></span>}
+      <span className="mosquito-instruction">Comece perto de um inseto e faça um gesto rápido para fora</span>
+    </div>
+    <div className="mosquito-footer"><p>{completed ? "Muito bem! A fruta está protegida e o pomar ficou tranquilo." : "Toque perto de um mosquito, arraste com rapidez e solte longe dele."}</p><div className="mosquito-progress" aria-label={`${cleared.length} de ${target} mosquitos afastados`}><i style={{ width: `${(cleared.length / target) * 100}%` }} /></div></div>
+  </div>;
 }
 function SandTracksInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

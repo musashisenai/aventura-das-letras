@@ -264,101 +264,84 @@
     ],
     "fase-4": [
       {
-        "id": "fase-4-g-mais-bolinhas-0",
-        "kind": "choice",
-        "prompt": "Em qual grupo há mais bolinhas?",
-        "options": [
-          "●●",
-          "●●●●",
-          "●"
-        ],
-        "answer": "●●●●",
-        "hint": "Conte cada grupo antes de escolher."
+        "id": "fase-4-g-espanta-mosquitos-1",
+        "kind": "mosquito-sweep",
+        "prompt": "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.",
+        "answer": "POMAR LIMPO 1",
+        "hint": "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 0,
+        "mosquitoTarget": 3
       },
       {
-        "id": "fase-4-g-soma-1-2-1",
-        "kind": "choice",
-        "prompt": "Quantas frutas ficam juntas?",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "answer": "3",
-        "hint": "Uma fruta e mais duas frutas.",
-        "visual": "🍎 + 🍎 🍎"
+        "id": "fase-4-g-espanta-mosquitos-2",
+        "kind": "mosquito-sweep",
+        "prompt": "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.",
+        "answer": "POMAR LIMPO 2",
+        "hint": "Cada gesto deve sair de perto de um inseto e terminar longe dele.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 1,
+        "mosquitoTarget": 4
       },
       {
-        "id": "fase-4-g-desenho-2",
-        "kind": "choice",
-        "prompt": "Qual é um desenho de verdade?",
-        "options": [
-          "☀",
-          "A",
-          "3"
-        ],
-        "answer": "☀",
-        "hint": "Desenhos mostram coisas que vemos no mundo."
+        "id": "fase-4-g-espanta-mosquitos-3",
+        "kind": "mosquito-sweep",
+        "prompt": "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.",
+        "answer": "POMAR LIMPO 3",
+        "hint": "Aponte para um mosquito, arraste com firmeza e solte depois de afastá-lo.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 2,
+        "mosquitoTarget": 3
       },
       {
-        "id": "fase-4-g-cor-forma-3",
-        "kind": "choice",
-        "prompt": "Qual forma parece uma janela?",
-        "options": [
-          "□",
-          "○",
-          "△"
-        ],
-        "answer": "□",
-        "hint": "Uma janela costuma ter quatro lados."
+        "id": "fase-4-g-espanta-mosquitos-4",
+        "kind": "mosquito-sweep",
+        "prompt": "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.",
+        "answer": "POMAR LIMPO 4",
+        "hint": "Faça um flick curto e veloz em uma direção diferente para cada mosquito.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 3,
+        "mosquitoTarget": 5
       },
       {
-        "id": "fase-4-g-sol-4",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
-        "options": [
-          "O",
-          "S",
-          "L"
-        ],
-        "answer": "SOL",
-        "hint": "OLHE PARA A IMAGEM E EXPERIMENTE AS LETRAS.",
-        "visual": "☀️",
-        "audioText": "SOL",
-        "targetWord": "SOL"
+        "id": "fase-4-g-espanta-mosquitos-5",
+        "kind": "mosquito-sweep",
+        "prompt": "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.",
+        "answer": "POMAR LIMPO 5",
+        "hint": "O movimento começa perto do inseto; um toque parado não conta.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 4,
+        "mosquitoTarget": 4
       },
       {
-        "id": "fase-4-g-conte-4-5",
-        "kind": "choice",
-        "prompt": "Quantos peixinhos nadam aqui?",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
-        "answer": "4",
-        "hint": "Conte sem pular nenhum.",
-        "visual": "🐟 🐟 🐟 🐟"
+        "id": "fase-4-g-espanta-mosquitos-6",
+        "kind": "mosquito-sweep",
+        "prompt": "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.",
+        "answer": "POMAR LIMPO 6",
+        "hint": "Procure os insetos ao redor e empurre cada um para além da borda.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 5,
+        "mosquitoTarget": 5
       },
       {
-        "id": "fase-4-g-ondulado-6",
-        "kind": "choice",
-        "prompt": "Qual traço faz ondas?",
-        "options": [
-          "—",
-          "〰",
-          "|"
-        ],
-        "answer": "〰",
-        "hint": "Olhe para o traço que sobe e desce."
+        "id": "fase-4-g-espanta-mosquitos-7",
+        "kind": "mosquito-sweep",
+        "prompt": "SALVE A FRUTA MADURA COM GESTOS DE VARRER.",
+        "answer": "POMAR LIMPO 7",
+        "hint": "Use um movimento rápido e contínuo, como se estivesse varrendo a tela.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 6,
+        "mosquitoTarget": 4
       },
       {
-        "id": "fase-4-g-nome-7",
-        "kind": "draw",
-        "prompt": "Faça a sua marca ou tente desenhar seu nome.",
-        "answer": "__drawing__",
-        "hint": "Não precisa ficar perfeito. Cada marca conta uma história.",
-        "visual": "✎"
+        "id": "fase-4-g-espanta-mosquitos-8",
+        "kind": "mosquito-sweep",
+        "prompt": "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.",
+        "answer": "POMAR LIMPO 8",
+        "hint": "Afaste todos os insetos sem parar sobre a fruta: movimento e direção são importantes.",
+        "activity": "espanta-mosquitos",
+        "activityIndex": 7,
+        "mosquitoTarget": 5
       }
     ],
     "fase-5": [
