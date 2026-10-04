@@ -13,6 +13,7 @@ export const ASSETS = {
 } as const;
 
 export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic" | "syllable-hammer" | "syllable-letter";
+export type SandPattern = "straight" | "curve" | "waves" | "zigzag" | "fork" | "color-order" | "precision" | "branched";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -30,6 +31,7 @@ export type GameQuestion = {
   seedTarget?: number;
   lanternTarget?: number;
   sandTarget?: number;
+  sandPattern?: SandPattern;
   mosquitoTarget?: number;
   magnetTarget?: number;
   revealAsset?: string;
@@ -108,7 +110,7 @@ const order = (id: string, prompt: string, options: string[], answer: string, hi
 const draw = (id: string, prompt: string, hint: string, visual?: string, activity?: string, activityIndex?: number): GameQuestion => ({ id, kind: "draw", prompt, answer: "__drawing__", hint, visual, activity, activityIndex });
 const seedRain = (variant: number, prompt: string, hint: string, seedTarget: number): GameQuestion => ({ id: `fase-1-g-chuva-sementes-${variant + 1}`, kind: "seed-rain", prompt, answer: `CHUVA COMPLETA ${variant + 1}`, hint, activity: "chuva-sementes", activityIndex: variant, seedTarget });
 const lantern = (variant: number, prompt: string, hint: string, lanternTarget: number): GameQuestion => ({ id: `fase-2-g-dedos-lanterna-${variant + 1}`, kind: "lantern", prompt, answer: `LUZ COMPLETA ${variant + 1}`, hint, activity: "dedos-lanterna", activityIndex: variant, lanternTarget });
-const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sceneAsset: "pegadas-coqueiro" });
+const sandTracks = (variant: number, prompt: string, hint: string, sandTarget: number, sandPattern: SandPattern = (["straight", "curve", "waves", "zigzag", "fork", "color-order", "precision", "branched"] as const)[variant] ?? "straight"): GameQuestion => ({ id: `fase-3-g-pegadas-areia-${variant + 1}`, kind: "sand-tracks", prompt, answer: `PEGADAS COMPLETAS ${variant + 1}`, hint, activity: "pegadas-areia", activityIndex: variant, sandTarget, sandPattern, sceneAsset: "pegadas-coqueiro" });
 const mosquitoSweep = (variant: number, prompt: string, hint: string, mosquitoTarget: number): GameQuestion => ({ id: `fase-4-g-espanta-mosquitos-${variant + 1}`, kind: "mosquito-sweep", prompt, answer: `POMAR LIMPO ${variant + 1}`, hint, activity: "espanta-mosquitos", activityIndex: variant, mosquitoTarget });
 const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget: number): GameQuestion => ({ id: `fase-5-g-pintura-ima-${variant + 1}`, kind: "magnet-paint", prompt, answer: `FORMA MAGNÉTICA ${variant + 1}`, hint, activity: "pintura-ima", activityIndex: variant, magnetTarget });
 const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: string, revealLabel: string): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `IMAGEM REVELADA ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, revealAsset, revealLabel, revealRegion: { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" } });
@@ -239,14 +241,14 @@ const GARATUJA_PHASE_TWO: GameQuestion[] = [
   lantern(7, "Ilumine o quarto inteiro e revele a grande surpresa.", "Procure todos os brilhos. A última descoberta abre a passagem.", 4),
 ];
 const GARATUJA_PHASE_THREE: GameQuestion[] = [
-  sandTracks(0, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 5),
-  sandTracks(1, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 5),
-  sandTracks(2, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 6),
-  sandTracks(3, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 6),
-  sandTracks(4, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 7),
-  sandTracks(5, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 7),
-  sandTracks(6, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
-  sandTracks(7, "FAÇA PEGADAS NA AREIA E LEVE A TRILHA ATÉ O COQUEIRO.", "Arraste pela areia. Ao completar as marcas, a trilha continua até a sombra do coqueiro.", 8),
+  sandTracks(0, "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.", "Comece no ponto maior e arraste em linha reta pela praia. As marcas largas ajudam na primeira caminhada.", 5),
+  sandTracks(1, "CONTORNE A DUNA PELA CURVA ATÉ O COQUEIRO.", "A trilha faz uma curva suave. Acompanhe os pontos sem cortar caminho.", 6),
+  sandTracks(2, "CAMINHE PELAS ONDAS DA AREIA.", "A rota sobe e desce como pequenas ondas. Siga cada marca na ordem até o coqueiro.", 7),
+  sandTracks(3, "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.", "Mude de direção em cada curva e continue seguindo os pontos da trilha.", 8),
+  sandTracks(4, "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.", "Há dois caminhos na areia. Siga o caminho pontilhado que termina junto ao coqueiro; o outro leva a um desvio.", 7),
+  sandTracks(5, "SIGA AS PEGADAS NA ORDEM DAS CORES.", "Acompanhe os pontos amarelos, azuis e corais na sequência em que aparecem até chegar ao coqueiro.", 7),
+  sandTracks(6, "ATRAVESSE A ROTA ESTREITA COM CUIDADO.", "As curvas estão mais próximas. Mantenha o dedo perto das marcas e siga uma de cada vez.", 8),
+  sandTracks(7, "DESAFIO FINAL: ENCONTRE A RAMIFICAÇÃO QUE LEVA AO COQUEIRO.", "A rota tem desvios. Siga os pontos principais até a sombra do coqueiro sem entrar nos caminhos que terminam na areia aberta.", 8),
 ];
 const GARATUJA_PHASE_FOUR: GameQuestion[] = [
   mosquitoSweep(0, "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.", "Comece perto de um mosquito e faça um movimento rápido para fora da fruta.", 8),

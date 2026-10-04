@@ -265,3 +265,8 @@ O componente de interação continua único por matriz. A configuração altera 
 ## Pontos de alinhamento futuro
 
 O guia estratégico estabelece **8 mundos**, enquanto o catálogo atual do repositório ainda está estruturado com 7 mundos e as cinco matrizes analisadas pertencem ao Mundo da Garatuja. Isso não será alterado agora. A diferença será tratada como decisão de planejamento antes da criação do oitavo mundo.
+
+
+## Implementação — Mundo da Garatuja · Fase 3
+
+A Fase 3 foi evoluída para oito configurações reais sem substituir seu renderer de Canvas nem alterar o objetivo de criar pegadas até o coqueiro. As variações implementadas são: rota reta; curva; ondas; zigue-zague; escolha entre a rota do coqueiro e um desvio; percurso em sequência de três cores; rota de precisão com checkpoints mais próximos e tolerância menor; e desafio ramificado com desvios distratores. Todas continuam disponíveis como oito itens `sand-tracks` da atividade `pegadas-areia`, inclusive a etapa correspondente no desafio final.

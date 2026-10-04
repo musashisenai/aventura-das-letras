@@ -430,7 +430,7 @@ Evolução planejada:
 
 Matriz: seguir uma rota e criar pegadas até o destino.
 
-Problema atual: as variações ainda dependem muito da quantidade de marcas e repetem o mesmo enunciado.
+Implementação atual: oito configurações de rota reta, curva, ondas, zigue-zague, escolha de caminho, sequência por cores, precisão e ramificações. Canvas, checkpoints e cenário da praia foram preservados; desvios aparecem como distratores visuais e não contam para o progresso.
 
 Evolução planejada:
 
@@ -611,20 +611,7 @@ Quando houver dúvida que altere significativamente a intenção do usuário, pa
 
 ## PRÓXIMO TRABALHO RECOMENDADO
 
-Não começar imediatamente uma nova atividade isolada.
-
-O próximo passo estratégico recomendado é:
-
-1. selecionar a próxima fase do Mundo da Garatuja;
-2. definir sua atividade-matriz;
-3. planejar as oito variações progressivas;
-4. identificar o componente técnico reutilizável;
-5. implementar as oito variações em lote;
-6. conectar todas ao painel de desenvolvedor;
-7. testar a fase inteira;
-8. publicar em commits rastreáveis.
-
-A Fase 3, **Pegadas na Areia**, é a melhor candidata para uma revisão planejada de variedade, mas nada deve ser alterado sem planejamento explícito e sem preservar a mecânica aprovada.
+A Fase 3, **Pegadas na Areia**, já recebeu oito configurações distintas de rota, com variação geométrica, desvios e progressão de precisão. A próxima revisão de variedade recomendada é a Fase 4, **Espanta-Mosquitos**. Preserve a regra aprovada de exatamente oito mosquitos em todas as versões, os visuais minimalistas e o áudio proporcional; planeje diferenças de trajetória, velocidade, zona de proteção e padrões de voo sem reconstruir a mecânica central.
 
 ---
 

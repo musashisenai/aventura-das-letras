@@ -108,3 +108,15 @@ A verificação de tipos e a compilação de produção foram concluídas com ê
 - [x] Validar a convivência entre a escolha da criança, o bloqueio docente e a compilação de produção.
 
 Validação registrada: o menu foi capturado em desktop e em 375 px. A escolha “Lumi pode ler para mim” muda para “Vou ler sem ajuda” no mesmo controle e é transportada para o perfil ao iniciar a expedição. A preferência do professor segue sendo aplicada no perfil individual, e `pnpm check` e `pnpm build` foram concluídos sem erros.
+
+
+## Mundo da Garatuja · Fase 3 — Pegadas na Areia
+
+- [x] Auditar as oito configurações: antes, todas repetiam a mesma rota e variavam principalmente a quantidade de marcas.
+- [x] Implementar oito matrizes progressivas: reta, curva, ondas, zigue-zague, escolha entre dois caminhos, sequência por cores, precisão e ramificações.
+- [x] Reutilizar o canvas e a mecânica de arraste, com checkpoints numerados, caminhos de desvio visíveis e tolerância ajustada à dificuldade.
+- [x] Preservar o desafio final da Garatuja com a geometria ramificada e a ligação ao painel de desenvolvedor.
+- [x] Incrementar `QUESTION_BANK_VERSION` para recarregar filas antigas sem apagar conclusões ou respostas salvas.
+- [x] Criar testes automatizados para geometria, progressão, cores, desvios e catálogo das oito perguntas.
+
+Validação concluída: `pnpm check`, `pnpm build`, `pnpm test` (inclui `node tests/mascot-layout.test.mjs`), o teste das oito rotas e `git diff --check` passaram. O primeiro bloqueio foi a ausência de `node_modules` no checkout; as dependências foram instaladas com `pnpm install --frozen-lockfile`. O build apenas reportou o aviso preexistente de bundle JavaScript acima de 500 kB.
