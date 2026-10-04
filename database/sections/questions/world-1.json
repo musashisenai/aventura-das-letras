@@ -10,108 +10,192 @@
   "phases": {
     "fase-1": [
       {
-        "id": "fase-1-abc-a-0",
-        "kind": "choice",
-        "prompt": "QUAL É A LETRA A?",
+        "id": "fase-1-abc-molde-biscoito-1",
+        "kind": "cookie-mold",
+        "prompt": "ESCOLHA A FÔRMA IGUAL À LETRA A.",
         "options": [
           "A",
           "M",
           "O"
         ],
         "answer": "A",
-        "hint": "A PARECE UMA MONTANHA COM DUAS PERNAS."
+        "hint": "A PARECE UMA MONTANHA COM DUAS PERNAS.",
+        "activity": "molde-biscoito",
+        "activityIndex": 0,
+        "cookieTarget": "A",
+        "cookieOptions": [
+          "A",
+          "M",
+          "O"
+        ],
+        "cookieCase": "upper",
+        "cookieLayout": "row",
+        "cookieChallenge": "direct"
       },
       {
-        "id": "fase-1-abc-b-1",
-        "kind": "choice",
-        "prompt": "QUAL LETRA COMEÇA BOLA?",
+        "id": "fase-1-abc-molde-biscoito-2",
+        "kind": "cookie-mold",
+        "prompt": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
         "options": [
-          "B",
           "D",
+          "B",
           "P"
         ],
         "answer": "B",
-        "hint": "FAÇA O SOM BÊÊÊ.",
-        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
-        "targetWord": "BOLA"
-      },
-      {
-        "id": "fase-1-abc-c-2",
-        "kind": "choice",
-        "prompt": "QUAL LETRA VEM DEPOIS DE B?",
-        "options": [
-          "A",
-          "C",
-          "D"
+        "hint": "COMPARE AS DUAS BARRIGAS DA LETRA B COM CADA FÔRMA.",
+        "activity": "molde-biscoito",
+        "activityIndex": 1,
+        "cookieTarget": "B",
+        "cookieOptions": [
+          "D",
+          "B",
+          "P"
         ],
-        "answer": "C",
-        "hint": "CANTE: A, B, C."
+        "cookieCase": "upper",
+        "cookieLayout": "arc",
+        "cookieChallenge": "near"
       },
       {
-        "id": "fase-1-abc-ordem-abc-3",
-        "kind": "order",
-        "prompt": "ORGANIZE A PEQUENA FILA DO ALFABETO.",
-        "options": [
-          "C",
-          "A",
-          "B"
-        ],
-        "answer": "ABC",
-        "hint": "COMECE PELA PRIMEIRA LETRA DO ALFABETO."
-      },
-      {
-        "id": "fase-1-abc-d-4",
-        "kind": "choice",
-        "prompt": "QUAL É A LETRA D?",
+        "id": "fase-1-abc-molde-biscoito-3",
+        "kind": "cookie-mold",
+        "prompt": "A LETRA C QUER VIRAR BISCOITO. QUAL FÔRMA COMBINA?",
         "options": [
           "O",
-          "D",
-          "Q"
+          "C",
+          "G"
         ],
-        "answer": "D",
-        "hint": "D TEM UMA BARRIGA REDONDA DO LADO DIREITO."
+        "answer": "C",
+        "hint": "A LETRA C É ABERTA DE UM LADO; NÃO ESCOLHA O O FECHADO.",
+        "activity": "molde-biscoito",
+        "activityIndex": 2,
+        "cookieTarget": "C",
+        "cookieOptions": [
+          "O",
+          "C",
+          "G"
+        ],
+        "cookieCase": "upper",
+        "cookieLayout": "row",
+        "cookieChallenge": "near"
       },
       {
-        "id": "fase-1-abc-e-5",
-        "kind": "choice",
-        "prompt": "QUAL LETRA COMEÇA ELEFANTE?",
+        "id": "fase-1-abc-molde-biscoito-4",
+        "kind": "cookie-mold",
+        "prompt": "ESCOLHA A FÔRMA DA LETRA M.",
         "options": [
-          "E",
+          "N",
+          "W",
+          "M"
+        ],
+        "answer": "M",
+        "hint": "M E W PARECEM PARENTES, MAS OBSERVE PARA ONDE APONTAM AS PONTAS.",
+        "activity": "molde-biscoito",
+        "activityIndex": 3,
+        "cookieTarget": "M",
+        "cookieOptions": [
+          "N",
+          "W",
+          "M"
+        ],
+        "cookieCase": "upper",
+        "cookieLayout": "grid",
+        "cookieChallenge": "mirror"
+      },
+      {
+        "id": "fase-1-abc-molde-biscoito-5",
+        "kind": "cookie-mold",
+        "prompt": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
+        "options": [
           "F",
+          "E",
           "L"
         ],
         "answer": "E",
-        "hint": "ELEFANTE COMEÇA COM O SOM ÊÊÊ.",
-        "visual": "🐘",
-        "displayPrompt": "QUAL LETRA COMEÇA A PALAVRA OUVIDA?",
-        "targetWord": "ELEFANTE"
-      },
-      {
-        "id": "fase-1-abc-vogal-6",
-        "kind": "choice",
-        "prompt": "QUAL DESTAS É UMA VOGAL?",
-        "options": [
-          "A",
-          "T",
-          "R"
-        ],
-        "answer": "A",
-        "hint": "AS VOGAIS SÃO A, E, I, O E U."
-      },
-      {
-        "id": "fase-1-abc-f-7",
-        "kind": "choice",
-        "prompt": "QUAL LETRA TEM O MESMO SOM INICIAL DE FADA?",
-        "options": [
+        "hint": "PROCURE AS TRÊS BARRINHAS QUE SAEM DO LADO ESQUERDO.",
+        "activity": "molde-biscoito",
+        "activityIndex": 4,
+        "cookieTarget": "E",
+        "cookieOptions": [
           "F",
-          "V",
-          "P"
+          "E",
+          "L"
         ],
-        "answer": "F",
-        "hint": "FADA COMEÇA COM FFFFF.",
-        "visual": "🧚",
-        "displayPrompt": "QUAL LETRA TEM O MESMO SOM INICIAL DA PALAVRA OUVIDA?",
-        "targetWord": "FADA"
+        "cookieCase": "upper",
+        "cookieLayout": "arc",
+        "cookieChallenge": "near"
+      },
+      {
+        "id": "fase-1-abc-molde-biscoito-6",
+        "kind": "cookie-mold",
+        "prompt": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE A.",
+        "options": [
+          "o",
+          "a",
+          "e"
+        ],
+        "answer": "a",
+        "hint": "A FÔRMA DEVE SER MINÚSCULA TAMBÉM. COMPARE O DESENHO, NÃO O TAMANHO DO CARTÃO.",
+        "activity": "molde-biscoito",
+        "activityIndex": 5,
+        "cookieTarget": "a",
+        "cookieOptions": [
+          "o",
+          "a",
+          "e"
+        ],
+        "cookieCase": "lower",
+        "cookieLayout": "row",
+        "cookieChallenge": "mixed"
+      },
+      {
+        "id": "fase-1-abc-molde-biscoito-7",
+        "kind": "cookie-mold",
+        "prompt": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+        "options": [
+          "r",
+          "P",
+          "R",
+          "K"
+        ],
+        "answer": "R",
+        "hint": "ESCOLHA A ÚNICA FÔRMA QUE REPETE EXATAMENTE A LETRA R MOSTRADA.",
+        "activity": "molde-biscoito",
+        "activityIndex": 6,
+        "cookieTarget": "R",
+        "cookieOptions": [
+          "r",
+          "P",
+          "R",
+          "K"
+        ],
+        "cookieCase": "mixed",
+        "cookieLayout": "grid",
+        "cookieChallenge": "mixed"
+      },
+      {
+        "id": "fase-1-abc-molde-biscoito-8",
+        "kind": "cookie-mold",
+        "prompt": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+        "options": [
+          "Z",
+          "s",
+          "S",
+          "C"
+        ],
+        "answer": "S",
+        "hint": "COMPARE CURVAS, TAMANHO E DIREÇÃO. A FÔRMA CORRETA É A CÓPIA DO S.",
+        "activity": "molde-biscoito",
+        "activityIndex": 7,
+        "cookieTarget": "S",
+        "cookieOptions": [
+          "Z",
+          "s",
+          "S",
+          "C"
+        ],
+        "cookieCase": "mixed",
+        "cookieLayout": "arc",
+        "cookieChallenge": "mirror"
       }
     ],
     "fase-2": [

@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -42,6 +42,11 @@ export type GameQuestion = {
   rollerPattern?: "straight" | "zigzag";
   rollerColor?: string;
   beeTarget?: number;
+  cookieTarget?: string;
+  cookieOptions?: string[];
+  cookieCase?: "upper" | "lower" | "mixed";
+  cookieLayout?: "row" | "arc" | "grid";
+  cookieChallenge?: "direct" | "near" | "mirror" | "mixed";
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -96,10 +101,22 @@ const magnetPaint = (variant: number, prompt: string, hint: string, magnetTarget
 const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: string, revealLabel: string): GameQuestion => ({ id: `fase-6-g-descongelando-tela-${variant + 1}`, kind: "ice-melt", prompt, answer: `IMAGEM REVELADA ${variant + 1}`, hint, activity: "descongelando-tela", activityIndex: variant, revealAsset, revealLabel, revealRegion: { x: 315, y: 38, width: 270, height: 252, coordinateSpace: "900x330" } });
 const paintRoller = (variant: number, prompt: string, hint: string, config: Pick<GameQuestion, "rollerRows" | "rollerColumns" | "rollerOrdered" | "rollerDirection" | "rollerPattern" | "rollerColor">): GameQuestion => ({ id: `fase-7-g-rolo-pintura-${variant + 1}`, kind: "paint-roller", prompt, answer: `PINTURA COMPLETA ${variant + 1}`, hint, activity: "rolo-pintura", activityIndex: variant, ...config });
 const beeFlight = (variant: number, prompt: string, hint: string, beeTarget: number): GameQuestion => ({ id: `desafio-final-g-voo-abelha-${variant + 1}`, kind: "bee-flight", prompt, answer: `VOO COMPLETO ${variant + 1}`, hint, activity: "voo-abelha", activityIndex: variant, beeTarget });
+const cookieMold = (variant: number, prompt: string, hint: string, target: string, options: string[], config: Pick<GameQuestion, "cookieCase" | "cookieLayout" | "cookieChallenge">): GameQuestion => ({ id: `fase-1-abc-molde-biscoito-${variant + 1}`, kind: "cookie-mold", prompt, answer: target, hint, activity: "molde-biscoito", activityIndex: variant, cookieTarget: target, cookieOptions: options, ...config });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
 const syllables = ["CA-SA", "BO-LA", "SA-PA-TO", "JA-CA-RÉ", "MA-CA-CO", "E-LE-FAN-TE", "GE-LEI-A", "BI-CI-CLE-TA"];
+
+const ALFABETO_PHASE_ONE: GameQuestion[] = [
+  cookieMold(0, "ESCOLHA A FÔRMA IGUAL À LETRA A.", "Observe o contorno: a fôrma certa tem o mesmo desenho da letra A.", "A", ["A", "M", "O"], { cookieCase: "upper", cookieLayout: "row", cookieChallenge: "direct" }),
+  cookieMold(1, "ENCONTRE A FÔRMA IGUAL À LETRA B.", "Compare as duas barrigas da letra B com cada fôrma.", "B", ["D", "B", "P"], { cookieCase: "upper", cookieLayout: "arc", cookieChallenge: "near" }),
+  cookieMold(2, "A LETRA C QUER VIRAR BISCOITO. QUAL FÔRMA COMBINA?", "A letra C é aberta de um lado; não escolha o O fechado.", "C", ["O", "C", "G"], { cookieCase: "upper", cookieLayout: "row", cookieChallenge: "near" }),
+  cookieMold(3, "ESCOLHA A FÔRMA DA LETRA M.", "M e W parecem parentes, mas observe para onde apontam as pontas.", "M", ["N", "W", "M"], { cookieCase: "upper", cookieLayout: "grid", cookieChallenge: "mirror" }),
+  cookieMold(4, "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?", "Procure as três barrinhas que saem do lado esquerdo.", "E", ["F", "E", "L"], { cookieCase: "upper", cookieLayout: "arc", cookieChallenge: "near" }),
+  cookieMold(5, "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.", "A fôrma deve ser minúscula também. Compare o desenho, não o tamanho do cartão.", "a", ["o", "a", "e"], { cookieCase: "lower", cookieLayout: "row", cookieChallenge: "mixed" }),
+  cookieMold(6, "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.", "Escolha a única fôrma que repete exatamente a letra R mostrada.", "R", ["r", "P", "R", "K"], { cookieCase: "mixed", cookieLayout: "grid", cookieChallenge: "mixed" }),
+  cookieMold(7, "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.", "Compare curvas, tamanho e direção. A fôrma correta é a cópia do S.", "S", ["Z", "s", "S", "C"], { cookieCase: "mixed", cookieLayout: "arc", cookieChallenge: "mirror" }),
+];
 
 function addActivity(question: GameQuestion, activity: ActivityDefinition, worldId: number, variant: number): GameQuestion {
   const withAudio = question.audioText ? { ...question, targetWord: question.audioText, displayPrompt: question.prompt } : question;
@@ -243,6 +260,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 5) return GARATUJA_PHASE_SIX;
   if (worldId === 0 && phase === 6) return GARATUJA_PHASE_SEVEN;
   if (worldId === 0 && phase === 7) return GARATUJA_FINAL_CHALLENGE;
+  if (worldId === 1 && phase === 0) return ALFABETO_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

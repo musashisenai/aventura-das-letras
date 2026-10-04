@@ -485,9 +485,31 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "ice-melt") return <IceMeltInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "paint-roller") return <PaintRollerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "bee-flight") return <BeeFlightInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
+  if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+
+function CookieMoldInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const target = question.cookieTarget ?? question.answer;
+  const options = question.cookieOptions ?? question.options ?? [];
+  useEffect(() => setSelected(null), [question.id]);
+  const submit = () => { if (!disabled && selected) onAnswer(selected); };
+  return <div className={`cookie-mold-activity cookie-layout-${question.cookieLayout ?? "row"} cookie-challenge-${question.cookieChallenge ?? "direct"}`}>
+    <div className="cookie-mold-toolbar"><div><span className="cookie-mold-kicker"><Sparkles size={15} /> COZINHA DAS LETRAS</span><strong>Molde de Biscoito</strong></div><div className="cookie-mold-counter"><b>{selected ? "1" : "0"}</b><span>fôrma escolhida</span></div></div>
+    <div className="cookie-mold-board">
+      <div className="cookie-mold-target" aria-label={`Letra-alvo ${target}`}><span className="cookie-mold-label">LETRA-ALVO</span><strong>{target}</strong><i>copie o desenho</i></div>
+      <div className="cookie-mold-divider" aria-hidden="true">→</div>
+      <div className="cookie-mold-options" role="radiogroup" aria-label="Fôrmas de biscoito disponíveis">
+        {options.map((option, index) => <button key={`${option}-${index}`} type="button" className={`cookie-mold-option ${selected === option ? "selected" : ""}`} onClick={() => !disabled && setSelected(option)} disabled={disabled} role="radio" aria-checked={selected === option}>
+          <span className="cookie-mold-cookie"><b>{option}</b><i /><em /></span><small>FÔRMA {index + 1}</small>
+        </button>)}
+      </div>
+    </div>
+    <div className="cookie-mold-footer"><p>{selected ? `Você escolheu a fôrma ${selected}. Confira o desenho antes de assar.` : "Toque na fôrma que tem exatamente o mesmo desenho da letra-alvo."}</p><button className="primary-action compact" onClick={submit} disabled={disabled || !selected}>Assar fôrma <Check size={18} /></button></div>
+  </div>;
 }
 function MosquitoSweepInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const [cleared, setCleared] = useState<number[]>([]);

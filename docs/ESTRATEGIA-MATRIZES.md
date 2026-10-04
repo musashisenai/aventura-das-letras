@@ -124,6 +124,25 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 7. Domínio: oito faixas estreitas com guia de zigue-zague e tolerância visual menor.
 8. Desafio final: mural com oito faixas, vinte células por faixa, ordem, alternância e zigue-zague.
 
+### Mundo do Alfabeto · Fase 1 — Molde de Biscoito
+
+**Atividade-matriz:** comparar o desenho de uma letra-alvo com fôrmas de biscoito e escolher a cópia visual correta.
+
+**Objetivo pedagógico:** fortalecer a memorização do formato das letras, a diferenciação entre grafemas visualmente próximos e a atenção a maiúsculas e minúsculas.
+
+**Plano das 8 variações implementado:**
+
+1. Introdução: letra A grande, três fôrmas bem contrastantes e escolha direta.
+2. Familiarização: letra B com distratores visualmente próximos, em disposição curva.
+3. Variação: letra C contra O e G, exigindo perceber abertura e fechamento do contorno.
+4. Desafio: letra M contra N e W, com disposição em grade e contraste de direção.
+5. Variação: letra E contra F e L, exigindo observar as três barras horizontais.
+6. Combinação: letra a minúscula contra o e e, exigindo comparar caixa e forma.
+7. Domínio: letra R com mistura de caixa e quatro fôrmas, incluindo distrator minúsculo.
+8. Desafio final: letra S com quatro opções, incluindo s minúsculo, Z e C como distratores de contorno.
+
+**Regra preservada:** a resposta só é enviada depois que a criança escolhe uma fôrma e confirma o botão de assar; a mecânica permanece pareamento visual, sem transformar a atividade em digitação ou ordenação.
+
 ### Desafio final — Festival Final da Lumi
 
 Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um voo guiado até a colmeia da Lumi.
