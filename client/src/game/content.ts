@@ -12,7 +12,7 @@ export const ASSETS = {
   rewards: "/manus-storage/recompensas-aventura_7af48267.png",
 } as const;
 
-export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold";
+export type QuestionKind = "choice" | "order" | "draw" | "seed-rain" | "lantern" | "sand-tracks" | "mosquito-sweep" | "magnet-paint" | "ice-melt" | "paint-roller" | "bee-flight" | "cookie-mold" | "shield-magic";
 export type GameQuestion = {
   id: string;
   kind: QuestionKind;
@@ -47,6 +47,10 @@ export type GameQuestion = {
   cookieCase?: "upper" | "lower" | "mixed";
   cookieLayout?: "row" | "arc" | "grid";
   cookieChallenge?: "direct" | "near" | "mirror" | "mixed";
+  shieldItems?: string[];
+  shieldTarget?: number;
+  shieldLayout?: "row" | "scatter" | "grid";
+  shieldMotion?: "still" | "float" | "orbit";
 };
 export type World = { id: number; name: string; shortName: string; theme: string; color: string; accent: string; icon: string };
 
@@ -102,6 +106,7 @@ const iceMelt = (variant: number, prompt: string, hint: string, revealAsset: str
 const paintRoller = (variant: number, prompt: string, hint: string, config: Pick<GameQuestion, "rollerRows" | "rollerColumns" | "rollerOrdered" | "rollerDirection" | "rollerPattern" | "rollerColor">): GameQuestion => ({ id: `fase-7-g-rolo-pintura-${variant + 1}`, kind: "paint-roller", prompt, answer: `PINTURA COMPLETA ${variant + 1}`, hint, activity: "rolo-pintura", activityIndex: variant, ...config });
 const beeFlight = (variant: number, prompt: string, hint: string, beeTarget: number): GameQuestion => ({ id: `desafio-final-g-voo-abelha-${variant + 1}`, kind: "bee-flight", prompt, answer: `VOO COMPLETO ${variant + 1}`, hint, activity: "voo-abelha", activityIndex: variant, beeTarget });
 const cookieMold = (variant: number, prompt: string, hint: string, target: string, options: string[], config: Pick<GameQuestion, "cookieCase" | "cookieLayout" | "cookieChallenge">): GameQuestion => ({ id: `fase-1-abc-molde-biscoito-${variant + 1}`, kind: "cookie-mold", prompt, answer: target, hint, activity: "molde-biscoito", activityIndex: variant, cookieTarget: target, cookieOptions: options, ...config });
+const shieldMagic = (variant: number, prompt: string, hint: string, items: string[], config: Pick<GameQuestion, "shieldLayout" | "shieldMotion">): GameQuestion => ({ id: `fase-1-p-escudo-magico-${variant + 1}`, kind: "shield-magic", prompt, answer: `ESCUDO PROTEGE ${variant + 1}`, hint, activity: "escudo-magico", activityIndex: variant, shieldItems: items, shieldTarget: items.filter((item) => /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)).length, ...config });
 const letters = [["A", "M", "O"], ["B", "D", "P"], ["C", "G", "Q"], ["E", "F", "L"], ["I", "L", "T"], ["J", "G", "L"], ["M", "N", "W"], ["O", "Q", "X"]];
 const visuals = ["☀️", "🐟", "🌼", "🚗", "🏠", "🐝", "🍎", "⭐"];
 const words = [["BOLA", "MALA", "PATO"], ["GATO", "RATO", "DADO"], ["CASA", "MESA", "LUA"], ["SAPO", "SACO", "SINO"], ["FADA", "FACA", "FITA"], ["VACA", "VOTO", "VIDA"], ["LATA", "LAGO", "LIMA"], ["BOLO", "BOTA", "BICO"]];
@@ -116,6 +121,17 @@ const ALFABETO_PHASE_ONE: GameQuestion[] = [
   cookieMold(5, "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.", "A fôrma deve ser minúscula também. Compare o desenho, não o tamanho do cartão.", "a", ["o", "a", "e"], { cookieCase: "lower", cookieLayout: "row", cookieChallenge: "mixed" }),
   cookieMold(6, "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.", "Escolha a única fôrma que repete exatamente a letra R mostrada.", "R", ["r", "P", "R", "K"], { cookieCase: "mixed", cookieLayout: "grid", cookieChallenge: "mixed" }),
   cookieMold(7, "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.", "Compare curvas, tamanho e direção. A fôrma correta é a cópia do S.", "S", ["Z", "s", "S", "C"], { cookieCase: "mixed", cookieLayout: "arc", cookieChallenge: "mirror" }),
+];
+
+const PRE_SILABICO_PHASE_ONE: GameQuestion[] = [
+  shieldMagic(0, "PROTEJA A LETRA M COM O ESCUDO.", "Toque apenas no caractere que pode entrar em uma palavra; o número e o símbolo são distrações.", ["M", "7", "◇"], { shieldLayout: "row", shieldMotion: "still" }),
+  shieldMagic(1, "LEVANTE O ESCUDO PARA AS LETRAS B E A.", "Letras formam palavras. Ignore o número e o símbolo e proteja as duas letras.", ["B", "4", "A", "☀"], { shieldLayout: "scatter", shieldMotion: "still" }),
+  shieldMagic(2, "A CIDADE MISTUROU LETRAS E NÚMEROS. PROTEJA AS LETRAS.", "Procure M e O; os números não são letras e não precisam do escudo.", ["3", "M", "8", "O", "△"], { shieldLayout: "scatter", shieldMotion: "float" }),
+  shieldMagic(3, "DEFENDA AS TRÊS LETRAS DO PORTÃO.", "Proteja L, I e A. Observe cada cartão antes de tocar para não escolher os símbolos.", ["L", "@", "I", "5", "A", "□"], { shieldLayout: "grid", shieldMotion: "float" }),
+  shieldMagic(4, "O ESCUDO PRECISA SEPARAR ESCRITA DE DESENHO.", "Toque somente em S, O e L. As formas e o número não formam uma palavra.", ["★", "S", "2", "O", "☀", "L", "◇"], { shieldLayout: "grid", shieldMotion: "float" }),
+  shieldMagic(5, "PROTEJA AS LETRAS DA PALAVRA BOLA.", "Encontre B, O, L e A, mesmo com os distratores espalhados pela cidade.", ["B", "#", "O", "7", "L", "○", "A", "△"], { shieldLayout: "scatter", shieldMotion: "orbit" }),
+  shieldMagic(6, "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.", "As letras C, A, S e A são as únicas escritas. Toque nelas uma vez; ignore números e símbolos.", ["C", "4", "A", "✦", "S", "9", "A", "□", "∞"], { shieldLayout: "grid", shieldMotion: "orbit" }),
+  shieldMagic(7, "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.", "Encontre P, A, T, O e L. O escudo só abre quando todas as letras forem protegidas.", ["P", "3", "A", "◇", "T", "8", "O", "★", "L", "☀"], { shieldLayout: "grid", shieldMotion: "orbit" }),
 ];
 
 function addActivity(question: GameQuestion, activity: ActivityDefinition, worldId: number, variant: number): GameQuestion {
@@ -261,6 +277,7 @@ export function getQuestionBank(worldId: number, phase: number): GameQuestion[] 
   if (worldId === 0 && phase === 6) return GARATUJA_PHASE_SEVEN;
   if (worldId === 0 && phase === 7) return GARATUJA_FINAL_CHALLENGE;
   if (worldId === 1 && phase === 0) return ALFABETO_PHASE_ONE;
+  if (worldId === 2 && phase === 0) return PRE_SILABICO_PHASE_ONE;
   const bank = WORLD_QUESTION_BANKS[worldId] ?? WORLD_QUESTION_BANKS[0];
   const safePhase = Math.max(0, Math.min(7, phase));
   // O banco está agrupado por atividade (10 grupos de 8). Cada fase percorre

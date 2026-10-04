@@ -10,109 +10,236 @@
   "phases": {
     "fase-1": [
       {
-        "id": "fase-1-p-letra-numero-0",
-        "kind": "choice",
-        "prompt": "Qual destes é uma letra?",
+        "id": "fase-1-p-escudo-magico-1",
+        "kind": "shield-magic",
+        "prompt": "PROTEJA A LETRA M COM O ESCUDO.",
         "options": [
-          "7",
           "M",
+          "7",
           "◇"
         ],
-        "answer": "M",
-        "hint": "Letras ajudam a formar palavras."
+        "answer": "ESCUDO PROTEGE 1",
+        "hint": "Toque apenas no caractere que pode entrar em uma palavra; o número e o símbolo são distrações.",
+        "activity": "escudo-magico",
+        "activityIndex": 0,
+        "shieldItems": [
+          "M",
+          "7",
+          "◇"
+        ],
+        "shieldTarget": 1,
+        "shieldLayout": "row",
+        "shieldMotion": "still"
       },
       {
-        "id": "fase-1-p-numero-1",
-        "kind": "choice",
-        "prompt": "Qual destes é um número?",
+        "id": "fase-1-p-escudo-magico-2",
+        "kind": "shield-magic",
+        "prompt": "LEVANTE O ESCUDO PARA AS LETRAS B E A.",
         "options": [
           "B",
           "4",
+          "A",
           "☀"
         ],
-        "answer": "4",
-        "hint": "Números ajudam a contar."
+        "answer": "ESCUDO PROTEGE 2",
+        "hint": "Letras formam palavras. Ignore o número e o símbolo e proteja as duas letras.",
+        "activity": "escudo-magico",
+        "activityIndex": 1,
+        "shieldItems": [
+          "B",
+          "4",
+          "A",
+          "☀"
+        ],
+        "shieldTarget": 2,
+        "shieldLayout": "scatter",
+        "shieldMotion": "still"
       },
       {
-        "id": "fase-1-p-inicial-nome-2",
-        "kind": "choice",
-        "prompt": "Qual letra pode começar o nome LIA?",
+        "id": "fase-1-p-escudo-magico-3",
+        "kind": "shield-magic",
+        "prompt": "A CIDADE MISTUROU LETRAS E NÚMEROS. PROTEJA AS LETRAS.",
+        "options": [
+          "3",
+          "M",
+          "8",
+          "O",
+          "△"
+        ],
+        "answer": "ESCUDO PROTEGE 3",
+        "hint": "Procure M e O; os números não são letras e não precisam do escudo.",
+        "activity": "escudo-magico",
+        "activityIndex": 2,
+        "shieldItems": [
+          "3",
+          "M",
+          "8",
+          "O",
+          "△"
+        ],
+        "shieldTarget": 2,
+        "shieldLayout": "scatter",
+        "shieldMotion": "float"
+      },
+      {
+        "id": "fase-1-p-escudo-magico-4",
+        "kind": "shield-magic",
+        "prompt": "DEFENDA AS TRÊS LETRAS DO PORTÃO.",
         "options": [
           "L",
+          "@",
           "I",
-          "A"
-        ],
-        "answer": "L",
-        "hint": "O primeiro som é LLL.",
-        "displayPrompt": "QUAL LETRA PODE COMEÇAR O NOME OUVIDO?",
-        "targetWord": "LIA"
-      },
-      {
-        "id": "fase-1-p-poucas-letras-3",
-        "kind": "choice",
-        "prompt": "Qual palavra tem menos letras?",
-        "options": [
-          "SOL",
-          "BORBOLETA",
-          "ELEFANTE"
-        ],
-        "answer": "SOL",
-        "hint": "Conte os pedacinhos escritos."
-      },
-      {
-        "id": "fase-1-p-muitas-letras-4",
-        "kind": "choice",
-        "prompt": "Qual palavra tem muitas letras?",
-        "options": [
-          "PÉ",
-          "BOLA",
-          "BORBOLETA"
-        ],
-        "answer": "BORBOLETA",
-        "hint": "Compare o tamanho das palavras."
-      },
-      {
-        "id": "fase-1-p-nome-animal-5",
-        "kind": "choice",
-        "prompt": "Qual pode ser o nome deste animal?",
-        "options": [
-          "GATO",
-          "MESA",
-          "LUA"
-        ],
-        "answer": "GATO",
-        "hint": "Olhe para o bichinho e escolha seu nome.",
-        "visual": "🐱"
-      },
-      {
-        "id": "fase-1-p-torre-letras-6",
-        "kind": "order",
-        "prompt": "COMO SE ESCREVE O NOME DA FIGURA?",
-        "options": [
+          "5",
           "A",
-          "B",
-          "O",
-          "L"
+          "□"
         ],
-        "answer": "BOLA",
-        "hint": "OLHE PARA A FIGURA E EXPERIMENTE A ORDEM DAS LETRAS.",
-        "visual": "⚽",
-        "audioText": "BOLA",
-        "targetWord": "BOLA"
+        "answer": "ESCUDO PROTEGE 4",
+        "hint": "Proteja L, I e A. Observe cada cartão antes de tocar para não escolher os símbolos.",
+        "activity": "escudo-magico",
+        "activityIndex": 3,
+        "shieldItems": [
+          "L",
+          "@",
+          "I",
+          "5",
+          "A",
+          "□"
+        ],
+        "shieldTarget": 3,
+        "shieldLayout": "grid",
+        "shieldMotion": "float"
       },
       {
-        "id": "fase-1-p-conte-letras-sol-7",
-        "kind": "choice",
-        "prompt": "Quantas letras você vê em SOL?",
+        "id": "fase-1-p-escudo-magico-5",
+        "kind": "shield-magic",
+        "prompt": "O ESCUDO PRECISA SEPARAR ESCRITA DE DESENHO.",
         "options": [
+          "★",
+          "S",
           "2",
-          "3",
-          "4"
+          "O",
+          "☀",
+          "L",
+          "◇"
         ],
-        "answer": "3",
-        "hint": "Conte S, O e L.",
-        "displayPrompt": "QUANTAS LETRAS TEM A PALAVRA OUVIDA?",
-        "targetWord": "SOL"
+        "answer": "ESCUDO PROTEGE 5",
+        "hint": "Toque somente em S, O e L. As formas e o número não formam uma palavra.",
+        "activity": "escudo-magico",
+        "activityIndex": 4,
+        "shieldItems": [
+          "★",
+          "S",
+          "2",
+          "O",
+          "☀",
+          "L",
+          "◇"
+        ],
+        "shieldTarget": 3,
+        "shieldLayout": "grid",
+        "shieldMotion": "float"
+      },
+      {
+        "id": "fase-1-p-escudo-magico-6",
+        "kind": "shield-magic",
+        "prompt": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
+        "options": [
+          "B",
+          "#",
+          "O",
+          "7",
+          "L",
+          "○",
+          "A",
+          "△"
+        ],
+        "answer": "ESCUDO PROTEGE 6",
+        "hint": "Encontre B, O, L e A, mesmo com os distratores espalhados pela cidade.",
+        "activity": "escudo-magico",
+        "activityIndex": 5,
+        "shieldItems": [
+          "B",
+          "#",
+          "O",
+          "7",
+          "L",
+          "○",
+          "A",
+          "△"
+        ],
+        "shieldTarget": 4,
+        "shieldLayout": "scatter",
+        "shieldMotion": "orbit"
+      },
+      {
+        "id": "fase-1-p-escudo-magico-7",
+        "kind": "shield-magic",
+        "prompt": "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.",
+        "options": [
+          "C",
+          "4",
+          "A",
+          "✦",
+          "S",
+          "9",
+          "A",
+          "□",
+          "∞"
+        ],
+        "answer": "ESCUDO PROTEGE 7",
+        "hint": "As letras C, A, S e A são as únicas escritas. Toque nelas uma vez; ignore números e símbolos.",
+        "activity": "escudo-magico",
+        "activityIndex": 6,
+        "shieldItems": [
+          "C",
+          "4",
+          "A",
+          "✦",
+          "S",
+          "9",
+          "A",
+          "□",
+          "∞"
+        ],
+        "shieldTarget": 4,
+        "shieldLayout": "grid",
+        "shieldMotion": "orbit"
+      },
+      {
+        "id": "fase-1-p-escudo-magico-8",
+        "kind": "shield-magic",
+        "prompt": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
+        "options": [
+          "P",
+          "3",
+          "A",
+          "◇",
+          "T",
+          "8",
+          "O",
+          "★",
+          "L",
+          "☀"
+        ],
+        "answer": "ESCUDO PROTEGE 8",
+        "hint": "Encontre P, A, T, O e L. O escudo só abre quando todas as letras forem protegidas.",
+        "activity": "escudo-magico",
+        "activityIndex": 7,
+        "shieldItems": [
+          "P",
+          "3",
+          "A",
+          "◇",
+          "T",
+          "8",
+          "O",
+          "★",
+          "L",
+          "☀"
+        ],
+        "shieldTarget": 5,
+        "shieldLayout": "grid",
+        "shieldMotion": "orbit"
       }
     ],
     "fase-2": [

@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
-import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
+import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Shield, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
@@ -486,6 +486,7 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "paint-roller") return <PaintRollerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "bee-flight") return <BeeFlightInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
+  if (question.kind === "shield-magic") return <ShieldMagicInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
@@ -511,6 +512,39 @@ function CookieMoldInteraction({ question, disabled, onAnswer }: { question: Gam
     <div className="cookie-mold-footer"><p>{selected ? `Você escolheu a fôrma ${selected}. Confira o desenho antes de assar.` : "Toque na fôrma que tem exatamente o mesmo desenho da letra-alvo."}</p><button className="primary-action compact" onClick={submit} disabled={disabled || !selected}>Assar fôrma <Check size={18} /></button></div>
   </div>;
 }
+
+function ShieldMagicInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
+  const items = question.shieldItems ?? [];
+  const target = question.shieldTarget ?? items.filter((item) => /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)).length;
+  const [protectedItems, setProtectedItems] = useState<number[]>([]);
+  const [wrongIndex, setWrongIndex] = useState<number | null>(null);
+  const completed = protectedItems.length >= target;
+  useEffect(() => { setProtectedItems([]); setWrongIndex(null); }, [question.id]);
+  const selectItem = (index: number) => {
+    if (disabled || protectedItems.includes(index) || completed) return;
+    const item = items[index] ?? "";
+    if (!/^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item)) {
+      setWrongIndex(index);
+      window.setTimeout(() => setWrongIndex((current) => current === index ? null : current), 420);
+      return;
+    }
+    const next = [...protectedItems, index];
+    setProtectedItems(next);
+    if (next.length >= target) onComplete();
+  };
+  return <div className={`shield-magic-activity shield-layout-${question.shieldLayout ?? "row"} shield-motion-${question.shieldMotion ?? "still"} ${completed ? "completed" : ""}`}>
+    <div className="shield-magic-toolbar"><div><span className="shield-magic-kicker"><Shield size={15} /> GUARDA DAS LETRAS</span><strong>O Escudo Mágico</strong></div><div className="shield-magic-counter"><b>{protectedItems.length}</b><span>de {target} letras</span></div></div>
+    <div className="shield-magic-scene">
+      <div className="shield-magic-city" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+      <div className="shield-magic-emblem" aria-hidden="true"><Shield size={42} /><span>{completed ? "ABERTO" : "PROTEJA"}</span></div>
+      <div className="shield-magic-items" role="group" aria-label="Caracteres que chegam ao portão">
+        {items.map((item, index) => { const isLetter = /^[A-ZÁÉÍÓÚÀÃÕÇ]$/i.test(item); const selected = protectedItems.includes(index); return <button key={`${item}-${index}`} type="button" className={`shield-magic-item ${isLetter ? "letter" : "decoy"} ${selected ? "protected" : ""} ${wrongIndex === index ? "wrong" : ""}`} onClick={() => selectItem(index)} disabled={disabled || selected} aria-label={isLetter ? `Proteger letra ${item}` : `Distração ${item}`} aria-pressed={selected}>{item}</button>; })}
+      </div>
+    </div>
+    <div className="shield-magic-footer"><p>{completed ? "Portão aberto! Você separou letras de números e símbolos." : "Toque somente nas letras para protegê-las com o escudo."}</p><span><Shield size={17} /> {completed ? "CIDADE PROTEGIDA" : "LETRAS PROTEGIDAS"}</span></div>
+  </div>;
+}
+
 function MosquitoSweepInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const [cleared, setCleared] = useState<number[]>([]);
   const [sweeping, setSweeping] = useState(false);

@@ -143,6 +143,27 @@ As cinco fases já implementadas são as fases 1 a 5 do **Mundo da Garatuja**. C
 
 **Regra preservada:** a resposta só é enviada depois que a criança escolhe uma fôrma e confirma o botão de assar; a mecânica permanece pareamento visual, sem transformar a atividade em digitação ou ordenação.
 
+### Mundo Pré-Silábico · Fase 1 — O Escudo Mágico
+
+**Atividade-matriz:** proteger somente os caracteres que são letras, separando escrita de números e símbolos.
+
+**Objetivo pedagógico:** fortalecer a compreensão inicial de que letras formam palavras e pertencem a um sistema diferente de números, desenhos e outros sinais. A criança não precisa nomear todas as letras: ela classifica visualmente o que pode representar escrita.
+
+**Mecânica aprovada:** a criança toca nos cartões de letras que chegam ao portão. Cartões numéricos e simbólicos são distratores, não contam para o progresso e recebem apenas um feedback visual breve. A fase conclui somente quando todas as letras da variação foram protegidas.
+
+**Plano das 8 variações implementado:**
+
+1. Introdução: 3 cartões, 1 letra e 2 distratores, em fila.
+2. Familiarização: 4 cartões, 2 letras e distratores, em posições espalhadas.
+3. Variação: 5 cartões, 2 letras, números e símbolo com movimento suave.
+4. Desafio: 6 cartões, 3 letras em grade visual.
+5. Surpresa: 7 cartões, 3 letras, números e desenhos misturados.
+6. Combinação: 8 cartões, 4 letras que formam BOLA e distratores em posições espalhadas.
+7. Domínio: 9 cartões, 4 letras de CASA, repetição intencional da letra A e grade mais cheia.
+8. Desafio final: 10 cartões, 5 letras de PATOL, distratores, movimento orbital decorativo e conclusão obrigatória de todas as letras.
+
+**Economia técnica:** a cena usa DOM, CSS, animações determinísticas e o ícone vetorial já disponível em `lucide-react`; não depende de imagem, áudio novo ou geração de asset.
+
 ### Desafio final — Festival Final da Lumi
 
 Depois das sete matrizes do Mundo da Garatuja, o desafio final reúne uma etapa decisiva de cada habilidade praticada: sementes, lanterna, pegadas, pomar, ímã, gelo e rolo de pintura. A oitava descoberta encerra a jornada com um voo guiado até a colmeia da Lumi.
