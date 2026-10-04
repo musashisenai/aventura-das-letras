@@ -14,6 +14,7 @@ const syllableMarks = await importTypeScript("../client/src/game/syllableMarks.t
 const syllabic = content.getQuestionBank(3, 0);
 const spelling = content.getQuestionBank(5, 0);
 const orthography = content.getQuestionBank(6, 0);
+const learnerUI = await readFile(new URL("../client/src/components/GameUI.tsx", import.meta.url), "utf8");
 const expectedWords = ["SOL", "PATO", "BOLA", "CASA", "JANELA", "MACACO", "ELEFANTE", "BORBOLETA"];
 const expectedOrthographicWords = ["CHUVA", "PEIXE", "CASA", "ZEBRA", "CHUCHU", "MOCHILA", "XÍCARA", "ROSA"];
 
@@ -23,6 +24,7 @@ assert.deepEqual(spelling.map((question) => question.targetWord), expectedWords,
 assert.ok(spelling.every((question, index) => question.answer === question.targetWord && question.activityIndex === index && question.writerSeconds >= 40), "Cada desafio de escrita precisa validar a palavra e oferecer tempo adequado");
 assert.ok(spelling.every((question) => !`${question.prompt} ${question.displayPrompt}`.toLocaleLowerCase("pt-BR").includes(question.targetWord.toLocaleLowerCase("pt-BR"))), "A palavra-alvo não pode aparecer escrita no enunciado visual da atividade de escrita");
 assert.ok(new Set(spelling.map((question) => question.id)).size === 8, "Os IDs da Máquina de Escrever devem ser únicos");
+assert.equal(content.getActivityDefinition(5, spelling[0].activity)?.title, "A Máquina de Escrever a Jato", "O mapa deve resolver o título da matriz Alfabética");
 
 assert.equal(orthography.length, 8, "A Fase 1 do Mundo Ortográfico deve apresentar oito variações");
 assert.ok(orthography.every((question) => question.kind === "digraph-filter" && question.activity === "filtro-digrafos"), "As oito variações ortográficas devem usar a matriz de válvulas");
@@ -32,6 +34,8 @@ assert.ok(orthography.every((question) => question.options.length === 4 && ["CH"
 assert.ok(orthography.every((question) => !`${question.prompt} ${question.displayPrompt}`.toLocaleLowerCase("pt-BR").includes(question.targetWord.toLocaleLowerCase("pt-BR"))), "A palavra completa não pode aparecer no enunciado da atividade ortográfica");
 assert.ok(orthography.every((question) => question.orthographicPattern.replace("□", question.answer) === question.targetWord), "Cada válvula correta deve completar exatamente a palavra-alvo");
 assert.deepEqual(orthography.map((question) => question.answer), ["CH", "X", "S", "Z", "CH", "CH", "X", "S"], "As respostas devem variar entre CH, X, S e Z");
+assert.equal(content.getActivityDefinition(6, orthography[0].activity)?.title, "O Filtro de Água dos Dígrafos", "O mapa deve resolver o título da matriz Ortográfica");
+assert.ok(learnerUI.includes("phase-activity-name") && learnerUI.includes("phaseOneActivity"), "O mapa do aluno deve exibir a atividade específica na página da Fase 1");
 
 assert.equal(syllabic.length, 8, "A Fase 1 do Mundo Silábico deve ter oito variações");
 assert.ok(syllabic.every((question) => question.kind === "syllable-hammer" && question.activity === "martelo-pedacos"), "As oito variações silábicas devem abrir o Martelo dos Pedaços");

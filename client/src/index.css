@@ -285,3 +285,9 @@ button:not(:disabled):active { transform: scale(.97); }
 .developer-back-link { display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; margin-top: 20px; padding: 4px 0; color: #648278; background: transparent; font-size: .78rem; font-weight: 900; }.developer-back-link:hover { color: #19765c; }
 @media (max-width: 720px) { .developer-login-card { grid-template-columns: 1fr; min-height: 0; }.developer-login-hero { min-height: 300px; padding: 28px; }.developer-terminal-mark { margin: 30px 0 18px; }.developer-login-checklist { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 21px; }.developer-login-form { min-height: 0; padding: 32px 28px 36px; }.developer-form-brand { margin-bottom: 30px; } }
 @media (max-width: 440px) { .developer-login-page { padding: 10px; }.developer-login-card { border-radius: 22px; }.developer-login-hero h1 { font-size: 2.7rem; }.developer-login-form { padding: 26px 21px 30px; } }
+
+
+/* A trilha identifica a matriz da primeira fase antes que o aluno a abra. */
+.phase-node.has-activity { min-height: 96px; padding: 8px 6px; }
+.phase-node .phase-activity-name { max-width: 100%; color: var(--world); font-size: .63rem; line-height: 1.15; overflow-wrap: anywhere; text-align: center; }
+.phase-node.locked .phase-activity-name { color: inherit; }

@@ -443,13 +443,16 @@ function MapPage({ state, controller }: Props) {
 function PhaseBook({ worldId, state, controller }: { worldId: number; state: GameState; controller: GameController }) {
   const world = WORLDS[worldId];
   const completed = Object.keys(state.completions).filter((key) => key.startsWith(`${worldId}:`)).length;
+  const phaseOneQuestion = getQuestionBank(worldId, 0)[0];
+  const phaseOneActivity = phaseOneQuestion ? getActivityDefinition(worldId, phaseOneQuestion.activity)?.title : undefined;
   return <section className="phase-book paper-panel selected-world-book" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <div className="phase-book-head"><div><span className="world-label">{world.name}</span><h2>Fases deste mundo</h2><p>Escolha uma página liberada. A pontuação de cada fase fica guardada no seu livro-mapa.</p></div><div className="phase-count"><b>{completed}</b><span>/ {PHASES_PER_WORLD}</span></div></div>
     <div className="phase-grid">
       {Array.from({ length: 7 }).map((_, phase) => {
         const complete = state.completions[`${worldId}:${phase}`];
         const open = controller.isPhaseOpen(worldId, phase);
-        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{complete ? <small>{complete.score}/8 PONTOS</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
+        const activityTitle = phase === 0 ? phaseOneActivity : undefined;
+        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""} ${activityTitle ? "has-activity" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${activityTitle ? `, atividade ${activityTitle}` : ""}${complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{activityTitle && <small className="phase-activity-name">{activityTitle}</small>}{complete ? <small>{complete.score}/8 PONTOS</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
       })}
       {(() => { const finalOpen = controller.isPhaseOpen(worldId, 7); const final = state.completions[`${worldId}:7`]; return <button className={`final-phase ${final ? "complete" : ""}`} disabled={!finalOpen} onClick={() => controller.startPhase(worldId, 7)}>{finalOpen ? <Star size={22} fill="currentColor" /> : <Lock size={19} />}<span>Desafio final</span><small>{final ? `${final.score}/8 PONTOS` : finalOpen ? "LIBERADO" : "COMPLETE AS 7 FASES"}</small></button>; })()}
     </div>
