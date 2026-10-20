@@ -1968,7 +1968,7 @@
         "activeScreen": "lesson",
         "activeWorld": 0,
         "activePhase": 3,
-        "questionIndex": 4
+        "questionIndex": 6
       },
       "save": {
         "profile": {
@@ -3039,6 +3039,30 @@
             "kind": "mosquito-sweep",
             "correctAnswer": "POMAR LIMPO 8",
             "at": "20/10/2026, 14:24:35"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-7",
+            "question": "SALVE A FRUTA MADURA COM GESTOS DE VARRER.",
+            "answer": "POMAR LIMPO 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 7",
+            "at": "20/10/2026, 14:24:53"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-1",
+            "question": "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.",
+            "answer": "POMAR LIMPO 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 1",
+            "at": "20/10/2026, 14:25:08"
           }
         ],
         "gameState": {
@@ -3330,9 +3354,9 @@
               "mosquitoTarget": 8
             }
           ],
-          "questionIndex": 4,
+          "questionIndex": 6,
           "attempts": 0,
-          "roundScore": 4,
+          "roundScore": 6,
           "feedback": null,
           "completions": {
             "6:0": {
@@ -4340,6 +4364,30 @@
               "kind": "mosquito-sweep",
               "correctAnswer": "POMAR LIMPO 8",
               "at": "20/10/2026, 14:24:35"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-7",
+              "question": "SALVE A FRUTA MADURA COM GESTOS DE VARRER.",
+              "answer": "POMAR LIMPO 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 7",
+              "at": "20/10/2026, 14:24:53"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-1",
+              "question": "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.",
+              "answer": "POMAR LIMPO 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 1",
+              "at": "20/10/2026, 14:25:08"
             }
           ],
           "reward": null,
@@ -4350,9 +4398,9 @@
       },
       "activeSession": {
         "token": "1792516368254-uuc4guz67o",
-        "lastSeen": 1792517077014
+        "lastSeen": 1792517958276
       },
-      "updatedAt": "2026-10-20T17:24:37.014Z"
+      "updatedAt": "2026-10-20T17:25:09.891Z"
     },
     "a-volta-dos-que-n-o-foram-1792516899967": {
       "id": "a-volta-dos-que-n-o-foram-1792516899967",
@@ -4960,7 +5008,7 @@
       },
       "activeSession": {
         "token": "1792516899967-4z12mghl0qg",
-        "lastSeen": 1792517080691
+        "lastSeen": 1792517948691
       },
       "updatedAt": "2026-10-20T17:22:50.889Z"
     }
