@@ -7,10 +7,10 @@
         "placementCompleted": true,
         "currentWorld": 2,
         "recommendedWorld": 2,
-        "activeScreen": "lesson",
-        "activeWorld": 1,
+        "activeScreen": "continue",
+        "activeWorld": 0,
         "activePhase": 0,
-        "questionIndex": 2
+        "questionIndex": 4
       },
       "save": {
         "profile": {
@@ -20,23 +20,36 @@
           "partner": "Lumi",
           "currentWorld": 2,
           "recommendedWorld": 2,
-          "coins": 36,
-          "xp": 17,
-          "eggs": 0,
-          "eggCollection": [],
+          "coins": 62,
+          "xp": 49,
+          "eggs": 1,
+          "eggCollection": [
+            {
+              "id": "egg-1792516167042",
+              "rarity": "epico",
+              "progress": 0,
+              "required": 4,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1792088482594-bfkgsydcorh"
+          "sessionToken": "1792516601310-geoayvize6"
         },
         "completions": {
           "2:0": {
             "score": 3,
             "total": 8,
             "date": "2026-10-01T11:19:03.333Z"
+          },
+          "1:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-20T17:09:27.042Z"
           }
         },
         "worldApprovals": {},
@@ -255,10 +268,144 @@
             "kind": "cookie-mold",
             "correctAnswer": "A",
             "at": "15/10/2026, 15:22:28"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-2",
+            "question": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
+            "answer": "B",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "B",
+            "at": "20/10/2026, 14:08:54"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-8",
+            "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+            "answer": "s",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "S",
+            "at": "20/10/2026, 14:08:57"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-8",
+            "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+            "answer": "S",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "S",
+            "hint": "Compare curvas, tamanho e direção. A fôrma correta é a cópia do S.",
+            "at": "20/10/2026, 14:09:08"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-6",
+            "question": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.",
+            "answer": "a",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "a",
+            "at": "20/10/2026, 14:09:12"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-5",
+            "question": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
+            "answer": "E",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "E",
+            "at": "20/10/2026, 14:09:15"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-7",
+            "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+            "answer": "r",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "R",
+            "at": "20/10/2026, 14:09:21"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-7",
+            "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+            "answer": "R",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "R",
+            "hint": "Escolha a única fôrma que repete exatamente a letra R mostrada.",
+            "at": "20/10/2026, 14:09:25"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-4",
+            "question": "Plante sementes em dois caminhos que se encontram.",
+            "answer": "CHUVA COMPLETA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 4",
+            "at": "20/10/2026, 14:10:17"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-3",
+            "question": "Crie um caminho curvo para a flor abrir.",
+            "answer": "CHUVA COMPLETA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 3",
+            "at": "20/10/2026, 14:10:37"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-6",
+            "question": "Faça nascer um pequeno jardim com seus movimentos.",
+            "answer": "CHUVA COMPLETA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 6",
+            "at": "20/10/2026, 14:10:52"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-7",
+            "question": "Siga a trilha pontilhada e acenda as sementes.",
+            "answer": "CHUVA COMPLETA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 7",
+            "at": "20/10/2026, 14:11:08"
           }
         ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "continue",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-amaya-santos",
@@ -266,17 +413,25 @@
             "partner": "Lumi",
             "currentWorld": 2,
             "recommendedWorld": 2,
-            "coins": 36,
-            "xp": 17,
-            "eggs": 0,
-            "eggCollection": [],
+            "coins": 62,
+            "xp": 49,
+            "eggs": 1,
+            "eggCollection": [
+              {
+                "id": "egg-1792516167042",
+                "rarity": "epico",
+                "progress": 0,
+                "required": 4,
+                "hatched": false
+              }
+            ],
             "petLevel": 1,
             "petCare": 30,
             "petName": "Faísca",
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1792088482594-bfkgsydcorh"
+            "sessionToken": "1792516601310-geoayvize6"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -418,169 +573,105 @@
             }
           ],
           "placementQueue": [],
-          "activeWorld": 1,
-          "selectedWorld": 1,
+          "activeWorld": 0,
+          "selectedWorld": 0,
           "activePhase": 0,
           "queue": [
             {
-              "id": "fase-1-abc-molde-biscoito-3",
-              "kind": "cookie-mold",
-              "prompt": "A LETRA C QUER VIRAR BISCOITO. QUAL FÔRMA COMBINA?",
-              "answer": "C",
-              "hint": "A letra C é aberta de um lado; não escolha o O fechado.",
-              "activity": "molde-biscoito",
-              "activityIndex": 2,
-              "cookieTarget": "C",
-              "cookieOptions": [
-                "O",
-                "C",
-                "G"
-              ],
-              "cookieCase": "upper",
-              "cookieLayout": "row",
-              "cookieChallenge": "near"
-            },
-            {
-              "id": "fase-1-abc-molde-biscoito-4",
-              "kind": "cookie-mold",
-              "prompt": "ESCOLHA A FÔRMA DA LETRA M.",
-              "answer": "M",
-              "hint": "M e W parecem parentes, mas observe para onde apontam as pontas.",
-              "activity": "molde-biscoito",
+              "id": "fase-1-g-chuva-sementes-4",
+              "kind": "seed-rain",
+              "prompt": "Plante sementes em dois caminhos que se encontram.",
+              "answer": "CHUVA COMPLETA 4",
+              "hint": "Faça dois traços que cruzem a terra e espalhem pontos de vida.",
+              "activity": "chuva-sementes",
               "activityIndex": 3,
-              "cookieTarget": "M",
-              "cookieOptions": [
-                "N",
-                "W",
-                "M"
-              ],
-              "cookieCase": "upper",
-              "cookieLayout": "grid",
-              "cookieChallenge": "mirror"
+              "seedTarget": 6
             },
             {
-              "id": "fase-1-abc-molde-biscoito-1",
-              "kind": "cookie-mold",
-              "prompt": "ESCOLHA A FÔRMA IGUAL À LETRA A.",
-              "answer": "A",
-              "hint": "Observe o contorno: a fôrma certa tem o mesmo desenho da letra A.",
-              "activity": "molde-biscoito",
-              "activityIndex": 0,
-              "cookieTarget": "A",
-              "cookieOptions": [
-                "A",
-                "M",
-                "O"
-              ],
-              "cookieCase": "upper",
-              "cookieLayout": "row",
-              "cookieChallenge": "direct"
+              "id": "fase-1-g-chuva-sementes-3",
+              "kind": "seed-rain",
+              "prompt": "Crie um caminho curvo para a flor abrir.",
+              "answer": "CHUVA COMPLETA 3",
+              "hint": "O caminho pode ser grande e livre. A flor acompanha o seu gesto.",
+              "activity": "chuva-sementes",
+              "activityIndex": 2,
+              "seedTarget": 5
             },
             {
-              "id": "fase-1-abc-molde-biscoito-2",
-              "kind": "cookie-mold",
-              "prompt": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
-              "answer": "B",
-              "hint": "Compare as duas barrigas da letra B com cada fôrma.",
-              "activity": "molde-biscoito",
-              "activityIndex": 1,
-              "cookieTarget": "B",
-              "cookieOptions": [
-                "D",
-                "B",
-                "P"
-              ],
-              "cookieCase": "upper",
-              "cookieLayout": "arc",
-              "cookieChallenge": "near"
-            },
-            {
-              "id": "fase-1-abc-molde-biscoito-8",
-              "kind": "cookie-mold",
-              "prompt": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
-              "answer": "S",
-              "hint": "Compare curvas, tamanho e direção. A fôrma correta é a cópia do S.",
-              "activity": "molde-biscoito",
-              "activityIndex": 7,
-              "cookieTarget": "S",
-              "cookieOptions": [
-                "Z",
-                "s",
-                "S",
-                "C"
-              ],
-              "cookieCase": "mixed",
-              "cookieLayout": "arc",
-              "cookieChallenge": "mirror"
-            },
-            {
-              "id": "fase-1-abc-molde-biscoito-6",
-              "kind": "cookie-mold",
-              "prompt": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.",
-              "answer": "a",
-              "hint": "A fôrma deve ser minúscula também. Compare o desenho, não o tamanho do cartão.",
-              "activity": "molde-biscoito",
+              "id": "fase-1-g-chuva-sementes-6",
+              "kind": "seed-rain",
+              "prompt": "Faça nascer um pequeno jardim com seus movimentos.",
+              "answer": "CHUVA COMPLETA 6",
+              "hint": "Mude a direção quando quiser. Cada marca ajuda o jardim a crescer.",
+              "activity": "chuva-sementes",
               "activityIndex": 5,
-              "cookieTarget": "a",
-              "cookieOptions": [
-                "o",
-                "a",
-                "e"
-              ],
-              "cookieCase": "lower",
-              "cookieLayout": "row",
-              "cookieChallenge": "mixed"
+              "seedTarget": 8
             },
             {
-              "id": "fase-1-abc-molde-biscoito-5",
-              "kind": "cookie-mold",
-              "prompt": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
-              "answer": "E",
-              "hint": "Procure as três barrinhas que saem do lado esquerdo.",
-              "activity": "molde-biscoito",
-              "activityIndex": 4,
-              "cookieTarget": "E",
-              "cookieOptions": [
-                "F",
-                "E",
-                "L"
-              ],
-              "cookieCase": "upper",
-              "cookieLayout": "arc",
-              "cookieChallenge": "near"
-            },
-            {
-              "id": "fase-1-abc-molde-biscoito-7",
-              "kind": "cookie-mold",
-              "prompt": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
-              "answer": "R",
-              "hint": "Escolha a única fôrma que repete exatamente a letra R mostrada.",
-              "activity": "molde-biscoito",
+              "id": "fase-1-g-chuva-sementes-7",
+              "kind": "seed-rain",
+              "prompt": "Siga a trilha pontilhada e acenda as sementes.",
+              "answer": "CHUVA COMPLETA 7",
+              "hint": "Acompanhe os pontos com um gesto contínuo.",
+              "activity": "chuva-sementes",
               "activityIndex": 6,
-              "cookieTarget": "R",
-              "cookieOptions": [
-                "r",
-                "P",
-                "R",
-                "K"
-              ],
-              "cookieCase": "mixed",
-              "cookieLayout": "grid",
-              "cookieChallenge": "mixed"
+              "seedTarget": 9
+            },
+            {
+              "id": "fase-1-g-chuva-sementes-2",
+              "kind": "seed-rain",
+              "prompt": "Leve a chuva de sementes até o canteiro azul.",
+              "answer": "CHUVA COMPLETA 2",
+              "hint": "Trace uma linha contínua até o canteiro marcado.",
+              "activity": "chuva-sementes",
+              "activityIndex": 1,
+              "seedTarget": 4
+            },
+            {
+              "id": "fase-1-g-chuva-sementes-1",
+              "kind": "seed-rain",
+              "prompt": "Faça as sementes nascerem seguindo um caminho de terra.",
+              "answer": "CHUVA COMPLETA 1",
+              "hint": "Arraste o dedo devagar pela terra e observe as primeiras folhas.",
+              "activity": "chuva-sementes",
+              "activityIndex": 0,
+              "seedTarget": 3
+            },
+            {
+              "id": "fase-1-g-chuva-sementes-5",
+              "kind": "seed-rain",
+              "prompt": "Cubra a faixa de terra com um traço comprido.",
+              "answer": "CHUVA COMPLETA 5",
+              "hint": "Passe o dedo de uma ponta até a outra sem pressa.",
+              "activity": "chuva-sementes",
+              "activityIndex": 4,
+              "seedTarget": 7
+            },
+            {
+              "id": "fase-1-g-chuva-sementes-8",
+              "kind": "seed-rain",
+              "prompt": "Complete o canteiro e revele a flor da Lumi.",
+              "answer": "CHUVA COMPLETA 8",
+              "hint": "Explore todo o espaço de terra. O jardim floresce quando estiver pronto.",
+              "activity": "chuva-sementes",
+              "activityIndex": 7,
+              "seedTarget": 10
             }
           ],
-          "questionIndex": 2,
+          "questionIndex": 4,
           "attempts": 0,
-          "roundScore": 3,
-          "feedback": {
-            "tone": "success",
-            "text": "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada."
-          },
+          "roundScore": 4,
+          "feedback": null,
           "completions": {
             "2:0": {
               "score": 3,
               "total": 8,
               "date": "2026-10-01T11:19:03.333Z"
+            },
+            "1:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-20T17:09:27.042Z"
             }
           },
           "worldApprovals": {},
@@ -799,6 +890,140 @@
               "kind": "cookie-mold",
               "correctAnswer": "A",
               "at": "15/10/2026, 15:22:28"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-2",
+              "question": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
+              "answer": "B",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "B",
+              "at": "20/10/2026, 14:08:54"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-8",
+              "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+              "answer": "s",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "S",
+              "at": "20/10/2026, 14:08:57"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-8",
+              "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+              "answer": "S",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "S",
+              "hint": "Compare curvas, tamanho e direção. A fôrma correta é a cópia do S.",
+              "at": "20/10/2026, 14:09:08"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-6",
+              "question": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.",
+              "answer": "a",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "a",
+              "at": "20/10/2026, 14:09:12"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-5",
+              "question": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
+              "answer": "E",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "E",
+              "at": "20/10/2026, 14:09:15"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-7",
+              "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+              "answer": "r",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "R",
+              "at": "20/10/2026, 14:09:21"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-7",
+              "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+              "answer": "R",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "R",
+              "hint": "Escolha a única fôrma que repete exatamente a letra R mostrada.",
+              "at": "20/10/2026, 14:09:25"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-4",
+              "question": "Plante sementes em dois caminhos que se encontram.",
+              "answer": "CHUVA COMPLETA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 4",
+              "at": "20/10/2026, 14:10:17"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-3",
+              "question": "Crie um caminho curvo para a flor abrir.",
+              "answer": "CHUVA COMPLETA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 3",
+              "at": "20/10/2026, 14:10:37"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-6",
+              "question": "Faça nascer um pequeno jardim com seus movimentos.",
+              "answer": "CHUVA COMPLETA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 6",
+              "at": "20/10/2026, 14:10:52"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-7",
+              "question": "Siga a trilha pontilhada e acenda as sementes.",
+              "answer": "CHUVA COMPLETA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 7",
+              "at": "20/10/2026, 14:11:08"
             }
           ],
           "reward": null,
@@ -807,7 +1032,7 @@
           "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-15T18:22:28.970Z"
+      "updatedAt": "2026-10-20T17:16:41.631Z"
     },
     "student-angelo-ciccillo": {
       "id": "student-angelo-ciccillo",
@@ -839,7 +1064,7 @@
           "petStage": "filhote",
           "petSpecies": "raposa",
           "audioEnabled": true,
-          "sessionToken": "1791124466170-xne5qo8hjtr"
+          "sessionToken": "1792516313061-455divlc8r6"
         },
         "completions": {},
         "worldApprovals": {},
@@ -1081,7 +1306,7 @@
             "petStage": "filhote",
             "petSpecies": "raposa",
             "audioEnabled": true,
-            "sessionToken": "1791124466170-xne5qo8hjtr"
+            "sessionToken": "1792516313061-455divlc8r6"
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
@@ -1458,7 +1683,7 @@
           "questionBankVersion": 8
         }
       },
-      "updatedAt": "2026-10-04T14:48:22.028Z"
+      "updatedAt": "2026-10-20T17:11:53.401Z"
     },
     "student-anna-alice-pereira": {
       "id": "student-anna-alice-pereira",
@@ -5363,31 +5588,53 @@
       },
       "updatedAt": "2026-10-01T10:56:51.485610Z"
     },
-    "felipet4-1791127590161": {
-      "id": "felipet4-1791127590161",
-      "name": "felipeT4",
+    "a-1792516368254": {
+      "id": "a-1792516368254",
+      "name": "a",
       "status": {
         "placementCompleted": true,
-        "currentWorld": 2,
-        "recommendedWorld": 2,
-        "activeScreen": "profile",
-        "activeWorld": 2,
+        "currentWorld": 6,
+        "recommendedWorld": 6,
+        "activeScreen": "reward",
+        "activeWorld": 4,
         "activePhase": 0,
-        "questionIndex": 1
+        "questionIndex": 7
       },
       "save": {
         "profile": {
           "placementCompleted": true,
-          "sessionToken": "1791127590161-jw723bvhh7r",
-          "studentId": "felipet4-1791127590161",
-          "name": "felipeT4",
+          "sessionToken": "1792516368254-uuc4guz67o",
+          "studentId": "a-1792516368254",
+          "name": "a",
           "partner": "Lumi",
-          "currentWorld": 2,
-          "recommendedWorld": 2,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
+          "currentWorld": 6,
+          "recommendedWorld": 6,
+          "coins": 94,
+          "xp": 90,
+          "eggs": 3,
+          "eggCollection": [
+            {
+              "id": "egg-1792516562593",
+              "rarity": "epico",
+              "progress": 2,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1792516651195",
+              "rarity": "epico",
+              "progress": 1,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1792516728898",
+              "rarity": "comum",
+              "progress": 0,
+              "required": 2,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
@@ -5395,36 +5642,699 @@
           "petSpecies": "raposa",
           "audioEnabled": true
         },
-        "completions": {},
+        "completions": {
+          "6:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-20T17:16:02.593Z"
+          },
+          "6:1": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-20T17:17:31.195Z"
+          },
+          "4:0": {
+            "score": 6,
+            "total": 8,
+            "date": "2026-10-20T17:18:48.898Z"
+          }
+        },
         "worldApprovals": {},
         "answers": [
           {
-            "questionId": "fase-1-p-escudo-magico-8",
-            "question": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
-            "answer": "ESCUDO PROTEGE 8",
+            "questionId": "fase-1-o-filtro-digrafos-3",
+            "question": "Ouça a palavra e escolha a válvula que completa a letra que falta.",
+            "answer": "S",
             "correct": true,
             "usedHint": false,
-            "worldId": 2,
+            "worldId": 6,
             "phase": 0,
-            "kind": "shield-magic",
-            "correctAnswer": "ESCUDO PROTEGE 8",
-            "at": "04/10/2026, 12:27:02"
+            "kind": "digraph-filter",
+            "options": [
+              "S",
+              "Z",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "S",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:20"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-8",
+            "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+            "answer": "X",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "Z",
+              "S"
+            ],
+            "correctAnswer": "S",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:29"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-8",
+            "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+            "answer": "CH",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "Z",
+              "S"
+            ],
+            "correctAnswer": "S",
+            "hint": "ROSA tem som de z entre vogais, mas se escreve com S. Escolha essa válvula.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:40"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-8",
+            "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+            "answer": "S",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "Z",
+              "S"
+            ],
+            "correctAnswer": "S",
+            "hint": "ROSA tem som de z entre vogais, mas se escreve com S. Escolha essa válvula.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:48"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-6",
+            "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+            "answer": "X",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "S",
+              "CH",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "CH",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:56"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-6",
+            "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+            "answer": "Z",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "S",
+              "CH",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "CH",
+            "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:14:59"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-6",
+            "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+            "answer": "S",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "S",
+              "CH",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "CH",
+            "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:01"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-6",
+            "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+            "answer": "CH",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "S",
+              "CH",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "CH",
+            "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:06"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-7",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "S",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "Z",
+              "S",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "X",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:12"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-7",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "CH",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "Z",
+              "S",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "X",
+            "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:14"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-7",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "Z",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "Z",
+              "S",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "X",
+            "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:18"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-7",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "Z",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "Z",
+              "S",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "X",
+            "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:19"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-7",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "X",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "Z",
+              "S",
+              "X",
+              "CH"
+            ],
+            "correctAnswer": "X",
+            "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:35"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-4",
+            "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+            "answer": "Z",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "S",
+              "Z"
+            ],
+            "correctAnswer": "Z",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:38"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-1",
+            "question": "Ouça a palavra e escolha a válvula que completa o começo.",
+            "answer": "CH",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "S",
+              "Z",
+              "X"
+            ],
+            "correctAnswer": "CH",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:43"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-5",
+            "question": "Ouça a palavra e escolha as letras que completam o espaço.",
+            "answer": "X",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "Z",
+              "S"
+            ],
+            "correctAnswer": "CH",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:54"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-5",
+            "question": "Ouça a palavra e escolha as letras que completam o espaço.",
+            "answer": "CH",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "CH",
+              "X",
+              "Z",
+              "S"
+            ],
+            "correctAnswer": "CH",
+            "hint": "Em CHUCHU, o som no espaço é escrito com duas letras juntas: CH.",
+            "visual": "💧",
+            "at": "20/10/2026, 14:15:57"
+          },
+          {
+            "questionId": "fase-1-o-filtro-digrafos-2",
+            "question": "Ouça a palavra e escolha a válvula que completa o som no meio.",
+            "answer": "X",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 0,
+            "kind": "digraph-filter",
+            "options": [
+              "X",
+              "S",
+              "CH",
+              "Z"
+            ],
+            "correctAnswer": "X",
+            "visual": "💧",
+            "at": "20/10/2026, 14:16:01"
+          },
+          {
+            "questionId": "fase-2-w6-labirinto-homofonos-2-4",
+            "question": "Qual opção resolve o desafio: Não fui __ estava chovendo.?",
+            "answer": "porque",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "porque",
+              "por que",
+              "porquê"
+            ],
+            "correctAnswer": "porque",
+            "visual": "🍎",
+            "at": "20/10/2026, 14:16:17"
+          },
+          {
+            "questionId": "fase-2-w6-plurais-complexos-2-7",
+            "question": "Qual é o plural correto de CIDADÃO?",
+            "answer": "CIDADÃOS",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "CIDADÃOS",
+              "CIDADANS",
+              "CIDADÕES"
+            ],
+            "correctAnswer": "CIDADÃOS",
+            "visual": "🐟",
+            "at": "20/10/2026, 14:16:34"
+          },
+          {
+            "questionId": "fase-2-w6-enigma-porques-2-5",
+            "question": "Qual opção resolve o desafio: __IRAFA?",
+            "answer": "G",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "CH",
+              "G",
+              "J"
+            ],
+            "correctAnswer": "G",
+            "visual": "⭐",
+            "at": "20/10/2026, 14:16:38"
+          },
+          {
+            "questionId": "fase-2-w6-balanca-prefixos-2-1",
+            "question": "Qual opção resolve o desafio: CAFE?",
+            "answer": "CAFÉ",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "CAFÊ",
+              "CAFÉ",
+              "CAFE"
+            ],
+            "correctAnswer": "CAFÉ",
+            "visual": "🚗",
+            "at": "20/10/2026, 14:16:40"
+          },
+          {
+            "questionId": "fase-2-w6-inspetor-erros-2-3",
+            "question": "Qual opção resolve o desafio: Vou __ a roupa.?",
+            "answer": "COZER",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "COZER",
+              "COZER",
+              "COSER"
+            ],
+            "correctAnswer": "COSER",
+            "visual": "🐝",
+            "at": "20/10/2026, 14:17:09"
+          },
+          {
+            "questionId": "fase-2-w6-inspetor-erros-2-3",
+            "question": "Qual opção resolve o desafio: Vou __ a roupa.?",
+            "answer": "COSER",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "COZER",
+              "COZER",
+              "COSER"
+            ],
+            "correctAnswer": "COSER",
+            "hint": "Pense no que a pergunta está pedindo e elimine a opção que não combina.",
+            "visual": "🐝",
+            "at": "20/10/2026, 14:17:12"
+          },
+          {
+            "questionId": "fase-2-w6-atirador-gj-2-6",
+            "question": "Qual opção resolve o desafio: PEI__E?",
+            "answer": "X",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "X",
+              "CH",
+              "S"
+            ],
+            "correctAnswer": "X",
+            "visual": "☀️",
+            "at": "20/10/2026, 14:17:16"
+          },
+          {
+            "questionId": "fase-2-w6-cacador-acento-2-2",
+            "question": "Qual opção resolve o desafio: ESCEÇÃO?",
+            "answer": "EXCEÇÃO",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "EXCEÇÃO",
+              "ESCESÃO",
+              "EXCESSÃO"
+            ],
+            "correctAnswer": "EXCEÇÃO",
+            "visual": "🏠",
+            "at": "20/10/2026, 14:17:27"
+          },
+          {
+            "questionId": "fase-2-w6-escudo-ss-2-0",
+            "question": "Qual opção resolve o desafio: __MPO?",
+            "answer": "CA",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 6,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "CA",
+              "RA",
+              "NA"
+            ],
+            "correctAnswer": "CA",
+            "visual": "🌼",
+            "at": "20/10/2026, 14:17:30"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-2",
+            "question": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+            "answer": "L",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "L",
+            "at": "20/10/2026, 14:18:07"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-8",
+            "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+            "answer": "P",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "at": "20/10/2026, 14:18:10"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-8",
+            "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+            "answer": "D",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "hint": "Observe todas as opções com calma e compare os sons.",
+            "at": "20/10/2026, 14:18:13"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-6",
+            "question": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+            "answer": "L",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "L",
+            "at": "20/10/2026, 14:18:27"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-1",
+            "question": "COMPLETE A SÍLABA SA E FORME CASA.",
+            "answer": "S",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "S",
+            "at": "20/10/2026, 14:18:30"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-4",
+            "question": "COMPLETE A SÍLABA PA EM PATO.",
+            "answer": "A",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "A",
+            "at": "20/10/2026, 14:18:34"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-5",
+            "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+            "answer": "G",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "C",
+            "at": "20/10/2026, 14:18:37"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-5",
+            "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+            "answer": "K",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "C",
+            "hint": "Fale as opções devagar e escolha a que combina melhor.",
+            "at": "20/10/2026, 14:18:39"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-7",
+            "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+            "answer": "B",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "B",
+            "at": "20/10/2026, 14:18:43"
+          },
+          {
+            "questionId": "fase-1-sa-ponte-som-3",
+            "question": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
+            "answer": "G",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 4,
+            "phase": 0,
+            "kind": "syllable-letter",
+            "correctAnswer": "G",
+            "at": "20/10/2026, 14:18:47"
           }
         ],
         "gameState": {
-          "screen": "profile",
+          "screen": "reward",
           "profile": {
             "placementCompleted": true,
-            "sessionToken": "1791127590161-jw723bvhh7r",
-            "studentId": "felipet4-1791127590161",
-            "name": "felipeT4",
+            "sessionToken": "1792516368254-uuc4guz67o",
+            "studentId": "a-1792516368254",
+            "name": "a",
             "partner": "Lumi",
-            "currentWorld": 2,
-            "recommendedWorld": 2,
-            "coins": 20,
-            "xp": 0,
-            "eggs": 0,
-            "eggCollection": [],
+            "currentWorld": 6,
+            "recommendedWorld": 6,
+            "coins": 94,
+            "xp": 90,
+            "eggs": 3,
+            "eggCollection": [
+              {
+                "id": "egg-1792516562593",
+                "rarity": "epico",
+                "progress": 2,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1792516651195",
+                "rarity": "epico",
+                "progress": 1,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1792516728898",
+                "rarity": "comum",
+                "progress": 0,
+                "required": 2,
+                "hatched": false
+              }
+            ],
             "petLevel": 1,
             "petCare": 30,
             "petName": "Faísca",
@@ -5434,12 +6344,30 @@
           },
           "setupAudioEnabled": true,
           "placementIndex": 21,
-          "placementScore": 8,
+          "placementScore": 22,
           "placementAttempts": 0,
           "placementResults": [
             {
-              "questionId": "nivel-p-numero",
-              "question": "Qual destes é um número?",
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-inicial",
+              "question": "QUAL LETRA COMEÇA BOLA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-rabisco",
+              "question": "Qual desenho parece uma letra?",
               "correct": true,
               "attempts": 1
             },
@@ -5448,36 +6376,12 @@
               "question": "FAÇA UM RISCO DE IDA E VOLTA.",
               "correct": true,
               "attempts": 1,
-              "drawing": "data:image/png;base64,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"
+              "drawing": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4QAAAFoCAYAAAAPVzXrAAAQAElEQVR4AezdfYxl510f8HPOnX3xJsVO/LIzGwdRCFQBKlGJRrRFquhLClJBUdsEe2fWSVFpVRUCcnZmQgpklSove2ftBJW2Em2KnZ1ZJ3GhAqkqtIU/qgaaoraiLVWgiERxsnfWduzEJfa+zL2H58ysvS+el/ty3s9nNHdm7r3nPM/v93nu3T3fOXdmksgbAQIECBAgQIAAAQIECHRSQCDs1LJrlgABAgQIECBAgAABAjcEBMIbFr4i0C4B3RAgQIAAAQIECBA4QEAgPADI3QQIEGiCgBoJECBAgAABAtMICITTqNmHAAECBAhUJ2BmAgQIECCQm4BAmBulgQgQIECAAAECeQsYjwABAsUKCITF+hqdAAECBAgQIECAwHgCtiJQgYBAWAG6KQkQIECAAAECBAgQ6LZAXboXCOuyEuogQIAAAQIECBAgQIBAyQICYSngJiFAgAABAgQIECBAgED9BATC+q2JipouoH4CBAgQIECAAAECDREQCBuyUMokQKCeAqoiQIAAAQIECDRZQCBs8uqpnQABAgTKFDAXAQIECBBonYBA2Lol1RABAgQIECAwu4ARCBAg0A0BgbAb66xLAgQIECBAgACBvQTcTqDDAgJhhxdf6wQIECBAgAABAgS6JqDfWwUEwls9XCNAgAABAgQIECBAgEBnBFoeCDuzjholQIAAAQIECBAgQIDAxAIC4cRkdqitgMIIECBAgAABAgQIEJhIQCCciMvGBAjURUAdBAgQIECAAAECswsIhLMbGoEAAQIEihUwOgECBAgQIFCQgEBYEKxhCRAgQIAAgWkE7EOAAAECZQoIhGVqm4sAAQIECBAgQOCGgK8IEKhcQCCsfAkUQIAAAQIECBAgQKD9Ajqsp4BAWM91URUBAgQIECBAgAABAgQKFygoEBZetwkIECBAgAABAgQIECBAYEYBgXBGQLtHUQSBAAECBAgQIECAAIFGCgiEjVw2RROoTsDMBAgQIECAAAEC7REQCNuzljohQIBA3gLGI0CAAAECBFouIBC2fIG1R4AAAQIExhOwFQECBAh0UUAg7OKq65kAAQIECBDotoDuCRAgcF1AILwO4RMBAgQIECBAgACBNgroicB+AgLhfjruI0CAAAECBAgQIECAQHMEJq5U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"
             },
             {
-              "questionId": "nivel-abc-inicial",
-              "question": "QUAL LETRA COMEÇA BOLA?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-forma",
-              "question": "Qual forma é redonda?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-o-cedilha",
-              "question": "Qual palavra está correta?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-a-rima",
-              "question": "Qual palavra rima com GATO?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-sa-final",
-              "question": "Qual letra termina GATO?",
-              "correct": false,
+              "questionId": "nivel-p-tamanho",
+              "question": "Qual palavra tem mais letras?",
+              "correct": true,
               "attempts": 1
             },
             {
@@ -5493,9 +6397,75 @@
               "attempts": 1
             },
             {
-              "questionId": "nivel-g-rabisco",
-              "question": "Qual desenho parece uma letra?",
-              "correct": false,
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-cedilha",
+              "question": "Qual palavra está correta?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-palmas",
+              "question": "Quantas sílabas tem CA-SA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-final",
+              "question": "Qual letra termina GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-problema",
+              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-letra",
+              "question": "Qual destes é uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-monta",
+              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": true,
               "attempts": 1
             },
             {
@@ -5507,482 +6477,850 @@
             {
               "questionId": "nivel-sa-ditado",
               "question": "Qual escrita corresponde a MESA?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-a-frase",
-              "question": "Qual frase está escrita corretamente?",
               "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-p-letra",
-              "question": "Qual destes é uma letra?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-sa-completa",
-              "question": "Complete: CA _ A",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-s-palmas",
-              "question": "Quantas sílabas tem CA-SA?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-a-problema",
-              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-s-monta",
-              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-quantidade",
-              "question": "CONTE AS ESTRELAS ABAIXO.",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-abc-a",
-              "question": "QUAL É A LETRA A?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-o-rr",
-              "question": "Qual palavra está escrita corretamente?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-p-tamanho",
-              "question": "Qual palavra tem mais letras?",
-              "correct": false,
               "attempts": 1
             }
           ],
           "placementQueue": [],
-          "activeWorld": 2,
-          "selectedWorld": 2,
+          "activeWorld": 4,
+          "selectedWorld": 4,
           "activePhase": 0,
           "queue": [
             {
-              "id": "fase-1-p-escudo-magico-8",
-              "kind": "shield-magic",
-              "prompt": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
-              "answer": "ESCUDO PROTEGE 8",
-              "hint": "Encontre P, A, T, O e L. O escudo só abre quando todas as letras forem protegidas.",
-              "activity": "escudo-magico",
-              "activityIndex": 7,
-              "shieldItems": [
-                "P",
-                "3",
-                "A",
-                "◇",
-                "T",
-                "8",
-                "O",
-                "★",
-                "L",
-                "☀"
-              ],
-              "shieldTarget": 5,
-              "shieldLayout": "grid",
-              "shieldMotion": "orbit"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-1",
-              "kind": "shield-magic",
-              "prompt": "PROTEJA A LETRA M COM O ESCUDO.",
-              "answer": "ESCUDO PROTEGE 1",
-              "hint": "Toque apenas no caractere que pode entrar em uma palavra; o número e o símbolo são distrações.",
-              "activity": "escudo-magico",
-              "activityIndex": 0,
-              "shieldItems": [
-                "M",
-                "7",
-                "◇"
-              ],
-              "shieldTarget": 1,
-              "shieldLayout": "row",
-              "shieldMotion": "still"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-5",
-              "kind": "shield-magic",
-              "prompt": "O ESCUDO PRECISA SEPARAR ESCRITA DE DESENHO.",
-              "answer": "ESCUDO PROTEGE 5",
-              "hint": "Toque somente em S, O e L. As formas e o número não formam uma palavra.",
-              "activity": "escudo-magico",
-              "activityIndex": 4,
-              "shieldItems": [
-                "★",
-                "S",
-                "2",
-                "O",
-                "☀",
-                "L",
-                "◇"
-              ],
-              "shieldTarget": 3,
-              "shieldLayout": "grid",
-              "shieldMotion": "float"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-3",
-              "kind": "shield-magic",
-              "prompt": "A CIDADE MISTUROU LETRAS E NÚMEROS. PROTEJA AS LETRAS.",
-              "answer": "ESCUDO PROTEGE 3",
-              "hint": "Procure M e O; os números não são letras e não precisam do escudo.",
-              "activity": "escudo-magico",
-              "activityIndex": 2,
-              "shieldItems": [
-                "3",
-                "M",
-                "8",
-                "O",
-                "△"
-              ],
-              "shieldTarget": 2,
-              "shieldLayout": "scatter",
-              "shieldMotion": "float"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-7",
-              "kind": "shield-magic",
-              "prompt": "O PORTÃO ESTÁ MAIS CHEIO: PROTEJA TODAS AS LETRAS.",
-              "answer": "ESCUDO PROTEGE 7",
-              "hint": "As letras C, A, S e A são as únicas escritas. Toque nelas uma vez; ignore números e símbolos.",
-              "activity": "escudo-magico",
-              "activityIndex": 6,
-              "shieldItems": [
-                "C",
-                "4",
-                "A",
-                "✦",
-                "S",
-                "9",
-                "A",
-                "□",
-                "∞"
-              ],
-              "shieldTarget": 4,
-              "shieldLayout": "grid",
-              "shieldMotion": "orbit"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-4",
-              "kind": "shield-magic",
-              "prompt": "DEFENDA AS TRÊS LETRAS DO PORTÃO.",
-              "answer": "ESCUDO PROTEGE 4",
-              "hint": "Proteja L, I e A. Observe cada cartão antes de tocar para não escolher os símbolos.",
-              "activity": "escudo-magico",
-              "activityIndex": 3,
-              "shieldItems": [
-                "L",
-                "@",
-                "I",
-                "5",
-                "A",
-                "□"
-              ],
-              "shieldTarget": 3,
-              "shieldLayout": "grid",
-              "shieldMotion": "float"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-6",
-              "kind": "shield-magic",
-              "prompt": "PROTEJA AS LETRAS DA PALAVRA BOLA.",
-              "answer": "ESCUDO PROTEGE 6",
-              "hint": "Encontre B, O, L e A, mesmo com os distratores espalhados pela cidade.",
-              "activity": "escudo-magico",
-              "activityIndex": 5,
-              "shieldItems": [
-                "B",
-                "#",
-                "O",
-                "7",
-                "L",
-                "○",
-                "A",
-                "△"
-              ],
-              "shieldTarget": 4,
-              "shieldLayout": "scatter",
-              "shieldMotion": "orbit"
-            },
-            {
-              "id": "fase-1-p-escudo-magico-2",
-              "kind": "shield-magic",
-              "prompt": "LEVANTE O ESCUDO PARA AS LETRAS B E A.",
-              "answer": "ESCUDO PROTEGE 2",
-              "hint": "Letras formam palavras. Ignore o número e o símbolo e proteja as duas letras.",
-              "activity": "escudo-magico",
+              "id": "fase-1-sa-ponte-som-2",
+              "kind": "syllable-letter",
+              "prompt": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+              "answer": "L",
+              "hint": "Diga BO-LA. A letra L aparece no começo da sílaba LA.",
+              "activity": "colheita-vogais",
               "activityIndex": 1,
-              "shieldItems": [
-                "B",
-                "4",
-                "A",
-                "☀"
+              "soundWord": "BOLA",
+              "soundSyllable": "LA",
+              "soundPattern": "BO_ A",
+              "soundOptions": [
+                "L",
+                "R",
+                "M"
               ],
-              "shieldTarget": 2,
-              "shieldLayout": "scatter",
-              "shieldMotion": "still"
+              "soundLayout": "arc",
+              "soundChallenge": "near"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-8",
+              "kind": "syllable-letter",
+              "prompt": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+              "answer": "B",
+              "hint": "Separe A-BA-CA-XI. Depois do A inicial, a sílaba BA começa com B.",
+              "activity": "colheita-vogais",
+              "activityIndex": 7,
+              "soundWord": "ABACAXI",
+              "soundSyllable": "BA",
+              "soundPattern": "A_ ACAXI",
+              "soundOptions": [
+                "B",
+                "P",
+                "D",
+                "V"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-6",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+              "answer": "L",
+              "hint": "Diga E-LE-FAN-TE. A letra L constrói o pedaço LE.",
+              "activity": "colheita-vogais",
+              "activityIndex": 5,
+              "soundWord": "ELEFANTE",
+              "soundSyllable": "LE",
+              "soundPattern": "E_ EFANTE",
+              "soundOptions": [
+                "L",
+                "R",
+                "N"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-1",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA SA E FORME CASA.",
+              "answer": "S",
+              "hint": "Fale CA-SA devagar. A letra S fecha a segunda sílaba.",
+              "activity": "colheita-vogais",
+              "activityIndex": 0,
+              "soundWord": "CASA",
+              "soundSyllable": "SA",
+              "soundPattern": "CA_ A",
+              "soundOptions": [
+                "S",
+                "T",
+                "P"
+              ],
+              "soundLayout": "row",
+              "soundChallenge": "direct"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-4",
+              "kind": "syllable-letter",
+              "prompt": "COMPLETE A SÍLABA PA EM PATO.",
+              "answer": "A",
+              "hint": "Fale PA-TO. A vogal A fica entre P e T.",
+              "activity": "colheita-vogais",
+              "activityIndex": 3,
+              "soundWord": "PATO",
+              "soundSyllable": "PA",
+              "soundPattern": "P_ TO",
+              "soundOptions": [
+                "A",
+                "O",
+                "E"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "position"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-5",
+              "kind": "syllable-letter",
+              "prompt": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+              "answer": "C",
+              "hint": "Separe JA-CA-RÉ e complete a sílaba CA com C.",
+              "activity": "colheita-vogais",
+              "activityIndex": 4,
+              "soundWord": "JACARÉ",
+              "soundSyllable": "CA",
+              "soundPattern": "JA_ ARÉ",
+              "soundOptions": [
+                "C",
+                "G",
+                "K"
+              ],
+              "soundLayout": "arc",
+              "soundChallenge": "near"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-7",
+              "kind": "syllable-letter",
+              "prompt": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+              "answer": "B",
+              "hint": "Fale BOR-BO-LE-TA. A sílaba BO começa com B.",
+              "activity": "colheita-vogais",
+              "activityIndex": 6,
+              "soundWord": "BORBOLETA",
+              "soundSyllable": "BO",
+              "soundPattern": "BOR_ OLETA",
+              "soundOptions": [
+                "B",
+                "D",
+                "P"
+              ],
+              "soundLayout": "grid",
+              "soundChallenge": "combined"
+            },
+            {
+              "id": "fase-1-sa-ponte-som-3",
+              "kind": "syllable-letter",
+              "prompt": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
+              "answer": "G",
+              "hint": "O primeiro som de GATO começa com G.",
+              "activity": "colheita-vogais",
+              "activityIndex": 2,
+              "soundWord": "GATO",
+              "soundSyllable": "GA",
+              "soundPattern": "_ATO",
+              "soundOptions": [
+                "G",
+                "C",
+                "D"
+              ],
+              "soundLayout": "row",
+              "soundChallenge": "position"
             }
           ],
-          "questionIndex": 1,
+          "questionIndex": 7,
           "attempts": 0,
-          "roundScore": 1,
-          "feedback": null,
-          "completions": {},
+          "roundScore": 6,
+          "feedback": {
+            "tone": "success",
+            "text": "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada."
+          },
+          "completions": {
+            "6:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-20T17:16:02.593Z"
+            },
+            "6:1": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-20T17:17:31.195Z"
+            },
+            "4:0": {
+              "score": 6,
+              "total": 8,
+              "date": "2026-10-20T17:18:48.898Z"
+            }
+          },
           "worldApprovals": {},
           "answers": [
             {
-              "questionId": "fase-1-p-escudo-magico-8",
-              "question": "DESAFIO FINAL: ABRA A CIDADE PROTEGENDO CADA LETRA.",
-              "answer": "ESCUDO PROTEGE 8",
+              "questionId": "fase-1-o-filtro-digrafos-3",
+              "question": "Ouça a palavra e escolha a válvula que completa a letra que falta.",
+              "answer": "S",
               "correct": true,
               "usedHint": false,
-              "worldId": 2,
+              "worldId": 6,
               "phase": 0,
-              "kind": "shield-magic",
-              "correctAnswer": "ESCUDO PROTEGE 8",
-              "at": "04/10/2026, 12:27:02"
+              "kind": "digraph-filter",
+              "options": [
+                "S",
+                "Z",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "S",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:20"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-8",
+              "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+              "answer": "X",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "Z",
+                "S"
+              ],
+              "correctAnswer": "S",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:29"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-8",
+              "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+              "answer": "CH",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "Z",
+                "S"
+              ],
+              "correctAnswer": "S",
+              "hint": "ROSA tem som de z entre vogais, mas se escreve com S. Escolha essa válvula.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:40"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-8",
+              "question": "Ouça a palavra e escolha a válvula que completa o espaço.",
+              "answer": "S",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "Z",
+                "S"
+              ],
+              "correctAnswer": "S",
+              "hint": "ROSA tem som de z entre vogais, mas se escreve com S. Escolha essa válvula.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:48"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-6",
+              "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+              "answer": "X",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "S",
+                "CH",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "CH",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:56"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-6",
+              "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+              "answer": "Z",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "S",
+                "CH",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "CH",
+              "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:14:59"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-6",
+              "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+              "answer": "S",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "S",
+                "CH",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "CH",
+              "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:01"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-6",
+              "question": "Ouça a palavra e escolha as letras que completam o som do meio.",
+              "answer": "CH",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "S",
+                "CH",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "CH",
+              "hint": "MOCHILA tem o som de ch entre MO e I. Complete com CH.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:06"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-7",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "S",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "Z",
+                "S",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "X",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:12"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-7",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "CH",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "Z",
+                "S",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "X",
+              "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:14"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-7",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "Z",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "Z",
+                "S",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "X",
+              "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:18"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-7",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "Z",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "Z",
+                "S",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "X",
+              "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:19"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-7",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "X",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "Z",
+                "S",
+                "X",
+                "CH"
+              ],
+              "correctAnswer": "X",
+              "hint": "XÍCARA começa com a letra X. Procure a válvula xis.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:35"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-4",
+              "question": "Ouça a palavra e escolha a válvula que abre a palavra.",
+              "answer": "Z",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "S",
+                "Z"
+              ],
+              "correctAnswer": "Z",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:38"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-1",
+              "question": "Ouça a palavra e escolha a válvula que completa o começo.",
+              "answer": "CH",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "S",
+                "Z",
+                "X"
+              ],
+              "correctAnswer": "CH",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:43"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-5",
+              "question": "Ouça a palavra e escolha as letras que completam o espaço.",
+              "answer": "X",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "Z",
+                "S"
+              ],
+              "correctAnswer": "CH",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:54"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-5",
+              "question": "Ouça a palavra e escolha as letras que completam o espaço.",
+              "answer": "CH",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "CH",
+                "X",
+                "Z",
+                "S"
+              ],
+              "correctAnswer": "CH",
+              "hint": "Em CHUCHU, o som no espaço é escrito com duas letras juntas: CH.",
+              "visual": "💧",
+              "at": "20/10/2026, 14:15:57"
+            },
+            {
+              "questionId": "fase-1-o-filtro-digrafos-2",
+              "question": "Ouça a palavra e escolha a válvula que completa o som no meio.",
+              "answer": "X",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 0,
+              "kind": "digraph-filter",
+              "options": [
+                "X",
+                "S",
+                "CH",
+                "Z"
+              ],
+              "correctAnswer": "X",
+              "visual": "💧",
+              "at": "20/10/2026, 14:16:01"
+            },
+            {
+              "questionId": "fase-2-w6-labirinto-homofonos-2-4",
+              "question": "Qual opção resolve o desafio: Não fui __ estava chovendo.?",
+              "answer": "porque",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "porque",
+                "por que",
+                "porquê"
+              ],
+              "correctAnswer": "porque",
+              "visual": "🍎",
+              "at": "20/10/2026, 14:16:17"
+            },
+            {
+              "questionId": "fase-2-w6-plurais-complexos-2-7",
+              "question": "Qual é o plural correto de CIDADÃO?",
+              "answer": "CIDADÃOS",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "CIDADÃOS",
+                "CIDADANS",
+                "CIDADÕES"
+              ],
+              "correctAnswer": "CIDADÃOS",
+              "visual": "🐟",
+              "at": "20/10/2026, 14:16:34"
+            },
+            {
+              "questionId": "fase-2-w6-enigma-porques-2-5",
+              "question": "Qual opção resolve o desafio: __IRAFA?",
+              "answer": "G",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "CH",
+                "G",
+                "J"
+              ],
+              "correctAnswer": "G",
+              "visual": "⭐",
+              "at": "20/10/2026, 14:16:38"
+            },
+            {
+              "questionId": "fase-2-w6-balanca-prefixos-2-1",
+              "question": "Qual opção resolve o desafio: CAFE?",
+              "answer": "CAFÉ",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "CAFÊ",
+                "CAFÉ",
+                "CAFE"
+              ],
+              "correctAnswer": "CAFÉ",
+              "visual": "🚗",
+              "at": "20/10/2026, 14:16:40"
+            },
+            {
+              "questionId": "fase-2-w6-inspetor-erros-2-3",
+              "question": "Qual opção resolve o desafio: Vou __ a roupa.?",
+              "answer": "COZER",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "COZER",
+                "COZER",
+                "COSER"
+              ],
+              "correctAnswer": "COSER",
+              "visual": "🐝",
+              "at": "20/10/2026, 14:17:09"
+            },
+            {
+              "questionId": "fase-2-w6-inspetor-erros-2-3",
+              "question": "Qual opção resolve o desafio: Vou __ a roupa.?",
+              "answer": "COSER",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "COZER",
+                "COZER",
+                "COSER"
+              ],
+              "correctAnswer": "COSER",
+              "hint": "Pense no que a pergunta está pedindo e elimine a opção que não combina.",
+              "visual": "🐝",
+              "at": "20/10/2026, 14:17:12"
+            },
+            {
+              "questionId": "fase-2-w6-atirador-gj-2-6",
+              "question": "Qual opção resolve o desafio: PEI__E?",
+              "answer": "X",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "X",
+                "CH",
+                "S"
+              ],
+              "correctAnswer": "X",
+              "visual": "☀️",
+              "at": "20/10/2026, 14:17:16"
+            },
+            {
+              "questionId": "fase-2-w6-cacador-acento-2-2",
+              "question": "Qual opção resolve o desafio: ESCEÇÃO?",
+              "answer": "EXCEÇÃO",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "EXCEÇÃO",
+                "ESCESÃO",
+                "EXCESSÃO"
+              ],
+              "correctAnswer": "EXCEÇÃO",
+              "visual": "🏠",
+              "at": "20/10/2026, 14:17:27"
+            },
+            {
+              "questionId": "fase-2-w6-escudo-ss-2-0",
+              "question": "Qual opção resolve o desafio: __MPO?",
+              "answer": "CA",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 6,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "CA",
+                "RA",
+                "NA"
+              ],
+              "correctAnswer": "CA",
+              "visual": "🌼",
+              "at": "20/10/2026, 14:17:30"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-2",
+              "question": "LIGUE O SOM DE LA À LETRA QUE FALTA EM BOLA.",
+              "answer": "L",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "L",
+              "at": "20/10/2026, 14:18:07"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-8",
+              "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+              "answer": "P",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "at": "20/10/2026, 14:18:10"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-8",
+              "question": "DESAFIO FINAL: COMPLETE A SÍLABA BA DE ABACAXI.",
+              "answer": "D",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "hint": "Observe todas as opções com calma e compare os sons.",
+              "at": "20/10/2026, 14:18:13"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-6",
+              "question": "COMPLETE A SÍLABA LE DE ELEFANTE.",
+              "answer": "L",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "L",
+              "at": "20/10/2026, 14:18:27"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-1",
+              "question": "COMPLETE A SÍLABA SA E FORME CASA.",
+              "answer": "S",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "S",
+              "at": "20/10/2026, 14:18:30"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-4",
+              "question": "COMPLETE A SÍLABA PA EM PATO.",
+              "answer": "A",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "A",
+              "at": "20/10/2026, 14:18:34"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-5",
+              "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+              "answer": "G",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "C",
+              "at": "20/10/2026, 14:18:37"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-5",
+              "question": "FAÇA A SÍLABA CA APARECER EM JACARÉ.",
+              "answer": "K",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "C",
+              "hint": "Fale as opções devagar e escolha a que combina melhor.",
+              "at": "20/10/2026, 14:18:39"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-7",
+              "question": "ENCONTRE A LETRA QUE INICIA A SÍLABA BO EM BORBOLETA.",
+              "answer": "B",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "B",
+              "at": "20/10/2026, 14:18:43"
+            },
+            {
+              "questionId": "fase-1-sa-ponte-som-3",
+              "question": "OUÇA O COMEÇO DE GATO E COMPLETE A PALAVRA.",
+              "answer": "G",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 4,
+              "phase": 0,
+              "kind": "syllable-letter",
+              "correctAnswer": "G",
+              "at": "20/10/2026, 14:18:47"
             }
           ],
-          "reward": null,
-          "teacherName": "Professor(a)",
-          "worldOrderVersion": 2,
-          "questionBankVersion": 9
-        }
-      },
-      "updatedAt": "2026-10-04T15:27:06.465Z"
-    },
-    "loki-1791131468413": {
-      "id": "loki-1791131468413",
-      "name": "loki",
-      "status": {
-        "placementCompleted": true,
-        "currentWorld": 2,
-        "recommendedWorld": 2,
-        "activeScreen": "profile",
-        "activeWorld": 2,
-        "activePhase": 0,
-        "questionIndex": 0
-      },
-      "save": {
-        "profile": {
-          "placementCompleted": true,
-          "sessionToken": "1791131468413-1v5vuspq9ci",
-          "studentId": "loki-1791131468413",
-          "name": "loki",
-          "partner": "Lumi",
-          "currentWorld": 2,
-          "recommendedWorld": 2,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
-          "petLevel": 1,
-          "petCare": 30,
-          "petName": "Faísca",
-          "petStage": "filhote",
-          "petSpecies": "raposa",
-          "audioEnabled": true
-        },
-        "completions": {},
-        "worldApprovals": {},
-        "answers": [],
-        "gameState": {
-          "screen": "profile",
-          "profile": {
-            "placementCompleted": true,
-            "sessionToken": "1791131468413-1v5vuspq9ci",
-            "studentId": "loki-1791131468413",
-            "name": "loki",
-            "partner": "Lumi",
-            "currentWorld": 2,
-            "recommendedWorld": 2,
-            "coins": 20,
-            "xp": 0,
-            "eggs": 0,
-            "eggCollection": [],
-            "petLevel": 1,
-            "petCare": 30,
-            "petName": "Faísca",
-            "petStage": "filhote",
-            "petSpecies": "raposa",
-            "audioEnabled": true
+          "reward": {
+            "coins": 22,
+            "xp": 26,
+            "egg": true,
+            "eggRarity": "comum",
+            "title": "Fase 1 concluída"
           },
-          "setupAudioEnabled": true,
-          "placementIndex": 21,
-          "placementScore": 10,
-          "placementAttempts": 0,
-          "placementResults": [
-            {
-              "questionId": "nivel-a-rima",
-              "question": "Qual palavra rima com GATO?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-o-acento",
-              "question": "Qual escrita está correta?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-forma",
-              "question": "Qual forma é redonda?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-s-palmas",
-              "question": "Quantas sílabas tem CA-SA?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-abc-a",
-              "question": "QUAL É A LETRA A?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-o-cedilha",
-              "question": "Qual palavra está correta?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-sa-final",
-              "question": "Qual letra termina GATO?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-abc-ordem",
-              "question": "QUAL LETRA VEM DEPOIS DE C?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-quantidade",
-              "question": "CONTE AS ESTRELAS ABAIXO.",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-p-numero",
-              "question": "Qual destes é um número?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-rabisco",
-              "question": "Qual desenho parece uma letra?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-s-monta",
-              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-o-rr",
-              "question": "Qual palavra está escrita corretamente?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-sa-completa",
-              "question": "Complete: CA _ A",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-s-inicio",
-              "question": "Qual sílaba começa BO-LA?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-g-risco",
-              "question": "FAÇA UM RISCO DE IDA E VOLTA.",
-              "correct": true,
-              "attempts": 1,
-              "drawing": "data:image/png;base64,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"
-            },
-            {
-              "questionId": "nivel-a-problema",
-              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-a-frase",
-              "question": "Qual frase está escrita corretamente?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-p-letra",
-              "question": "Qual destes é uma letra?",
-              "correct": true,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-sa-ditado",
-              "question": "Qual escrita corresponde a MESA?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-p-tamanho",
-              "question": "Qual palavra tem mais letras?",
-              "correct": false,
-              "attempts": 1
-            },
-            {
-              "questionId": "nivel-abc-inicial",
-              "question": "QUAL LETRA COMEÇA BOLA?",
-              "correct": false,
-              "attempts": 1
-            }
-          ],
-          "placementQueue": [],
-          "activeWorld": 2,
-          "selectedWorld": 2,
-          "activePhase": 0,
-          "queue": [],
-          "questionIndex": 0,
-          "attempts": 0,
-          "roundScore": 0,
-          "feedback": null,
-          "completions": {},
-          "worldApprovals": {},
-          "answers": [],
-          "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
-          "questionBankVersion": 9
+          "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-04T16:31:25.866Z"
+      "activeSession": {
+        "token": "1792516368254-uuc4guz67o",
+        "lastSeen": 1792516728806
+      },
+      "updatedAt": "2026-10-20T17:18:48.806Z"
     }
   },
   "settings": {
