@@ -3,7 +3,7 @@
  * cada erro inicial vira uma pista de exploração e cada avanço ganha um carimbo.
  */
 
-import { getPlacementWorld, getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, type QuestionKind, WORLDS } from "./content";
+import { getPlacementWorld, getQuestionBank, PLACEMENT_QUESTIONS, type GameQuestion, WORLDS } from "./content";
 
 export type Screen = "menu" | "welcome" | "continue" | "profile" | "placement" | "placement-result" | "map" | "lesson" | "reward" | "pets" | "teacher" | "developer";
 
@@ -39,6 +39,7 @@ export type Completion = {
   score: number;
   total: number;
   date: string;
+  teacherAdvanced?: boolean;
 };
 
 export type WorldApproval = {
@@ -64,7 +65,7 @@ export type AnswerLog = {
   usedHint?: boolean;
   worldId: number;
   phase: number;
-  kind?: QuestionKind;
+  kind?: GameQuestion["kind"];
   options?: string[];
   correctAnswer?: string;
   hint?: string;
@@ -100,6 +101,7 @@ export type GameState = {
   feedback: Feedback;
   completions: Record<string, Completion>;
   worldApprovals: Record<string, WorldApproval>;
+  teacherProgressionVersion?: number;
   answers: AnswerLog[];
   reward: Reward | null;
   teacherAuthorized: boolean;
@@ -112,7 +114,7 @@ export type GameState = {
 
 const STORAGE_KEY = "aventura-das-letras-v2";
 const LEGACY_STORAGE_KEY = "aventura-das-letras-v1";
-const QUESTION_BANK_VERSION = 8;
+const QUESTION_BANK_VERSION = 10;
 const positiveHints = ["Quase! Você está quase lá!", "Tente de novo, eu acredito em você!", "Vamos olhar com calma. A Lumi tem uma pista!"];
 const safeActivityHints = [
   "Observe todas as opções com calma e compare os sons.",
@@ -151,6 +153,7 @@ function initialState(): GameState {
     feedback: null,
     completions: {},
     worldApprovals: {},
+    teacherProgressionVersion: 0,
     answers: [],
     reward: null,
     teacherAuthorized: false,
@@ -167,6 +170,7 @@ export class GameController {
   private listeners = new Set<(state: GameState) => void>();
   private syncQueue: Promise<void> = Promise.resolve();
   private sessionRelease: Promise<void> = Promise.resolve();
+  private placementSubmissionInProgress = false;
 
   constructor(demo = false, previewMenu = false) {
     this.state = this.load();
@@ -244,8 +248,7 @@ export class GameController {
     const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
     this.syncQueue = this.syncQueue.then(async () => {
       try {
-        const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-        if (response.status === 401) this.logout();
+        await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       } catch {
         // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
       }
@@ -260,11 +263,32 @@ export class GameController {
       const response = await fetch(`/api/students/${encodeURIComponent(studentId)}`);
       if (response.status === 404) { this.logout(); return; }
       if (!response.ok) return;
-      const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval> };
-      if (!remote.profile || remote.profile.currentWorld <= this.state.profile!.currentWorld) return;
-      this.state.profile = { ...this.state.profile!, currentWorld: remote.profile.currentWorld, recommendedWorld: remote.profile.recommendedWorld ?? remote.profile.currentWorld };
+      const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval>; completions?: GameState["completions"]; gameState?: Partial<GameState> };
+      if (!remote.profile) return;
+      const currentWorldAdvanced = remote.profile.currentWorld > this.state.profile!.currentWorld;
+      const remoteProgressionVersion = Number(remote.gameState?.teacherProgressionVersion ?? 0);
+      const localProgressionVersion = Number(this.state.teacherProgressionVersion ?? 0);
+      const teacherProgressionUpdated = Number.isFinite(remoteProgressionVersion) && remoteProgressionVersion > localProgressionVersion;
+      if (!currentWorldAdvanced && !teacherProgressionUpdated) return;
+      if (currentWorldAdvanced) this.state.profile = { ...this.state.profile!, currentWorld: remote.profile.currentWorld, recommendedWorld: remote.profile.recommendedWorld ?? remote.profile.currentWorld };
+      if (teacherProgressionUpdated) {
+        this.state.teacherProgressionVersion = remoteProgressionVersion;
+        this.state.completions = remote.completions ?? this.state.completions;
+        this.state.activeWorld = remote.gameState?.activeWorld ?? this.state.profile!.currentWorld;
+        this.state.selectedWorld = remote.gameState?.selectedWorld ?? this.state.profile!.currentWorld;
+        this.state.activePhase = remote.gameState?.activePhase ?? 0;
+      } else {
+        this.state.activeWorld = this.state.profile!.currentWorld;
+        this.state.selectedWorld = this.state.profile!.currentWorld;
+      }
       this.state.worldApprovals = remote.worldApprovals ?? this.state.worldApprovals;
-      this.state.selectedWorld = this.state.profile.currentWorld;
+      this.state.screen = "map";
+      this.state.queue = [];
+      this.state.questionIndex = 0;
+      this.state.attempts = 0;
+      this.state.roundScore = 0;
+      this.state.feedback = null;
+      this.state.reward = null;
       this.emit();
     } catch {
       // O jogo continua funcionando offline; a decisão será consultada novamente.
@@ -276,7 +300,7 @@ export class GameController {
     const sessionToken = this.state.profile?.sessionToken;
     if (!studentId || !sessionToken) return;
     const response = await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
-    if (response?.status === 401 || response?.status === 404) this.logout();
+    if (response?.status === 404) this.logout();
   }
 
   releaseStudentSession() {
@@ -359,7 +383,7 @@ export class GameController {
       if (!response.ok) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
       const saved = await response.json() as { id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> };
       const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken, claim: true }) });
+      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) });
       if (!claim.ok) {
         const result = await claim.json().catch(() => ({})) as { error?: string };
         return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
@@ -469,13 +493,16 @@ export class GameController {
     this.emit();
   }
 
-  submitPlacement(answer: string, drawing?: string) {
+  async submitPlacement(answer: string, drawing?: string) {
     const placementQueue = this.state.placementQueue.length ? this.state.placementQueue : PLACEMENT_QUESTIONS;
     const question = placementQueue[this.state.placementIndex];
     if (!question) return;
+    const isFinalQuestion = this.state.placementIndex === placementQueue.length - 1;
+    if (isFinalQuestion && this.placementSubmissionInProgress) return;
     const attempts = this.state.placementAttempts + 1;
     const correct = question.kind === "draw" ? Boolean(drawing) : answer === question.answer;
     if (question.kind === "draw" && !drawing) return;
+    if (isFinalQuestion) this.placementSubmissionInProgress = true;
     const result: PlacementResult = {
       questionId: question.id,
       question: question.displayPrompt ?? question.prompt,
@@ -490,10 +517,20 @@ export class GameController {
     this.state.placementAttempts = 0;
     this.state.feedback = null;
 
-    if (this.state.placementIndex === placementQueue.length - 1) {
+    if (isFinalQuestion) {
       const retryPenalty = placementResults.filter(({ attempts: questionAttempts }) => questionAttempts > 1).length * 0.5;
       const evaluatedScore = Math.max(0, Math.round(nextScore - retryPenalty));
-      const recommendedWorld = getPlacementWorld(evaluatedScore, placementQueue.length);
+      let forceBasicPlacement = false;
+      try {
+        const policyResponse = await fetch("/api/placement-policy");
+        if (policyResponse.ok) {
+          const policy = await policyResponse.json() as { forceBasicPlacement?: boolean };
+          forceBasicPlacement = policy.forceBasicPlacement === true;
+        }
+      } catch {
+        // O jogo continua funcionando offline; o servidor também valida o nível ao salvar.
+      }
+      const recommendedWorld = forceBasicPlacement ? 0 : getPlacementWorld(evaluatedScore, placementQueue.length);
       if (this.state.profile) {
         this.state.profile.placementCompleted = true;
         this.state.profile.currentWorld = recommendedWorld;
@@ -503,6 +540,7 @@ export class GameController {
       this.state.selectedWorld = recommendedWorld;
       this.state.placementQueue = [];
       this.state.screen = "placement-result";
+      this.placementSubmissionInProgress = false;
     } else {
       this.state.placementIndex += 1;
     }
@@ -561,7 +599,8 @@ export class GameController {
     const correct = question.kind === "draw" ? Boolean(drawing) : value === question.answer;
     const attempts = this.state.attempts + 1;
     const usedHint = attempts > 1;
-    const hint = usedHint ? question.kind === "cookie-mold" ? question.hint : activityHint() : undefined;
+    const ledaHintActivity = question.kind === "jet-writer" || question.kind === "digraph-filter";
+    const hint = usedHint ? question.kind === "cookie-mold" || ledaHintActivity ? question.hint : activityHint() : undefined;
     this.state.answers = [
       ...this.state.answers,
       { questionId: question.id, question: question.prompt, answer: value || "DESENHO ENVIADO", correct, usedHint, worldId: this.state.activeWorld, phase: this.state.activePhase, kind: question.kind, options: question.options, correctAnswer: question.answer, hint, visual: question.visual, drawing, at: new Date().toLocaleString("pt-BR") },
@@ -570,7 +609,7 @@ export class GameController {
     if (correct) {
       this.state.roundScore += 1;
       this.state.feedback = { tone: "success", text: "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada." };
-    } else if (question.kind === "cookie-mold") {
+    } else if (question.kind === "cookie-mold" || ledaHintActivity) {
       this.state.attempts = attempts;
       this.state.feedback = { tone: "hint", text: `A Lumi dá uma pista: ${question.hint ?? "compare o desenho da letra com calma."}` };
     } else if (attempts === 1) {
@@ -578,7 +617,7 @@ export class GameController {
       this.state.feedback = { tone: "hint", text: `Tente novamente, não desista! ${positiveHints[Math.floor(Math.random() * positiveHints.length)]} ${activityHint()}` };
     } else {
       this.state.attempts = attempts;
-      this.state.feedback = { tone: "continue", text: `Tente novamente, não desista! A Lumi guardou uma dica para você: ${hint} Vamos para a próxima descoberta!` };
+      this.state.feedback = { tone: "continue", text: ledaHintActivity ? `A Lumi vai te ajudar. ${hint} Vamos para a próxima descoberta!` : `Tente novamente, não desista! A Lumi guardou uma dica para você: ${hint} Vamos para a próxima descoberta!` };
     }
     this.emit();
   }
@@ -756,7 +795,7 @@ export class GameController {
   worldAccuracy(worldId: number) {
     const entries = Array.from({ length: 8 })
       .map((_, phase) => this.state.completions[this.completionKey(worldId, phase)])
-      .filter((item): item is Completion => Boolean(item));
+      .filter((item): item is Completion => item !== undefined && !item.teacherAdvanced && item.total > 0);
     if (!entries.length) return 0;
     const hits = entries.reduce((total, item) => total + item.score, 0);
     const total = entries.reduce((sum, item) => sum + item.total, 0);

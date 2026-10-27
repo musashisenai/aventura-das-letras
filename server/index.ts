@@ -21,6 +21,8 @@ async function startServer() {
   const DEFAULT_TEACHER_PASSWORD = "7391846205";
   const LEGACY_TEACHER_PASSWORD = "professor";
   const FINAL_DATABASE_CLEAR_PASSWORD = "Don't forget 3. Oct. 11";
+  const WORLD_COUNT = 7;
+  const PHASES_PER_WORLD = 8;
   const databaseFile = path.resolve(__dirname, "..", "database", "classroom.json");
   const developerAccessFile = path.resolve(__dirname, "..", "database", "sections", "developer", "access.json");
   const repositoryRoot = path.resolve(__dirname, "..");
@@ -114,20 +116,88 @@ async function startServer() {
   const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup(); writeDatabaseViews(readDatabase());
   app.use(express.json({ limit: "8mb" }));
   const asyncRoute = (handler: express.RequestHandler): express.RequestHandler => (req, res, next) => { Promise.resolve(handler(req, res, next)).catch(next); };
-  const requireTeacher = (req: express.Request) => { const database = readDatabase(); const password = String(req.body?.password ?? ""); return password === getTeacherPassword(database) || password === getDeveloperAccessKey(); };
+  const requireTeacher = (req: express.Request) => { const database = readDatabase(); const password = String(req.body?.password ?? ""); const developerKey = getDeveloperAccessKey(); return password === getTeacherPassword(database) || Boolean(developerKey && password === developerKey); };
   const sessionIsActive = (student: StoredStudent) => Boolean(student.activeSession?.token && student.activeSession.lastSeen && Date.now() - student.activeSession.lastSeen < 120000);
   const createSession = (student: StoredStudent, token: string) => { student.activeSession = { token, lastSeen: Date.now() }; };
+
+  app.get("/api/placement-policy", (_req, res) => { const database = readDatabase(); return res.json({ forceBasicPlacement: database.settings.forceBasicPlacement === "true" }); });
+  app.put("/api/teacher/placement-policy", asyncRoute(async (req, res) => {
+    if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." });
+    if (typeof req.body?.forceBasicPlacement !== "boolean") return res.status(400).json({ error: "Informe se o nivelamento deve ficar limitado ao nível inicial." });
+    const database = readDatabase();
+    database.settings.forceBasicPlacement = String(req.body.forceBasicPlacement);
+    writeDatabase(database);
+    return res.json({ ok: true, forceBasicPlacement: req.body.forceBasicPlacement });
+  }));
 
   app.post("/api/teacher/authorize", (req, res) => { const database = readDatabase(); return String(req.body?.password ?? "") === getTeacherPassword(database) ? res.json({ ok: true }) : res.status(401).json({ error: "Senha não reconhecida." }); });
   app.post("/api/developer/authorize", (req, res) => { const key = String(req.body?.key ?? ""); return key && key === getDeveloperAccessKey() ? res.json({ ok: true, role: "developer" }) : res.status(401).json({ error: "Chave de desenvolvedor não reconhecida." }); });
   app.put("/api/teacher/password", (req, res) => { const database = readDatabase(); const current = String(req.body?.current ?? ""); const next = String(req.body?.next ?? ""); if (current !== getTeacherPassword(database) && current !== getDeveloperAccessKey()) return res.status(401).json({ error: "A senha atual não confere." }); if (next.trim().length < 6) return res.status(400).json({ error: "A nova senha precisa ter pelo menos 6 caracteres." }); database.settings.teacherPassword = next; writeDatabase(database); return res.json({ ok: true }); });
-  app.post("/api/teacher/sessions/logout-all", (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); let revoked = 0; for (const student of Object.values(database.students)) { if (student.activeSession) { delete student.activeSession; revoked += 1; } } if (revoked) writeDatabase(database); return res.json({ ok: true, revoked, message: revoked ? `${revoked} sessão(ões) encerrada(s).` : "Nenhuma sessão de aluno estava conectada." }); });
   app.post("/api/teacher/database/sync", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const result = await syncDatabaseToGit(); return result.ok ? res.json(result) : res.status(503).json(result); }));
   app.post("/api/teacher/students/:id/reset", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); const student = database.students[req.params.id]; if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); const profile = initialProfile(student.name, student.id); const reset = fromApiStudent(student.id, { profile, completions: {}, worldApprovals: {}, answers: [], gameState: { screen: "placement", placementIndex: 0, placementScore: 0, placementAttempts: 0, placementResults: [], placementQueue: [] } }); if (student.activeSession) reset.activeSession = { token: `reset-${Date.now()}`, lastSeen: Date.now() }; database.students[student.id] = reset; writeDatabase(database); return res.json({ ok: true, student: toApiStudent(database.students[student.id]) }); }));
   app.put("/api/teacher/students/:id", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); const student = database.students[req.params.id]; const name = String(req.body?.name ?? "").trim(); if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (!name) return res.status(400).json({ error: "Informe um nome." }); const duplicate = Object.values(database.students).find((item) => item.id !== student.id && normalizeStudentName(item.name) === normalizeStudentName(name)); if (duplicate) return res.status(409).json({ error: "Já existe um aluno com esse nome." }); student.name = name; student.save.profile.name = name; if (student.activeSession) student.activeSession = { token: `renamed-${Date.now()}`, lastSeen: Date.now() }; student.updatedAt = new Date().toISOString(); writeDatabase(database); return res.json({ ok: true, student: toApiStudent(student) }); }));
   app.post("/api/teacher/database/clear", asyncRoute(async (req, res) => { const serverIp = String(req.body?.serverIp ?? "").trim(); const finalPassword = String(req.body?.finalPassword ?? ""); if (!requireTeacher(req)) return res.status(400).json({ error: "A senha do professor não confere." }); if (!serverIpv4Addresses().includes(serverIp)) return res.status(400).json({ error: "O IP informado não corresponde ao computador que está executando o servidor." }); if (finalPassword !== FINAL_DATABASE_CLEAR_PASSWORD) return res.status(400).json({ error: "A senha final não confere. O banco não foi alterado." }); const database = readDatabase(); database.students = {}; writeDatabase(database); return res.json({ ok: true, message: "Todos os alunos, status e saves foram removidos." }); }));
   app.post("/api/students/lookup", asyncRoute(async (req, res) => { const name = normalizeStudentName(String(req.body?.name ?? "")); if (!name) return res.status(400).json({ error: "Informe o nome do aluno." }); const student = Object.values(readDatabase().students).find((item) => normalizeStudentName(item.name) === name); return student ? res.json(toApiStudent(student)) : res.status(404).json({ error: "Aluno não encontrado." }); }));
   app.post("/api/teacher/students", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); return res.json(Object.values(readDatabase().students).map(toApiStudent)); }));
+  app.post("/api/teacher/students/:id/advance", asyncRoute(async (req, res) => {
+    if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." });
+    const action = String(req.body?.action ?? "");
+    if (action !== "phase" && action !== "world") return res.status(400).json({ error: "Escolha se deseja avançar uma fase ou um mundo." });
+    const database = readDatabase();
+    const student = database.students[req.params.id];
+    if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
+    if (student.save.profile.placementCompleted !== true) return res.status(409).json({ error: "O aluno precisa concluir o teste inicial antes de avançar." });
+    const currentWorld = Number(student.save.profile.currentWorld ?? 0);
+    if (!Number.isInteger(currentWorld) || currentWorld < 0 || currentWorld >= WORLD_COUNT) return res.status(409).json({ error: "O mundo atual do aluno é inválido." });
+
+    const timestamp = new Date().toISOString();
+    const profile = { ...student.save.profile };
+    const completions = { ...(student.save.completions as Record<string, { score: number; total: number; date: string; teacherAdvanced?: boolean }>) };
+    const worldApprovals = { ...(student.save.worldApprovals as Record<string, { status: "pending" | "approved"; requestedAt: string; approvedAt?: string; approvedBy?: string }>) };
+    const gameState = { ...(student.save.gameState as Record<string, unknown>) };
+    let targetWorld = currentWorld;
+    let targetPhase = 0;
+
+    if (action === "phase") {
+      const nextPhase = Array.from({ length: PHASES_PER_WORLD }, (_, phase) => phase).find((phase) => !completions[`${currentWorld}:${phase}`]);
+      if (nextPhase === undefined) return res.status(409).json({ error: "Todas as fases deste mundo já foram concluídas ou liberadas." });
+      completions[`${currentWorld}:${nextPhase}`] = { score: 0, total: 0, date: timestamp, teacherAdvanced: true };
+      targetPhase = Math.min(PHASES_PER_WORLD - 1, nextPhase + 1);
+      if (nextPhase === PHASES_PER_WORLD - 1 && currentWorld < WORLD_COUNT - 1) {
+        worldApprovals[String(currentWorld)] = { status: "pending", requestedAt: worldApprovals[String(currentWorld)]?.requestedAt ?? timestamp };
+      }
+    } else {
+      if (currentWorld >= WORLD_COUNT - 1) return res.status(409).json({ error: "O aluno já está no último mundo." });
+      for (let phase = 0; phase < PHASES_PER_WORLD; phase += 1) {
+        const key = `${currentWorld}:${phase}`;
+        if (!completions[key]) completions[key] = { score: 0, total: 0, date: timestamp, teacherAdvanced: true };
+      }
+      const previousApproval = worldApprovals[String(currentWorld)];
+      const approvedBy = String(req.body?.teacherName ?? "").trim().slice(0, 120) || "Professor(a)";
+      worldApprovals[String(currentWorld)] = { status: "approved", requestedAt: previousApproval?.requestedAt ?? timestamp, approvedAt: timestamp, approvedBy };
+      targetWorld = currentWorld + 1;
+      profile.currentWorld = targetWorld;
+      profile.recommendedWorld = targetWorld;
+    }
+
+    gameState.screen = "map";
+    gameState.activeWorld = targetWorld;
+    gameState.selectedWorld = targetWorld;
+    gameState.activePhase = targetPhase;
+    gameState.queue = [];
+    gameState.questionIndex = 0;
+    gameState.attempts = 0;
+    gameState.roundScore = 0;
+    gameState.feedback = null;
+    gameState.reward = null;
+    const currentProgressionVersion = Number(gameState.teacherProgressionVersion ?? 0);
+    gameState.teacherProgressionVersion = (Number.isFinite(currentProgressionVersion) ? currentProgressionVersion : 0) + 1;
+
+    const updatedStudent = fromApiStudent(student.id, { profile, completions, worldApprovals, answers: student.save.answers, gameState }, student);
+    database.students[student.id] = updatedStudent;
+    writeDatabase(database);
+    return res.json({ ok: true, student: toApiStudent(updatedStudent), message: action === "phase" ? "Aluno avançado para a próxima fase." : "Aluno promovido para o próximo mundo." });
+  }));
   app.get("/api/students", (_req, res) => res.status(405).json({ error: "Use a consulta por nome ou o painel autenticado do professor." }));
   app.get("/api/students/:id", asyncRoute(async (req, res) => { const student = readDatabase().students[req.params.id]; return student ? res.json(toApiStudent(student)) : res.status(404).json({ error: "Student not found" }); }));
   app.post("/api/students", asyncRoute(async (req, res) => {
@@ -142,19 +212,28 @@ async function startServer() {
     if (duplicate) return res.status(409).json({ error: "Já existe um aluno com esse nome." });
     const teacherOverride = payload.teacherOverride === true;
     if (teacherOverride && !requireTeacher(req)) return res.status(401).json({ error: "Autorização administrativa necessária." });
+    const incomingGameState = (payload.gameState ?? {}) as Record<string, unknown>;
+    const storedGameState = (existing?.save.gameState ?? {}) as Record<string, unknown>;
+    const incomingProgressionVersion = Number(incomingGameState.teacherProgressionVersion ?? 0);
+    const storedProgressionVersion = Number(storedGameState.teacherProgressionVersion ?? 0);
+    if (existing && !teacherOverride && Number.isFinite(incomingProgressionVersion) && Number.isFinite(storedProgressionVersion) && incomingProgressionVersion < storedProgressionVersion) return res.status(409).json({ error: "O professor atualizou seu progresso. O jogo está sincronizando; tente novamente." });
     if (existing) {
-      if (!existing.activeSession && payload.sessionToken && !teacherOverride) return res.status(401).json({ error: "A sessão foi encerrada pelo administrador." });
       const ownsSession = Boolean(payload.sessionToken && existing.activeSession?.token === String(payload.sessionToken));
       if (!ownsSession && !teacherOverride) return res.status(409).json({ error: "Sessão do aluno não autorizada para salvar este perfil." });
     }
     if (existing && sessionIsActive(existing) && existing.activeSession?.token !== payload.sessionToken && !teacherOverride) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." });
-    const record = fromApiStudent(id, payload, existing);
+    const isFirstPlacementCompletion = profile.placementCompleted === true && existing?.save.profile.placementCompleted !== true;
+    const shouldForceBasicPlacement = !teacherOverride && database.settings.forceBasicPlacement === "true" && isFirstPlacementCompletion;
+    const normalizedPayload = shouldForceBasicPlacement
+      ? { ...payload, profile: { ...profile, currentWorld: 0, recommendedWorld: 0 }, gameState: { ...((payload.gameState ?? {}) as Record<string, unknown>), activeWorld: 0, selectedWorld: 0 } }
+      : payload;
+    const record = fromApiStudent(id, normalizedPayload, existing);
     if (payload.sessionToken) createSession(record, String(payload.sessionToken));
     database.students[id] = record;
     writeDatabase(database);
     return res.json({ ok: true });
   }));
-  app.post("/api/students/:id/session", asyncRoute(async (req, res) => { const database = readDatabase(); const student = database.students[req.params.id]; const token = String(req.body?.sessionToken ?? ""); const claim = req.body?.claim === true; if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (!token) return res.status(400).json({ error: "Sessão inválida." }); if (!student.activeSession && !claim) return res.status(401).json({ error: "A sessão foi encerrada pelo administrador." }); if (sessionIsActive(student) && student.activeSession?.token !== token) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." }); createSession(student, token); writeDatabase(database); return res.json({ ok: true }); }));
+  app.post("/api/students/:id/session", asyncRoute(async (req, res) => { const database = readDatabase(); const student = database.students[req.params.id]; const token = String(req.body?.sessionToken ?? ""); if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (!token) return res.status(400).json({ error: "Sessão inválida." }); if (sessionIsActive(student) && student.activeSession?.token !== token) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." }); createSession(student, token); writeDatabase(database); return res.json({ ok: true }); }));
   app.delete("/api/students/:id/session", asyncRoute(async (req, res) => { const database = readDatabase(); const student = database.students[req.params.id]; const token = String(req.body?.sessionToken ?? ""); if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (student.activeSession?.token === token) { delete student.activeSession; writeDatabase(database); } return res.json({ ok: true }); }));
   app.delete("/api/students/:id", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); const database = readDatabase(); const student = database.students[req.params.id]; const confirmation = normalizeStudentName(String(req.body?.confirmName ?? "")); if (!student) return res.status(404).json({ error: "Aluno não encontrado." }); if (!confirmation || confirmation !== normalizeStudentName(student.name)) return res.status(400).json({ error: "A confirmação do nome não confere." }); delete database.students[req.params.id]; writeDatabase(database); return res.json({ ok: true }); }));
   app.use("/manus-storage", asyncRoute(async (req, res) => { const key = req.path.replace(/^\//, ""); if (!key) return res.status(400).send("Missing storage key"); const forgeBaseUrl = (process.env.BUILT_IN_FORGE_API_URL || "").replace(/\/+$/, ""); const forgeKey = process.env.BUILT_IN_FORGE_API_KEY; if (!forgeBaseUrl || !forgeKey) return res.status(500).send("Storage proxy not configured"); try { const forgeUrl = new URL("v1/storage/presign/get", forgeBaseUrl + "/"); forgeUrl.searchParams.set("path", key); const forgeResponse = await fetch(forgeUrl, { headers: { Authorization: `Bearer ${forgeKey}` } }); if (!forgeResponse.ok) return res.status(502).send("Storage backend error"); const { url } = await forgeResponse.json() as { url?: string }; if (!url) return res.status(502).send("Empty signed URL"); return res.redirect(307, url); } catch { return res.status(502).send("Storage proxy error"); } }));

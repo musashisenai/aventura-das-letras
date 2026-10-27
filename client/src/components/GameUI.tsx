@@ -6,11 +6,14 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type DragEvent, type PointerEvent } from "react";
 import { ArrowLeft, BookOpen, Bug, Check, ChevronLeft, ChevronRight, CircleHelp, Coins, Download, Droplets, Eye, EyeOff, FileText, Flashlight, Flower2, Gift, Hammer, Heart, Leaf, Lock, LogOut, PawPrint, Play, RotateCcw, Save, Shield, Sparkles, Sprout, Star, Volume2, VolumeX, Wheat, X } from "lucide-react";
 import { getActivityDefinition, getQuestionBank, PLACEMENT_QUESTIONS, WORLDS, type GameQuestion } from "@/game/content";
+import { buildSandTrackGeometry } from "@/game/sandTracks";
+import { feedbackVoicePath, voicePackPath } from "@/game/voicepacks";
+import { randomSyllableMark } from "@/game/syllableMarks";
 import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
 import cartoonTreeAsset from "@/assets/arvore-openclipart.png";
 import publicBeehiveAsset from "@/assets/colmeia-openclipart.png";
-import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
+import { type Completion, type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
 import "./pet-expansion.css";
@@ -19,39 +22,13 @@ import "./teacher-password.css";
 
 type Props = { state: GameState; controller: GameController };
 type TeacherTab = "overview" | "profiles" | "answers" | "teacher-profile";
-type RemoteStudent = { id: string; profile: { name: string; currentWorld: number; recommendedWorld?: number; placementCompleted?: boolean; xp: number; petName: string }; completions: Record<string, unknown>; worldApprovals?: Record<string, WorldApproval>; answers: unknown[]; gameState?: Partial<GameState>; updatedAt: string };
+type ProgressionAction = "phase" | "world";
+type RemoteStudent = { id: string; profile: { name: string; currentWorld: number; recommendedWorld?: number; placementCompleted?: boolean; xp: number; petName: string }; completions: Record<string, Completion>; worldApprovals?: Record<string, WorldApproval>; answers: GameState["answers"]; gameState?: Partial<GameState>; updatedAt: string };
 const PHASES_PER_WORLD = 8;
 const SCENE_ASSETS: Record<string, string> = { "pegadas-coqueiro": palmTreeAsset };
 const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
 const answerStatusLabel = (answer: GameState["answers"][number]) => answer.correct && answer.usedHint ? "CONSEGUIU COM DICA" : answer.usedHint ? "COM DICA" : answer.correct ? "ACERTO" : "ERRO";
 const answerStatusClass = (answer: GameState["answers"][number]) => answer.correct && !answer.usedHint ? "status-correct" : "status-help";
-
-function studentReportRow(student: RemoteStudent) {
-  const answers = student.answers as GameState["answers"];
-  const completed = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${student.profile.currentWorld}:`)).length;
-  const worldAnswers = answers.filter((answer) => answer.worldId === student.profile.currentWorld);
-  const accuracy = worldAnswers.length ? Math.round((worldAnswers.filter((answer) => answer.correct).length / worldAnswers.length) * 100) : 0;
-  return { name: student.profile.name, world: student.profile.currentWorld + 1, completed, accuracy, answers: answers.length, pet: student.profile.petName, updated: new Date(student.updatedAt).toLocaleString("pt-BR") };
-}
-
-function remoteStudentAccuracy(student: RemoteStudent) {
-  const answers = student.answers as GameState["answers"];
-  return answers.length ? Math.round((answers.filter((answer) => answer.correct).length / answers.length) * 100) : 0;
-}
-
-function exportStudentsCsv(students: RemoteStudent[], filename = "relatorio-turma.csv") {
-  const header = ["Aluno", "Mundo atual", "Fases concluídas no mundo", "Desempenho", "Respostas", "Pet", "Última atualização"];
-  const rows = students.map((student) => Object.values(studentReportRow(student)));
-  const csv = [header, ...rows].map((row) => row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(",")).join("\n");
-  const blob = new Blob([`\ufeff${csv}`], { type: "text/csv;charset=utf-8" });
-  const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = filename; link.click(); URL.revokeObjectURL(link.href);
-}
-
-function printStudentsPdf(students: RemoteStudent[], title = "Relatório de desempenho da turma") {
-  const reportWindow = window.open("", "_blank", "noopener,noreferrer"); if (!reportWindow) return;
-  const rows = students.map((student) => { const row = studentReportRow(student); return `<tr><td>${row.name}</td><td>${row.world}</td><td>${row.completed}/${PHASES_PER_WORLD}</td><td>${row.accuracy}%</td><td>${row.answers}</td><td>${row.pet}</td><td>${row.updated}</td></tr>`; }).join("");
-  reportWindow.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${title}</title><style>body{font-family:Arial,sans-serif;color:#193f36;padding:32px}h1{color:#19765c}p{color:#607c72}table{width:100%;border-collapse:collapse;margin-top:24px}th,td{border:1px solid #c9e2d2;padding:10px;text-align:left;font-size:12px}th{background:#e9f7ef;color:#19765c}@media print{button{display:none}}</style></head><body><h1>${title}</h1><p>Gerado em ${new Date().toLocaleString("pt-BR")}. Este relatório apresenta o mundo atual, conclusão, desempenho e respostas registradas.</p><table><thead><tr><th>Aluno</th><th>Mundo</th><th>Fases</th><th>Desempenho</th><th>Respostas</th><th>Pet</th><th>Atualização</th></tr></thead><tbody>${rows || "<tr><td colspan=\"7\">Nenhum aluno conectado.</td></tr>"}</tbody></table><button onclick="window.print()">Imprimir ou salvar como PDF</button></body></html>`); reportWindow.document.close(); reportWindow.focus(); reportWindow.setTimeout(() => reportWindow.print(), 250);
-}
 
 function Mascot({ className = "", label = "Lumi, raposa parceira" }: { className?: string; label?: string }) {
   return <div className={`mascot-illustration ${className}`} role="img" aria-label={label}>
@@ -107,21 +84,6 @@ function ponteSomSyllablePath(question: GameQuestion | undefined) {
   return ["sa", "la", "ga", "pa", "ca", "le", "bo", "ba"].includes(syllable) ? `/assets/syllable-${syllable}.wav` : undefined;
 }
 
-function voicePackPath(worldId: number | undefined, phase: number | undefined, questionIndex: number | undefined, kind: "prompt" | "hint", questionId?: string) {
-  const idVariant = questionId?.match(/-(\d+)$/)?.[1];
-  const variant = idVariant ? Number(idVariant) : questionIndex !== undefined ? questionIndex + 1 : undefined;
-  if (worldId === 3 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w3-phase1/${kind}-${variant}.wav`;
-  if (worldId === 4 && phase === 0 && variant !== undefined && variant >= 1 && variant <= 8) return `/assets/voicepacks/w4-phase1/${kind}-${variant}.wav`;
-  return undefined;
-}
-
-function feedbackVoicePath(worldId: number | undefined, phase: number | undefined, tone: "success" | "hint" | "continue") {
-  if (worldId !== 3 || phase !== 0) return undefined;
-  if (tone === "success") return "/assets/voicepacks/feedback/success.wav";
-  if (tone === "continue") return "/assets/voicepacks/feedback/encouragement.wav";
-  return undefined;
-}
-
 function useQuestionNarration(question: GameQuestion | undefined, enabled: boolean, wordOnly = false, worldId?: number, phase?: number, questionIndex?: number) {
   const narration = wordOnly
     ? question?.targetWord ?? question?.audioText
@@ -131,7 +93,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
       if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       return;
     }
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? voicePackPath(worldId, phase, questionIndex, "word", question?.id) : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     let audio: HTMLAudioElement | undefined;
     const timer = window.setTimeout(() => {
       if (localPath) {
@@ -150,7 +112,7 @@ function useQuestionNarration(question: GameQuestion | undefined, enabled: boole
 
   return () => {
     if (!enabled || !narration) return;
-    const localPath = wordOnly ? undefined : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
+    const localPath = wordOnly ? voicePackPath(worldId, phase, questionIndex, "word", question?.id) : voicePackPath(worldId, phase, questionIndex, "prompt", question?.id) ?? ponteSomNarrationPath(question);
     if (localPath) {
       const audio = new Audio(localPath);
       audio.volume = 1;
@@ -167,19 +129,28 @@ function audioLabel(question: GameQuestion, wordOnly = false) {
   return wordOnly ? "Ouvir palavra" : "Ouvir pergunta";
 }
 
-function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number) {
+function useFeedbackNarration(feedback: GameState["feedback"] | null, enabled: boolean, worldId?: number, phase?: number, questionIndex?: number, questionId?: string) {
   useEffect(() => {
     if (!enabled || !feedback?.text) return;
-    const localPath = feedback.tone === "hint" ? voicePackPath(worldId, phase, questionIndex, "hint") : feedbackVoicePath(worldId, phase, feedback.tone);
-    let audio: HTMLAudioElement | undefined;
+    const hintPath = feedback.tone === "hint" || feedback.tone === "continue" ? voicePackPath(worldId, phase, questionIndex, "hint", questionId) : undefined;
+    const feedbackPath = feedback.tone === "hint" ? undefined : feedbackVoicePath(worldId, phase, feedback.tone);
+    const appendSpecificHint = feedback.tone === "continue" && Boolean(hintPath);
+    const paths = appendSpecificHint ? [feedbackPath, hintPath].filter((path): path is string => Boolean(path)) : [feedback.tone === "hint" ? hintPath : feedbackPath].filter((path): path is string => Boolean(path));
+    const audios: HTMLAudioElement[] = [];
+    let cancelled = false;
+    const play = (index: number) => {
+      if (cancelled) return;
+      if (index >= paths.length) { if (paths.length === 0) speak(feedback.text); return; }
+      const audio = new Audio(paths[index]); audios.push(audio); audio.volume = 1;
+      audio.onended = () => play(index + 1);
+      audio.onerror = () => index + 1 < paths.length ? play(index + 1) : speak(feedback.text);
+      void audio.play().catch(() => index + 1 < paths.length ? play(index + 1) : speak(feedback.text));
+    };
     const timer = window.setTimeout(() => {
-      if (localPath) {
-        audio = new Audio(localPath);
-        void audio.play().catch(() => speak(feedback.text));
-      } else speak(feedback.text);
+      if (paths.length) play(0); else speak(feedback.text);
     }, 180);
-    return () => { window.clearTimeout(timer); audio?.pause(); };
-  }, [enabled, feedback?.text, feedback?.tone, worldId, phase, questionIndex]);
+    return () => { cancelled = true; window.clearTimeout(timer); audios.forEach((audio) => { audio.pause(); audio.currentTime = 0; }); };
+  }, [enabled, feedback?.text, feedback?.tone, worldId, phase, questionIndex, questionId]);
 }
 
 function usePlacementResultNarration(results: GameState["placementResults"], enabled: boolean) {
@@ -446,15 +417,19 @@ function MapPage({ state, controller }: Props) {
 function PhaseBook({ worldId, state, controller }: { worldId: number; state: GameState; controller: GameController }) {
   const world = WORLDS[worldId];
   const completed = Object.keys(state.completions).filter((key) => key.startsWith(`${worldId}:`)).length;
+  const phaseOneQuestion = getQuestionBank(worldId, 0)[0];
+  const phaseOneActivity = phaseOneQuestion ? getActivityDefinition(worldId, phaseOneQuestion.activity)?.title : undefined;
   return <section className="phase-book paper-panel selected-world-book" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <div className="phase-book-head"><div><span className="world-label">{world.name}</span><h2>Fases deste mundo</h2><p>Escolha uma página liberada. A pontuação de cada fase fica guardada no seu livro-mapa.</p></div><div className="phase-count"><b>{completed}</b><span>/ {PHASES_PER_WORLD}</span></div></div>
     <div className="phase-grid">
       {Array.from({ length: 7 }).map((_, phase) => {
         const complete = state.completions[`${worldId}:${phase}`];
         const open = controller.isPhaseOpen(worldId, phase);
-        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{complete ? <small>{complete.score}/8 PONTOS</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
+        const activityTitle = phase === 0 ? phaseOneActivity : undefined;
+        const teacherAdvanced = complete?.teacherAdvanced === true;
+        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""} ${activityTitle ? "has-activity" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${activityTitle ? `, atividade ${activityTitle}` : ""}${teacherAdvanced ? ", avançada pelo professor" : complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{activityTitle && <small className="phase-activity-name">{activityTitle}</small>}{complete ? <small>{teacherAdvanced ? "AVANÇADA PELO PROFESSOR" : `${complete.score}/8 PONTOS`}</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
       })}
-      {(() => { const finalOpen = controller.isPhaseOpen(worldId, 7); const final = state.completions[`${worldId}:7`]; return <button className={`final-phase ${final ? "complete" : ""}`} disabled={!finalOpen} onClick={() => controller.startPhase(worldId, 7)}>{finalOpen ? <Star size={22} fill="currentColor" /> : <Lock size={19} />}<span>Desafio final</span><small>{final ? `${final.score}/8 PONTOS` : finalOpen ? "LIBERADO" : "COMPLETE AS 7 FASES"}</small></button>; })()}
+      {(() => { const finalOpen = controller.isPhaseOpen(worldId, 7); const final = state.completions[`${worldId}:7`]; const teacherAdvanced = final?.teacherAdvanced === true; return <button className={`final-phase ${final ? "complete" : ""}`} disabled={!finalOpen} onClick={() => controller.startPhase(worldId, 7)}>{finalOpen ? <Star size={22} fill="currentColor" /> : <Lock size={19} />}<span>Desafio final</span><small>{teacherAdvanced ? "AVANÇADO PELO PROFESSOR" : final ? `${final.score}/8 PONTOS` : finalOpen ? "LIBERADO" : "COMPLETE AS 7 FASES"}</small></button>; })()}
     </div>
   </section>;
 }
@@ -468,22 +443,23 @@ function Lesson({ state, controller }: Props) {
   // No Alfabético e no Ortográfico, somente atividades com palavra-alvo
   // oferecem áudio — e nelas o áudio é apenas a palavra, nunca a pergunta.
   const audioAvailable = state.profile?.audioEnabled !== false;
-  const essentialAudioAvailable = Boolean(question.targetWord ?? question.audioText);
-  const playNarration = useQuestionNarration(question, audioAvailable, false, state.activeWorld, state.activePhase, state.questionIndex);
-  const playWord = useQuestionNarration(question, essentialAudioAvailable, true);
-  useFeedbackNarration(state.feedback, audioAvailable, state.activeWorld, state.activePhase, state.questionIndex);
+  const questionAudioAvailable = audioAvailable && state.activeWorld <= 4;
+  const essentialAudioAvailable = audioAvailable && Boolean(question.targetWord ?? question.audioText);
+  const playNarration = useQuestionNarration(question, questionAudioAvailable, false, state.activeWorld, state.activePhase, state.questionIndex);
+  const playWord = useQuestionNarration(question, essentialAudioAvailable, true, state.activeWorld, state.activePhase, state.questionIndex);
+  useFeedbackNarration(state.feedback, audioAvailable, state.activeWorld, state.activePhase, state.questionIndex, question.id);
   return <main className="lesson-page" style={{ "--world": world.color, "--soft": world.accent } as CSSProperties}>
     <Header state={state} controller={controller} back />
     <section className="lesson-layout">
       <aside className="lesson-sidebar"><div className="lesson-world-mark">{world.icon}</div><p>{world.name}</p><strong>{state.activePhase === 7 ? "Desafio final" : `Fase ${state.activePhase + 1}`}</strong><div className="question-dots">{Array.from({ length: 8 }).map((_, index) => <i key={index} className={index <= state.questionIndex ? "filled" : ""} />)}</div><Mascot label="Lumi" /><div className="sidebar-bubble">{state.feedback?.tone === "hint" ? "Uma dica: olhe com calma." : "Eu estou aqui para ajudar!"}</div></aside>
       <section className="question-card paper-panel">
-        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{audioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
+        <div className="question-head"><span>DESCOBERTA {state.questionIndex + 1} DE 8</span><div>{questionAudioAvailable && <button className="audio-button" onClick={playNarration} aria-label={audioLabel(question)}><Volume2 size={20} /> {audioLabel(question)}</button>}{essentialAudioAvailable && <button className="audio-button word-audio-button" onClick={playWord} aria-label={audioLabel(question, true)}><Volume2 size={20} /> {audioLabel(question, true)}</button>}<span className="attempt-pill">{state.attempts === 0 ? "2 chances" : "Mais uma chance"}</span></div></div>
         {state.activePhase === 7 && <div className="final-challenge-banner"><span><Sparkles size={16} /> FESTIVAL FINAL DA LUMI</span><strong>Complete as oito descobertas e leve a abelhinha até a colmeia final.</strong><small>Cada etapa reúne uma habilidade que você praticou nesta trilha.</small></div>}
         {activity && <div className="activity-chip"><span>ATIVIDADE</span><strong>{activity.title}</strong></div>}
         <h2>{visiblePrompt(question)}</h2>
         <FigureIllustration question={question} />
-        <QuestionInteraction question={question} disabled={question.kind === "cookie-mold" ? Boolean(state.feedback) : Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
-        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone === "hint" && question.kind === "cookie-mold" ? <button className="retry-button" onClick={() => controller.retry()}><RotateCcw size={20} /> Tentar de novo</button> : state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
+        <QuestionInteraction question={question} disabled={question.kind === "cookie-mold" || question.kind === "jet-writer" || question.kind === "digraph-filter" ? Boolean(state.feedback) : Boolean(state.feedback && state.feedback.tone !== "hint")} onAnswer={(answer, drawing) => controller.answer(answer, drawing)} />
+        {state.feedback && <div className={`feedback-card ${state.feedback.tone}`}><div>{state.feedback.tone === "success" ? <Check size={24} /> : <CircleHelp size={24} />}</div><p>{state.feedback.text}</p>{state.feedback.tone === "hint" && ["cookie-mold", "jet-writer", "digraph-filter"].includes(question.kind) ? <button className="retry-button" onClick={() => controller.retry()}><RotateCcw size={20} /> Tentar de novo</button> : state.feedback.tone !== "hint" && <button onClick={() => controller.next()}>{state.questionIndex === 7 ? "Abrir meu baú" : "Próxima descoberta"} <ChevronRight size={20} /></button>}</div>}
       </section>
     </section>
   </main>;
@@ -541,12 +517,93 @@ function QuestionInteraction({ question, disabled, onAnswer }: { question: GameQ
   if (question.kind === "paint-roller") return <PaintRollerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "bee-flight") return <BeeFlightInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "cookie-mold") return <CookieMoldInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
+  if (question.kind === "jet-writer") return <JetWriterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
+  if (question.kind === "digraph-filter") return <DigraphFilterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "shield-magic") return <ShieldMagicInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "syllable-hammer") return <SyllableHammerInteraction question={question} disabled={disabled} onComplete={() => onAnswer(question.answer)} />;
   if (question.kind === "syllable-letter") return <SyllableLetterInteraction question={question} disabled={disabled} onAnswer={onAnswer} />;
   if (question.kind === "draw") return <DrawingPad disabled={disabled} onSend={(drawing) => onAnswer("Desenho enviado", drawing)} />;
   if (question.kind === "order") return <WordBuilder question={question} disabled={disabled} onAnswer={onAnswer} />;
   return <div className="answer-grid">{question.options?.map((option) => <button key={option} className="answer-tile" disabled={disabled} onClick={() => onAnswer(option)}>{option}</button>)}</div>;
+}
+
+function JetWriterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const target = (question.targetWord ?? question.answer).toUpperCase();
+  const totalSeconds = question.writerSeconds ?? 60;
+  const [typed, setTyped] = useState("");
+  const [remaining, setRemaining] = useState(totalSeconds);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const answerRef = useRef(onAnswer);
+  const timeoutSubmitted = useRef(false);
+  const previousDisabled = useRef(disabled);
+  answerRef.current = onAnswer;
+  const hasTyped = typed.length > 0;
+  const progress = Math.min(100, Math.max(0, ((totalSeconds - remaining) / totalSeconds) * 100));
+
+  useEffect(() => {
+    setTyped(""); setRemaining(totalSeconds); timeoutSubmitted.current = false;
+  }, [question.id, totalSeconds]);
+  useEffect(() => {
+    if (previousDisabled.current && !disabled) { setTyped(""); setRemaining(totalSeconds); timeoutSubmitted.current = false; }
+    previousDisabled.current = disabled;
+  }, [disabled, totalSeconds]);
+  useEffect(() => {
+    if (disabled || !hasTyped) return;
+    const interval = window.setInterval(() => setRemaining((current) => Math.max(0, current - 1)), 1000);
+    return () => window.clearInterval(interval);
+  }, [question.id, disabled, hasTyped]);
+  useEffect(() => {
+    if (remaining === 0 && hasTyped && !disabled && !timeoutSubmitted.current) {
+      timeoutSubmitted.current = true;
+      answerRef.current("__tempo_esgotado__");
+    }
+  }, [remaining, hasTyped, disabled]);
+
+  const updateTyped = (value: string) => setTyped(value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, target.length));
+  const addLetter = (letter: string) => {
+    if (disabled || typed.length >= target.length) return;
+    setTyped((current) => `${current}${letter}`.slice(0, target.length));
+    inputRef.current?.focus();
+  };
+  const submit = () => { if (!disabled && typed.length === target.length) onAnswer(typed); };
+  const rows = ["ABCDEFGHI", "JKLMNOPQR", "STUVWXYZ"];
+
+  return <section className="jet-writer-activity" aria-label="Máquina de Escrever a Jato">
+    <header className="jet-writer-toolbar"><div><span className="jet-writer-kicker">BALÃO DE ENSAIO</span><strong>A Máquina de Escrever a Jato</strong></div><div className="jet-writer-counter" role="status" aria-live="polite"><b>{remaining}</b><span>segundos</span></div></header>
+    <div className="jet-writer-scene">
+      <div className="jet-writer-cloud cloud-one" aria-hidden="true">☁</div><div className="jet-writer-cloud cloud-two" aria-hidden="true">☁</div>
+      <div className="jet-writer-balloon" style={{ bottom: `${Math.min(46, progress * 0.46)}%` }} aria-hidden="true"><span>{question.visual ?? "⭐"}</span><small>{typed.length} / {target.length} letras</small></div>
+      <div className="jet-writer-spikes" aria-hidden="true"><span>▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲</span><small>Não deixe o balão alcançar os espinhos do alto</small></div>
+    </div>
+    <div className="jet-writer-progress" role="progressbar" aria-label="Progresso do balão" aria-valuemin={0} aria-valuemax={target.length} aria-valuenow={typed.length}><i style={{ width: `${(typed.length / target.length) * 100}%` }} /></div>
+    <label className="jet-writer-input-label" htmlFor={`jet-word-${question.id}`}>Sua palavra</label>
+    <input ref={inputRef} id={`jet-word-${question.id}`} className="jet-writer-input" type="text" value={typed} placeholder={Array.from({ length: target.length }, () => "_ ").join("").trim()} maxLength={target.length} autoComplete="off" autoCapitalize="characters" spellCheck={false} inputMode="none" aria-label={`Digite a palavra, ${typed.length} de ${target.length} letras`} onChange={(event) => updateTyped(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") submit(); }} disabled={disabled} />
+    <div className="jet-writer-keyboard" role="group" aria-label="Teclado de letras">
+      {rows.map((row) => <div className="jet-key-row" key={row}>{Array.from(row).map((letter) => <button type="button" key={letter} className="jet-letter-key" onPointerDown={(event) => event.preventDefault()} onClick={() => addLetter(letter)} disabled={disabled || typed.length >= target.length} aria-label={`Letra ${letter}`}>{letter}</button>)}</div>)}
+      <div className="jet-key-row jet-key-actions"><button type="button" onPointerDown={(event) => event.preventDefault()} onClick={() => setTyped((current) => current.slice(0, -1))} disabled={disabled || !typed} aria-label="Apagar a última letra">⌫ Apagar</button><button type="button" onPointerDown={(event) => event.preventDefault()} onClick={() => setTyped("")} disabled={disabled || !typed}>Limpar</button></div>
+    </div>
+    <footer className="jet-writer-footer"><p>Toque nas letras ou use o teclado físico. A palavra-alvo pode ser ouvida novamente.</p><button className="primary-action compact" onClick={submit} disabled={disabled || typed.length !== target.length}>Enviar balão <Check size={18} /></button></footer>
+  </section>;
+}
+
+function DigraphFilterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
+  const options = question.options ?? [];
+  const pattern = question.orthographicPattern ?? "□";
+  const [selected, setSelected] = useState<string | null>(null);
+  useEffect(() => setSelected(null), [question.id]);
+  return <section className="digraph-filter-activity" aria-label="Filtro de Água dos Dígrafos">
+    <header className="digraph-filter-toolbar"><div><span className="digraph-filter-kicker">CANOS DA ORTOGRAFIA</span><strong>Filtro de Água dos Dígrafos</strong></div><div className="digraph-filter-counter"><b>{selected ? "1" : "0"}</b><span>válvula escolhida</span></div></header>
+    <div className="digraph-filter-scene">
+      <div className="digraph-filter-drops" aria-hidden="true">💧　💧　💧</div>
+      <div className="digraph-word" aria-label={`Palavra incompleta: ${pattern.replace("□", "espaço")}`}>
+        {Array.from(pattern).map((character, index) => character === "□" ? <b className={selected ? "filled" : "empty"} key={`blank-${index}`}>{selected ?? "?"}</b> : <span key={`${character}-${index}`}>{character}</span>)}
+      </div>
+      <div className="digraph-filter-flow" aria-hidden="true"><i /><i /><i /><span>→</span></div>
+      <small>ÁGUA DA PALAVRA</small>
+    </div>
+    <div className="digraph-valves" role="radiogroup" aria-label="Válvulas de letras disponíveis">{options.map((option, index) => <button type="button" key={`${option}-${index}`} className={`digraph-valve ${selected === option ? "selected" : ""}`} onClick={() => !disabled && setSelected(option)} disabled={disabled} role="radio" aria-checked={selected === option} aria-label={`Válvula ${option}`}><span className="digraph-valve-wheel" aria-hidden="true">✦</span><strong>{option}</strong><small>VÁLVULA {index + 1}</small></button>)}</div>
+    <footer className="digraph-filter-footer"><p>{selected ? `A válvula ${selected} está pronta para liberar o fluxo.` : "Escolha as letras que completam a palavra ouvida."}</p><button className="primary-action compact" onClick={() => selected && onAnswer(selected)} disabled={disabled || !selected}>Liberar água <Check size={18} /></button></footer>
+  </section>;
 }
 
 function SyllableLetterInteraction({ question, disabled, onAnswer }: { question: GameQuestion; disabled: boolean; onAnswer: (answer: string) => void }) {
@@ -665,9 +722,10 @@ function ShieldMagicInteraction({ question, disabled, onComplete }: { question: 
 function SyllableHammerInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
   const parts = question.syllableParts ?? [];
   const [hits, setHits] = useState(0);
+  const [marks, setMarks] = useState<string[]>([]);
   const audioContextRef = useRef<AudioContext | null>(null);
   const complete = hits >= parts.length;
-  useEffect(() => setHits(0), [question.id]);
+  useEffect(() => { setHits(0); setMarks([]); }, [question.id]);
   useEffect(() => () => { void audioContextRef.current?.close(); }, []);
   const playHammerSound = () => {
     try {
@@ -705,6 +763,8 @@ function SyllableHammerInteraction({ question, disabled, onComplete }: { questio
     if (disabled || complete) return;
     playHammerSound();
     const next = hits + 1;
+    const mark = randomSyllableMark();
+    setMarks((current) => [...current, mark]);
     setHits(next);
     if (next >= parts.length) onComplete();
   };
@@ -714,7 +774,7 @@ function SyllableHammerInteraction({ question, disabled, onComplete }: { questio
     <div className="syllable-hammer-scene">
       <div className="syllable-hammer-sky" aria-hidden="true"><i /><i /><i /></div>
       <button type="button" className="syllable-hammer-button" onClick={strike} disabled={disabled || complete} aria-label={complete ? "Palavra completa" : "Bater o martelo uma vez"}><Hammer size={52} /><strong>{complete ? "COMPLETO" : "BATER"}</strong></button>
-      <div className="syllable-hammer-blocks" aria-hidden="true">{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? "✓" : index + 1}</i>)}</div>
+      <div className="syllable-hammer-blocks" role="group" aria-label={`Letras genéricas geradas: ${marks.join(", ") || "nenhuma"}`}>{parts.map((part, index) => <i key={`${part}-block-${index}`} className={index < hits ? "filled" : ""}>{index < hits ? marks[index] : index + 1}</i>)}</div>
     </div>
     <div className="syllable-hammer-footer"><p>{complete ? "Muito bem! Cada batida marcou uma parte falada." : "Fale a palavra devagar e bata uma vez para cada pedaço."}</p><span><Hammer size={17} /> {complete ? "PALAVRA MARCADA" : "UMA BATIDA POR SÍLABA"}</span></div>
   </div>;
@@ -1043,19 +1103,33 @@ function SandTracksInteraction({ question, disabled, onComplete }: { question: G
   const [completed, setCompleted] = useState(false);
   const lastPoint = useRef<{ x: number; y: number } | null>(null);
   const target = question.sandTarget ?? 5;
-  const route = useMemo(() => Array.from({ length: target }, (_, index) => { const progress = target === 1 ? 1 : index / (target - 1); return { x: 155 + progress * 605, y: 235 + Math.sin(progress * Math.PI * 2.2) * 34 - progress * 8 }; }), [target, question.id]);
+  const pattern = question.sandPattern ?? "straight";
+  const geometry = useMemo(() => buildSandTrackGeometry(pattern, target), [pattern, question.id, target]);
+  const route = geometry.route;
   const checkpointIndex = tracks.length;
-  useEffect(() => { setWalking(false); setTracks([]); setCompleted(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.save(); ctx.setLineDash([7, 13]); ctx.lineWidth = 6; ctx.strokeStyle = "rgba(121, 82, 54, .3)"; ctx.lineCap = "round"; ctx.beginPath(); route.forEach((point, index) => index === 0 ? ctx.moveTo(point.x, point.y) : ctx.lineTo(point.x, point.y)); ctx.stroke(); ctx.restore(); }, [question.id, route]);
+  const routeTitle: Record<string, string> = { straight: "Trilha reta", curve: "Curva da praia", waves: "Ondas na areia", zigzag: "Zigue-zague", fork: "Escolha do caminho", "color-order": "Rota das cores", precision: "Trilha de precisão", branched: "Desafio das ramificações" };
+  const footerText: Record<string, string> = {
+    straight: "Comece no ponto maior e arraste em linha reta até o coqueiro.",
+    curve: "Acompanhe a curva suave sem cortar caminho.",
+    waves: "Suba e desça pelas ondas, seguindo cada ponto na ordem.",
+    zigzag: "Mude de direção a cada curva e siga todas as marcas.",
+    fork: "Escolha a trilha pontilhada que termina junto ao coqueiro.",
+    "color-order": "Siga os pontos amarelos, azuis e corais na ordem em que aparecem.",
+    precision: "Mantenha o dedo perto das marcas e avance uma de cada vez.",
+    branched: "Siga os pontos principais até a sombra do coqueiro; ignore os desvios.",
+  };
+  const svgPoints = (points: { x: number; y: number }[]) => points.map(({ x, y }) => `${x},${y}`).join(" ");
+  useEffect(() => { setWalking(false); setTracks([]); setCompleted(false); lastPoint.current = null; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (canvas && ctx) ctx.clearRect(0, 0, canvas.width, canvas.height); }, [question.id, geometry]);
   useEffect(() => { if (!completed) return; const timer = window.setTimeout(onComplete, 520); return () => window.clearTimeout(timer); }, [completed, onComplete]);
   const position = (event: PointerEvent<HTMLCanvasElement>) => { const canvas = canvasRef.current!; const rect = canvas.getBoundingClientRect(); return { x: ((event.clientX - rect.left) / rect.width) * canvas.width, y: ((event.clientY - rect.top) / rect.height) * canvas.height }; };
-  const markCheckpoint = (point: { x: number; y: number }) => { const previous = lastPoint.current; const angle = previous ? Math.atan2(point.y - previous.y, point.x - previous.x) * (180 / Math.PI) : -8; setTracks((current) => { const next = [...current, { x: point.x, y: point.y, angle }]; if (next.length >= route.length) setCompleted(true); return next; }); lastPoint.current = point; };
-  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const point = position(event); if (Math.hypot(point.x - route[0].x, point.y - route[0].y) > 105) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineWidth = 16; ctx.strokeStyle = "rgba(112, 74, 43, .48)"; setWalking(true); markCheckpoint(route[0]); canvas.setPointerCapture(event.pointerId); };
-  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!walking || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); const nextPoint = route[checkpointIndex]; if (nextPoint && Math.hypot(point.x - nextPoint.x, point.y - nextPoint.y) <= 105) markCheckpoint(nextPoint); };
+  const markCheckpoint = (point: { x: number; y: number }) => { const previous = lastPoint.current; const angle = previous ? Math.atan2(point.y - previous.y, point.x - previous.x) * (180 / Math.PI) : -8; setTracks((current) => [...current, { x: point.x, y: point.y, angle }]); if (checkpointIndex + 1 >= route.length) setCompleted(true); lastPoint.current = point; };
+  const begin = (event: PointerEvent<HTMLCanvasElement>) => { if (disabled || completed) return; const point = position(event); if (Math.hypot(point.x - route[0].x, point.y - route[0].y) > geometry.hitRadius) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineCap = "round"; ctx.lineWidth = 16; ctx.strokeStyle = "rgba(112, 74, 43, .48)"; setWalking(true); markCheckpoint(route[0]); canvas.setPointerCapture(event.pointerId); };
+  const move = (event: PointerEvent<HTMLCanvasElement>) => { if (!walking || disabled || completed) return; const canvas = canvasRef.current; const ctx = canvas?.getContext("2d"); if (!canvas || !ctx) return; const point = position(event); ctx.lineTo(point.x, point.y); ctx.stroke(); const nextPoint = route[checkpointIndex]; if (nextPoint && Math.hypot(point.x - nextPoint.x, point.y - nextPoint.y) <= geometry.hitRadius) markCheckpoint(nextPoint); };
   const stop = () => { setWalking(false); lastPoint.current = null; };
   return <div className={`sand-tracks-activity ${completed ? "completed" : ""}`}>
-    <div className="sand-toolbar"><div><span className="sand-kicker"><i className="sand-kicker-mark" /> PRAIA DAS MARCAS</span><strong>Faça pegadas até o coqueiro</strong></div><div className="sand-counter"><b>{tracks.length}</b><span>/ {target} marcas</span></div></div>
-    <div className="sand-scene" aria-label="Praia interativa para criar pegadas"><div className="sand-sky"><span className="sand-sun" aria-hidden="true"><i /></span><span className="sand-sun-rays" /><span className="sand-cloud sand-cloud-one" /><span className="sand-cloud sand-cloud-two" /></div><div className="sand-beach"><span className="sand-wave-line" aria-hidden="true"><i /><i /><i /></span><span className="sand-dune dune-one" /><span className="sand-dune dune-two" /><span className="sand-palm-shadow" /><img className="sand-palm" src={SCENE_ASSETS[question.sceneAsset ?? "pegadas-coqueiro"] ?? palmTreeAsset} alt="Coqueiro tropical na praia" /><span className="sand-shell shell-one" /><span className="sand-shell shell-two" />{tracks.map((track, index) => <span className="sand-footprint" style={{ left: `${(track.x / 900) * 100}%`, top: `${(track.y / 330) * 100}%`, transform: `translate(-50%, -50%) rotate(${track.angle}deg)` }} key={`${track.x}-${track.y}-${index}`}><i /><i /></span>)}{completed && <span className="sand-goal-mark" aria-label="Trilha chegou ao coqueiro" />}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste para criar pegadas até o coqueiro" /></div></div>
-    <div className="sand-footer"><p>{completed ? "Muito bem! Você seguiu a trilha até a sombra do coqueiro." : "Comece na primeira marca e siga os pontos da trilha até a sombra do coqueiro."}</p><div className="sand-progress" aria-label={`${tracks.length} de ${target} pontos da trilha`}><i style={{ width: `${Math.min(100, (tracks.length / target) * 100)}%` }} /></div></div>
+    <div className="sand-toolbar"><div><span className="sand-kicker"><i className="sand-kicker-mark" /> PRAIA DAS MARCAS</span><strong>{routeTitle[pattern]}</strong></div><div className="sand-counter"><b>{tracks.length}</b><span>/ {target} marcas</span></div></div>
+    <div className="sand-scene" aria-label={`Praia interativa: ${routeTitle[pattern]}`}><div className="sand-sky"><span className="sand-sun" aria-hidden="true"><i /></span><span className="sand-sun-rays" /><span className="sand-cloud sand-cloud-one" /><span className="sand-cloud sand-cloud-two" /></div><div className="sand-beach"><span className="sand-wave-line" aria-hidden="true"><i /><i /><i /></span><svg className={`sand-route-guides pattern-${pattern}`} viewBox="0 0 900 330" preserveAspectRatio="none" aria-hidden="true">{geometry.decoyRoutes.map((decoy, index) => <g key={`decoy-${index}`}><polyline className="sand-decoy-path" points={svgPoints(decoy)} /><circle className="sand-decoy-end" cx={decoy[decoy.length - 1].x} cy={decoy[decoy.length - 1].y} r="12" /><path className="sand-decoy-cross" d={`M ${decoy[decoy.length - 1].x - 4} ${decoy[decoy.length - 1].y - 4} l 8 8 m 0 -8 l -8 8`} /></g>)}<polyline className="sand-main-path" points={svgPoints(route)} />{route.map((point, index) => <g className="sand-checkpoint" key={`checkpoint-${index}`}><circle cx={point.x} cy={point.y} r={index === 0 ? 14 : 10} fill={geometry.checkpointColors[index]} /><text x={point.x} y={point.y + 4}>{index + 1}</text></g>)}</svg><span className="sand-dune dune-one" /><span className="sand-dune dune-two" /><span className="sand-palm-shadow" /><img className="sand-palm" src={SCENE_ASSETS[question.sceneAsset ?? "pegadas-coqueiro"] ?? palmTreeAsset} alt="Coqueiro tropical na praia" /><span className="sand-shell shell-one" /><span className="sand-shell shell-two" />{tracks.map((track, index) => <span className="sand-footprint" style={{ left: `${(track.x / 900) * 100}%`, top: `${(track.y / 330) * 100}%`, transform: `translate(-50%, -50%) rotate(${track.angle}deg)`, "--footprint-color": geometry.checkpointColors[index] } as CSSProperties} key={`${track.x}-${track.y}-${index}`}><i /><i /></span>)}{completed && <span className="sand-goal-mark" aria-label="Trilha chegou ao coqueiro" />}<canvas ref={canvasRef} width="900" height="330" onPointerDown={begin} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop} aria-label="Arraste para criar pegadas até o coqueiro" /></div></div>
+    <div className="sand-footer"><p>{completed ? "Muito bem! Você seguiu a trilha até a sombra do coqueiro." : footerText[pattern]}</p><div className="sand-progress" aria-label={`${tracks.length} de ${target} pontos da trilha`}><i style={{ width: `${Math.min(100, (tracks.length / target) * 100)}%` }} /></div></div>
   </div>;
 }
 function LanternInteraction({ question, disabled, onComplete }: { question: GameQuestion; disabled: boolean; onComplete: () => void }) {
@@ -1173,18 +1247,29 @@ function Teacher({ state, controller }: Props) {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [teacherName, setTeacherName] = useState(state.teacherName);
   const [remoteStudents, setRemoteStudents] = useState<RemoteStudent[]>([]);
+  const [exportingReport, setExportingReport] = useState<"excel" | "pdf" | null>(null);
+  const [reportMessage, setReportMessage] = useState("");
   const [selectedStudentId, setSelectedStudentId] = useState("");
   const [newStudentName, setNewStudentName] = useState("");
   const [studentMessage, setStudentMessage] = useState("");
   const [registeringStudent, setRegisteringStudent] = useState(false);
   const [databaseSyncing, setDatabaseSyncing] = useState(false);
   const [databaseSyncMessage, setDatabaseSyncMessage] = useState("");
-  const [loggingOutAll, setLoggingOutAll] = useState(false);
-  const [logoutAllMessage, setLogoutAllMessage] = useState("");
   const [studentPage, setStudentPage] = useState(0);
+  const [forceBasicPlacement, setForceBasicPlacement] = useState<boolean | null>(null);
+  const [placementPolicySaving, setPlacementPolicySaving] = useState(false);
+  const [placementPolicyMessage, setPlacementPolicyMessage] = useState("");
+  const placementPolicySavingRef = useRef(false);
+  const placementPolicyRequestVersionRef = useRef(0);
   useEffect(() => {
     if (!state.teacherAuthorized) return;
-    const refresh = () => fetch("/api/teacher/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }).then((response) => response.ok ? response.json() : []).then((students: RemoteStudent[]) => { const ordered = [...students].sort((a, b) => normalizeStudentName(a.profile.name).localeCompare(normalizeStudentName(b.profile.name), "pt-BR")); setRemoteStudents(ordered); setSelectedStudentId((current) => current || ordered[0]?.id || ""); }).catch(() => undefined);
+    const refresh = () => {
+      fetch("/api/teacher/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }).then((response) => response.ok ? response.json() : []).then((students: RemoteStudent[]) => { const ordered = [...students].sort((a, b) => normalizeStudentName(a.profile.name).localeCompare(normalizeStudentName(b.profile.name), "pt-BR")); setRemoteStudents(ordered); setSelectedStudentId((current) => current || ordered[0]?.id || ""); }).catch(() => undefined);
+      if (!placementPolicySavingRef.current) {
+        const requestVersion = ++placementPolicyRequestVersionRef.current;
+        fetch("/api/placement-policy").then((response) => response.ok ? response.json() : Promise.reject()).then((policy: { forceBasicPlacement?: boolean }) => { if (!placementPolicySavingRef.current && requestVersion === placementPolicyRequestVersionRef.current) { setForceBasicPlacement(policy.forceBasicPlacement === true); setPlacementPolicyMessage(""); } }).catch(() => { if (!placementPolicySavingRef.current && requestVersion === placementPolicyRequestVersionRef.current) setPlacementPolicyMessage("Não foi possível carregar a configuração do nivelamento. Tentando novamente…"); });
+      }
+    };
     refresh();
     const timer = window.setInterval(refresh, 4000);
     return () => window.clearInterval(timer);
@@ -1193,6 +1278,28 @@ function Teacher({ state, controller }: Props) {
   const studentPageCount = Math.max(1, Math.ceil(sortedStudents.length / 10));
   const safeStudentPage = Math.min(studentPage, studentPageCount - 1);
   const visibleStudents = sortedStudents.slice(safeStudentPage * 10, safeStudentPage * 10 + 10);
+  const exportReport = async (format: "excel" | "pdf") => {
+    if (!sortedStudents.length || exportingReport) return;
+    setExportingReport(format);
+    setReportMessage("");
+    try {
+      const worldNames = WORLDS.map((world) => world.shortName);
+      if (format === "excel") {
+        const { downloadStudentsExcel } = await import("./studentsExcel");
+        await downloadStudentsExcel(sortedStudents, worldNames);
+        setReportMessage("Planilha Excel da turma baixada com sucesso.");
+      } else {
+        const { downloadStudentsPdf } = await import("./studentsPdf");
+        downloadStudentsPdf(sortedStudents, worldNames);
+        setReportMessage("Relatório PDF da turma baixado com sucesso.");
+      }
+    } catch (exportError) {
+      console.error("Falha ao gerar relatório da turma", exportError);
+      setReportMessage(format === "excel" ? "Não foi possível gerar a planilha Excel. Tente novamente." : "Não foi possível gerar o PDF. Tente novamente.");
+    } finally {
+      setExportingReport(null);
+    }
+  };
   if (!state.teacherAuthorized) return <main className="single-game-page"><section className="teacher-lock paper-panel"><Lock size={38} /><p className="eyebrow">Acesso orientador</p><h1>Área do professor</h1><p>Entre para acompanhar a trilha, as respostas e os desenhos de cada aluno neste dispositivo.</p><div className="password-input-wrap"><input type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Senha" autoComplete="current-password" /><button type="button" className="password-eye" onClick={() => setShowPassword((visible) => !visible)} aria-pressed={showPassword} aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}>{showPassword ? <EyeOff size={19} /> : <Eye size={19} />}</button></div><button className="primary-action" onClick={async () => { if (!(await controller.authorizeTeacher(password))) setError("Senha não reconhecida."); }}>Entrar <ChevronRight size={21} /></button>{error && <small className="login-error">{error}</small>}<button className="teacher-entry" onClick={() => controller.returnToMenu()}>Voltar ao menu</button></section></main>;
   const selected = remoteStudents.find((student) => student.id === selectedStudentId);
   const deleteSelectedStudent = async () => {
@@ -1242,49 +1349,116 @@ function Teacher({ state, controller }: Props) {
     if (!response.ok) return window.alert(result.error ?? "Não foi possível limpar o banco.");
     setRemoteStudents([]); setSelectedStudentId(""); window.alert(result.message ?? "Banco limpo.");
   };
-  const logoutAllStudents = async () => {
-    if (!window.confirm("Encerrar a sessão de todos os alunos conectados? O progresso salvo será preservado, mas eles voltarão à tela inicial.")) return;
-    setLoggingOutAll(true); setLogoutAllMessage("");
-    try {
-      const response = await fetch("/api/teacher/sessions/logout-all", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) });
-      const result = await response.json().catch(() => ({})) as { message?: string; error?: string };
-      setLogoutAllMessage(response.ok ? (result.message ?? "Sessões encerradas.") : (result.error ?? "Não foi possível encerrar as sessões."));
-    } catch { setLogoutAllMessage("Servidor indisponível para encerrar as sessões."); }
-    finally { setLoggingOutAll(false); }
-  };
   const openTab = (next: TeacherTab) => setTab(next);
-  const updateSelected = async (student: RemoteStudent) => { const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...student, password: state.teacherPassword, teacherOverride: true }) }); if (response.ok) setRemoteStudents((items) => items.map((item) => item.id === student.id ? student : item)); };
+  const updateSelected = async (action: ProgressionAction) => {
+    if (!selected) throw new Error("Selecione um aluno antes de avançar o progresso.");
+    const response = await fetch(`/api/teacher/students/${encodeURIComponent(selected.id)}/advance`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword, teacherName: state.teacherName, action }) });
+    const result = await response.json().catch(() => ({})) as { student?: RemoteStudent; error?: string };
+    if (!response.ok || !result.student) throw new Error(result.error ?? "Não foi possível avançar o progresso do aluno.");
+    setRemoteStudents((items) => items.map((item) => item.id === selected.id ? result.student! : item));
+    return result.student;
+  };
   const registerStudent = async () => { setRegisteringStudent(true); setStudentMessage(""); const error = await controller.registerStudent(newStudentName); if (error) setStudentMessage(error); else { setStudentMessage("Aluno cadastrado. Na primeira entrada, ele fará o teste inicial antes de acessar o jogo."); setNewStudentName(""); } setRegisteringStudent(false); };
   const syncDatabase = async () => { setDatabaseSyncing(true); setDatabaseSyncMessage(""); try { const response = await fetch("/api/teacher/database/sync", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }); const result = await response.json().catch(() => ({})) as { message?: string; error?: string }; setDatabaseSyncMessage(result.message ?? result.error ?? "Não foi possível salvar o banco agora."); } catch { setDatabaseSyncMessage("O banco continua salvo neste computador, mas a sincronização não está disponível agora."); } finally { setDatabaseSyncing(false); } };
+  const toggleBasicPlacement = async () => {
+    if (forceBasicPlacement === null || placementPolicySaving) return;
+    const nextValue = !forceBasicPlacement;
+    placementPolicySavingRef.current = true;
+    placementPolicyRequestVersionRef.current += 1;
+    setPlacementPolicySaving(true);
+    setPlacementPolicyMessage("");
+    try {
+      const response = await fetch("/api/teacher/placement-policy", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword, forceBasicPlacement: nextValue }) });
+      const result = await response.json().catch(() => ({})) as { forceBasicPlacement?: boolean; error?: string };
+      if (!response.ok) throw new Error(result.error ?? "Não foi possível salvar a configuração.");
+      setForceBasicPlacement(result.forceBasicPlacement === true);
+      setPlacementPolicyMessage(nextValue ? "Nivelamento travado no Mundo da Garatuja." : "Nivelamento normal liberado para novos testes.");
+    } catch (error) {
+      setPlacementPolicyMessage(error instanceof Error ? error.message : "Não foi possível salvar a configuração.");
+    } finally {
+      placementPolicySavingRef.current = false;
+      setPlacementPolicySaving(false);
+    }
+  };
   const registrationPanel = <section className="teacher-profile-card paper-panel"><div><p className="eyebrow"><PawPrint size={15} /> Cadastro de aluno</p><h2>Adicionar aluno à turma</h2><p>Cadastre o nome uma vez. Na primeira entrada, o aluno fará o teste inicial; depois poderá continuar a aventura pelo menu usando esse mesmo nome.</p></div><div className="teacher-profile-edit"><input value={newStudentName} onChange={(event) => setNewStudentName(event.target.value)} placeholder="Nome do aluno" maxLength={120} onKeyDown={(event) => { if (event.key === "Enter") void registerStudent(); }} /><button className="primary-action compact" disabled={registeringStudent} onClick={() => void registerStudent()}>Cadastrar <Check size={17} /></button></div>{studentMessage && <small className={studentMessage.startsWith("Aluno cadastrado") ? "password-success" : "login-error"}>{studentMessage}</small>}</section>;
   const totalAnswers = remoteStudents.reduce((sum, student) => sum + student.answers.length, 0);
-  const totalCorrect = remoteStudents.reduce((sum, student) => sum + (student.answers as GameState["answers"]).filter((answer) => answer.correct).length, 0);
+  const totalCorrect = remoteStudents.reduce((sum, student) => sum + student.answers.filter((answer) => answer.correct).length, 0);
   const averageAccuracy = totalAnswers ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
-  const overviewPanel = <><section className="teacher-stat-grid"><article><span>Alunos cadastrados</span><strong>{remoteStudents.length}</strong><i /></article><article><span>Média de acertos</span><strong>{averageAccuracy}%</strong><i className="green" /></article><article><span>Respostas registradas</span><strong>{totalAnswers}</strong><i className="orange" /></article></section><section className="level-summary-grid paper-panel"><div className="table-head"><div><p className="eyebrow"><BookOpen size={15} /> Distribuição da turma</p><h2>Alunos por nível</h2></div></div><div className="level-summary-list">{WORLDS.map((world) => { const students = remoteStudents.filter((student) => student.profile.currentWorld === world.id); return <article key={world.id}><div className="level-summary-heading"><span style={{ background: world.color }}>{world.icon}</span><div><strong>{world.shortName}</strong><small>{students.length} aluno{students.length === 1 ? "" : "s"}</small></div></div><p>{students.length ? students.map((student) => student.profile.name).join(", ") : "Nenhum aluno neste nível"}</p></article>; })}</div></section></>;
-  const profilePanel = <><section className="teacher-profile-card paper-panel"><div className="teacher-profile-heading"><div className="teacher-avatar"><Lock size={22} /></div><div><p className="eyebrow">Perfil do professor</p><h2>{state.teacherName}</h2><small>Área protegida deste dispositivo</small></div></div><div className="teacher-profile-edit"><input value={teacherName} onChange={(event) => setTeacherName(event.target.value)} placeholder="Nome do professor" maxLength={120} /><button className="soft-action" onClick={() => controller.updateTeacherProfile(teacherName)}>Salvar perfil <Check size={16} /></button></div><button className="logout-button teacher-exit-button" onClick={() => setShowLogoutConfirm(true)}><LogOut size={18} /> Logout</button></section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><Lock size={15} /> Sessões conectadas</p><h2>Encerrar todos os alunos</h2><p>Desconecta todos os alunos atualmente conectados sem apagar seus perfis ou progresso salvo. Cada tela será enviada de volta ao início na próxima verificação.</p></div><button className="danger-action" disabled={loggingOutAll} onClick={() => void logoutAllStudents()}>{loggingOutAll ? "Encerrando sessões..." : "Logout de todos os usuários"}</button>{logoutAllMessage && <small className={logoutAllMessage.includes("não") || logoutAllMessage.includes("indisponível") ? "login-error" : "password-success"}>{logoutAllMessage}</small>}</section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><Save size={15} /> Banco da turma</p><h2>Salvar banco agora</h2><p>O jogo salva automaticamente no computador. Este botão cria um commit e envia o arquivo atualizado ao GitHub imediatamente. Também existe uma tentativa automática a cada 15 minutos.</p></div><button className="primary-action compact" disabled={databaseSyncing} onClick={() => void syncDatabase()}>{databaseSyncing ? "Salvando..." : "Salvar banco no GitHub"} <Save size={18} /></button>{databaseSyncMessage && <small className={databaseSyncMessage.includes("não foi") || databaseSyncMessage.includes("não está") ? "login-error" : "password-success"}>{databaseSyncMessage}</small>}</section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><X size={15} /> Zona de segurança</p><h2>Limpar banco de dados</h2><p>Exclui todos os alunos, status e saves. A ação exige, nesta ordem, a senha do professor, o IP do servidor e a senha final.</p></div><button className="danger-action" onClick={() => void clearDatabase()}>Excluir todos os dados</button></section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><Lock size={15} /> Segurança</p><h2>Alterar senha de acesso</h2><p>Altere a senha usada sempre que o professor entrar nesta área.</p></div><div className="teacher-password-fields"><PasswordField value={currentPassword} setValue={setCurrentPassword} visible={showCurrentPassword} setVisible={setShowCurrentPassword} placeholder="Senha atual" /><PasswordField value={newPassword} setValue={setNewPassword} visible={showNewPassword} setVisible={setShowNewPassword} placeholder="Nova senha (mínimo 6 caracteres)" /><PasswordField value={confirmPassword} setValue={setConfirmPassword} visible={showConfirmPassword} setVisible={setShowConfirmPassword} placeholder="Confirmar nova senha" /></div><button className="primary-action compact" onClick={async () => { const message = await controller.changeTeacherPassword(currentPassword, newPassword, confirmPassword); setPasswordMessage(message ?? "Senha alterada com sucesso."); if (!message) { setCurrentPassword(""); setNewPassword(""); setConfirmPassword(""); } }}>Salvar nova senha <Check size={18} /></button>{passwordMessage && <small className={passwordMessage.includes("sucesso") ? "password-success" : "login-error"}>{passwordMessage}</small>}</section></>;
-  return <><main className="teacher-page"><Header state={state} controller={controller} back /><section className="teacher-layout"><aside className="teacher-sidebar"><p className="eyebrow">Painel do professor</p><h2>Acompanhamento<br />da turma</h2><button className={tab === "overview" ? "active" : ""} onClick={() => openTab("overview")}><BookOpen size={18} /> Visão geral</button><button className={tab === "profiles" ? "active" : ""} onClick={() => openTab("profiles")}><PawPrint size={18} /> Perfis de alunos</button><button className={tab === "answers" ? "active" : ""} onClick={() => openTab("answers")}><CircleHelp size={18} /> Respostas</button><button className={tab === "teacher-profile" ? "active" : ""} onClick={() => openTab("teacher-profile")}><Lock size={18} /> Meu perfil</button><button className="back-sidebar" onClick={() => controller.exitTeacher()}><ArrowLeft size={18} /> Sair da área</button></aside><section className="teacher-content">{(tab === "profiles" || tab === "answers") && <div className="teacher-welcome"><div><p className="eyebrow">Aluno selecionado</p><h1>{selected?.profile.name || "Nenhum aluno selecionado"}</h1><p>Selecione um aluno para ver todas as atividades, respostas e desempenho.</p></div><div className="student-badge"><Mascot label="Parceira Lumi" /><span>{selected ? `Mundo ${selected.profile.currentWorld + 1}` : "Turma"}</span></div></div>}{tab === "teacher-profile" ? profilePanel : tab === "overview" ? overviewPanel : <>{tab === "profiles" && registrationPanel}<section className="local-students-card paper-panel"><div className="table-head"><div><p className="eyebrow"><PawPrint size={15} /> Turma conectada</p><h2>Selecione um aluno</h2></div><div className="report-actions"><span>{remoteStudents.length} aluno(s)</span><button className="soft-action compact" onClick={() => exportStudentsCsv(selected ? [selected] : sortedStudents, selected ? `relatorio-${selected.profile.name}.csv` : "relatorio-turma.csv")}><Download size={15} /> CSV</button><button className="soft-action compact" onClick={() => printStudentsPdf(selected ? [selected] : sortedStudents, selected ? `Relatório de ${selected.profile.name}` : "Relatório de desempenho da turma")}><FileText size={15} /> PDF</button></div></div>{remoteStudents.length ? <div className="local-students-grid">{visibleStudents.map((student) => { const completed = Object.keys(student.completions ?? {}).length; return <button className={`student-select-card ${selected?.id === student.id ? "selected" : ""}`} key={student.id} onClick={() => setSelectedStudentId(student.id)}><div className="student-mini-avatar"><PawPrint size={18} /></div><div><strong>{student.profile.name}</strong><small>Mundo {student.profile.currentWorld + 1} · {completed} fase(s) · {student.answers.length} resposta(s)</small><small>Pet: {student.profile.petName}</small></div></button>; })}</div> : <p className="empty-note">Os alunos aparecerão aqui assim que abrirem a aventura neste endereço.</p>}<nav className="teacher-pagination student-pagination" aria-label="Navegação dos alunos"><span>Página {safeStudentPage + 1} de {studentPageCount} · máximo de 10 alunos</span><button className="soft-action compact" disabled={safeStudentPage === 0} onClick={() => setStudentPage((page) => Math.max(0, page - 1))}><ChevronLeft size={15} /> Anterior</button><button className="soft-action compact" disabled={safeStudentPage >= studentPageCount - 1} onClick={() => setStudentPage((page) => Math.min(studentPageCount - 1, page + 1))}>Próxima <ChevronRight size={15} /></button></nav><small className="sync-note">Atualização automática a cada 4 segundos. Exibindo no máximo 10 alunos por página, em ordem alfabética.</small></section>{selected ? <RemoteTeacherDashboard student={selected} tab={tab} onUpdate={updateSelected} onReset={resetSelectedStudent} onEdit={editSelectedStudent} onDelete={deleteSelectedStudent} /> : <div className="empty-teacher paper-panel">Abra a aventura em outro dispositivo para o aluno aparecer nesta lista.</div>}</>}</section></section></main>{showLogoutConfirm && <LogoutConfirmModal role="professor" onCancel={() => setShowLogoutConfirm(false)} onConfirm={() => controller.exitTeacher()} />}</>;
+  const placementPolicyPanel = <section className="teacher-password-card paper-panel placement-policy-card"><div><p className="eyebrow"><Shield size={15} /> Nivelamento inicial</p><h2>Direcionar resultado do teste</h2><p>Quando ligado, todo aluno que concluir o teste inicial começa no Mundo da Garatuja. O avanço para os próximos níveis continua normalmente após concluir cada nível. Quando desligado, novos testes voltam a recomendar níveis diferentes.</p></div><button type="button" className={`placement-policy-switch ${forceBasicPlacement ? "is-on" : ""}`} role="switch" aria-checked={forceBasicPlacement === true} aria-label="Travar o resultado do teste inicial no Mundo da Garatuja" disabled={forceBasicPlacement === null || placementPolicySaving} onClick={() => void toggleBasicPlacement()}><span className="placement-policy-track"><i /></span><strong>{forceBasicPlacement === null ? "Carregando…" : placementPolicySaving ? "Salvando…" : forceBasicPlacement ? "TRAVADO" : "LIBERADO"}</strong></button>{placementPolicyMessage && <small className={placementPolicyMessage.includes("travado") || placementPolicyMessage.includes("liberado") ? "password-success" : "login-error"}>{placementPolicyMessage}</small>}</section>;
+  const overviewPanel = <>{placementPolicyPanel}<section className="teacher-stat-grid"><article><span>Alunos cadastrados</span><strong>{remoteStudents.length}</strong><i /></article><article><span>Média de acertos</span><strong>{averageAccuracy}%</strong><i className="green" /></article><article><span>Respostas registradas</span><strong>{totalAnswers}</strong><i className="orange" /></article></section><section className="level-summary-grid paper-panel"><div className="table-head"><div><p className="eyebrow"><BookOpen size={15} /> Distribuição da turma</p><h2>Alunos por nível</h2></div></div><div className="level-summary-list">{WORLDS.map((world) => { const students = remoteStudents.filter((student) => student.profile.currentWorld === world.id); return <article key={world.id}><div className="level-summary-heading"><span style={{ background: world.color }}>{world.icon}</span><div><strong>{world.shortName}</strong><small>{students.length} aluno{students.length === 1 ? "" : "s"}</small></div></div><p>{students.length ? students.map((student) => student.profile.name).join(", ") : "Nenhum aluno neste nível"}</p></article>; })}</div></section></>;
+  const profilePanel = <><section className="teacher-profile-card paper-panel"><div className="teacher-profile-heading"><div className="teacher-avatar"><Lock size={22} /></div><div><p className="eyebrow">Perfil do professor</p><h2>{state.teacherName}</h2><small>Área protegida deste dispositivo</small></div></div><div className="teacher-profile-edit"><input value={teacherName} onChange={(event) => setTeacherName(event.target.value)} placeholder="Nome do professor" maxLength={120} /><button className="soft-action" onClick={() => controller.updateTeacherProfile(teacherName)}>Salvar perfil <Check size={16} /></button></div><button className="logout-button teacher-exit-button" onClick={() => setShowLogoutConfirm(true)}><LogOut size={18} /> Logout</button></section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><Save size={15} /> Banco da turma</p><h2>Salvar banco agora</h2><p>O jogo salva automaticamente no computador. Este botão cria um commit e envia o arquivo atualizado ao GitHub imediatamente. Também existe uma tentativa automática a cada 15 minutos.</p></div><button className="primary-action compact" disabled={databaseSyncing} onClick={() => void syncDatabase()}>{databaseSyncing ? "Salvando..." : "Salvar banco no GitHub"} <Save size={18} /></button>{databaseSyncMessage && <small className={databaseSyncMessage.includes("não foi") || databaseSyncMessage.includes("não está") ? "login-error" : "password-success"}>{databaseSyncMessage}</small>}</section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><X size={15} /> Zona de segurança</p><h2>Limpar banco de dados</h2><p>Exclui todos os alunos, status e saves. A ação exige, nesta ordem, a senha do professor, o IP do servidor e a senha final.</p></div><button className="danger-action" onClick={() => void clearDatabase()}>Excluir todos os dados</button></section><section className="teacher-password-card paper-panel"><div><p className="eyebrow"><Lock size={15} /> Segurança</p><h2>Alterar senha de acesso</h2><p>Altere a senha usada sempre que o professor entrar nesta área.</p></div><div className="teacher-password-fields"><PasswordField value={currentPassword} setValue={setCurrentPassword} visible={showCurrentPassword} setVisible={setShowCurrentPassword} placeholder="Senha atual" /><PasswordField value={newPassword} setValue={setNewPassword} visible={showNewPassword} setVisible={setShowNewPassword} placeholder="Nova senha (mínimo 6 caracteres)" /><PasswordField value={confirmPassword} setValue={setConfirmPassword} visible={showConfirmPassword} setVisible={setShowConfirmPassword} placeholder="Confirmar nova senha" /></div><button className="primary-action compact" onClick={async () => { const message = await controller.changeTeacherPassword(currentPassword, newPassword, confirmPassword); setPasswordMessage(message ?? "Senha alterada com sucesso."); if (!message) { setCurrentPassword(""); setNewPassword(""); setConfirmPassword(""); } }}>Salvar nova senha <Check size={18} /></button>{passwordMessage && <small className={passwordMessage.includes("sucesso") ? "password-success" : "login-error"}>{passwordMessage}</small>}</section></>;
+  return <><main className="teacher-page"><Header state={state} controller={controller} back /><section className="teacher-layout"><aside className="teacher-sidebar"><p className="eyebrow">Painel do professor</p><h2>Acompanhamento<br />da turma</h2><button className={tab === "overview" ? "active" : ""} onClick={() => openTab("overview")}><BookOpen size={18} /> Visão geral</button><button className={tab === "profiles" ? "active" : ""} onClick={() => openTab("profiles")}><PawPrint size={18} /> Perfis de alunos</button><button className={tab === "answers" ? "active" : ""} onClick={() => openTab("answers")}><CircleHelp size={18} /> Respostas</button><button className={tab === "teacher-profile" ? "active" : ""} onClick={() => openTab("teacher-profile")}><Lock size={18} /> Meu perfil</button><button className="back-sidebar" onClick={() => controller.exitTeacher()}><ArrowLeft size={18} /> Sair da área</button></aside><section className="teacher-content">{(tab === "profiles" || tab === "answers") && <div className="teacher-welcome"><div><p className="eyebrow">Aluno selecionado</p><h1>{selected?.profile.name || "Nenhum aluno selecionado"}</h1><p>Selecione um aluno para ver todas as atividades, respostas e desempenho.</p></div><div className="student-badge"><Mascot label="Parceira Lumi" /><span>{selected ? `Mundo ${selected.profile.currentWorld + 1}` : "Turma"}</span></div></div>}{tab === "teacher-profile" ? profilePanel : tab === "overview" ? overviewPanel : <>{tab === "profiles" && registrationPanel}<section className="local-students-card paper-panel"><div className="table-head"><div><p className="eyebrow"><PawPrint size={15} /> Turma conectada</p><h2>Selecione um aluno</h2></div><div className="report-actions"><span>{remoteStudents.length} aluno(s)</span><button type="button" className="soft-action compact" disabled={!sortedStudents.length || exportingReport !== null} onClick={() => void exportReport("excel")}><Download size={15} /> {exportingReport === "excel" ? "Gerando Excel…" : "Excel da turma"}</button><button type="button" className="soft-action compact" disabled={!sortedStudents.length || exportingReport !== null} onClick={() => void exportReport("pdf")}><FileText size={15} /> {exportingReport === "pdf" ? "Gerando PDF…" : "PDF da turma"}</button></div></div>{remoteStudents.length ? <div className="local-students-grid">{visibleStudents.map((student) => { const completed = Object.keys(student.completions ?? {}).length; return <button className={`student-select-card ${selected?.id === student.id ? "selected" : ""}`} key={student.id} onClick={() => setSelectedStudentId(student.id)}><div className="student-mini-avatar"><PawPrint size={18} /></div><div><strong>{student.profile.name}</strong><small>Mundo {student.profile.currentWorld + 1} · {completed} fase(s) · {student.answers.length} resposta(s)</small><small>Pet: {student.profile.petName}</small></div></button>; })}</div> : <p className="empty-note">Os alunos aparecerão aqui assim que abrirem a aventura neste endereço.</p>}<nav className="teacher-pagination student-pagination" aria-label="Navegação dos alunos"><span>Página {safeStudentPage + 1} de {studentPageCount} · máximo de 10 alunos</span><button className="soft-action compact" disabled={safeStudentPage === 0} onClick={() => setStudentPage((page) => Math.max(0, page - 1))}><ChevronLeft size={15} /> Anterior</button><button className="soft-action compact" disabled={safeStudentPage >= studentPageCount - 1} onClick={() => setStudentPage((page) => Math.min(studentPageCount - 1, page + 1))}>Próxima <ChevronRight size={15} /></button></nav><small className="sync-note">Atualização automática a cada 4 segundos. Exibindo no máximo 10 alunos por página, em ordem alfabética. Os relatórios incluem todos os alunos e suas respostas.</small>{reportMessage && <small role="status" aria-live="polite" className={reportMessage.startsWith("Não foi") ? "login-error" : "password-success"}>{reportMessage}</small>}</section>{selected ? <RemoteTeacherDashboard student={selected} tab={tab} onUpdate={updateSelected} onReset={resetSelectedStudent} onEdit={editSelectedStudent} onDelete={deleteSelectedStudent} /> : <div className="empty-teacher paper-panel">Abra a aventura em outro dispositivo para o aluno aparecer nesta lista.</div>}</>}</section></section></main>{showLogoutConfirm && <LogoutConfirmModal role="professor" onCancel={() => setShowLogoutConfirm(false)} onConfirm={() => controller.exitTeacher()} />}</>;
 }
 
 function PasswordField({ value, setValue, visible, setVisible, placeholder }: { value: string; setValue: (value: string) => void; visible: boolean; setVisible: (value: boolean) => void; placeholder: string }) {
   return <div className="password-input-wrap"><input type={visible ? "text" : "password"} value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} /><button type="button" className="password-eye" onClick={() => setVisible(!visible)} aria-label={visible ? "Ocultar senha" : "Mostrar senha"}>{visible ? <EyeOff size={17} /> : <Eye size={17} />}</button></div>;
 }
 
-function RemoteTeacherDashboard({ student, tab, onUpdate, onReset, onEdit, onDelete }: { student: RemoteStudent; tab: TeacherTab; onUpdate: (student: RemoteStudent) => Promise<void>; onReset: () => Promise<void>; onEdit: () => Promise<void>; onDelete: () => Promise<void> }) {
+function RemoteTeacherDashboard({ student, tab, onUpdate, onReset, onEdit, onDelete }: { student: RemoteStudent; tab: TeacherTab; onUpdate: (action: ProgressionAction) => Promise<RemoteStudent>; onReset: () => Promise<void>; onEdit: () => Promise<void>; onDelete: () => Promise<void> }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [answerPage, setAnswerPage] = useState(0);
+  const [progressionAction, setProgressionAction] = useState<ProgressionAction | null>(null);
+  const [progressionMessage, setProgressionMessage] = useState<{ tone: "success" | "error"; text: string } | null>(null);
   const entries = (student.answers as GameState["answers"]).map((answer, index) => ({ answer, index })).reverse();
   const answerPageCount = Math.max(1, Math.ceil(entries.length / 10));
   const safeAnswerPage = Math.min(answerPage, answerPageCount - 1);
   const visible = entries.slice(safeAnswerPage * 10, safeAnswerPage * 10 + 10);
   const selectedEntry = visible.find((entry) => entry.index === selectedIndex) ?? visible[0];
   const completed = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${student.profile.currentWorld}:`)).length;
+  const manuallyAdvanced = Object.entries(student.completions ?? {}).filter(([key, completion]) => key.startsWith(`${student.profile.currentWorld}:`) && completion.teacherAdvanced === true).length;
+  const nextIncompletePhase = Array.from({ length: PHASES_PER_WORLD }, (_, phase) => phase).find((phase) => !student.completions?.[`${student.profile.currentWorld}:${phase}`]);
   const worldAnswers = entries.filter(({ answer }) => answer.worldId === student.profile.currentWorld);
   const accuracy = worldAnswers.length ? Math.round((worldAnswers.filter(({ answer }) => answer.correct).length / worldAnswers.length) * 100) : 0;
   const savedApproval = student.worldApprovals?.[String(student.profile.currentWorld)];
   const approval = savedApproval ?? (completed >= PHASES_PER_WORLD ? { status: "pending" as const, requestedAt: new Date().toISOString() } : undefined);
-  const canAdvance = completed >= PHASES_PER_WORLD && student.profile.currentWorld < WORLDS.length - 1;
-  const approveStudent = () => onUpdate({ ...student, worldApprovals: { ...student.worldApprovals, [String(student.profile.currentWorld)]: { status: "approved", requestedAt: approval?.requestedAt ?? new Date().toISOString(), approvedAt: new Date().toISOString(), approvedBy: "Professor(a)" }, }, profile: { ...student.profile, currentWorld: student.profile.currentWorld + 1, recommendedWorld: student.profile.currentWorld + 1 } });
-  if (tab === "profiles" || tab === "overview") return <><section className="student-profile-card paper-panel">{approval?.status === "pending" && <div className="approval-request"><span className="approval-dot" /><div><strong>Pedido de aprovação recebido</strong><small>{student.profile.name} concluiu o mundo e aguarda sua avaliação.</small></div></div>}<p className="eyebrow">Perfil completo do aluno</p><h2>{student.profile.name}</h2><p>Mundo atual: <strong>{student.profile.currentWorld + 1}</strong> · {student.profile.xp} XP · Pet: <strong>{student.profile.petName}</strong></p><div className="remote-performance-grid"><span><b>{completed}/{PHASES_PER_WORLD}</b> fases no mundo</span><span><b>{accuracy}%</b> desempenho</span><span><b>{student.answers.length}</b> respostas</span></div><div className="profile-actions"><button className="soft-action" onClick={() => void onEdit()}>Editar nome</button><button className="danger-action" onClick={() => void onReset()}>Resetar progresso</button><button className="danger-action" onClick={() => void onDelete()}>Excluir perfil</button></div>{approval?.status === "pending" && canAdvance ? <button className="release-button" onClick={approveStudent}>Aprovar e liberar próximo mundo <ChevronRight size={19} /></button> : approval?.status === "approved" ? <small className="approval-confirmed">Aprovado; o aluno já pode abrir o próximo mundo.</small> : <small className="sync-note">O pedido aparecerá aqui após concluir todas as fases. A liberação depende da sua avaliação e de pelo menos 70% de acerto.</small>}</section><section className="teacher-table paper-panel"><div className="table-head"><div><p className="eyebrow">Desempenho detalhado</p><h2>Atividades concluídas</h2></div><span>{completed} de {PHASES_PER_WORLD}</span></div><div className="world-teacher-grid">{WORLDS.map((world) => { const done = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${world.id}:`)).length; return <div className="remote-world-row" key={world.id}><strong>{world.icon} {world.shortName}</strong><small>{done}/{PHASES_PER_WORLD} fases</small><i style={{ width: `${Math.min(100, done / PHASES_PER_WORLD * 100)}%` }} /></div>; })}</div></section></>;
+  const runAdvance = async (action: ProgressionAction) => {
+    if (action === "world" && !window.confirm(`Promover ${student.profile.name} de ${WORLDS[student.profile.currentWorld]?.name ?? "mundo atual"} para ${WORLDS[student.profile.currentWorld + 1]?.name ?? "o próximo mundo"}? As fases restantes serão marcadas como avançadas pelo professor.`)) return;
+    setProgressionAction(action);
+    setProgressionMessage(null);
+    try {
+      const updated = await onUpdate(action);
+      const nextWorld = WORLDS[updated.profile.currentWorld];
+      const text = action === "world"
+        ? `${student.profile.name} foi promovido para ${nextWorld?.name ?? "o próximo mundo"}.`
+        : nextIncompletePhase === undefined
+          ? "Todas as fases deste mundo já foram liberadas."
+        : nextIncompletePhase === PHASES_PER_WORLD - 1
+          ? "O desafio final foi marcado como avançado pelo professor."
+          : `Fase ${nextIncompletePhase + 1} avançada; a fase ${nextIncompletePhase + 2} foi liberada.`;
+      setProgressionMessage({ tone: "success", text });
+    } catch (error) {
+      setProgressionMessage({ tone: "error", text: error instanceof Error ? error.message : "Não foi possível avançar o aluno." });
+    } finally {
+      setProgressionAction(null);
+    }
+  };
+  const placed = student.profile.placementCompleted === true;
+  const canAdvancePhase = placed && nextIncompletePhase !== undefined;
+  const canAdvanceWorld = placed && student.profile.currentWorld < WORLDS.length - 1;
+  const nextPhaseLabel = nextIncompletePhase === undefined ? "Todas as fases já foram liberadas" : nextIncompletePhase === PHASES_PER_WORLD - 1 ? "Pular desafio final" : `Liberar fase ${nextIncompletePhase + 2}`;
+  const nextWorld = WORLDS[student.profile.currentWorld + 1];
+  const nextWorldLabel = nextWorld ? approval?.status === "pending" ? `Aprovar ${nextWorld.shortName}` : `Avançar para ${nextWorld.shortName}` : "Último mundo";
+  if (tab === "profiles" || tab === "overview") return <>
+    <section className="student-profile-card paper-panel">
+      {approval?.status === "pending" && <div className="approval-request"><span className="approval-dot" /><div><strong>Pedido de aprovação recebido</strong><small>{student.profile.name} concluiu o mundo e aguarda sua avaliação.</small></div></div>}
+      <p className="eyebrow">Perfil completo do aluno</p>
+      <h2>{student.profile.name}</h2>
+      <p>Mundo atual: <strong>{student.profile.currentWorld + 1}</strong> · {student.profile.xp} XP · Pet: <strong>{student.profile.petName}</strong></p>
+      <div className="remote-performance-grid"><span><b>{completed}/{PHASES_PER_WORLD}</b> fases no mundo{manuallyAdvanced > 0 && <small>{manuallyAdvanced} avançada(s) pelo professor</small>}</span><span><b>{accuracy}%</b> desempenho</span><span><b>{student.answers.length}</b> respostas</span></div>
+      <div className="profile-actions"><button className="soft-action" onClick={() => void onEdit()}>Editar nome</button><button className="danger-action" onClick={() => void onReset()}>Resetar progresso</button><button className="danger-action" onClick={() => void onDelete()}>Excluir perfil</button></div>
+    </section>
+    <section className="teacher-progression-card paper-panel" aria-labelledby="teacher-progression-title">
+      <div><p className="eyebrow"><BookOpen size={15} /> Controle do professor</p><h2 id="teacher-progression-title">Avançar aluno</h2><p>Libere a próxima fase ou promova o aluno ao próximo mundo agora, sem esperar que conclua todas as atividades. Ao promover o mundo, as fases restantes são marcadas como avançadas pelo professor. Nenhum avanço manual acrescenta pontos, XP nem acertos.</p></div>
+      <div className="teacher-progression-actions">
+        <button type="button" className="soft-action" disabled={!canAdvancePhase || progressionAction !== null} onClick={() => void runAdvance("phase")}><ChevronRight size={18} /> {progressionAction === "phase" ? "Liberando fase…" : nextPhaseLabel}</button>
+        <button type="button" className="primary-action compact" disabled={!canAdvanceWorld || progressionAction !== null} onClick={() => void runAdvance("world")}><ChevronRight size={18} /> {progressionAction === "world" ? "Promovendo…" : nextWorldLabel}</button>
+      </div>
+      {!placed && <small className="progression-note">O aluno precisa concluir o teste inicial antes de avançar.</small>}
+      {progressionMessage && <small className={progressionMessage.tone === "success" ? "password-success" : "login-error"} role="status" aria-live="polite">{progressionMessage.text}</small>}
+      {approval?.status === "approved" && <small className="approval-confirmed">Mundo anterior aprovado; o próximo mundo já está disponível.</small>}
+    </section>
+    <section className="teacher-table paper-panel"><div className="table-head"><div><p className="eyebrow">Desempenho detalhado</p><h2>Atividades concluídas</h2></div><span>{completed} de {PHASES_PER_WORLD}</span></div><div className="world-teacher-grid">{WORLDS.map((world) => { const done = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${world.id}:`)).length; const advanced = Object.entries(student.completions ?? {}).filter(([key, completion]) => key.startsWith(`${world.id}:`) && completion.teacherAdvanced === true).length; return <div className="remote-world-row" key={world.id}><strong>{world.icon} {world.shortName}</strong><small>{done}/{PHASES_PER_WORLD} fases{advanced > 0 ? ` · ${advanced} manual(is)` : ""}</small><i style={{ width: `${Math.min(100, done / PHASES_PER_WORLD * 100)}%` }} /></div>; })}</div></section>
+  </>;
   return <div className="analysis-workspace"><Pagination current={safeAnswerPage} total={answerPageCount} count={entries.length} label="respostas" onChange={setAnswerPage} /><ResponseExplorer entries={visible} selectedIndex={selectedEntry?.index ?? null} onSelectAnswer={setSelectedIndex} tab={tab} />{selectedEntry && <AnswerInspector answer={selectedEntry.answer} />}</div>;
 }
 function TeacherDashboard({ state, controller, tab, onTabChange, selectedAnswer, onSelectAnswer }: Props & { tab: TeacherTab; onTabChange: (tab: TeacherTab) => void; selectedAnswer: number | null; onSelectAnswer: (index: number | null) => void }) {
