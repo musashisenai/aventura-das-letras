@@ -1693,7 +1693,7 @@
         "placementCompleted": true,
         "currentWorld": 5,
         "recommendedWorld": 5,
-        "activeScreen": "lesson",
+        "activeScreen": "profile",
         "activeWorld": 5,
         "activePhase": 0,
         "questionIndex": 5
@@ -3537,7 +3537,7 @@
           }
         ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "profile",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-angelo-ciccillo",
@@ -5634,11 +5634,11 @@
           "questionBankVersion": 10
         }
       },
+      "updatedAt": "2026-10-27T13:24:50.144Z",
       "activeSession": {
         "token": "1793106360925-mezepp2dzt",
-        "lastSeen": 1793107453902
-      },
-      "updatedAt": "2026-10-27T13:23:04.111Z"
+        "lastSeen": 1793107490502
+      }
     },
     "student-anna-alice-pereira": {
       "id": "student-anna-alice-pereira",
@@ -5692,7 +5692,7 @@
         "placementCompleted": true,
         "currentWorld": 4,
         "recommendedWorld": 4,
-        "activeScreen": "lesson",
+        "activeScreen": "profile",
         "activeWorld": 4,
         "activePhase": 5,
         "questionIndex": 0
@@ -6607,7 +6607,7 @@
           }
         ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "profile",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-anthony-rezende",
@@ -7797,9 +7797,9 @@
       },
       "activeSession": {
         "token": "1793106291925-0o4xvyh9nxw",
-        "lastSeen": 1793107466384
+        "lastSeen": 1793107489446
       },
-      "updatedAt": "2026-10-27T13:24:26.384Z"
+      "updatedAt": "2026-10-27T13:24:49.446Z"
     },
     "student-anthony-zaia": {
       "id": "student-anthony-zaia",
@@ -11457,11 +11457,7 @@
           "questionBankVersion": 10
         }
       },
-      "activeSession": {
-        "token": "1793106077211-sat4qoifi7r",
-        "lastSeen": 1793107478804
-      },
-      "updatedAt": "2026-10-27T13:24:38.804Z"
+      "updatedAt": "2026-10-27T13:24:42.603Z"
     },
     "student-brendha-araujo": {
       "id": "student-brendha-araujo",
