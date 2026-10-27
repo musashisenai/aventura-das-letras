@@ -43,7 +43,11 @@
           "placementQueue": []
         }
       },
-      "updatedAt": "2026-10-27T11:02:46.308Z"
+      "activeSession": {
+        "token": "reset-1793100530516",
+        "lastSeen": 1793100530516
+      },
+      "updatedAt": "2026-10-27T11:28:50.515Z"
     },
     "student-angelo-ciccillo": {
       "id": "student-angelo-ciccillo",
