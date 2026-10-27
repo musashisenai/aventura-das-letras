@@ -248,7 +248,8 @@ export class GameController {
     const payload = { id: this.state.profile?.studentId, profile: this.state.profile, sessionToken: this.state.profile?.sessionToken, completions: this.state.completions, worldApprovals: this.state.worldApprovals, answers: this.state.answers, gameState };
     this.syncQueue = this.syncQueue.then(async () => {
       try {
-        await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (response.status === 401) this.logout();
       } catch {
         // O jogo continua funcionando offline; a sincronização volta na próxima alteração.
       }
@@ -300,7 +301,7 @@ export class GameController {
     const sessionToken = this.state.profile?.sessionToken;
     if (!studentId || !sessionToken) return;
     const response = await fetch(`/api/students/${encodeURIComponent(studentId)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) }).catch(() => undefined);
-    if (response?.status === 404) this.logout();
+    if (response?.status === 401 || response?.status === 404) this.logout();
   }
 
   releaseStudentSession() {
@@ -383,7 +384,7 @@ export class GameController {
       if (!response.ok) return "Não encontramos uma aventura com esse nome. Confira a escrita ou peça ao professor para cadastrar o aluno.";
       const saved = await response.json() as { id: string; profile: Profile; completions?: GameState["completions"]; worldApprovals?: GameState["worldApprovals"]; answers?: GameState["answers"]; gameState?: Partial<GameState> };
       const sessionToken = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken }) });
+      const claim = await fetch(`/api/students/${encodeURIComponent(saved.id)}/session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken, claim: true }) });
       if (!claim.ok) {
         const result = await claim.json().catch(() => ({})) as { error?: string };
         return result.error ?? "Este aluno já está em jogo em outro dispositivo.";
