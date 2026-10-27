@@ -2320,46 +2320,1701 @@
       "id": "student-davi-de-souza-belentani",
       "name": "Davi de Souza Belentani",
       "status": {
-        "placementCompleted": false,
-        "currentWorld": 0,
-        "recommendedWorld": 0,
-        "activeScreen": "placement",
-        "activeWorld": 0,
-        "activePhase": 0,
-        "questionIndex": 0
+        "placementCompleted": true,
+        "currentWorld": 3,
+        "recommendedWorld": 3,
+        "activeScreen": "map",
+        "activeWorld": 1,
+        "activePhase": 1,
+        "questionIndex": 2
       },
       "save": {
         "profile": {
-          "placementCompleted": false,
+          "placementCompleted": true,
           "studentId": "student-davi-de-souza-belentani",
           "name": "Davi de Souza Belentani",
           "partner": "Lumi",
-          "currentWorld": 0,
-          "recommendedWorld": 0,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
+          "currentWorld": 3,
+          "recommendedWorld": 3,
+          "coins": 116,
+          "xp": 116,
+          "eggs": 4,
+          "eggCollection": [
+            {
+              "id": "egg-1793104165615",
+              "rarity": "epico",
+              "progress": 3,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793104287920",
+              "rarity": "comum",
+              "progress": 2,
+              "required": 2,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793104412195",
+              "rarity": "comum",
+              "progress": 1,
+              "required": 2,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793104508009",
+              "rarity": "epico",
+              "progress": 0,
+              "required": 4,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
-          "audioEnabled": true
+          "audioEnabled": true,
+          "sessionToken": "1793103817242-h3ck390j8w"
         },
-        "completions": {},
+        "completions": {
+          "3:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:29:25.614Z"
+          },
+          "3:1": {
+            "score": 6,
+            "total": 8,
+            "date": "2026-10-27T12:31:27.920Z"
+          },
+          "3:2": {
+            "score": 6,
+            "total": 8,
+            "date": "2026-10-27T12:33:32.195Z"
+          },
+          "1:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:35:08.009Z"
+          }
+        },
         "worldApprovals": {},
-        "answers": [],
+        "answers": [
+          {
+            "questionId": "fase-1-s-martelo-pedacos-7",
+            "question": "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.",
+            "answer": "BATIDAS COMPLETAS 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 7",
+            "at": "27/10/2026, 09:27:50"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-4",
+            "question": "O MACACO PRECISA DE UMA BATIDA PARA CADA PEDAÇO.",
+            "answer": "BATIDAS COMPLETAS 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 4",
+            "at": "27/10/2026, 09:28:05"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-8",
+            "question": "DESAFIO FINAL: COMPLETE A PALAVRA A-BA-CA-XI.",
+            "answer": "BATIDAS COMPLETAS 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 8",
+            "at": "27/10/2026, 09:28:20"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-2",
+            "question": "MARQUE AS DUAS PARTES DE BO-LA.",
+            "answer": "BATIDAS COMPLETAS 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 2",
+            "at": "27/10/2026, 09:28:31"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-1",
+            "question": "BATA UMA VEZ PARA CADA PARTE DE SOL.",
+            "answer": "BATIDAS COMPLETAS 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 1",
+            "at": "27/10/2026, 09:28:36"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-6",
+            "question": "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.",
+            "answer": "BATIDAS COMPLETAS 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 6",
+            "at": "27/10/2026, 09:28:54"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-3",
+            "question": "MARQUE AS TRÊS PARTES DE JA-CA-RÉ.",
+            "answer": "BATIDAS COMPLETAS 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 3",
+            "at": "27/10/2026, 09:29:04"
+          },
+          {
+            "questionId": "fase-1-s-martelo-pedacos-5",
+            "question": "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.",
+            "answer": "BATIDAS COMPLETAS 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 0,
+            "kind": "syllable-hammer",
+            "correctAnswer": "BATIDAS COMPLETAS 5",
+            "at": "27/10/2026, 09:29:23"
+          },
+          {
+            "questionId": "fase-2-w3-pistas-skate-2-1",
+            "question": "Quantas partes faladas tem JA-CA-RÉ?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "4",
+              "2",
+              "3"
+            ],
+            "correctAnswer": "3",
+            "visual": "🚗",
+            "at": "27/10/2026, 09:29:46"
+          },
+          {
+            "questionId": "fase-2-w3-lancador-foguetes-2-2",
+            "question": "Marque uma letra em cada pedaço de MA-CA-CO.",
+            "answer": "XYZ",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "order",
+            "options": [
+              "X",
+              "Y",
+              "Z"
+            ],
+            "correctAnswer": "YZX",
+            "visual": "🏠",
+            "at": "27/10/2026, 09:30:07"
+          },
+          {
+            "questionId": "fase-2-w3-lancador-foguetes-2-2",
+            "question": "Marque uma letra em cada pedaço de MA-CA-CO.",
+            "answer": "XYZ",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "order",
+            "options": [
+              "X",
+              "Y",
+              "Z"
+            ],
+            "correctAnswer": "YZX",
+            "hint": "Observe todas as opções com calma e compare os sons.",
+            "visual": "🏠",
+            "at": "27/10/2026, 09:30:08"
+          },
+          {
+            "questionId": "fase-2-w3-maquina-chicletes-2-0",
+            "question": "Quantas partes faladas tem SA-PA-TO?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "4",
+              "3",
+              "2"
+            ],
+            "correctAnswer": "3",
+            "visual": "🌼",
+            "at": "27/10/2026, 09:30:23"
+          },
+          {
+            "questionId": "fase-2-w3-carimbador-passaportes-2-3",
+            "question": "Quantas partes faladas tem E-LE-FAN-TE?",
+            "answer": "4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "5",
+              "3",
+              "4"
+            ],
+            "correctAnswer": "4",
+            "visual": "🐝",
+            "at": "27/10/2026, 09:30:37"
+          },
+          {
+            "questionId": "fase-2-w3-maestro-tambores-2-6",
+            "question": "Quantas partes faladas tem CA-SA?",
+            "answer": "2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "3",
+              "1",
+              "2"
+            ],
+            "correctAnswer": "2",
+            "visual": "☀️",
+            "at": "27/10/2026, 09:30:48"
+          },
+          {
+            "questionId": "fase-2-w3-balanco-macacos-2-7",
+            "question": "Quantas partes faladas tem BO-LA?",
+            "answer": "2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "1",
+              "3",
+              "2"
+            ],
+            "correctAnswer": "2",
+            "visual": "🐟",
+            "at": "27/10/2026, 09:30:56"
+          },
+          {
+            "questionId": "fase-2-w3-degraus-musicais-2-4",
+            "question": "Quantas partes faladas tem GE-LEI-A?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "2",
+              "4",
+              "3"
+            ],
+            "correctAnswer": "3",
+            "visual": "🍎",
+            "at": "27/10/2026, 09:31:07"
+          },
+          {
+            "questionId": "fase-2-w3-alvo-flechas-2-5",
+            "question": "Marque uma letra em cada pedaço de BI-CI-CLE-TA.",
+            "answer": "YYXZ",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "order",
+            "options": [
+              "Y",
+              "Y",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "YZXY",
+            "visual": "⭐",
+            "at": "27/10/2026, 09:31:25"
+          },
+          {
+            "questionId": "fase-2-w3-alvo-flechas-2-5",
+            "question": "Marque uma letra em cada pedaço de BI-CI-CLE-TA.",
+            "answer": "YYXZ",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 3,
+            "phase": 1,
+            "kind": "order",
+            "options": [
+              "Y",
+              "Y",
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "YZXY",
+            "hint": "Olhe para a figura e preste atenção ao começo e ao final.",
+            "visual": "⭐",
+            "at": "27/10/2026, 09:31:26"
+          },
+          {
+            "questionId": "fase-3-w3-carimbador-passaportes-3-2",
+            "question": "Quantas partes faladas tem GE-LEI-A?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "3",
+              "2",
+              "4"
+            ],
+            "correctAnswer": "3",
+            "visual": "🍎",
+            "at": "27/10/2026, 09:31:55"
+          },
+          {
+            "questionId": "fase-3-w3-degraus-musicais-3-3",
+            "question": "Quantas partes faladas tem BI-CI-CLE-TA?",
+            "answer": "3",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "4",
+              "5",
+              "3"
+            ],
+            "correctAnswer": "4",
+            "visual": "⭐",
+            "at": "27/10/2026, 09:32:23"
+          },
+          {
+            "questionId": "fase-3-w3-degraus-musicais-3-3",
+            "question": "Quantas partes faladas tem BI-CI-CLE-TA?",
+            "answer": "5",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "4",
+              "5",
+              "3"
+            ],
+            "correctAnswer": "4",
+            "hint": "Olhe para a figura e preste atenção ao começo e ao final.",
+            "visual": "⭐",
+            "at": "27/10/2026, 09:32:26"
+          },
+          {
+            "questionId": "fase-3-w3-balanco-macacos-3-6",
+            "question": "Quantas partes faladas tem SA-PA-TO?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "3",
+              "4",
+              "2"
+            ],
+            "correctAnswer": "3",
+            "visual": "🌼",
+            "at": "27/10/2026, 09:32:36"
+          },
+          {
+            "questionId": "fase-3-w3-alvo-flechas-3-4",
+            "question": "Marque uma letra em cada pedaço de CA-SA.",
+            "answer": "XZ",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "order",
+            "options": [
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "ZX",
+            "visual": "☀️",
+            "at": "27/10/2026, 09:32:46"
+          },
+          {
+            "questionId": "fase-3-w3-alvo-flechas-3-4",
+            "question": "Marque uma letra em cada pedaço de CA-SA.",
+            "answer": "ZX",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "order",
+            "options": [
+              "X",
+              "Z"
+            ],
+            "correctAnswer": "ZX",
+            "hint": "Fale as opções devagar e escolha a que combina melhor.",
+            "visual": "☀️",
+            "at": "27/10/2026, 09:32:51"
+          },
+          {
+            "questionId": "fase-3-w3-pipocas-quantidade-3-7",
+            "question": "Marque uma letra em cada pedaço de JA-CA-RÉ.",
+            "answer": "ZXY",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "order",
+            "options": [
+              "Z",
+              "X",
+              "Y"
+            ],
+            "correctAnswer": "ZXY",
+            "visual": "🚗",
+            "at": "27/10/2026, 09:33:01"
+          },
+          {
+            "questionId": "fase-3-w3-lancador-foguetes-3-1",
+            "question": "Marque uma letra em cada pedaço de E-LE-FAN-TE.",
+            "answer": "XZYZ",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "order",
+            "options": [
+              "X",
+              "Z",
+              "Y",
+              "Z"
+            ],
+            "correctAnswer": "ZXYZ",
+            "visual": "🐝",
+            "at": "27/10/2026, 09:33:12"
+          },
+          {
+            "questionId": "fase-3-w3-lancador-foguetes-3-1",
+            "question": "Marque uma letra em cada pedaço de E-LE-FAN-TE.",
+            "answer": "XZYZ",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "order",
+            "options": [
+              "X",
+              "Z",
+              "Y",
+              "Z"
+            ],
+            "correctAnswer": "ZXYZ",
+            "hint": "Pense no que a pergunta está pedindo e elimine a opção que não combina.",
+            "visual": "🐝",
+            "at": "27/10/2026, 09:33:14"
+          },
+          {
+            "questionId": "fase-3-w3-maestro-tambores-3-5",
+            "question": "Quantas partes faladas tem BO-LA?",
+            "answer": "2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "2",
+              "3",
+              "1"
+            ],
+            "correctAnswer": "2",
+            "visual": "🐟",
+            "at": "27/10/2026, 09:33:20"
+          },
+          {
+            "questionId": "fase-3-w3-pistas-skate-3-0",
+            "question": "Quantas partes faladas tem MA-CA-CO?",
+            "answer": "3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 3,
+            "phase": 2,
+            "kind": "choice",
+            "options": [
+              "4",
+              "3",
+              "2"
+            ],
+            "correctAnswer": "3",
+            "visual": "🏠",
+            "at": "27/10/2026, 09:33:30"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-2",
+            "question": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
+            "answer": "B",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "B",
+            "at": "27/10/2026, 09:34:02"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-1",
+            "question": "ESCOLHA A FÔRMA IGUAL À LETRA A.",
+            "answer": "A",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "A",
+            "at": "27/10/2026, 09:34:14"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-4",
+            "question": "ESCOLHA A FÔRMA DA LETRA M.",
+            "answer": "M",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "M",
+            "at": "27/10/2026, 09:34:22"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-8",
+            "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+            "answer": "S",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "S",
+            "at": "27/10/2026, 09:34:30"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-6",
+            "question": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.",
+            "answer": "a",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "a",
+            "at": "27/10/2026, 09:34:38"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-5",
+            "question": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
+            "answer": "E",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "E",
+            "at": "27/10/2026, 09:34:44"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-7",
+            "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+            "answer": "r",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "R",
+            "at": "27/10/2026, 09:34:50"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-7",
+            "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+            "answer": "R",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "R",
+            "hint": "Escolha a única fôrma que repete exatamente a letra R mostrada.",
+            "at": "27/10/2026, 09:34:54"
+          },
+          {
+            "questionId": "fase-1-abc-molde-biscoito-3",
+            "question": "A LETRA C QUER VIRAR BISCOITO. QUAL FÔRMA COMBINA?",
+            "answer": "C",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 0,
+            "kind": "cookie-mold",
+            "correctAnswer": "C",
+            "at": "27/10/2026, 09:35:06"
+          },
+          {
+            "questionId": "fase-2-w1-caverna-ecos-2-5",
+            "question": "Qual cartão combina com a letra D?",
+            "answer": "D",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "B",
+              "P",
+              "D"
+            ],
+            "correctAnswer": "D",
+            "visual": "⭐",
+            "at": "27/10/2026, 09:35:32"
+          },
+          {
+            "questionId": "fase-2-w1-salto-canguru-2-0",
+            "question": "Qual cartão combina com a letra P?",
+            "answer": "P",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 1,
+            "phase": 1,
+            "kind": "choice",
+            "options": [
+              "B",
+              "D",
+              "P"
+            ],
+            "correctAnswer": "P",
+            "visual": "🌼",
+            "at": "27/10/2026, 09:35:53"
+          }
+        ],
         "gameState": {
-          "screen": "placement",
-          "placementIndex": 0,
-          "placementScore": 0,
+          "screen": "map",
+          "profile": {
+            "placementCompleted": true,
+            "studentId": "student-davi-de-souza-belentani",
+            "name": "Davi de Souza Belentani",
+            "partner": "Lumi",
+            "currentWorld": 3,
+            "recommendedWorld": 3,
+            "coins": 116,
+            "xp": 116,
+            "eggs": 4,
+            "eggCollection": [
+              {
+                "id": "egg-1793104165615",
+                "rarity": "epico",
+                "progress": 3,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793104287920",
+                "rarity": "comum",
+                "progress": 2,
+                "required": 2,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793104412195",
+                "rarity": "comum",
+                "progress": 1,
+                "required": 2,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793104508009",
+                "rarity": "epico",
+                "progress": 0,
+                "required": 4,
+                "hatched": false
+              }
+            ],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true,
+            "sessionToken": "1793103817242-h3ck390j8w"
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 21,
+          "placementScore": 14,
           "placementAttempts": 0,
-          "placementResults": [],
-          "placementQueue": []
+          "placementResults": [
+            {
+              "questionId": "nivel-o-acento",
+              "question": "Qual escrita está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-risco",
+              "question": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "correct": true,
+              "attempts": 1,
+              "drawing": "data:image/png;base64,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"
+            },
+            {
+              "questionId": "nivel-p-letra",
+              "question": "Qual destes é uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-cedilha",
+              "question": "Qual palavra está correta?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-monta",
+              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-rabisco",
+              "question": "Qual desenho parece uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-final",
+              "question": "Qual letra termina GATO?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-tamanho",
+              "question": "Qual palavra tem mais letras?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-inicio",
+              "question": "Qual sílaba começa BO-LA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-ditado",
+              "question": "Qual escrita corresponde a MESA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-inicial",
+              "question": "QUAL LETRA COMEÇA BOLA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-problema",
+              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-ordem",
+              "question": "QUAL LETRA VEM DEPOIS DE C?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-palmas",
+              "question": "Quantas sílabas tem CA-SA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": true,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [],
+          "activeWorld": 1,
+          "selectedWorld": 1,
+          "activePhase": 1,
+          "queue": [
+            {
+              "id": "fase-2-w1-caverna-ecos-2-5",
+              "kind": "choice",
+              "prompt": "Qual cartão combina com a letra D?",
+              "options": [
+                "B",
+                "P",
+                "D"
+              ],
+              "answer": "D",
+              "hint": "Procure o desenho da letra D.",
+              "visual": "⭐",
+              "activity": "caverna-ecos",
+              "activityIndex": 1,
+              "audioText": "D",
+              "targetWord": "D",
+              "displayPrompt": "Qual cartão combina com a letra D?"
+            },
+            {
+              "id": "fase-2-w1-salto-canguru-2-0",
+              "kind": "choice",
+              "prompt": "Qual cartão combina com a letra P?",
+              "options": [
+                "B",
+                "D",
+                "P"
+              ],
+              "answer": "P",
+              "hint": "Procure o desenho da letra P.",
+              "visual": "🌼",
+              "activity": "salto-canguru",
+              "activityIndex": 1,
+              "audioText": "P",
+              "targetWord": "P",
+              "displayPrompt": "Qual cartão combina com a letra P?"
+            },
+            {
+              "id": "fase-2-w1-escultura-argila-2-6",
+              "kind": "choice",
+              "prompt": "Qual cartão combina com a letra P?",
+              "options": [
+                "P",
+                "B",
+                "D"
+              ],
+              "answer": "P",
+              "hint": "Procure o desenho da letra P.",
+              "visual": "☀️",
+              "activity": "escultura-argila",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w1-quebra-cabeca-neon-2-2",
+              "kind": "choice",
+              "prompt": "Qual cartão combina com a letra D?",
+              "options": [
+                "B",
+                "P",
+                "D"
+              ],
+              "answer": "D",
+              "hint": "Procure o desenho da letra D.",
+              "visual": "🏠",
+              "activity": "quebra-cabeca-neon",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w1-carga-trem-2-4",
+              "kind": "choice",
+              "prompt": "Qual cartão representa a letra B na ordem pedida?",
+              "options": [
+                "B",
+                "X",
+                "Y"
+              ],
+              "answer": "B",
+              "hint": "Comece pelo cartão que mostra a letra pedida.",
+              "visual": "🍎",
+              "activity": "carga-trem",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w1-letras-gemeas-2-3",
+              "kind": "choice",
+              "prompt": "Qual cartão combina com a letra P?",
+              "options": [
+                "B",
+                "D",
+                "P"
+              ],
+              "answer": "P",
+              "hint": "Procure o desenho da letra P.",
+              "visual": "🐝",
+              "activity": "letras-gemeas",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w1-canhao-tinta-2-1",
+              "kind": "choice",
+              "prompt": "Qual cartão representa a letra B na ordem pedida?",
+              "options": [
+                "B",
+                "X",
+                "Y"
+              ],
+              "answer": "B",
+              "hint": "Comece pelo cartão que mostra a letra pedida.",
+              "visual": "🚗",
+              "activity": "canhao-tinta",
+              "activityIndex": 1
+            },
+            {
+              "id": "fase-2-w1-pescaria-alfabetica-2-7",
+              "kind": "choice",
+              "prompt": "Qual cartão representa a letra B na ordem pedida?",
+              "options": [
+                "X",
+                "Y",
+                "B"
+              ],
+              "answer": "B",
+              "hint": "Comece pelo cartão que mostra a letra pedida.",
+              "visual": "🐟",
+              "activity": "pescaria-alfabetica",
+              "activityIndex": 1
+            }
+          ],
+          "questionIndex": 2,
+          "attempts": 0,
+          "roundScore": 2,
+          "feedback": null,
+          "completions": {
+            "3:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:29:25.614Z"
+            },
+            "3:1": {
+              "score": 6,
+              "total": 8,
+              "date": "2026-10-27T12:31:27.920Z"
+            },
+            "3:2": {
+              "score": 6,
+              "total": 8,
+              "date": "2026-10-27T12:33:32.195Z"
+            },
+            "1:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:35:08.009Z"
+            }
+          },
+          "worldApprovals": {},
+          "answers": [
+            {
+              "questionId": "fase-1-s-martelo-pedacos-7",
+              "question": "MARQUE TODAS AS PARTES DE BOR-BO-LE-TA.",
+              "answer": "BATIDAS COMPLETAS 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 7",
+              "at": "27/10/2026, 09:27:50"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-4",
+              "question": "O MACACO PRECISA DE UMA BATIDA PARA CADA PEDAÇO.",
+              "answer": "BATIDAS COMPLETAS 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 4",
+              "at": "27/10/2026, 09:28:05"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-8",
+              "question": "DESAFIO FINAL: COMPLETE A PALAVRA A-BA-CA-XI.",
+              "answer": "BATIDAS COMPLETAS 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 8",
+              "at": "27/10/2026, 09:28:20"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-2",
+              "question": "MARQUE AS DUAS PARTES DE BO-LA.",
+              "answer": "BATIDAS COMPLETAS 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 2",
+              "at": "27/10/2026, 09:28:31"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-1",
+              "question": "BATA UMA VEZ PARA CADA PARTE DE SOL.",
+              "answer": "BATIDAS COMPLETAS 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 1",
+              "at": "27/10/2026, 09:28:36"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-6",
+              "question": "FAÇA O TREM ANDAR COM BI-CI-CLE-TA.",
+              "answer": "BATIDAS COMPLETAS 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 6",
+              "at": "27/10/2026, 09:28:54"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-3",
+              "question": "MARQUE AS TRÊS PARTES DE JA-CA-RÉ.",
+              "answer": "BATIDAS COMPLETAS 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 3",
+              "at": "27/10/2026, 09:29:04"
+            },
+            {
+              "questionId": "fase-1-s-martelo-pedacos-5",
+              "question": "CONTE OS QUATRO PEDAÇOS DE E-LE-FAN-TE.",
+              "answer": "BATIDAS COMPLETAS 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 0,
+              "kind": "syllable-hammer",
+              "correctAnswer": "BATIDAS COMPLETAS 5",
+              "at": "27/10/2026, 09:29:23"
+            },
+            {
+              "questionId": "fase-2-w3-pistas-skate-2-1",
+              "question": "Quantas partes faladas tem JA-CA-RÉ?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "4",
+                "2",
+                "3"
+              ],
+              "correctAnswer": "3",
+              "visual": "🚗",
+              "at": "27/10/2026, 09:29:46"
+            },
+            {
+              "questionId": "fase-2-w3-lancador-foguetes-2-2",
+              "question": "Marque uma letra em cada pedaço de MA-CA-CO.",
+              "answer": "XYZ",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "order",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "correctAnswer": "YZX",
+              "visual": "🏠",
+              "at": "27/10/2026, 09:30:07"
+            },
+            {
+              "questionId": "fase-2-w3-lancador-foguetes-2-2",
+              "question": "Marque uma letra em cada pedaço de MA-CA-CO.",
+              "answer": "XYZ",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "order",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "correctAnswer": "YZX",
+              "hint": "Observe todas as opções com calma e compare os sons.",
+              "visual": "🏠",
+              "at": "27/10/2026, 09:30:08"
+            },
+            {
+              "questionId": "fase-2-w3-maquina-chicletes-2-0",
+              "question": "Quantas partes faladas tem SA-PA-TO?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "4",
+                "3",
+                "2"
+              ],
+              "correctAnswer": "3",
+              "visual": "🌼",
+              "at": "27/10/2026, 09:30:23"
+            },
+            {
+              "questionId": "fase-2-w3-carimbador-passaportes-2-3",
+              "question": "Quantas partes faladas tem E-LE-FAN-TE?",
+              "answer": "4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "5",
+                "3",
+                "4"
+              ],
+              "correctAnswer": "4",
+              "visual": "🐝",
+              "at": "27/10/2026, 09:30:37"
+            },
+            {
+              "questionId": "fase-2-w3-maestro-tambores-2-6",
+              "question": "Quantas partes faladas tem CA-SA?",
+              "answer": "2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "3",
+                "1",
+                "2"
+              ],
+              "correctAnswer": "2",
+              "visual": "☀️",
+              "at": "27/10/2026, 09:30:48"
+            },
+            {
+              "questionId": "fase-2-w3-balanco-macacos-2-7",
+              "question": "Quantas partes faladas tem BO-LA?",
+              "answer": "2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "1",
+                "3",
+                "2"
+              ],
+              "correctAnswer": "2",
+              "visual": "🐟",
+              "at": "27/10/2026, 09:30:56"
+            },
+            {
+              "questionId": "fase-2-w3-degraus-musicais-2-4",
+              "question": "Quantas partes faladas tem GE-LEI-A?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "2",
+                "4",
+                "3"
+              ],
+              "correctAnswer": "3",
+              "visual": "🍎",
+              "at": "27/10/2026, 09:31:07"
+            },
+            {
+              "questionId": "fase-2-w3-alvo-flechas-2-5",
+              "question": "Marque uma letra em cada pedaço de BI-CI-CLE-TA.",
+              "answer": "YYXZ",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "order",
+              "options": [
+                "Y",
+                "Y",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "YZXY",
+              "visual": "⭐",
+              "at": "27/10/2026, 09:31:25"
+            },
+            {
+              "questionId": "fase-2-w3-alvo-flechas-2-5",
+              "question": "Marque uma letra em cada pedaço de BI-CI-CLE-TA.",
+              "answer": "YYXZ",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 3,
+              "phase": 1,
+              "kind": "order",
+              "options": [
+                "Y",
+                "Y",
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "YZXY",
+              "hint": "Olhe para a figura e preste atenção ao começo e ao final.",
+              "visual": "⭐",
+              "at": "27/10/2026, 09:31:26"
+            },
+            {
+              "questionId": "fase-3-w3-carimbador-passaportes-3-2",
+              "question": "Quantas partes faladas tem GE-LEI-A?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "3",
+                "2",
+                "4"
+              ],
+              "correctAnswer": "3",
+              "visual": "🍎",
+              "at": "27/10/2026, 09:31:55"
+            },
+            {
+              "questionId": "fase-3-w3-degraus-musicais-3-3",
+              "question": "Quantas partes faladas tem BI-CI-CLE-TA?",
+              "answer": "3",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "4",
+                "5",
+                "3"
+              ],
+              "correctAnswer": "4",
+              "visual": "⭐",
+              "at": "27/10/2026, 09:32:23"
+            },
+            {
+              "questionId": "fase-3-w3-degraus-musicais-3-3",
+              "question": "Quantas partes faladas tem BI-CI-CLE-TA?",
+              "answer": "5",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "4",
+                "5",
+                "3"
+              ],
+              "correctAnswer": "4",
+              "hint": "Olhe para a figura e preste atenção ao começo e ao final.",
+              "visual": "⭐",
+              "at": "27/10/2026, 09:32:26"
+            },
+            {
+              "questionId": "fase-3-w3-balanco-macacos-3-6",
+              "question": "Quantas partes faladas tem SA-PA-TO?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "3",
+                "4",
+                "2"
+              ],
+              "correctAnswer": "3",
+              "visual": "🌼",
+              "at": "27/10/2026, 09:32:36"
+            },
+            {
+              "questionId": "fase-3-w3-alvo-flechas-3-4",
+              "question": "Marque uma letra em cada pedaço de CA-SA.",
+              "answer": "XZ",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "order",
+              "options": [
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "ZX",
+              "visual": "☀️",
+              "at": "27/10/2026, 09:32:46"
+            },
+            {
+              "questionId": "fase-3-w3-alvo-flechas-3-4",
+              "question": "Marque uma letra em cada pedaço de CA-SA.",
+              "answer": "ZX",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "order",
+              "options": [
+                "X",
+                "Z"
+              ],
+              "correctAnswer": "ZX",
+              "hint": "Fale as opções devagar e escolha a que combina melhor.",
+              "visual": "☀️",
+              "at": "27/10/2026, 09:32:51"
+            },
+            {
+              "questionId": "fase-3-w3-pipocas-quantidade-3-7",
+              "question": "Marque uma letra em cada pedaço de JA-CA-RÉ.",
+              "answer": "ZXY",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "order",
+              "options": [
+                "Z",
+                "X",
+                "Y"
+              ],
+              "correctAnswer": "ZXY",
+              "visual": "🚗",
+              "at": "27/10/2026, 09:33:01"
+            },
+            {
+              "questionId": "fase-3-w3-lancador-foguetes-3-1",
+              "question": "Marque uma letra em cada pedaço de E-LE-FAN-TE.",
+              "answer": "XZYZ",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "order",
+              "options": [
+                "X",
+                "Z",
+                "Y",
+                "Z"
+              ],
+              "correctAnswer": "ZXYZ",
+              "visual": "🐝",
+              "at": "27/10/2026, 09:33:12"
+            },
+            {
+              "questionId": "fase-3-w3-lancador-foguetes-3-1",
+              "question": "Marque uma letra em cada pedaço de E-LE-FAN-TE.",
+              "answer": "XZYZ",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "order",
+              "options": [
+                "X",
+                "Z",
+                "Y",
+                "Z"
+              ],
+              "correctAnswer": "ZXYZ",
+              "hint": "Pense no que a pergunta está pedindo e elimine a opção que não combina.",
+              "visual": "🐝",
+              "at": "27/10/2026, 09:33:14"
+            },
+            {
+              "questionId": "fase-3-w3-maestro-tambores-3-5",
+              "question": "Quantas partes faladas tem BO-LA?",
+              "answer": "2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "2",
+                "3",
+                "1"
+              ],
+              "correctAnswer": "2",
+              "visual": "🐟",
+              "at": "27/10/2026, 09:33:20"
+            },
+            {
+              "questionId": "fase-3-w3-pistas-skate-3-0",
+              "question": "Quantas partes faladas tem MA-CA-CO?",
+              "answer": "3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 3,
+              "phase": 2,
+              "kind": "choice",
+              "options": [
+                "4",
+                "3",
+                "2"
+              ],
+              "correctAnswer": "3",
+              "visual": "🏠",
+              "at": "27/10/2026, 09:33:30"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-2",
+              "question": "ENCONTRE A FÔRMA IGUAL À LETRA B.",
+              "answer": "B",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "B",
+              "at": "27/10/2026, 09:34:02"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-1",
+              "question": "ESCOLHA A FÔRMA IGUAL À LETRA A.",
+              "answer": "A",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "A",
+              "at": "27/10/2026, 09:34:14"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-4",
+              "question": "ESCOLHA A FÔRMA DA LETRA M.",
+              "answer": "M",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "M",
+              "at": "27/10/2026, 09:34:22"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-8",
+              "question": "DESAFIO FINAL: MOLDE A LETRA S SEM SE DEIXAR ENGANAR.",
+              "answer": "S",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "S",
+              "at": "27/10/2026, 09:34:30"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-6",
+              "question": "AGORA A LETRA APARECE PEQUENINA: ENCONTRE A FÔRMA DE a.",
+              "answer": "a",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "a",
+              "at": "27/10/2026, 09:34:38"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-5",
+              "question": "QUAL FÔRMA TEM O MESMO DESENHO DA LETRA E?",
+              "answer": "E",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "E",
+              "at": "27/10/2026, 09:34:44"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-7",
+              "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+              "answer": "r",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "R",
+              "at": "27/10/2026, 09:34:50"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-7",
+              "question": "A COZINHA MISTUROU LETRAS GRANDES E PEQUENAS. ACHE A FÔRMA DE R.",
+              "answer": "R",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "R",
+              "hint": "Escolha a única fôrma que repete exatamente a letra R mostrada.",
+              "at": "27/10/2026, 09:34:54"
+            },
+            {
+              "questionId": "fase-1-abc-molde-biscoito-3",
+              "question": "A LETRA C QUER VIRAR BISCOITO. QUAL FÔRMA COMBINA?",
+              "answer": "C",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 0,
+              "kind": "cookie-mold",
+              "correctAnswer": "C",
+              "at": "27/10/2026, 09:35:06"
+            },
+            {
+              "questionId": "fase-2-w1-caverna-ecos-2-5",
+              "question": "Qual cartão combina com a letra D?",
+              "answer": "D",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "B",
+                "P",
+                "D"
+              ],
+              "correctAnswer": "D",
+              "visual": "⭐",
+              "at": "27/10/2026, 09:35:32"
+            },
+            {
+              "questionId": "fase-2-w1-salto-canguru-2-0",
+              "question": "Qual cartão combina com a letra P?",
+              "answer": "P",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 1,
+              "phase": 1,
+              "kind": "choice",
+              "options": [
+                "B",
+                "D",
+                "P"
+              ],
+              "correctAnswer": "P",
+              "visual": "🌼",
+              "at": "27/10/2026, 09:35:53"
+            }
+          ],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-27T00:14:28.268Z"
+      "updatedAt": "2026-10-27T12:40:23.473Z",
+      "activeSession": {
+        "token": "1793103817242-h3ck390j8w",
+        "lastSeen": 1793104960780
+      }
     },
     "student-davi-souza-ventura": {
       "id": "student-davi-souza-ventura",
@@ -3439,22 +5094,22 @@
       "id": "student-isaque-ferreira",
       "name": "ISAQUE FERREIRA",
       "status": {
-        "placementCompleted": false,
-        "currentWorld": 0,
-        "recommendedWorld": 0,
-        "activeScreen": "placement",
-        "activeWorld": 0,
+        "placementCompleted": true,
+        "currentWorld": 5,
+        "recommendedWorld": 5,
+        "activeScreen": "profile",
+        "activeWorld": 5,
         "activePhase": 0,
-        "questionIndex": 0
+        "questionIndex": 3
       },
       "save": {
         "profile": {
-          "placementCompleted": false,
+          "placementCompleted": true,
           "studentId": "student-isaque-ferreira",
           "name": "ISAQUE FERREIRA",
           "partner": "Lumi",
-          "currentWorld": 0,
-          "recommendedWorld": 0,
+          "currentWorld": 5,
+          "recommendedWorld": 5,
           "coins": 20,
           "xp": 0,
           "eggs": 0,
@@ -3469,16 +5124,154 @@
         },
         "completions": {},
         "worldApprovals": {},
-        "answers": [],
+        "answers": [
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:26:05"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:26:10"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "BOBOLETAT",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:27:37"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:29:31"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:29:39"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-8",
+            "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+            "answer": "BORBOLETA",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "BORBOLETA",
+            "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+            "visual": "🦋",
+            "at": "27/10/2026, 09:30:24"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-7",
+            "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": false,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "ELEFANTE",
+            "visual": "🐘",
+            "at": "27/10/2026, 09:32:00"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-7",
+            "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+            "answer": "__tempo_esgotado__",
+            "correct": false,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "ELEFANTE",
+            "hint": "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.",
+            "visual": "🐘",
+            "at": "27/10/2026, 09:32:06"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-7",
+            "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+            "answer": "ELEFANTE",
+            "correct": true,
+            "usedHint": true,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "ELEFANTE",
+            "hint": "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.",
+            "visual": "🐘",
+            "at": "27/10/2026, 09:32:45"
+          },
+          {
+            "questionId": "fase-1-a-maquina-escrever-2",
+            "question": "Ouça a palavra e escreva-a no balão antes que ele atravesse o rio.",
+            "answer": "PATO",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 5,
+            "phase": 0,
+            "kind": "jet-writer",
+            "correctAnswer": "PATO",
+            "visual": "🦆",
+            "at": "27/10/2026, 09:33:20"
+          }
+        ],
         "gameState": {
-          "screen": "placement",
+          "screen": "profile",
           "profile": {
-            "placementCompleted": false,
+            "placementCompleted": true,
             "studentId": "student-isaque-ferreira",
             "name": "ISAQUE FERREIRA",
             "partner": "Lumi",
-            "currentWorld": 0,
-            "recommendedWorld": 0,
+            "currentWorld": 5,
+            "recommendedWorld": 5,
             "coins": 20,
             "xp": 0,
             "eggs": 0,
@@ -3492,8 +5285,8 @@
             "sessionToken": "1793103629507-rzabo7l3vu"
           },
           "setupAudioEnabled": true,
-          "placementIndex": 4,
-          "placementScore": 4,
+          "placementIndex": 21,
+          "placementScore": 18,
           "placementAttempts": 0,
           "placementResults": [
             {
@@ -3519,294 +5312,379 @@
               "question": "Qual palavra está escrita corretamente?",
               "correct": true,
               "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-cedilha",
+              "question": "Qual palavra está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-acento",
+              "question": "Qual escrita está correta?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-tamanho",
+              "question": "Qual palavra tem mais letras?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-risco",
+              "question": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "correct": true,
+              "attempts": 1,
+              "drawing": "data:image/png;base64,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"
+            },
+            {
+              "questionId": "nivel-abc-ordem",
+              "question": "QUAL LETRA VEM DEPOIS DE C?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-ditado",
+              "question": "Qual escrita corresponde a MESA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-monta",
+              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-problema",
+              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-inicial",
+              "question": "QUAL LETRA COMEÇA BOLA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-inicio",
+              "question": "Qual sílaba começa BO-LA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-letra",
+              "question": "Qual destes é uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-palmas",
+              "question": "Quantas sílabas tem CA-SA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": true,
+              "attempts": 1
             }
           ],
-          "placementQueue": [
-            {
-              "id": "nivel-g-rabisco",
-              "kind": "choice",
-              "prompt": "Qual desenho parece uma letra?",
-              "options": [
-                "○",
-                "☀",
-                "A"
-              ],
-              "answer": "A",
-              "hint": "Uma letra pode fazer parte de uma palavra."
-            },
-            {
-              "id": "nivel-sa-final",
-              "kind": "choice",
-              "prompt": "Qual letra termina GATO?",
-              "options": [
-                "T",
-                "O",
-                "A"
-              ],
-              "answer": "O",
-              "hint": "Olhe para o fim da palavra."
-            },
-            {
-              "id": "nivel-g-forma",
-              "kind": "choice",
-              "prompt": "Qual forma é redonda?",
-              "options": [
-                "□",
-                "○",
-                "△"
-              ],
-              "answer": "○",
-              "hint": "Procure a forma que parece uma bola."
-            },
-            {
-              "id": "nivel-o-rr",
-              "kind": "choice",
-              "prompt": "Qual palavra está escrita corretamente?",
-              "options": [
-                "CARRU",
-                "CARO",
-                "CARRO"
-              ],
-              "answer": "CARRO",
-              "hint": "O som forte de R no meio usa RR."
-            },
-            {
-              "id": "nivel-o-cedilha",
-              "kind": "choice",
-              "prompt": "Qual palavra está correta?",
-              "options": [
-                "CORASAO",
-                "CORAÇÃO",
-                "CORASÃO"
-              ],
-              "answer": "CORAÇÃO",
-              "hint": "A cedilha faz som de S antes de A."
-            },
-            {
-              "id": "nivel-o-acento",
-              "kind": "choice",
-              "prompt": "Qual escrita está correta?",
-              "options": [
-                "mamae",
-                "mamãe",
-                "mãmae"
-              ],
-              "answer": "mamãe",
-              "hint": "Observe o til e o acento."
-            },
-            {
-              "id": "nivel-p-tamanho",
-              "kind": "choice",
-              "prompt": "Qual palavra tem mais letras?",
-              "options": [
-                "SOL",
-                "BOLA",
-                "BORBOLETA"
-              ],
-              "answer": "BORBOLETA",
-              "hint": "Compare o tamanho das palavras."
-            },
-            {
-              "id": "nivel-a-frase",
-              "kind": "choice",
-              "prompt": "Qual frase está escrita corretamente?",
-              "options": [
-                "Dorme gato o.",
-                "O gato dorme.",
-                "gato O dorme."
-              ],
-              "answer": "O gato dorme.",
-              "hint": "Frases começam com maiúscula e terminam com ponto."
-            },
-            {
-              "id": "nivel-a-rima",
-              "kind": "choice",
-              "prompt": "Qual palavra rima com GATO?",
-              "options": [
-                "LUA",
-                "MESA",
-                "PATO"
-              ],
-              "answer": "PATO",
-              "hint": "GATO e PATO terminam igual."
-            },
-            {
-              "id": "nivel-g-risco",
-              "kind": "draw",
-              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
-              "answer": "__drawing__",
-              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
-              "visual": "〰"
-            },
-            {
-              "id": "nivel-abc-ordem",
-              "kind": "choice",
-              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
-              "options": [
-                "E",
-                "B",
-                "D"
-              ],
-              "answer": "D",
-              "hint": "FALE: A, B, C, D."
-            },
-            {
-              "id": "nivel-sa-ditado",
-              "kind": "choice",
-              "prompt": "Qual escrita corresponde a MESA?",
-              "options": [
-                "SEMA",
-                "MESA",
-                "MEZA"
-              ],
-              "answer": "MESA",
-              "hint": "Procure M-E-S-A."
-            },
-            {
-              "id": "nivel-abc-a",
-              "kind": "choice",
-              "prompt": "QUAL É A LETRA A?",
-              "options": [
-                "M",
-                "A",
-                "O"
-              ],
-              "answer": "A",
-              "hint": "PROCURE A LETRA A."
-            },
-            {
-              "id": "nivel-s-monta",
-              "kind": "order",
-              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-              "options": [
-                "PA",
-                "TO"
-              ],
-              "answer": "PATO",
-              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
-              "visual": "🦆",
-              "audioText": "PATO"
-            },
-            {
-              "id": "nivel-g-quantidade",
-              "kind": "choice",
-              "prompt": "CONTE AS ESTRELAS ABAIXO.",
-              "options": [
-                "3",
-                "2",
-                "4"
-              ],
-              "answer": "3",
-              "hint": "CONTE CADA ESTRELA.",
-              "visual": "★ ★ ★"
-            },
-            {
-              "id": "nivel-a-problema",
-              "kind": "choice",
-              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
-              "options": [
-                "4",
-                "2",
-                "3"
-              ],
-              "answer": "3",
-              "hint": "Comece com cinco e retire duas."
-            },
-            {
-              "id": "nivel-abc-inicial",
-              "kind": "choice",
-              "prompt": "QUAL LETRA COMEÇA BOLA?",
-              "options": [
-                "P",
-                "B",
-                "D"
-              ],
-              "answer": "B",
-              "hint": "O SOM INICIAL É BÊÊÊ."
-            },
-            {
-              "id": "nivel-s-inicio",
-              "kind": "choice",
-              "prompt": "Qual sílaba começa BO-LA?",
-              "options": [
-                "BO",
-                "LA",
-                "BA"
-              ],
-              "answer": "BO",
-              "hint": "Fale devagar: BO-LA."
-            },
-            {
-              "id": "nivel-p-numero",
-              "kind": "choice",
-              "prompt": "Qual destes é um número?",
-              "options": [
-                "☁",
-                "7",
-                "B"
-              ],
-              "answer": "7",
-              "hint": "Números ajudam a contar."
-            },
-            {
-              "id": "nivel-p-letra",
-              "kind": "choice",
-              "prompt": "Qual destes é uma letra?",
-              "options": [
-                "M",
-                "8",
-                "△"
-              ],
-              "answer": "M",
-              "hint": "Letras servem para escrever."
-            },
-            {
-              "id": "nivel-s-palmas",
-              "kind": "choice",
-              "prompt": "Quantas sílabas tem CA-SA?",
-              "options": [
-                "2",
-                "1",
-                "3"
-              ],
-              "answer": "2",
-              "hint": "Bata duas palmas: CA / SA."
-            },
-            {
-              "id": "nivel-sa-completa",
-              "kind": "choice",
-              "prompt": "Complete: CA _ A",
-              "options": [
-                "S",
-                "T",
-                "P"
-              ],
-              "answer": "S",
-              "hint": "A palavra é CASA."
-            }
-          ],
-          "activeWorld": 0,
-          "selectedWorld": 0,
+          "placementQueue": [],
+          "activeWorld": 5,
+          "selectedWorld": 5,
           "activePhase": 0,
-          "queue": [],
-          "questionIndex": 0,
+          "queue": [
+            {
+              "id": "fase-1-a-maquina-escrever-8",
+              "kind": "jet-writer",
+              "prompt": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "BORBOLETA",
+              "targetWord": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "activity": "maquina-escrever",
+              "activityIndex": 7,
+              "writerSeconds": 95
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-7",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "ELEFANTE",
+              "targetWord": "ELEFANTE",
+              "hint": "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.",
+              "visual": "🐘",
+              "activity": "maquina-escrever",
+              "activityIndex": 6,
+              "writerSeconds": 85
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-2",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e escreva-a no balão antes que ele atravesse o rio.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "PATO",
+              "targetWord": "PATO",
+              "hint": "PATO começa com P e termina com O. Escute os dois sons que ficam no meio.",
+              "visual": "🦆",
+              "activity": "maquina-escrever",
+              "activityIndex": 1,
+              "writerSeconds": 45
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-4",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e digite cada letra para ajudar a Lumi a encontrar a porta.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "CASA",
+              "targetWord": "CASA",
+              "hint": "CASA tem quatro letras. Escute: C, A, S, A. Não pule nenhuma.",
+              "visual": "🏠",
+              "activity": "maquina-escrever",
+              "activityIndex": 3,
+              "writerSeconds": 50
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-6",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e escreva-a letra por letra para o balão subir até a árvore.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "MACACO",
+              "targetWord": "MACACO",
+              "hint": "MACACO tem seis letras e começa com M. Repita os sons devagar e confira cada posição.",
+              "visual": "🐒",
+              "activity": "maquina-escrever",
+              "activityIndex": 5,
+              "writerSeconds": 70
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-1",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e escreva-a no balão antes que ele toque os espinhos no alto.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "SOL",
+              "targetWord": "SOL",
+              "hint": "SOL tem três letras. Escute devagar: S, depois O, e termine com L.",
+              "visual": "☀️",
+              "activity": "maquina-escrever",
+              "activityIndex": 0,
+              "writerSeconds": 45
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-3",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra e escreva cada letra para ajudar o balão a ganhar altura.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "BOLA",
+              "targetWord": "BOLA",
+              "hint": "BOLA começa com B. Depois do B vêm O, L e A, nessa ordem.",
+              "visual": "⚽",
+              "activity": "maquina-escrever",
+              "activityIndex": 2,
+              "writerSeconds": 50
+            },
+            {
+              "id": "fase-1-a-maquina-escrever-5",
+              "kind": "jet-writer",
+              "prompt": "Ouça a palavra, pense nos sons e escreva cada letra na ordem.",
+              "displayPrompt": "ESCREVA A PALAVRA QUE A LUMI VAI DITAR, LETRA POR LETRA.",
+              "answer": "JANELA",
+              "targetWord": "JANELA",
+              "hint": "JANELA começa com J e termina com A. Escute os sons entre essas letras.",
+              "visual": "🪟",
+              "activity": "maquina-escrever",
+              "activityIndex": 4,
+              "writerSeconds": 65
+            }
+          ],
+          "questionIndex": 3,
           "attempts": 0,
-          "roundScore": 0,
+          "roundScore": 3,
           "feedback": null,
           "completions": {},
           "worldApprovals": {},
-          "answers": [],
+          "answers": [
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:26:05"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:26:10"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "BOBOLETAT",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:27:37"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:29:31"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:29:39"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-8",
+              "question": "Desafio final: ouça a palavra e escreva-a do primeiro ao último som.",
+              "answer": "BORBOLETA",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "BORBOLETA",
+              "hint": "BORBOLETA tem nove letras. Fale devagar: BOR-BO-LE-TA. Confira as letras de cada parte.",
+              "visual": "🦋",
+              "at": "27/10/2026, 09:30:24"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-7",
+              "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": false,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "ELEFANTE",
+              "visual": "🐘",
+              "at": "27/10/2026, 09:32:00"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-7",
+              "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+              "answer": "__tempo_esgotado__",
+              "correct": false,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "ELEFANTE",
+              "hint": "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.",
+              "visual": "🐘",
+              "at": "27/10/2026, 09:32:06"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-7",
+              "question": "Ouça a palavra e escreva cada letra antes que o balão alcance as nuvens.",
+              "answer": "ELEFANTE",
+              "correct": true,
+              "usedHint": true,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "ELEFANTE",
+              "hint": "ELEFANTE tem oito letras. Divida o som em partes: E-LE-FAN-TE e escreva cada letra na ordem.",
+              "visual": "🐘",
+              "at": "27/10/2026, 09:32:45"
+            },
+            {
+              "questionId": "fase-1-a-maquina-escrever-2",
+              "question": "Ouça a palavra e escreva-a no balão antes que ele atravesse o rio.",
+              "answer": "PATO",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 5,
+              "phase": 0,
+              "kind": "jet-writer",
+              "correctAnswer": "PATO",
+              "visual": "🦆",
+              "at": "27/10/2026, 09:33:20"
+            }
+          ],
           "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
           "questionBankVersion": 10
         }
       },
-      "activeSession": {
-        "token": "1793103629507-rzabo7l3vu",
-        "lastSeen": 1793104078576
-      },
-      "updatedAt": "2026-10-27T12:27:58.576Z"
+      "updatedAt": "2026-10-27T12:40:29.419Z"
     },
     "student-liz-farina": {
       "id": "student-liz-farina",
@@ -4062,21 +5940,379 @@
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
-          "audioEnabled": true
+          "audioEnabled": true,
+          "sessionToken": "1793104479778-xb182aca3kj"
         },
         "completions": {},
         "worldApprovals": {},
         "answers": [],
         "gameState": {
           "screen": "placement",
-          "placementIndex": 0,
-          "placementScore": 0,
+          "profile": {
+            "placementCompleted": false,
+            "studentId": "student-paola-bezerra",
+            "name": "Paola Bezerra",
+            "partner": "Lumi",
+            "currentWorld": 0,
+            "recommendedWorld": 0,
+            "coins": 20,
+            "xp": 0,
+            "eggs": 0,
+            "eggCollection": [],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true,
+            "sessionToken": "1793104479778-xb182aca3kj"
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 9,
+          "placementScore": 4,
           "placementAttempts": 0,
-          "placementResults": [],
-          "placementQueue": []
+          "placementResults": [
+            {
+              "questionId": "nivel-abc-ordem",
+              "question": "QUAL LETRA VEM DEPOIS DE C?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-inicio",
+              "question": "Qual sílaba começa BO-LA?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-rabisco",
+              "question": "Qual desenho parece uma letra?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-ditado",
+              "question": "Qual escrita corresponde a MESA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-letra",
+              "question": "Qual destes é uma letra?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-monta",
+              "question": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [
+            {
+              "id": "nivel-abc-ordem",
+              "kind": "choice",
+              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
+              "options": [
+                "D",
+                "E",
+                "B"
+              ],
+              "answer": "D",
+              "hint": "FALE: A, B, C, D."
+            },
+            {
+              "id": "nivel-s-inicio",
+              "kind": "choice",
+              "prompt": "Qual sílaba começa BO-LA?",
+              "options": [
+                "LA",
+                "BA",
+                "BO"
+              ],
+              "answer": "BO",
+              "hint": "Fale devagar: BO-LA."
+            },
+            {
+              "id": "nivel-p-numero",
+              "kind": "choice",
+              "prompt": "Qual destes é um número?",
+              "options": [
+                "7",
+                "☁",
+                "B"
+              ],
+              "answer": "7",
+              "hint": "Números ajudam a contar."
+            },
+            {
+              "id": "nivel-g-rabisco",
+              "kind": "choice",
+              "prompt": "Qual desenho parece uma letra?",
+              "options": [
+                "○",
+                "A",
+                "☀"
+              ],
+              "answer": "A",
+              "hint": "Uma letra pode fazer parte de uma palavra."
+            },
+            {
+              "id": "nivel-sa-ditado",
+              "kind": "choice",
+              "prompt": "Qual escrita corresponde a MESA?",
+              "options": [
+                "MEZA",
+                "MESA",
+                "SEMA"
+              ],
+              "answer": "MESA",
+              "hint": "Procure M-E-S-A."
+            },
+            {
+              "id": "nivel-p-letra",
+              "kind": "choice",
+              "prompt": "Qual destes é uma letra?",
+              "options": [
+                "△",
+                "8",
+                "M"
+              ],
+              "answer": "M",
+              "hint": "Letras servem para escrever."
+            },
+            {
+              "id": "nivel-s-monta",
+              "kind": "order",
+              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "options": [
+                "TO",
+                "PA"
+              ],
+              "answer": "PATO",
+              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+              "visual": "🦆",
+              "audioText": "PATO"
+            },
+            {
+              "id": "nivel-o-rr",
+              "kind": "choice",
+              "prompt": "Qual palavra está escrita corretamente?",
+              "options": [
+                "CARRO",
+                "CARRU",
+                "CARO"
+              ],
+              "answer": "CARRO",
+              "hint": "O som forte de R no meio usa RR."
+            },
+            {
+              "id": "nivel-g-quantidade",
+              "kind": "choice",
+              "prompt": "CONTE AS ESTRELAS ABAIXO.",
+              "options": [
+                "4",
+                "3",
+                "2"
+              ],
+              "answer": "3",
+              "hint": "CONTE CADA ESTRELA.",
+              "visual": "★ ★ ★"
+            },
+            {
+              "id": "nivel-s-palmas",
+              "kind": "choice",
+              "prompt": "Quantas sílabas tem CA-SA?",
+              "options": [
+                "3",
+                "1",
+                "2"
+              ],
+              "answer": "2",
+              "hint": "Bata duas palmas: CA / SA."
+            },
+            {
+              "id": "nivel-p-tamanho",
+              "kind": "choice",
+              "prompt": "Qual palavra tem mais letras?",
+              "options": [
+                "BOLA",
+                "SOL",
+                "BORBOLETA"
+              ],
+              "answer": "BORBOLETA",
+              "hint": "Compare o tamanho das palavras."
+            },
+            {
+              "id": "nivel-g-forma",
+              "kind": "choice",
+              "prompt": "Qual forma é redonda?",
+              "options": [
+                "○",
+                "□",
+                "△"
+              ],
+              "answer": "○",
+              "hint": "Procure a forma que parece uma bola."
+            },
+            {
+              "id": "nivel-abc-inicial",
+              "kind": "choice",
+              "prompt": "QUAL LETRA COMEÇA BOLA?",
+              "options": [
+                "P",
+                "D",
+                "B"
+              ],
+              "answer": "B",
+              "hint": "O SOM INICIAL É BÊÊÊ."
+            },
+            {
+              "id": "nivel-abc-a",
+              "kind": "choice",
+              "prompt": "QUAL É A LETRA A?",
+              "options": [
+                "O",
+                "A",
+                "M"
+              ],
+              "answer": "A",
+              "hint": "PROCURE A LETRA A."
+            },
+            {
+              "id": "nivel-sa-final",
+              "kind": "choice",
+              "prompt": "Qual letra termina GATO?",
+              "options": [
+                "O",
+                "T",
+                "A"
+              ],
+              "answer": "O",
+              "hint": "Olhe para o fim da palavra."
+            },
+            {
+              "id": "nivel-a-rima",
+              "kind": "choice",
+              "prompt": "Qual palavra rima com GATO?",
+              "options": [
+                "LUA",
+                "MESA",
+                "PATO"
+              ],
+              "answer": "PATO",
+              "hint": "GATO e PATO terminam igual."
+            },
+            {
+              "id": "nivel-o-cedilha",
+              "kind": "choice",
+              "prompt": "Qual palavra está correta?",
+              "options": [
+                "CORASÃO",
+                "CORAÇÃO",
+                "CORASAO"
+              ],
+              "answer": "CORAÇÃO",
+              "hint": "A cedilha faz som de S antes de A."
+            },
+            {
+              "id": "nivel-o-acento",
+              "kind": "choice",
+              "prompt": "Qual escrita está correta?",
+              "options": [
+                "mãmae",
+                "mamãe",
+                "mamae"
+              ],
+              "answer": "mamãe",
+              "hint": "Observe o til e o acento."
+            },
+            {
+              "id": "nivel-a-frase",
+              "kind": "choice",
+              "prompt": "Qual frase está escrita corretamente?",
+              "options": [
+                "Dorme gato o.",
+                "O gato dorme.",
+                "gato O dorme."
+              ],
+              "answer": "O gato dorme.",
+              "hint": "Frases começam com maiúscula e terminam com ponto."
+            },
+            {
+              "id": "nivel-sa-completa",
+              "kind": "choice",
+              "prompt": "Complete: CA _ A",
+              "options": [
+                "T",
+                "P",
+                "S"
+              ],
+              "answer": "S",
+              "hint": "A palavra é CASA."
+            },
+            {
+              "id": "nivel-g-risco",
+              "kind": "draw",
+              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "answer": "__drawing__",
+              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
+              "visual": "〰"
+            },
+            {
+              "id": "nivel-a-problema",
+              "kind": "choice",
+              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "options": [
+                "4",
+                "3",
+                "2"
+              ],
+              "answer": "3",
+              "hint": "Comece com cinco e retire duas."
+            }
+          ],
+          "activeWorld": 0,
+          "selectedWorld": 0,
+          "activePhase": 0,
+          "queue": [],
+          "questionIndex": 0,
+          "attempts": 0,
+          "roundScore": 0,
+          "feedback": null,
+          "completions": {},
+          "worldApprovals": {},
+          "answers": [],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-27T00:14:28.268Z"
+      "activeSession": {
+        "token": "1793104479778-xb182aca3kj",
+        "lastSeen": 1793104975372
+      },
+      "updatedAt": "2026-10-27T12:42:55.372Z"
     },
     "student-pedro-henrique": {
       "id": "student-pedro-henrique",
@@ -4107,21 +6343,391 @@
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
-          "audioEnabled": true
+          "audioEnabled": true,
+          "sessionToken": "1793104731916-gyzf2sh4zqb"
         },
         "completions": {},
         "worldApprovals": {},
         "answers": [],
         "gameState": {
           "screen": "placement",
-          "placementIndex": 0,
-          "placementScore": 0,
+          "profile": {
+            "placementCompleted": false,
+            "studentId": "student-pedro-henrique",
+            "name": "PEDRO HENRIQUE",
+            "partner": "Lumi",
+            "currentWorld": 0,
+            "recommendedWorld": 0,
+            "coins": 20,
+            "xp": 0,
+            "eggs": 0,
+            "eggCollection": [],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true,
+            "sessionToken": "1793104731916-gyzf2sh4zqb"
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 11,
+          "placementScore": 8,
           "placementAttempts": 0,
-          "placementResults": [],
-          "placementQueue": []
+          "placementResults": [
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-cedilha",
+              "question": "Qual palavra está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-tamanho",
+              "question": "Qual palavra tem mais letras?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-acento",
+              "question": "Qual escrita está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-ordem",
+              "question": "QUAL LETRA VEM DEPOIS DE C?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [
+            {
+              "id": "nivel-sa-completa",
+              "kind": "choice",
+              "prompt": "Complete: CA _ A",
+              "options": [
+                "S",
+                "P",
+                "T"
+              ],
+              "answer": "S",
+              "hint": "A palavra é CASA."
+            },
+            {
+              "id": "nivel-o-cedilha",
+              "kind": "choice",
+              "prompt": "Qual palavra está correta?",
+              "options": [
+                "CORASÃO",
+                "CORASAO",
+                "CORAÇÃO"
+              ],
+              "answer": "CORAÇÃO",
+              "hint": "A cedilha faz som de S antes de A."
+            },
+            {
+              "id": "nivel-p-tamanho",
+              "kind": "choice",
+              "prompt": "Qual palavra tem mais letras?",
+              "options": [
+                "SOL",
+                "BORBOLETA",
+                "BOLA"
+              ],
+              "answer": "BORBOLETA",
+              "hint": "Compare o tamanho das palavras."
+            },
+            {
+              "id": "nivel-a-rima",
+              "kind": "choice",
+              "prompt": "Qual palavra rima com GATO?",
+              "options": [
+                "LUA",
+                "PATO",
+                "MESA"
+              ],
+              "answer": "PATO",
+              "hint": "GATO e PATO terminam igual."
+            },
+            {
+              "id": "nivel-abc-a",
+              "kind": "choice",
+              "prompt": "QUAL É A LETRA A?",
+              "options": [
+                "M",
+                "O",
+                "A"
+              ],
+              "answer": "A",
+              "hint": "PROCURE A LETRA A."
+            },
+            {
+              "id": "nivel-p-numero",
+              "kind": "choice",
+              "prompt": "Qual destes é um número?",
+              "options": [
+                "7",
+                "☁",
+                "B"
+              ],
+              "answer": "7",
+              "hint": "Números ajudam a contar."
+            },
+            {
+              "id": "nivel-g-forma",
+              "kind": "choice",
+              "prompt": "Qual forma é redonda?",
+              "options": [
+                "□",
+                "△",
+                "○"
+              ],
+              "answer": "○",
+              "hint": "Procure a forma que parece uma bola."
+            },
+            {
+              "id": "nivel-o-acento",
+              "kind": "choice",
+              "prompt": "Qual escrita está correta?",
+              "options": [
+                "mamae",
+                "mamãe",
+                "mãmae"
+              ],
+              "answer": "mamãe",
+              "hint": "Observe o til e o acento."
+            },
+            {
+              "id": "nivel-abc-ordem",
+              "kind": "choice",
+              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
+              "options": [
+                "E",
+                "D",
+                "B"
+              ],
+              "answer": "D",
+              "hint": "FALE: A, B, C, D."
+            },
+            {
+              "id": "nivel-g-quantidade",
+              "kind": "choice",
+              "prompt": "CONTE AS ESTRELAS ABAIXO.",
+              "options": [
+                "2",
+                "3",
+                "4"
+              ],
+              "answer": "3",
+              "hint": "CONTE CADA ESTRELA.",
+              "visual": "★ ★ ★"
+            },
+            {
+              "id": "nivel-a-frase",
+              "kind": "choice",
+              "prompt": "Qual frase está escrita corretamente?",
+              "options": [
+                "O gato dorme.",
+                "Dorme gato o.",
+                "gato O dorme."
+              ],
+              "answer": "O gato dorme.",
+              "hint": "Frases começam com maiúscula e terminam com ponto."
+            },
+            {
+              "id": "nivel-sa-final",
+              "kind": "choice",
+              "prompt": "Qual letra termina GATO?",
+              "options": [
+                "A",
+                "T",
+                "O"
+              ],
+              "answer": "O",
+              "hint": "Olhe para o fim da palavra."
+            },
+            {
+              "id": "nivel-o-rr",
+              "kind": "choice",
+              "prompt": "Qual palavra está escrita corretamente?",
+              "options": [
+                "CARO",
+                "CARRO",
+                "CARRU"
+              ],
+              "answer": "CARRO",
+              "hint": "O som forte de R no meio usa RR."
+            },
+            {
+              "id": "nivel-sa-ditado",
+              "kind": "choice",
+              "prompt": "Qual escrita corresponde a MESA?",
+              "options": [
+                "SEMA",
+                "MEZA",
+                "MESA"
+              ],
+              "answer": "MESA",
+              "hint": "Procure M-E-S-A."
+            },
+            {
+              "id": "nivel-g-risco",
+              "kind": "draw",
+              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "answer": "__drawing__",
+              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
+              "visual": "〰"
+            },
+            {
+              "id": "nivel-s-palmas",
+              "kind": "choice",
+              "prompt": "Quantas sílabas tem CA-SA?",
+              "options": [
+                "1",
+                "3",
+                "2"
+              ],
+              "answer": "2",
+              "hint": "Bata duas palmas: CA / SA."
+            },
+            {
+              "id": "nivel-abc-inicial",
+              "kind": "choice",
+              "prompt": "QUAL LETRA COMEÇA BOLA?",
+              "options": [
+                "B",
+                "P",
+                "D"
+              ],
+              "answer": "B",
+              "hint": "O SOM INICIAL É BÊÊÊ."
+            },
+            {
+              "id": "nivel-s-inicio",
+              "kind": "choice",
+              "prompt": "Qual sílaba começa BO-LA?",
+              "options": [
+                "BO",
+                "LA",
+                "BA"
+              ],
+              "answer": "BO",
+              "hint": "Fale devagar: BO-LA."
+            },
+            {
+              "id": "nivel-s-monta",
+              "kind": "order",
+              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "options": [
+                "TO",
+                "PA"
+              ],
+              "answer": "PATO",
+              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+              "visual": "🦆",
+              "audioText": "PATO"
+            },
+            {
+              "id": "nivel-p-letra",
+              "kind": "choice",
+              "prompt": "Qual destes é uma letra?",
+              "options": [
+                "△",
+                "M",
+                "8"
+              ],
+              "answer": "M",
+              "hint": "Letras servem para escrever."
+            },
+            {
+              "id": "nivel-a-problema",
+              "kind": "choice",
+              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "options": [
+                "4",
+                "3",
+                "2"
+              ],
+              "answer": "3",
+              "hint": "Comece com cinco e retire duas."
+            },
+            {
+              "id": "nivel-g-rabisco",
+              "kind": "choice",
+              "prompt": "Qual desenho parece uma letra?",
+              "options": [
+                "A",
+                "○",
+                "☀"
+              ],
+              "answer": "A",
+              "hint": "Uma letra pode fazer parte de uma palavra."
+            }
+          ],
+          "activeWorld": 0,
+          "selectedWorld": 0,
+          "activePhase": 0,
+          "queue": [],
+          "questionIndex": 0,
+          "attempts": 0,
+          "roundScore": 0,
+          "feedback": null,
+          "completions": {},
+          "worldApprovals": {},
+          "answers": [],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-27T00:14:28.268Z"
+      "activeSession": {
+        "token": "1793104731916-gyzf2sh4zqb",
+        "lastSeen": 1793104974974
+      },
+      "updatedAt": "2026-10-27T12:42:54.974Z"
     },
     "student-sofia-cochi": {
       "id": "student-sofia-cochi",
