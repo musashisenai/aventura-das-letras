@@ -15168,10 +15168,6 @@
           "questionBankVersion": 10
         }
       },
-      "activeSession": {
-        "token": "1793107155360-d0rn0yi3ug5",
-        "lastSeen": 1793108429169
-      },
       "updatedAt": "2026-10-27T13:40:29.169Z"
     },
     "student-heloisa-troiani": {
@@ -18765,10 +18761,6 @@
           "worldOrderVersion": 2,
           "questionBankVersion": 10
         }
-      },
-      "activeSession": {
-        "token": "1793107435502-giui7mlkw4r",
-        "lastSeen": 1793108433595
       },
       "updatedAt": "2026-10-27T13:40:33.595Z"
     },
@@ -25002,10 +24994,6 @@
           "worldOrderVersion": 2,
           "questionBankVersion": 10
         }
-      },
-      "activeSession": {
-        "token": "1793107323006-ytpldygcpq",
-        "lastSeen": 1793108430697
       },
       "updatedAt": "2026-10-27T13:40:30.697Z"
     },
