@@ -7,9 +7,9 @@
         "placementCompleted": true,
         "currentWorld": 0,
         "recommendedWorld": 0,
-        "activeScreen": "lesson",
+        "activeScreen": "profile",
         "activeWorld": 0,
-        "activePhase": 0,
+        "activePhase": 6,
         "questionIndex": 0
       },
       "save": {
@@ -20,10 +20,53 @@
           "partner": "Lumi",
           "currentWorld": 0,
           "recommendedWorld": 0,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
+          "coins": 176,
+          "xp": 192,
+          "eggs": 6,
+          "eggCollection": [
+            {
+              "id": "egg-1793103104208",
+              "rarity": "epico",
+              "progress": 4,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103191555",
+              "rarity": "epico",
+              "progress": 4,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103273430",
+              "rarity": "epico",
+              "progress": 3,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103418457",
+              "rarity": "epico",
+              "progress": 2,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103483764",
+              "rarity": "epico",
+              "progress": 1,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103606575",
+              "rarity": "epico",
+              "progress": 0,
+              "required": 4,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
@@ -32,11 +75,643 @@
           "audioEnabled": true,
           "sessionToken": "1793102830990-mfr88qvhe1"
         },
-        "completions": {},
+        "completions": {
+          "0:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:11:44.208Z"
+          },
+          "0:1": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:13:11.554Z"
+          },
+          "0:2": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:14:33.430Z"
+          },
+          "0:3": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:16:58.457Z"
+          },
+          "0:4": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:18:03.764Z"
+          },
+          "0:5": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:20:06.575Z"
+          }
+        },
         "worldApprovals": {},
-        "answers": [],
+        "answers": [
+          {
+            "questionId": "fase-1-g-chuva-sementes-8",
+            "question": "Complete o canteiro e revele a flor da Lumi.",
+            "answer": "CHUVA COMPLETA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 8",
+            "at": "27/10/2026, 09:10:36"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-6",
+            "question": "Faça nascer um pequeno jardim com seus movimentos.",
+            "answer": "CHUVA COMPLETA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 6",
+            "at": "27/10/2026, 09:10:54"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-7",
+            "question": "Siga a trilha pontilhada e acenda as sementes.",
+            "answer": "CHUVA COMPLETA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 7",
+            "at": "27/10/2026, 09:11:06"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-3",
+            "question": "Crie um caminho curvo para a flor abrir.",
+            "answer": "CHUVA COMPLETA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 3",
+            "at": "27/10/2026, 09:11:14"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-5",
+            "question": "Cubra a faixa de terra com um traço comprido.",
+            "answer": "CHUVA COMPLETA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 5",
+            "at": "27/10/2026, 09:11:24"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-4",
+            "question": "Plante sementes em dois caminhos que se encontram.",
+            "answer": "CHUVA COMPLETA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 4",
+            "at": "27/10/2026, 09:11:30"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-2",
+            "question": "Leve a chuva de sementes até o canteiro azul.",
+            "answer": "CHUVA COMPLETA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 2",
+            "at": "27/10/2026, 09:11:35"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-1",
+            "question": "Faça as sementes nascerem seguindo um caminho de terra.",
+            "answer": "CHUVA COMPLETA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 1",
+            "at": "27/10/2026, 09:11:43"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-2",
+            "question": "Ilumine a trilha e descubra quem está esperando.",
+            "answer": "LUZ COMPLETA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 2",
+            "at": "27/10/2026, 09:12:07"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-5",
+            "question": "Explore o céu escuro e encontre as formas brilhantes.",
+            "answer": "LUZ COMPLETA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 5",
+            "at": "27/10/2026, 09:12:35"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-3",
+            "question": "Procure as duas surpresas atrás da noite.",
+            "answer": "LUZ COMPLETA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 3",
+            "at": "27/10/2026, 09:12:42"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-8",
+            "question": "Ilumine o quarto inteiro e revele a grande surpresa.",
+            "answer": "LUZ COMPLETA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 8",
+            "at": "27/10/2026, 09:12:48"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-6",
+            "question": "Revele os amigos que estão brincando no escuro.",
+            "answer": "LUZ COMPLETA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 6",
+            "at": "27/10/2026, 09:12:52"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-1",
+            "question": "Encontre os brinquedos escondidos no quarto escuro.",
+            "answer": "LUZ COMPLETA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 1",
+            "at": "27/10/2026, 09:12:59"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-7",
+            "question": "Passe a luz pelo mapa e encontre os sinais secretos.",
+            "answer": "LUZ COMPLETA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 7",
+            "at": "27/10/2026, 09:13:04"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-4",
+            "question": "Acenda os objetos escondidos para abrir a janela.",
+            "answer": "LUZ COMPLETA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 4",
+            "at": "27/10/2026, 09:13:10"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-3",
+            "question": "CAMINHE PELAS ONDAS DA AREIA.",
+            "answer": "PEGADAS COMPLETAS 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 3",
+            "at": "27/10/2026, 09:13:31"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-3",
+            "question": "CAMINHE PELAS ONDAS DA AREIA.",
+            "answer": "PEGADAS COMPLETAS 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 3",
+            "at": "27/10/2026, 09:14:01"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-7",
+            "question": "ATRAVESSE A ROTA ESTREITA COM CUIDADO.",
+            "answer": "PEGADAS COMPLETAS 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 7",
+            "at": "27/10/2026, 09:14:06"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-2",
+            "question": "CONTORNE A DUNA PELA CURVA ATÉ O COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 2",
+            "at": "27/10/2026, 09:14:09"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-5",
+            "question": "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 5",
+            "at": "27/10/2026, 09:14:13"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-6",
+            "question": "SIGA AS PEGADAS NA ORDEM DAS CORES.",
+            "answer": "PEGADAS COMPLETAS 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 6",
+            "at": "27/10/2026, 09:14:17"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-1",
+            "question": "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 1",
+            "at": "27/10/2026, 09:14:21"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-8",
+            "question": "DESAFIO FINAL: ENCONTRE A RAMIFICAÇÃO QUE LEVA AO COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 8",
+            "at": "27/10/2026, 09:14:25"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-4",
+            "question": "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.",
+            "answer": "PEGADAS COMPLETAS 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 4",
+            "at": "27/10/2026, 09:14:32"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-4",
+            "question": "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.",
+            "answer": "POMAR LIMPO 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 4",
+            "at": "27/10/2026, 09:15:28"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-2",
+            "question": "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.",
+            "answer": "POMAR LIMPO 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 2",
+            "at": "27/10/2026, 09:15:46"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-1",
+            "question": "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.",
+            "answer": "POMAR LIMPO 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 1",
+            "at": "27/10/2026, 09:15:57"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-6",
+            "question": "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.",
+            "answer": "POMAR LIMPO 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 6",
+            "at": "27/10/2026, 09:16:15"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-5",
+            "question": "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.",
+            "answer": "POMAR LIMPO 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 5",
+            "at": "27/10/2026, 09:16:27"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-8",
+            "question": "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.",
+            "answer": "POMAR LIMPO 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 8",
+            "at": "27/10/2026, 09:16:36"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-3",
+            "question": "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.",
+            "answer": "POMAR LIMPO 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 3",
+            "at": "27/10/2026, 09:16:45"
+          },
+          {
+            "questionId": "fase-4-g-espanta-mosquitos-7",
+            "question": "SALVE A FRUTA MADURA COM GESTOS DE VARRER.",
+            "answer": "POMAR LIMPO 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 3,
+            "kind": "mosquito-sweep",
+            "correctAnswer": "POMAR LIMPO 7",
+            "at": "27/10/2026, 09:16:57"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-1",
+            "question": "GUIE O ÍMÃ E DESENHE UMA FORMA COM A LIMALHA.",
+            "answer": "FORMA MAGNÉTICA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 1",
+            "at": "27/10/2026, 09:17:16"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-6",
+            "question": "CRUZE O ATELIÊ E REVELE A FORMA ESCONDIDA.",
+            "answer": "FORMA MAGNÉTICA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 6",
+            "at": "27/10/2026, 09:17:27"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-8",
+            "question": "COMPLETE A GRANDE FIGURA MAGNÉTICA DA LUMI.",
+            "answer": "FORMA MAGNÉTICA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 8",
+            "at": "27/10/2026, 09:17:32"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-4",
+            "question": "DESENHE UMA ESPIRAL COM O ÍMÃ SEM SOLTAR O DEDO.",
+            "answer": "FORMA MAGNÉTICA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 4",
+            "at": "27/10/2026, 09:17:38"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-7",
+            "question": "DESENHE UMA ESTRELA COM LINHAS DE FERRO.",
+            "answer": "FORMA MAGNÉTICA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 7",
+            "at": "27/10/2026, 09:17:44"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-5",
+            "question": "FAÇA A LIMALHA DANÇAR E MONTE UM TRIÂNGULO.",
+            "answer": "FORMA MAGNÉTICA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 5",
+            "at": "27/10/2026, 09:17:48"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-3",
+            "question": "LIGUE OS PONTOS E FORME UM CÍRCULO DE LUZ.",
+            "answer": "FORMA MAGNÉTICA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 3",
+            "at": "27/10/2026, 09:17:57"
+          },
+          {
+            "questionId": "fase-5-g-pintura-ima-2",
+            "question": "CRIE UM CAMINHO CURVO COM AS PARTÍCULAS MAGNÉTICAS.",
+            "answer": "FORMA MAGNÉTICA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 4,
+            "kind": "magnet-paint",
+            "correctAnswer": "FORMA MAGNÉTICA 2",
+            "at": "27/10/2026, 09:18:03"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-2",
+            "question": "ENCONTRE O SORVETE DE MORANGO ATRÁS DO GELO.",
+            "answer": "IMAGEM REVELADA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 2",
+            "at": "27/10/2026, 09:18:25"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-7",
+            "question": "DESCONGELE A TELA E ENCONTRE O SORVETE.",
+            "answer": "IMAGEM REVELADA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 7",
+            "at": "27/10/2026, 09:18:41"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-1",
+            "question": "ESFREGUE O GELO E REVELE O SORVETE DE MORANGO.",
+            "answer": "IMAGEM REVELADA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 1",
+            "at": "27/10/2026, 09:18:55"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-3",
+            "question": "DERRETA A JANELA E DESCUBRA O SORVETE.",
+            "answer": "IMAGEM REVELADA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 3",
+            "at": "27/10/2026, 09:19:04"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-6",
+            "question": "FAÇA O GELO SUMIR E REVELE O SORVETE DE MORANGO.",
+            "answer": "IMAGEM REVELADA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 6",
+            "at": "27/10/2026, 09:19:31"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-4",
+            "question": "LIMPE O VIDRO GELADO PARA VER O SORVETE.",
+            "answer": "IMAGEM REVELADA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 4",
+            "at": "27/10/2026, 09:19:39"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-8",
+            "question": "REVELE POR COMPLETO A GRANDE SURPRESA GELADA.",
+            "answer": "IMAGEM REVELADA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 8",
+            "at": "27/10/2026, 09:19:49"
+          },
+          {
+            "questionId": "fase-6-g-descongelando-tela-5",
+            "question": "ABRA UM CAMINHO NO GELO ATÉ O SORVETE.",
+            "answer": "IMAGEM REVELADA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 5,
+            "kind": "ice-melt",
+            "correctAnswer": "IMAGEM REVELADA 5",
+            "at": "27/10/2026, 09:20:05"
+          },
+          {
+            "questionId": "fase-7-g-rolo-pintura-2",
+            "question": "CUBRA AS QUATRO FAIXAS COM O ROLO.",
+            "answer": "PINTURA COMPLETA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 6,
+            "kind": "paint-roller",
+            "correctAnswer": "PINTURA COMPLETA 2",
+            "at": "27/10/2026, 09:21:09"
+          }
+        ],
         "gameState": {
-          "screen": "lesson",
+          "screen": "profile",
           "profile": {
             "placementCompleted": true,
             "studentId": "student-amaya-santos",
@@ -44,10 +719,53 @@
             "partner": "Lumi",
             "currentWorld": 0,
             "recommendedWorld": 0,
-            "coins": 20,
-            "xp": 0,
-            "eggs": 0,
-            "eggCollection": [],
+            "coins": 176,
+            "xp": 192,
+            "eggs": 6,
+            "eggCollection": [
+              {
+                "id": "egg-1793103104208",
+                "rarity": "epico",
+                "progress": 4,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103191555",
+                "rarity": "epico",
+                "progress": 4,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103273430",
+                "rarity": "epico",
+                "progress": 3,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103418457",
+                "rarity": "epico",
+                "progress": 2,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103483764",
+                "rarity": "epico",
+                "progress": 1,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103606575",
+                "rarity": "epico",
+                "progress": 0,
+                "required": 4,
+                "hatched": false
+              }
+            ],
             "petLevel": 1,
             "petCare": 30,
             "petName": "Faísca",
@@ -198,107 +916,775 @@
           "placementQueue": [],
           "activeWorld": 0,
           "selectedWorld": 0,
-          "activePhase": 0,
+          "activePhase": 6,
           "queue": [
             {
-              "id": "fase-1-g-chuva-sementes-8",
-              "kind": "seed-rain",
-              "prompt": "Complete o canteiro e revele a flor da Lumi.",
-              "answer": "CHUVA COMPLETA 8",
-              "hint": "Explore todo o espaço de terra. O jardim floresce quando estiver pronto.",
-              "activity": "chuva-sementes",
-              "activityIndex": 7,
-              "seedTarget": 10
-            },
-            {
-              "id": "fase-1-g-chuva-sementes-6",
-              "kind": "seed-rain",
-              "prompt": "Faça nascer um pequeno jardim com seus movimentos.",
-              "answer": "CHUVA COMPLETA 6",
-              "hint": "Mude a direção quando quiser. Cada marca ajuda o jardim a crescer.",
-              "activity": "chuva-sementes",
+              "id": "fase-7-g-rolo-pintura-6",
+              "kind": "paint-roller",
+              "prompt": "PINTE SETE FAIXAS ALTERNANDO O SENTIDO.",
+              "answer": "PINTURA COMPLETA 6",
+              "hint": "Uma faixa começa à esquerda, a seguinte começa à direita. Cubra todas por inteiro.",
+              "activity": "rolo-pintura",
               "activityIndex": 5,
-              "seedTarget": 8
+              "rollerRows": 7,
+              "rollerColumns": 18,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "straight",
+              "rollerColor": "#6DBB75"
             },
             {
-              "id": "fase-1-g-chuva-sementes-7",
-              "kind": "seed-rain",
-              "prompt": "Siga a trilha pontilhada e acenda as sementes.",
-              "answer": "CHUVA COMPLETA 7",
-              "hint": "Acompanhe os pontos com um gesto contínuo.",
-              "activity": "chuva-sementes",
-              "activityIndex": 6,
-              "seedTarget": 9
-            },
-            {
-              "id": "fase-1-g-chuva-sementes-3",
-              "kind": "seed-rain",
-              "prompt": "Crie um caminho curvo para a flor abrir.",
-              "answer": "CHUVA COMPLETA 3",
-              "hint": "O caminho pode ser grande e livre. A flor acompanha o seu gesto.",
-              "activity": "chuva-sementes",
-              "activityIndex": 2,
-              "seedTarget": 5
-            },
-            {
-              "id": "fase-1-g-chuva-sementes-5",
-              "kind": "seed-rain",
-              "prompt": "Cubra a faixa de terra com um traço comprido.",
-              "answer": "CHUVA COMPLETA 5",
-              "hint": "Passe o dedo de uma ponta até a outra sem pressa.",
-              "activity": "chuva-sementes",
-              "activityIndex": 4,
-              "seedTarget": 7
-            },
-            {
-              "id": "fase-1-g-chuva-sementes-4",
-              "kind": "seed-rain",
-              "prompt": "Plante sementes em dois caminhos que se encontram.",
-              "answer": "CHUVA COMPLETA 4",
-              "hint": "Faça dois traços que cruzem a terra e espalhem pontos de vida.",
-              "activity": "chuva-sementes",
+              "id": "fase-7-g-rolo-pintura-4",
+              "kind": "paint-roller",
+              "prompt": "PREENCHA AS SEIS FAIXAS SEM DEIXAR BURACOS.",
+              "answer": "PINTURA COMPLETA 4",
+              "hint": "Use movimentos contínuos e alterne o lado de início em cada faixa.",
+              "activity": "rolo-pintura",
               "activityIndex": 3,
-              "seedTarget": 6
+              "rollerRows": 6,
+              "rollerColumns": 16,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "straight",
+              "rollerColor": "#9B7BD1"
             },
             {
-              "id": "fase-1-g-chuva-sementes-2",
-              "kind": "seed-rain",
-              "prompt": "Leve a chuva de sementes até o canteiro azul.",
-              "answer": "CHUVA COMPLETA 2",
-              "hint": "Trace uma linha contínua até o canteiro marcado.",
-              "activity": "chuva-sementes",
-              "activityIndex": 1,
-              "seedTarget": 4
+              "id": "fase-7-g-rolo-pintura-8",
+              "kind": "paint-roller",
+              "prompt": "COMPLETE O GRANDE MURAL COM O ROLO.",
+              "answer": "PINTURA COMPLETA 8",
+              "hint": "Cubra as oito faixas estreitas na ordem, alternando o sentido e seguindo o zigue-zague.",
+              "activity": "rolo-pintura",
+              "activityIndex": 7,
+              "rollerRows": 8,
+              "rollerColumns": 20,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "zigzag",
+              "rollerColor": "#D8689A"
             },
             {
-              "id": "fase-1-g-chuva-sementes-1",
-              "kind": "seed-rain",
-              "prompt": "Faça as sementes nascerem seguindo um caminho de terra.",
-              "answer": "CHUVA COMPLETA 1",
-              "hint": "Arraste o dedo devagar pela terra e observe as primeiras folhas.",
-              "activity": "chuva-sementes",
+              "id": "fase-7-g-rolo-pintura-1",
+              "kind": "paint-roller",
+              "prompt": "PASSE O ROLO E PINTE AS TRÊS FAIXAS.",
+              "answer": "PINTURA COMPLETA 1",
+              "hint": "Comece pela esquerda e cubra cada faixa até o fim.",
+              "activity": "rolo-pintura",
               "activityIndex": 0,
-              "seedTarget": 3
+              "rollerRows": 3,
+              "rollerColumns": 10,
+              "rollerOrdered": false,
+              "rollerDirection": "left",
+              "rollerPattern": "straight",
+              "rollerColor": "#F6B84B"
+            },
+            {
+              "id": "fase-7-g-rolo-pintura-2",
+              "kind": "paint-roller",
+              "prompt": "CUBRA AS QUATRO FAIXAS COM O ROLO.",
+              "answer": "PINTURA COMPLETA 2",
+              "hint": "As faixas são largas. Siga de uma ponta à outra, alternando os lados.",
+              "activity": "rolo-pintura",
+              "activityIndex": 1,
+              "rollerRows": 4,
+              "rollerColumns": 12,
+              "rollerOrdered": false,
+              "rollerDirection": "alternate",
+              "rollerPattern": "straight",
+              "rollerColor": "#F28C5C"
+            },
+            {
+              "id": "fase-7-g-rolo-pintura-3",
+              "kind": "paint-roller",
+              "prompt": "PINTE AS FAIXAS DE CIMA PARA BAIXO.",
+              "answer": "PINTURA COMPLETA 3",
+              "hint": "Agora siga a ordem: comece na faixa de cima e só depois passe para a próxima.",
+              "activity": "rolo-pintura",
+              "activityIndex": 2,
+              "rollerRows": 5,
+              "rollerColumns": 14,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "straight",
+              "rollerColor": "#E978A5"
+            },
+            {
+              "id": "fase-7-g-rolo-pintura-7",
+              "kind": "paint-roller",
+              "prompt": "DOMINE O ROLO NAS FAIXAS ESTREITAS.",
+              "answer": "PINTURA COMPLETA 7",
+              "hint": "Mantenha o rolo dentro da faixa e avance de cima para baixo, sem pular nenhuma.",
+              "activity": "rolo-pintura",
+              "activityIndex": 6,
+              "rollerRows": 8,
+              "rollerColumns": 18,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "zigzag",
+              "rollerColor": "#4B91D1"
+            },
+            {
+              "id": "fase-7-g-rolo-pintura-5",
+              "kind": "paint-roller",
+              "prompt": "SIGA O CAMINHO EM ZIGUE-ZAGUE COM O ROLO.",
+              "answer": "PINTURA COMPLETA 5",
+              "hint": "Passe pela faixa na ordem indicada; a próxima só acende quando a anterior estiver completa.",
+              "activity": "rolo-pintura",
+              "activityIndex": 4,
+              "rollerRows": 6,
+              "rollerColumns": 16,
+              "rollerOrdered": true,
+              "rollerDirection": "alternate",
+              "rollerPattern": "zigzag",
+              "rollerColor": "#57AFC1"
             }
           ],
           "questionIndex": 0,
           "attempts": 0,
           "roundScore": 0,
           "feedback": null,
-          "completions": {},
+          "completions": {
+            "0:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:11:44.208Z"
+            },
+            "0:1": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:13:11.554Z"
+            },
+            "0:2": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:14:33.430Z"
+            },
+            "0:3": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:16:58.457Z"
+            },
+            "0:4": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:18:03.764Z"
+            },
+            "0:5": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:20:06.575Z"
+            }
+          },
           "worldApprovals": {},
-          "answers": [],
+          "answers": [
+            {
+              "questionId": "fase-1-g-chuva-sementes-8",
+              "question": "Complete o canteiro e revele a flor da Lumi.",
+              "answer": "CHUVA COMPLETA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 8",
+              "at": "27/10/2026, 09:10:36"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-6",
+              "question": "Faça nascer um pequeno jardim com seus movimentos.",
+              "answer": "CHUVA COMPLETA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 6",
+              "at": "27/10/2026, 09:10:54"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-7",
+              "question": "Siga a trilha pontilhada e acenda as sementes.",
+              "answer": "CHUVA COMPLETA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 7",
+              "at": "27/10/2026, 09:11:06"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-3",
+              "question": "Crie um caminho curvo para a flor abrir.",
+              "answer": "CHUVA COMPLETA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 3",
+              "at": "27/10/2026, 09:11:14"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-5",
+              "question": "Cubra a faixa de terra com um traço comprido.",
+              "answer": "CHUVA COMPLETA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 5",
+              "at": "27/10/2026, 09:11:24"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-4",
+              "question": "Plante sementes em dois caminhos que se encontram.",
+              "answer": "CHUVA COMPLETA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 4",
+              "at": "27/10/2026, 09:11:30"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-2",
+              "question": "Leve a chuva de sementes até o canteiro azul.",
+              "answer": "CHUVA COMPLETA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 2",
+              "at": "27/10/2026, 09:11:35"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-1",
+              "question": "Faça as sementes nascerem seguindo um caminho de terra.",
+              "answer": "CHUVA COMPLETA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 1",
+              "at": "27/10/2026, 09:11:43"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-2",
+              "question": "Ilumine a trilha e descubra quem está esperando.",
+              "answer": "LUZ COMPLETA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 2",
+              "at": "27/10/2026, 09:12:07"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-5",
+              "question": "Explore o céu escuro e encontre as formas brilhantes.",
+              "answer": "LUZ COMPLETA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 5",
+              "at": "27/10/2026, 09:12:35"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-3",
+              "question": "Procure as duas surpresas atrás da noite.",
+              "answer": "LUZ COMPLETA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 3",
+              "at": "27/10/2026, 09:12:42"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-8",
+              "question": "Ilumine o quarto inteiro e revele a grande surpresa.",
+              "answer": "LUZ COMPLETA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 8",
+              "at": "27/10/2026, 09:12:48"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-6",
+              "question": "Revele os amigos que estão brincando no escuro.",
+              "answer": "LUZ COMPLETA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 6",
+              "at": "27/10/2026, 09:12:52"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-1",
+              "question": "Encontre os brinquedos escondidos no quarto escuro.",
+              "answer": "LUZ COMPLETA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 1",
+              "at": "27/10/2026, 09:12:59"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-7",
+              "question": "Passe a luz pelo mapa e encontre os sinais secretos.",
+              "answer": "LUZ COMPLETA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 7",
+              "at": "27/10/2026, 09:13:04"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-4",
+              "question": "Acenda os objetos escondidos para abrir a janela.",
+              "answer": "LUZ COMPLETA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 4",
+              "at": "27/10/2026, 09:13:10"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-3",
+              "question": "CAMINHE PELAS ONDAS DA AREIA.",
+              "answer": "PEGADAS COMPLETAS 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 3",
+              "at": "27/10/2026, 09:13:31"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-3",
+              "question": "CAMINHE PELAS ONDAS DA AREIA.",
+              "answer": "PEGADAS COMPLETAS 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 3",
+              "at": "27/10/2026, 09:14:01"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-7",
+              "question": "ATRAVESSE A ROTA ESTREITA COM CUIDADO.",
+              "answer": "PEGADAS COMPLETAS 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 7",
+              "at": "27/10/2026, 09:14:06"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-2",
+              "question": "CONTORNE A DUNA PELA CURVA ATÉ O COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 2",
+              "at": "27/10/2026, 09:14:09"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-5",
+              "question": "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 5",
+              "at": "27/10/2026, 09:14:13"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-6",
+              "question": "SIGA AS PEGADAS NA ORDEM DAS CORES.",
+              "answer": "PEGADAS COMPLETAS 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 6",
+              "at": "27/10/2026, 09:14:17"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-1",
+              "question": "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 1",
+              "at": "27/10/2026, 09:14:21"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-8",
+              "question": "DESAFIO FINAL: ENCONTRE A RAMIFICAÇÃO QUE LEVA AO COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 8",
+              "at": "27/10/2026, 09:14:25"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-4",
+              "question": "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.",
+              "answer": "PEGADAS COMPLETAS 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 4",
+              "at": "27/10/2026, 09:14:32"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-4",
+              "question": "DEIXE O POMAR TRANQUILO AFASTANDO TODOS OS INSETOS.",
+              "answer": "POMAR LIMPO 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 4",
+              "at": "27/10/2026, 09:15:28"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-2",
+              "question": "LIMPE O CACHO DE UVAS ANTES QUE OS MOSQUITOS CHEGUEM À FRUTA.",
+              "answer": "POMAR LIMPO 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 2",
+              "at": "27/10/2026, 09:15:46"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-1",
+              "question": "ESPANTE OS MOSQUITOS DA MAÇÃ COM GESTOS RÁPIDOS.",
+              "answer": "POMAR LIMPO 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 1",
+              "at": "27/10/2026, 09:15:57"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-6",
+              "question": "FAÇA UMA LIMPEZA RÁPIDA AO REDOR DO CESTO DE FRUTAS.",
+              "answer": "POMAR LIMPO 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 6",
+              "at": "27/10/2026, 09:16:15"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-5",
+              "question": "ESPANTE OS MOSQUITOS QUE RODEIAM A FRUTA AMARELA.",
+              "answer": "POMAR LIMPO 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 5",
+              "at": "27/10/2026, 09:16:27"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-8",
+              "question": "ESPANTE A ÚLTIMA NUVEM DE MOSQUITOS DO POMAR.",
+              "answer": "POMAR LIMPO 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 8",
+              "at": "27/10/2026, 09:16:36"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-3",
+              "question": "PROTEJA A PERA: EMPURRE OS INSETOS PARA FORA DA CENA.",
+              "answer": "POMAR LIMPO 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 3",
+              "at": "27/10/2026, 09:16:45"
+            },
+            {
+              "questionId": "fase-4-g-espanta-mosquitos-7",
+              "question": "SALVE A FRUTA MADURA COM GESTOS DE VARRER.",
+              "answer": "POMAR LIMPO 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 3,
+              "kind": "mosquito-sweep",
+              "correctAnswer": "POMAR LIMPO 7",
+              "at": "27/10/2026, 09:16:57"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-1",
+              "question": "GUIE O ÍMÃ E DESENHE UMA FORMA COM A LIMALHA.",
+              "answer": "FORMA MAGNÉTICA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 1",
+              "at": "27/10/2026, 09:17:16"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-6",
+              "question": "CRUZE O ATELIÊ E REVELE A FORMA ESCONDIDA.",
+              "answer": "FORMA MAGNÉTICA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 6",
+              "at": "27/10/2026, 09:17:27"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-8",
+              "question": "COMPLETE A GRANDE FIGURA MAGNÉTICA DA LUMI.",
+              "answer": "FORMA MAGNÉTICA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 8",
+              "at": "27/10/2026, 09:17:32"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-4",
+              "question": "DESENHE UMA ESPIRAL COM O ÍMÃ SEM SOLTAR O DEDO.",
+              "answer": "FORMA MAGNÉTICA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 4",
+              "at": "27/10/2026, 09:17:38"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-7",
+              "question": "DESENHE UMA ESTRELA COM LINHAS DE FERRO.",
+              "answer": "FORMA MAGNÉTICA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 7",
+              "at": "27/10/2026, 09:17:44"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-5",
+              "question": "FAÇA A LIMALHA DANÇAR E MONTE UM TRIÂNGULO.",
+              "answer": "FORMA MAGNÉTICA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 5",
+              "at": "27/10/2026, 09:17:48"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-3",
+              "question": "LIGUE OS PONTOS E FORME UM CÍRCULO DE LUZ.",
+              "answer": "FORMA MAGNÉTICA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 3",
+              "at": "27/10/2026, 09:17:57"
+            },
+            {
+              "questionId": "fase-5-g-pintura-ima-2",
+              "question": "CRIE UM CAMINHO CURVO COM AS PARTÍCULAS MAGNÉTICAS.",
+              "answer": "FORMA MAGNÉTICA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 4,
+              "kind": "magnet-paint",
+              "correctAnswer": "FORMA MAGNÉTICA 2",
+              "at": "27/10/2026, 09:18:03"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-2",
+              "question": "ENCONTRE O SORVETE DE MORANGO ATRÁS DO GELO.",
+              "answer": "IMAGEM REVELADA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 2",
+              "at": "27/10/2026, 09:18:25"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-7",
+              "question": "DESCONGELE A TELA E ENCONTRE O SORVETE.",
+              "answer": "IMAGEM REVELADA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 7",
+              "at": "27/10/2026, 09:18:41"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-1",
+              "question": "ESFREGUE O GELO E REVELE O SORVETE DE MORANGO.",
+              "answer": "IMAGEM REVELADA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 1",
+              "at": "27/10/2026, 09:18:55"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-3",
+              "question": "DERRETA A JANELA E DESCUBRA O SORVETE.",
+              "answer": "IMAGEM REVELADA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 3",
+              "at": "27/10/2026, 09:19:04"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-6",
+              "question": "FAÇA O GELO SUMIR E REVELE O SORVETE DE MORANGO.",
+              "answer": "IMAGEM REVELADA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 6",
+              "at": "27/10/2026, 09:19:31"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-4",
+              "question": "LIMPE O VIDRO GELADO PARA VER O SORVETE.",
+              "answer": "IMAGEM REVELADA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 4",
+              "at": "27/10/2026, 09:19:39"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-8",
+              "question": "REVELE POR COMPLETO A GRANDE SURPRESA GELADA.",
+              "answer": "IMAGEM REVELADA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 8",
+              "at": "27/10/2026, 09:19:49"
+            },
+            {
+              "questionId": "fase-6-g-descongelando-tela-5",
+              "question": "ABRA UM CAMINHO NO GELO ATÉ O SORVETE.",
+              "answer": "IMAGEM REVELADA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 5,
+              "kind": "ice-melt",
+              "correctAnswer": "IMAGEM REVELADA 5",
+              "at": "27/10/2026, 09:20:05"
+            },
+            {
+              "questionId": "fase-7-g-rolo-pintura-2",
+              "question": "CUBRA AS QUATRO FAIXAS COM O ROLO.",
+              "answer": "PINTURA COMPLETA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 6,
+              "kind": "paint-roller",
+              "correctAnswer": "PINTURA COMPLETA 2",
+              "at": "27/10/2026, 09:21:09"
+            }
+          ],
           "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
           "questionBankVersion": 10
         }
       },
-      "activeSession": {
-        "token": "1793102830990-mfr88qvhe1",
-        "lastSeen": 1793103178590
-      },
-      "updatedAt": "2026-10-27T12:12:58.590Z"
+      "updatedAt": "2026-10-27T12:26:29.461Z"
     },
     "student-angelo-ciccillo": {
       "id": "student-angelo-ciccillo",
@@ -979,26 +2365,41 @@
       "id": "student-davi-souza-ventura",
       "name": "DAVI SOUZA VENTURA",
       "status": {
-        "placementCompleted": false,
+        "placementCompleted": true,
         "currentWorld": 0,
         "recommendedWorld": 0,
-        "activeScreen": "placement",
+        "activeScreen": "profile",
         "activeWorld": 0,
-        "activePhase": 0,
-        "questionIndex": 0
+        "activePhase": 2,
+        "questionIndex": 3
       },
       "save": {
         "profile": {
-          "placementCompleted": false,
+          "placementCompleted": true,
           "studentId": "student-davi-souza-ventura",
           "name": "DAVI SOUZA VENTURA",
           "partner": "Lumi",
           "currentWorld": 0,
           "recommendedWorld": 0,
-          "coins": 20,
-          "xp": 0,
-          "eggs": 0,
-          "eggCollection": [],
+          "coins": 72,
+          "xp": 64,
+          "eggs": 2,
+          "eggCollection": [
+            {
+              "id": "egg-1793103707562",
+              "rarity": "epico",
+              "progress": 1,
+              "required": 4,
+              "hatched": false
+            },
+            {
+              "id": "egg-1793103865409",
+              "rarity": "epico",
+              "progress": 0,
+              "required": 4,
+              "hatched": false
+            }
+          ],
           "petLevel": 1,
           "petCare": 30,
           "petName": "Faísca",
@@ -1007,22 +2408,289 @@
           "audioEnabled": true,
           "sessionToken": "1793102970079-f8opwips1u"
         },
-        "completions": {},
+        "completions": {
+          "0:0": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:21:47.561Z"
+          },
+          "0:1": {
+            "score": 8,
+            "total": 8,
+            "date": "2026-10-27T12:24:25.409Z"
+          }
+        },
         "worldApprovals": {},
-        "answers": [],
+        "answers": [
+          {
+            "questionId": "fase-1-g-chuva-sementes-8",
+            "question": "Complete o canteiro e revele a flor da Lumi.",
+            "answer": "CHUVA COMPLETA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 8",
+            "at": "27/10/2026, 09:17:43"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-6",
+            "question": "Faça nascer um pequeno jardim com seus movimentos.",
+            "answer": "CHUVA COMPLETA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 6",
+            "at": "27/10/2026, 09:18:34"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-5",
+            "question": "Cubra a faixa de terra com um traço comprido.",
+            "answer": "CHUVA COMPLETA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 5",
+            "at": "27/10/2026, 09:19:41"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-3",
+            "question": "Crie um caminho curvo para a flor abrir.",
+            "answer": "CHUVA COMPLETA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 3",
+            "at": "27/10/2026, 09:20:24"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-2",
+            "question": "Leve a chuva de sementes até o canteiro azul.",
+            "answer": "CHUVA COMPLETA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 2",
+            "at": "27/10/2026, 09:21:25"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-4",
+            "question": "Plante sementes em dois caminhos que se encontram.",
+            "answer": "CHUVA COMPLETA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 4",
+            "at": "27/10/2026, 09:21:35"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-7",
+            "question": "Siga a trilha pontilhada e acenda as sementes.",
+            "answer": "CHUVA COMPLETA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 7",
+            "at": "27/10/2026, 09:21:41"
+          },
+          {
+            "questionId": "fase-1-g-chuva-sementes-1",
+            "question": "Faça as sementes nascerem seguindo um caminho de terra.",
+            "answer": "CHUVA COMPLETA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 0,
+            "kind": "seed-rain",
+            "correctAnswer": "CHUVA COMPLETA 1",
+            "at": "27/10/2026, 09:21:46"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-5",
+            "question": "Explore o céu escuro e encontre as formas brilhantes.",
+            "answer": "LUZ COMPLETA 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 5",
+            "at": "27/10/2026, 09:22:15"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-1",
+            "question": "Encontre os brinquedos escondidos no quarto escuro.",
+            "answer": "LUZ COMPLETA 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 1",
+            "at": "27/10/2026, 09:22:31"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-3",
+            "question": "Procure as duas surpresas atrás da noite.",
+            "answer": "LUZ COMPLETA 3",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 3",
+            "at": "27/10/2026, 09:22:48"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-7",
+            "question": "Passe a luz pelo mapa e encontre os sinais secretos.",
+            "answer": "LUZ COMPLETA 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 7",
+            "at": "27/10/2026, 09:23:08"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-4",
+            "question": "Acenda os objetos escondidos para abrir a janela.",
+            "answer": "LUZ COMPLETA 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 4",
+            "at": "27/10/2026, 09:23:19"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-2",
+            "question": "Ilumine a trilha e descubra quem está esperando.",
+            "answer": "LUZ COMPLETA 2",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 2",
+            "at": "27/10/2026, 09:23:30"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-6",
+            "question": "Revele os amigos que estão brincando no escuro.",
+            "answer": "LUZ COMPLETA 6",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 6",
+            "at": "27/10/2026, 09:23:57"
+          },
+          {
+            "questionId": "fase-2-g-dedos-lanterna-8",
+            "question": "Ilumine o quarto inteiro e revele a grande surpresa.",
+            "answer": "LUZ COMPLETA 8",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 1,
+            "kind": "lantern",
+            "correctAnswer": "LUZ COMPLETA 8",
+            "at": "27/10/2026, 09:24:16"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-1",
+            "question": "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 1",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 1",
+            "at": "27/10/2026, 09:24:47"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-5",
+            "question": "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.",
+            "answer": "PEGADAS COMPLETAS 5",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 5",
+            "at": "27/10/2026, 09:25:06"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-7",
+            "question": "ATRAVESSE A ROTA ESTREITA COM CUIDADO.",
+            "answer": "PEGADAS COMPLETAS 7",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 7",
+            "at": "27/10/2026, 09:25:28"
+          },
+          {
+            "questionId": "fase-3-g-pegadas-areia-4",
+            "question": "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.",
+            "answer": "PEGADAS COMPLETAS 4",
+            "correct": true,
+            "usedHint": false,
+            "worldId": 0,
+            "phase": 2,
+            "kind": "sand-tracks",
+            "correctAnswer": "PEGADAS COMPLETAS 4",
+            "at": "27/10/2026, 09:25:49"
+          }
+        ],
         "gameState": {
-          "screen": "placement",
+          "screen": "profile",
           "profile": {
-            "placementCompleted": false,
+            "placementCompleted": true,
             "studentId": "student-davi-souza-ventura",
             "name": "DAVI SOUZA VENTURA",
             "partner": "Lumi",
             "currentWorld": 0,
             "recommendedWorld": 0,
-            "coins": 20,
-            "xp": 0,
-            "eggs": 0,
-            "eggCollection": [],
+            "coins": 72,
+            "xp": 64,
+            "eggs": 2,
+            "eggCollection": [
+              {
+                "id": "egg-1793103707562",
+                "rarity": "epico",
+                "progress": 1,
+                "required": 4,
+                "hatched": false
+              },
+              {
+                "id": "egg-1793103865409",
+                "rarity": "epico",
+                "progress": 0,
+                "required": 4,
+                "hatched": false
+              }
+            ],
             "petLevel": 1,
             "petCare": 30,
             "petName": "Faísca",
@@ -1032,8 +2700,8 @@
             "sessionToken": "1793102970079-f8opwips1u"
           },
           "setupAudioEnabled": true,
-          "placementIndex": 9,
-          "placementScore": 7,
+          "placementIndex": 21,
+          "placementScore": 19,
           "placementAttempts": 0,
           "placementResults": [
             {
@@ -1090,294 +2758,457 @@
               "question": "Qual desenho parece uma letra?",
               "correct": true,
               "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-problema",
+              "question": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-abc-a",
+              "question": "QUAL É A LETRA A?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-quantidade",
+              "question": "CONTE AS ESTRELAS ABAIXO.",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-ditado",
+              "question": "Qual escrita corresponde a MESA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-completa",
+              "question": "Complete: CA _ A",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-final",
+              "question": "Qual letra termina GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-acento",
+              "question": "Qual escrita está correta?",
+              "correct": false,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-rima",
+              "question": "Qual palavra rima com GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-s-palmas",
+              "question": "Quantas sílabas tem CA-SA?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-a-frase",
+              "question": "Qual frase está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-p-numero",
+              "question": "Qual destes é um número?",
+              "correct": true,
+              "attempts": 1
             }
           ],
-          "placementQueue": [
-            {
-              "id": "nivel-g-risco",
-              "kind": "draw",
-              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
-              "answer": "__drawing__",
-              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
-              "visual": "〰"
-            },
-            {
-              "id": "nivel-s-monta",
-              "kind": "order",
-              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
-              "options": [
-                "TO",
-                "PA"
-              ],
-              "answer": "PATO",
-              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
-              "visual": "🦆",
-              "audioText": "PATO"
-            },
-            {
-              "id": "nivel-p-tamanho",
-              "kind": "choice",
-              "prompt": "Qual palavra tem mais letras?",
-              "options": [
-                "BOLA",
-                "BORBOLETA",
-                "SOL"
-              ],
-              "answer": "BORBOLETA",
-              "hint": "Compare o tamanho das palavras."
-            },
-            {
-              "id": "nivel-p-letra",
-              "kind": "choice",
-              "prompt": "Qual destes é uma letra?",
-              "options": [
-                "△",
-                "8",
-                "M"
-              ],
-              "answer": "M",
-              "hint": "Letras servem para escrever."
-            },
-            {
-              "id": "nivel-s-inicio",
-              "kind": "choice",
-              "prompt": "Qual sílaba começa BO-LA?",
-              "options": [
-                "BO",
-                "LA",
-                "BA"
-              ],
-              "answer": "BO",
-              "hint": "Fale devagar: BO-LA."
-            },
-            {
-              "id": "nivel-o-cedilha",
-              "kind": "choice",
-              "prompt": "Qual palavra está correta?",
-              "options": [
-                "CORAÇÃO",
-                "CORASÃO",
-                "CORASAO"
-              ],
-              "answer": "CORAÇÃO",
-              "hint": "A cedilha faz som de S antes de A."
-            },
-            {
-              "id": "nivel-abc-ordem",
-              "kind": "choice",
-              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
-              "options": [
-                "E",
-                "B",
-                "D"
-              ],
-              "answer": "D",
-              "hint": "FALE: A, B, C, D."
-            },
-            {
-              "id": "nivel-abc-inicial",
-              "kind": "choice",
-              "prompt": "QUAL LETRA COMEÇA BOLA?",
-              "options": [
-                "D",
-                "B",
-                "P"
-              ],
-              "answer": "B",
-              "hint": "O SOM INICIAL É BÊÊÊ."
-            },
-            {
-              "id": "nivel-g-rabisco",
-              "kind": "choice",
-              "prompt": "Qual desenho parece uma letra?",
-              "options": [
-                "○",
-                "A",
-                "☀"
-              ],
-              "answer": "A",
-              "hint": "Uma letra pode fazer parte de uma palavra."
-            },
-            {
-              "id": "nivel-a-problema",
-              "kind": "choice",
-              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
-              "options": [
-                "3",
-                "2",
-                "4"
-              ],
-              "answer": "3",
-              "hint": "Comece com cinco e retire duas."
-            },
-            {
-              "id": "nivel-abc-a",
-              "kind": "choice",
-              "prompt": "QUAL É A LETRA A?",
-              "options": [
-                "M",
-                "O",
-                "A"
-              ],
-              "answer": "A",
-              "hint": "PROCURE A LETRA A."
-            },
-            {
-              "id": "nivel-g-quantidade",
-              "kind": "choice",
-              "prompt": "CONTE AS ESTRELAS ABAIXO.",
-              "options": [
-                "4",
-                "3",
-                "2"
-              ],
-              "answer": "3",
-              "hint": "CONTE CADA ESTRELA.",
-              "visual": "★ ★ ★"
-            },
-            {
-              "id": "nivel-sa-ditado",
-              "kind": "choice",
-              "prompt": "Qual escrita corresponde a MESA?",
-              "options": [
-                "MESA",
-                "SEMA",
-                "MEZA"
-              ],
-              "answer": "MESA",
-              "hint": "Procure M-E-S-A."
-            },
-            {
-              "id": "nivel-o-rr",
-              "kind": "choice",
-              "prompt": "Qual palavra está escrita corretamente?",
-              "options": [
-                "CARRU",
-                "CARO",
-                "CARRO"
-              ],
-              "answer": "CARRO",
-              "hint": "O som forte de R no meio usa RR."
-            },
-            {
-              "id": "nivel-sa-completa",
-              "kind": "choice",
-              "prompt": "Complete: CA _ A",
-              "options": [
-                "P",
-                "T",
-                "S"
-              ],
-              "answer": "S",
-              "hint": "A palavra é CASA."
-            },
-            {
-              "id": "nivel-g-forma",
-              "kind": "choice",
-              "prompt": "Qual forma é redonda?",
-              "options": [
-                "○",
-                "△",
-                "□"
-              ],
-              "answer": "○",
-              "hint": "Procure a forma que parece uma bola."
-            },
-            {
-              "id": "nivel-sa-final",
-              "kind": "choice",
-              "prompt": "Qual letra termina GATO?",
-              "options": [
-                "T",
-                "A",
-                "O"
-              ],
-              "answer": "O",
-              "hint": "Olhe para o fim da palavra."
-            },
-            {
-              "id": "nivel-o-acento",
-              "kind": "choice",
-              "prompt": "Qual escrita está correta?",
-              "options": [
-                "mãmae",
-                "mamae",
-                "mamãe"
-              ],
-              "answer": "mamãe",
-              "hint": "Observe o til e o acento."
-            },
-            {
-              "id": "nivel-a-rima",
-              "kind": "choice",
-              "prompt": "Qual palavra rima com GATO?",
-              "options": [
-                "PATO",
-                "LUA",
-                "MESA"
-              ],
-              "answer": "PATO",
-              "hint": "GATO e PATO terminam igual."
-            },
-            {
-              "id": "nivel-s-palmas",
-              "kind": "choice",
-              "prompt": "Quantas sílabas tem CA-SA?",
-              "options": [
-                "2",
-                "1",
-                "3"
-              ],
-              "answer": "2",
-              "hint": "Bata duas palmas: CA / SA."
-            },
-            {
-              "id": "nivel-a-frase",
-              "kind": "choice",
-              "prompt": "Qual frase está escrita corretamente?",
-              "options": [
-                "O gato dorme.",
-                "gato O dorme.",
-                "Dorme gato o."
-              ],
-              "answer": "O gato dorme.",
-              "hint": "Frases começam com maiúscula e terminam com ponto."
-            },
-            {
-              "id": "nivel-p-numero",
-              "kind": "choice",
-              "prompt": "Qual destes é um número?",
-              "options": [
-                "7",
-                "B",
-                "☁"
-              ],
-              "answer": "7",
-              "hint": "Números ajudam a contar."
-            }
-          ],
+          "placementQueue": [],
           "activeWorld": 0,
           "selectedWorld": 0,
-          "activePhase": 0,
-          "queue": [],
-          "questionIndex": 0,
+          "activePhase": 2,
+          "queue": [
+            {
+              "id": "fase-3-g-pegadas-areia-1",
+              "kind": "sand-tracks",
+              "prompt": "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 1",
+              "hint": "Comece no ponto maior e arraste em linha reta pela praia. As marcas largas ajudam na primeira caminhada.",
+              "activity": "pegadas-areia",
+              "activityIndex": 0,
+              "sandTarget": 5,
+              "sandPattern": "straight",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-5",
+              "kind": "sand-tracks",
+              "prompt": "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 5",
+              "hint": "Há dois caminhos na areia. Siga o caminho pontilhado que termina junto ao coqueiro; o outro leva a um desvio.",
+              "activity": "pegadas-areia",
+              "activityIndex": 4,
+              "sandTarget": 7,
+              "sandPattern": "fork",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-7",
+              "kind": "sand-tracks",
+              "prompt": "ATRAVESSE A ROTA ESTREITA COM CUIDADO.",
+              "answer": "PEGADAS COMPLETAS 7",
+              "hint": "As curvas estão mais próximas. Mantenha o dedo perto das marcas e siga uma de cada vez.",
+              "activity": "pegadas-areia",
+              "activityIndex": 6,
+              "sandTarget": 8,
+              "sandPattern": "precision",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-4",
+              "kind": "sand-tracks",
+              "prompt": "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.",
+              "answer": "PEGADAS COMPLETAS 4",
+              "hint": "Mude de direção em cada curva e continue seguindo os pontos da trilha.",
+              "activity": "pegadas-areia",
+              "activityIndex": 3,
+              "sandTarget": 8,
+              "sandPattern": "zigzag",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-6",
+              "kind": "sand-tracks",
+              "prompt": "SIGA AS PEGADAS NA ORDEM DAS CORES.",
+              "answer": "PEGADAS COMPLETAS 6",
+              "hint": "Acompanhe os pontos amarelos, azuis e corais na sequência em que aparecem até chegar ao coqueiro.",
+              "activity": "pegadas-areia",
+              "activityIndex": 5,
+              "sandTarget": 7,
+              "sandPattern": "color-order",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-8",
+              "kind": "sand-tracks",
+              "prompt": "DESAFIO FINAL: ENCONTRE A RAMIFICAÇÃO QUE LEVA AO COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 8",
+              "hint": "A rota tem desvios. Siga os pontos principais até a sombra do coqueiro sem entrar nos caminhos que terminam na areia aberta.",
+              "activity": "pegadas-areia",
+              "activityIndex": 7,
+              "sandTarget": 8,
+              "sandPattern": "branched",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-2",
+              "kind": "sand-tracks",
+              "prompt": "CONTORNE A DUNA PELA CURVA ATÉ O COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 2",
+              "hint": "A trilha faz uma curva suave. Acompanhe os pontos sem cortar caminho.",
+              "activity": "pegadas-areia",
+              "activityIndex": 1,
+              "sandTarget": 6,
+              "sandPattern": "curve",
+              "sceneAsset": "pegadas-coqueiro"
+            },
+            {
+              "id": "fase-3-g-pegadas-areia-3",
+              "kind": "sand-tracks",
+              "prompt": "CAMINHE PELAS ONDAS DA AREIA.",
+              "answer": "PEGADAS COMPLETAS 3",
+              "hint": "A rota sobe e desce como pequenas ondas. Siga cada marca na ordem até o coqueiro.",
+              "activity": "pegadas-areia",
+              "activityIndex": 2,
+              "sandTarget": 7,
+              "sandPattern": "waves",
+              "sceneAsset": "pegadas-coqueiro"
+            }
+          ],
+          "questionIndex": 3,
           "attempts": 0,
-          "roundScore": 0,
-          "feedback": null,
-          "completions": {},
+          "roundScore": 4,
+          "feedback": {
+            "tone": "success",
+            "text": "Parabéns! Muito bem! Sua trilha ganhou uma nova pegada."
+          },
+          "completions": {
+            "0:0": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:21:47.561Z"
+            },
+            "0:1": {
+              "score": 8,
+              "total": 8,
+              "date": "2026-10-27T12:24:25.409Z"
+            }
+          },
           "worldApprovals": {},
-          "answers": [],
+          "answers": [
+            {
+              "questionId": "fase-1-g-chuva-sementes-8",
+              "question": "Complete o canteiro e revele a flor da Lumi.",
+              "answer": "CHUVA COMPLETA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 8",
+              "at": "27/10/2026, 09:17:43"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-6",
+              "question": "Faça nascer um pequeno jardim com seus movimentos.",
+              "answer": "CHUVA COMPLETA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 6",
+              "at": "27/10/2026, 09:18:34"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-5",
+              "question": "Cubra a faixa de terra com um traço comprido.",
+              "answer": "CHUVA COMPLETA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 5",
+              "at": "27/10/2026, 09:19:41"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-3",
+              "question": "Crie um caminho curvo para a flor abrir.",
+              "answer": "CHUVA COMPLETA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 3",
+              "at": "27/10/2026, 09:20:24"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-2",
+              "question": "Leve a chuva de sementes até o canteiro azul.",
+              "answer": "CHUVA COMPLETA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 2",
+              "at": "27/10/2026, 09:21:25"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-4",
+              "question": "Plante sementes em dois caminhos que se encontram.",
+              "answer": "CHUVA COMPLETA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 4",
+              "at": "27/10/2026, 09:21:35"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-7",
+              "question": "Siga a trilha pontilhada e acenda as sementes.",
+              "answer": "CHUVA COMPLETA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 7",
+              "at": "27/10/2026, 09:21:41"
+            },
+            {
+              "questionId": "fase-1-g-chuva-sementes-1",
+              "question": "Faça as sementes nascerem seguindo um caminho de terra.",
+              "answer": "CHUVA COMPLETA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 0,
+              "kind": "seed-rain",
+              "correctAnswer": "CHUVA COMPLETA 1",
+              "at": "27/10/2026, 09:21:46"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-5",
+              "question": "Explore o céu escuro e encontre as formas brilhantes.",
+              "answer": "LUZ COMPLETA 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 5",
+              "at": "27/10/2026, 09:22:15"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-1",
+              "question": "Encontre os brinquedos escondidos no quarto escuro.",
+              "answer": "LUZ COMPLETA 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 1",
+              "at": "27/10/2026, 09:22:31"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-3",
+              "question": "Procure as duas surpresas atrás da noite.",
+              "answer": "LUZ COMPLETA 3",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 3",
+              "at": "27/10/2026, 09:22:48"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-7",
+              "question": "Passe a luz pelo mapa e encontre os sinais secretos.",
+              "answer": "LUZ COMPLETA 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 7",
+              "at": "27/10/2026, 09:23:08"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-4",
+              "question": "Acenda os objetos escondidos para abrir a janela.",
+              "answer": "LUZ COMPLETA 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 4",
+              "at": "27/10/2026, 09:23:19"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-2",
+              "question": "Ilumine a trilha e descubra quem está esperando.",
+              "answer": "LUZ COMPLETA 2",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 2",
+              "at": "27/10/2026, 09:23:30"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-6",
+              "question": "Revele os amigos que estão brincando no escuro.",
+              "answer": "LUZ COMPLETA 6",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 6",
+              "at": "27/10/2026, 09:23:57"
+            },
+            {
+              "questionId": "fase-2-g-dedos-lanterna-8",
+              "question": "Ilumine o quarto inteiro e revele a grande surpresa.",
+              "answer": "LUZ COMPLETA 8",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 1,
+              "kind": "lantern",
+              "correctAnswer": "LUZ COMPLETA 8",
+              "at": "27/10/2026, 09:24:16"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-1",
+              "question": "SIGA A TRILHA RETA DE PEGADAS ATÉ O COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 1",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 1",
+              "at": "27/10/2026, 09:24:47"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-5",
+              "question": "ESCOLHA A TRILHA QUE CHEGA AO COQUEIRO.",
+              "answer": "PEGADAS COMPLETAS 5",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 5",
+              "at": "27/10/2026, 09:25:06"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-7",
+              "question": "ATRAVESSE A ROTA ESTREITA COM CUIDADO.",
+              "answer": "PEGADAS COMPLETAS 7",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 7",
+              "at": "27/10/2026, 09:25:28"
+            },
+            {
+              "questionId": "fase-3-g-pegadas-areia-4",
+              "question": "SIGA O ZIGUE-ZAGUE SEM PULAR NENHUMA MARCA.",
+              "answer": "PEGADAS COMPLETAS 4",
+              "correct": true,
+              "usedHint": false,
+              "worldId": 0,
+              "phase": 2,
+              "kind": "sand-tracks",
+              "correctAnswer": "PEGADAS COMPLETAS 4",
+              "at": "27/10/2026, 09:25:49"
+            }
+          ],
           "reward": null,
           "teacherName": "Professor(a)",
           "worldOrderVersion": 2,
           "questionBankVersion": 10
         }
       },
-      "activeSession": {
-        "token": "1793102970079-f8opwips1u",
-        "lastSeen": 1793103169063
-      },
-      "updatedAt": "2026-10-27T12:12:49.063Z"
+      "updatedAt": "2026-10-27T12:26:05.494Z"
     },
     "student-emanuelly-gomes": {
       "id": "student-emanuelly-gomes",
@@ -1633,21 +3464,349 @@
           "petName": "Faísca",
           "petStage": "filhote",
           "petSpecies": "raposa",
-          "audioEnabled": true
+          "audioEnabled": true,
+          "sessionToken": "1793103629507-rzabo7l3vu"
         },
         "completions": {},
         "worldApprovals": {},
         "answers": [],
         "gameState": {
           "screen": "placement",
-          "placementIndex": 0,
-          "placementScore": 0,
+          "profile": {
+            "placementCompleted": false,
+            "studentId": "student-isaque-ferreira",
+            "name": "ISAQUE FERREIRA",
+            "partner": "Lumi",
+            "currentWorld": 0,
+            "recommendedWorld": 0,
+            "coins": 20,
+            "xp": 0,
+            "eggs": 0,
+            "eggCollection": [],
+            "petLevel": 1,
+            "petCare": 30,
+            "petName": "Faísca",
+            "petStage": "filhote",
+            "petSpecies": "raposa",
+            "audioEnabled": true,
+            "sessionToken": "1793103629507-rzabo7l3vu"
+          },
+          "setupAudioEnabled": true,
+          "placementIndex": 4,
+          "placementScore": 4,
           "placementAttempts": 0,
-          "placementResults": [],
-          "placementQueue": []
+          "placementResults": [
+            {
+              "questionId": "nivel-g-rabisco",
+              "question": "Qual desenho parece uma letra?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-sa-final",
+              "question": "Qual letra termina GATO?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-g-forma",
+              "question": "Qual forma é redonda?",
+              "correct": true,
+              "attempts": 1
+            },
+            {
+              "questionId": "nivel-o-rr",
+              "question": "Qual palavra está escrita corretamente?",
+              "correct": true,
+              "attempts": 1
+            }
+          ],
+          "placementQueue": [
+            {
+              "id": "nivel-g-rabisco",
+              "kind": "choice",
+              "prompt": "Qual desenho parece uma letra?",
+              "options": [
+                "○",
+                "☀",
+                "A"
+              ],
+              "answer": "A",
+              "hint": "Uma letra pode fazer parte de uma palavra."
+            },
+            {
+              "id": "nivel-sa-final",
+              "kind": "choice",
+              "prompt": "Qual letra termina GATO?",
+              "options": [
+                "T",
+                "O",
+                "A"
+              ],
+              "answer": "O",
+              "hint": "Olhe para o fim da palavra."
+            },
+            {
+              "id": "nivel-g-forma",
+              "kind": "choice",
+              "prompt": "Qual forma é redonda?",
+              "options": [
+                "□",
+                "○",
+                "△"
+              ],
+              "answer": "○",
+              "hint": "Procure a forma que parece uma bola."
+            },
+            {
+              "id": "nivel-o-rr",
+              "kind": "choice",
+              "prompt": "Qual palavra está escrita corretamente?",
+              "options": [
+                "CARRU",
+                "CARO",
+                "CARRO"
+              ],
+              "answer": "CARRO",
+              "hint": "O som forte de R no meio usa RR."
+            },
+            {
+              "id": "nivel-o-cedilha",
+              "kind": "choice",
+              "prompt": "Qual palavra está correta?",
+              "options": [
+                "CORASAO",
+                "CORAÇÃO",
+                "CORASÃO"
+              ],
+              "answer": "CORAÇÃO",
+              "hint": "A cedilha faz som de S antes de A."
+            },
+            {
+              "id": "nivel-o-acento",
+              "kind": "choice",
+              "prompt": "Qual escrita está correta?",
+              "options": [
+                "mamae",
+                "mamãe",
+                "mãmae"
+              ],
+              "answer": "mamãe",
+              "hint": "Observe o til e o acento."
+            },
+            {
+              "id": "nivel-p-tamanho",
+              "kind": "choice",
+              "prompt": "Qual palavra tem mais letras?",
+              "options": [
+                "SOL",
+                "BOLA",
+                "BORBOLETA"
+              ],
+              "answer": "BORBOLETA",
+              "hint": "Compare o tamanho das palavras."
+            },
+            {
+              "id": "nivel-a-frase",
+              "kind": "choice",
+              "prompt": "Qual frase está escrita corretamente?",
+              "options": [
+                "Dorme gato o.",
+                "O gato dorme.",
+                "gato O dorme."
+              ],
+              "answer": "O gato dorme.",
+              "hint": "Frases começam com maiúscula e terminam com ponto."
+            },
+            {
+              "id": "nivel-a-rima",
+              "kind": "choice",
+              "prompt": "Qual palavra rima com GATO?",
+              "options": [
+                "LUA",
+                "MESA",
+                "PATO"
+              ],
+              "answer": "PATO",
+              "hint": "GATO e PATO terminam igual."
+            },
+            {
+              "id": "nivel-g-risco",
+              "kind": "draw",
+              "prompt": "FAÇA UM RISCO DE IDA E VOLTA.",
+              "answer": "__drawing__",
+              "hint": "Use o dedo ou o mouse e faça um traço contínuo. Não precisa ficar perfeito.",
+              "visual": "〰"
+            },
+            {
+              "id": "nivel-abc-ordem",
+              "kind": "choice",
+              "prompt": "QUAL LETRA VEM DEPOIS DE C?",
+              "options": [
+                "E",
+                "B",
+                "D"
+              ],
+              "answer": "D",
+              "hint": "FALE: A, B, C, D."
+            },
+            {
+              "id": "nivel-sa-ditado",
+              "kind": "choice",
+              "prompt": "Qual escrita corresponde a MESA?",
+              "options": [
+                "SEMA",
+                "MESA",
+                "MEZA"
+              ],
+              "answer": "MESA",
+              "hint": "Procure M-E-S-A."
+            },
+            {
+              "id": "nivel-abc-a",
+              "kind": "choice",
+              "prompt": "QUAL É A LETRA A?",
+              "options": [
+                "M",
+                "A",
+                "O"
+              ],
+              "answer": "A",
+              "hint": "PROCURE A LETRA A."
+            },
+            {
+              "id": "nivel-s-monta",
+              "kind": "order",
+              "prompt": "COMO SE ESCREVE O NOME DO ANIMAL DA FIGURA?",
+              "options": [
+                "PA",
+                "TO"
+              ],
+              "answer": "PATO",
+              "hint": "OLHE PARA O ANIMAL E EXPERIMENTE AS SÍLABAS.",
+              "visual": "🦆",
+              "audioText": "PATO"
+            },
+            {
+              "id": "nivel-g-quantidade",
+              "kind": "choice",
+              "prompt": "CONTE AS ESTRELAS ABAIXO.",
+              "options": [
+                "3",
+                "2",
+                "4"
+              ],
+              "answer": "3",
+              "hint": "CONTE CADA ESTRELA.",
+              "visual": "★ ★ ★"
+            },
+            {
+              "id": "nivel-a-problema",
+              "kind": "choice",
+              "prompt": "João tinha 5 maçãs e comeu 2. Quantas sobraram?",
+              "options": [
+                "4",
+                "2",
+                "3"
+              ],
+              "answer": "3",
+              "hint": "Comece com cinco e retire duas."
+            },
+            {
+              "id": "nivel-abc-inicial",
+              "kind": "choice",
+              "prompt": "QUAL LETRA COMEÇA BOLA?",
+              "options": [
+                "P",
+                "B",
+                "D"
+              ],
+              "answer": "B",
+              "hint": "O SOM INICIAL É BÊÊÊ."
+            },
+            {
+              "id": "nivel-s-inicio",
+              "kind": "choice",
+              "prompt": "Qual sílaba começa BO-LA?",
+              "options": [
+                "BO",
+                "LA",
+                "BA"
+              ],
+              "answer": "BO",
+              "hint": "Fale devagar: BO-LA."
+            },
+            {
+              "id": "nivel-p-numero",
+              "kind": "choice",
+              "prompt": "Qual destes é um número?",
+              "options": [
+                "☁",
+                "7",
+                "B"
+              ],
+              "answer": "7",
+              "hint": "Números ajudam a contar."
+            },
+            {
+              "id": "nivel-p-letra",
+              "kind": "choice",
+              "prompt": "Qual destes é uma letra?",
+              "options": [
+                "M",
+                "8",
+                "△"
+              ],
+              "answer": "M",
+              "hint": "Letras servem para escrever."
+            },
+            {
+              "id": "nivel-s-palmas",
+              "kind": "choice",
+              "prompt": "Quantas sílabas tem CA-SA?",
+              "options": [
+                "2",
+                "1",
+                "3"
+              ],
+              "answer": "2",
+              "hint": "Bata duas palmas: CA / SA."
+            },
+            {
+              "id": "nivel-sa-completa",
+              "kind": "choice",
+              "prompt": "Complete: CA _ A",
+              "options": [
+                "S",
+                "T",
+                "P"
+              ],
+              "answer": "S",
+              "hint": "A palavra é CASA."
+            }
+          ],
+          "activeWorld": 0,
+          "selectedWorld": 0,
+          "activePhase": 0,
+          "queue": [],
+          "questionIndex": 0,
+          "attempts": 0,
+          "roundScore": 0,
+          "feedback": null,
+          "completions": {},
+          "worldApprovals": {},
+          "answers": [],
+          "reward": null,
+          "teacherName": "Professor(a)",
+          "worldOrderVersion": 2,
+          "questionBankVersion": 10
         }
       },
-      "updatedAt": "2026-10-27T00:14:28.268Z"
+      "activeSession": {
+        "token": "1793103629507-rzabo7l3vu",
+        "lastSeen": 1793104078576
+      },
+      "updatedAt": "2026-10-27T12:27:58.576Z"
     },
     "student-liz-farina": {
       "id": "student-liz-farina",
@@ -2150,6 +4309,6 @@
     "restoredFromCommit": "aa5430e",
     "restoredStudentCount": "34",
     "restoredAnswerCount": "8",
-    "forceBasicPlacement": "true"
+    "forceBasicPlacement": "false"
   }
 }
