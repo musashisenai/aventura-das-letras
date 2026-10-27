@@ -167,6 +167,7 @@ export class GameController {
   private listeners = new Set<(state: GameState) => void>();
   private syncQueue: Promise<void> = Promise.resolve();
   private sessionRelease: Promise<void> = Promise.resolve();
+  private placementSubmissionInProgress = false;
 
   constructor(demo = false, previewMenu = false) {
     this.state = this.load();
@@ -468,13 +469,16 @@ export class GameController {
     this.emit();
   }
 
-  submitPlacement(answer: string, drawing?: string) {
+  async submitPlacement(answer: string, drawing?: string) {
     const placementQueue = this.state.placementQueue.length ? this.state.placementQueue : PLACEMENT_QUESTIONS;
     const question = placementQueue[this.state.placementIndex];
     if (!question) return;
+    const isFinalQuestion = this.state.placementIndex === placementQueue.length - 1;
+    if (isFinalQuestion && this.placementSubmissionInProgress) return;
     const attempts = this.state.placementAttempts + 1;
     const correct = question.kind === "draw" ? Boolean(drawing) : answer === question.answer;
     if (question.kind === "draw" && !drawing) return;
+    if (isFinalQuestion) this.placementSubmissionInProgress = true;
     const result: PlacementResult = {
       questionId: question.id,
       question: question.displayPrompt ?? question.prompt,
@@ -489,10 +493,20 @@ export class GameController {
     this.state.placementAttempts = 0;
     this.state.feedback = null;
 
-    if (this.state.placementIndex === placementQueue.length - 1) {
+    if (isFinalQuestion) {
       const retryPenalty = placementResults.filter(({ attempts: questionAttempts }) => questionAttempts > 1).length * 0.5;
       const evaluatedScore = Math.max(0, Math.round(nextScore - retryPenalty));
-      const recommendedWorld = getPlacementWorld(evaluatedScore, placementQueue.length);
+      let forceBasicPlacement = false;
+      try {
+        const policyResponse = await fetch("/api/placement-policy");
+        if (policyResponse.ok) {
+          const policy = await policyResponse.json() as { forceBasicPlacement?: boolean };
+          forceBasicPlacement = policy.forceBasicPlacement === true;
+        }
+      } catch {
+        // O jogo continua funcionando offline; o servidor também valida o nível ao salvar.
+      }
+      const recommendedWorld = forceBasicPlacement ? 0 : getPlacementWorld(evaluatedScore, placementQueue.length);
       if (this.state.profile) {
         this.state.profile.placementCompleted = true;
         this.state.profile.currentWorld = recommendedWorld;
@@ -502,6 +516,7 @@ export class GameController {
       this.state.selectedWorld = recommendedWorld;
       this.state.placementQueue = [];
       this.state.screen = "placement-result";
+      this.placementSubmissionInProgress = false;
     } else {
       this.state.placementIndex += 1;
     }

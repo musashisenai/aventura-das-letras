@@ -114,9 +114,19 @@ async function startServer() {
   const database = migrateLegacyData(); if (!fs.existsSync(databaseFile)) writeDatabase(database); getTeacherPassword(database); clearSessionsOnStartup(); writeDatabaseViews(readDatabase());
   app.use(express.json({ limit: "8mb" }));
   const asyncRoute = (handler: express.RequestHandler): express.RequestHandler => (req, res, next) => { Promise.resolve(handler(req, res, next)).catch(next); };
-  const requireTeacher = (req: express.Request) => { const database = readDatabase(); const password = String(req.body?.password ?? ""); return password === getTeacherPassword(database) || password === getDeveloperAccessKey(); };
+  const requireTeacher = (req: express.Request) => { const database = readDatabase(); const password = String(req.body?.password ?? ""); const developerKey = getDeveloperAccessKey(); return password === getTeacherPassword(database) || Boolean(developerKey && password === developerKey); };
   const sessionIsActive = (student: StoredStudent) => Boolean(student.activeSession?.token && student.activeSession.lastSeen && Date.now() - student.activeSession.lastSeen < 120000);
   const createSession = (student: StoredStudent, token: string) => { student.activeSession = { token, lastSeen: Date.now() }; };
+
+  app.get("/api/placement-policy", (_req, res) => { const database = readDatabase(); return res.json({ forceBasicPlacement: database.settings.forceBasicPlacement === "true" }); });
+  app.put("/api/teacher/placement-policy", asyncRoute(async (req, res) => {
+    if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." });
+    if (typeof req.body?.forceBasicPlacement !== "boolean") return res.status(400).json({ error: "Informe se o nivelamento deve ficar limitado ao nível inicial." });
+    const database = readDatabase();
+    database.settings.forceBasicPlacement = String(req.body.forceBasicPlacement);
+    writeDatabase(database);
+    return res.json({ ok: true, forceBasicPlacement: req.body.forceBasicPlacement });
+  }));
 
   app.post("/api/teacher/authorize", (req, res) => { const database = readDatabase(); return String(req.body?.password ?? "") === getTeacherPassword(database) ? res.json({ ok: true }) : res.status(401).json({ error: "Senha não reconhecida." }); });
   app.post("/api/developer/authorize", (req, res) => { const key = String(req.body?.key ?? ""); return key && key === getDeveloperAccessKey() ? res.json({ ok: true, role: "developer" }) : res.status(401).json({ error: "Chave de desenvolvedor não reconhecida." }); });
@@ -146,7 +156,12 @@ async function startServer() {
       if (!ownsSession && !teacherOverride) return res.status(409).json({ error: "Sessão do aluno não autorizada para salvar este perfil." });
     }
     if (existing && sessionIsActive(existing) && existing.activeSession?.token !== payload.sessionToken && !teacherOverride) return res.status(409).json({ error: "Este aluno já está em jogo em outro dispositivo." });
-    const record = fromApiStudent(id, payload, existing);
+    const isFirstPlacementCompletion = profile.placementCompleted === true && existing?.save.profile.placementCompleted !== true;
+    const shouldForceBasicPlacement = !teacherOverride && database.settings.forceBasicPlacement === "true" && isFirstPlacementCompletion;
+    const normalizedPayload = shouldForceBasicPlacement
+      ? { ...payload, profile: { ...profile, currentWorld: 0, recommendedWorld: 0 }, gameState: { ...((payload.gameState ?? {}) as Record<string, unknown>), activeWorld: 0, selectedWorld: 0 } }
+      : payload;
+    const record = fromApiStudent(id, normalizedPayload, existing);
     if (payload.sessionToken) createSession(record, String(payload.sessionToken));
     database.students[id] = record;
     writeDatabase(database);
