@@ -13,7 +13,7 @@ import palmTreeAsset from "@/assets/pegadas-coqueiro.png";
 import iceCreamAsset from "@/assets/sorvete-morango.png";
 import cartoonTreeAsset from "@/assets/arvore-openclipart.png";
 import publicBeehiveAsset from "@/assets/colmeia-openclipart.png";
-import { type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
+import { type Completion, type EggRarity, type GameController, type GameState, type WorldApproval } from "@/game/GameController";
 import "./placement-fixes.css";
 import "./activity.css";
 import "./pet-expansion.css";
@@ -22,7 +22,8 @@ import "./teacher-password.css";
 
 type Props = { state: GameState; controller: GameController };
 type TeacherTab = "overview" | "profiles" | "answers" | "teacher-profile";
-type RemoteStudent = { id: string; profile: { name: string; currentWorld: number; recommendedWorld?: number; placementCompleted?: boolean; xp: number; petName: string }; completions: Record<string, unknown>; worldApprovals?: Record<string, WorldApproval>; answers: unknown[]; gameState?: Partial<GameState>; updatedAt: string };
+type ProgressionAction = "phase" | "world";
+type RemoteStudent = { id: string; profile: { name: string; currentWorld: number; recommendedWorld?: number; placementCompleted?: boolean; xp: number; petName: string }; completions: Record<string, Completion>; worldApprovals?: Record<string, WorldApproval>; answers: unknown[]; gameState?: Partial<GameState>; updatedAt: string };
 const PHASES_PER_WORLD = 8;
 const SCENE_ASSETS: Record<string, string> = { "pegadas-coqueiro": palmTreeAsset };
 const normalizeStudentName = (name: string) => name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").toLocaleLowerCase("pt-BR");
@@ -452,9 +453,10 @@ function PhaseBook({ worldId, state, controller }: { worldId: number; state: Gam
         const complete = state.completions[`${worldId}:${phase}`];
         const open = controller.isPhaseOpen(worldId, phase);
         const activityTitle = phase === 0 ? phaseOneActivity : undefined;
-        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""} ${activityTitle ? "has-activity" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${activityTitle ? `, atividade ${activityTitle}` : ""}${complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{activityTitle && <small className="phase-activity-name">{activityTitle}</small>}{complete ? <small>{complete.score}/8 PONTOS</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
+        const teacherAdvanced = complete?.teacherAdvanced === true;
+        return <button key={phase} className={`phase-node ${complete ? "complete" : ""} ${!open ? "locked" : ""} ${activityTitle ? "has-activity" : ""}`} disabled={!open} onClick={() => controller.startPhase(worldId, phase)} aria-label={`Fase ${phase + 1}${activityTitle ? `, atividade ${activityTitle}` : ""}${teacherAdvanced ? ", avançada pelo professor" : complete ? `, ${complete.score} de 8 pontos` : open ? ", liberada" : ", bloqueada"}`}>{complete ? <Check size={18} /> : !open ? <Lock size={16} /> : <Play size={16} fill="currentColor" />}<span>Fase {phase + 1}</span>{activityTitle && <small className="phase-activity-name">{activityTitle}</small>}{complete ? <small>{teacherAdvanced ? "AVANÇADA PELO PROFESSOR" : `${complete.score}/8 PONTOS`}</small> : <small>{open ? "LIBERADA" : "BLOQUEADA"}</small>}</button>;
       })}
-      {(() => { const finalOpen = controller.isPhaseOpen(worldId, 7); const final = state.completions[`${worldId}:7`]; return <button className={`final-phase ${final ? "complete" : ""}`} disabled={!finalOpen} onClick={() => controller.startPhase(worldId, 7)}>{finalOpen ? <Star size={22} fill="currentColor" /> : <Lock size={19} />}<span>Desafio final</span><small>{final ? `${final.score}/8 PONTOS` : finalOpen ? "LIBERADO" : "COMPLETE AS 7 FASES"}</small></button>; })()}
+      {(() => { const finalOpen = controller.isPhaseOpen(worldId, 7); const final = state.completions[`${worldId}:7`]; const teacherAdvanced = final?.teacherAdvanced === true; return <button className={`final-phase ${final ? "complete" : ""}`} disabled={!finalOpen} onClick={() => controller.startPhase(worldId, 7)}>{finalOpen ? <Star size={22} fill="currentColor" /> : <Lock size={19} />}<span>Desafio final</span><small>{teacherAdvanced ? "AVANÇADO PELO PROFESSOR" : final ? `${final.score}/8 PONTOS` : finalOpen ? "LIBERADO" : "COMPLETE AS 7 FASES"}</small></button>; })()}
     </div>
   </section>;
 }
@@ -1351,7 +1353,14 @@ function Teacher({ state, controller }: Props) {
     setRemoteStudents([]); setSelectedStudentId(""); window.alert(result.message ?? "Banco limpo.");
   };
   const openTab = (next: TeacherTab) => setTab(next);
-  const updateSelected = async (student: RemoteStudent) => { const response = await fetch("/api/students", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...student, password: state.teacherPassword, teacherOverride: true }) }); if (response.ok) setRemoteStudents((items) => items.map((item) => item.id === student.id ? student : item)); };
+  const updateSelected = async (action: ProgressionAction) => {
+    if (!selected) throw new Error("Selecione um aluno antes de avançar o progresso.");
+    const response = await fetch(`/api/teacher/students/${encodeURIComponent(selected.id)}/advance`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword, teacherName: state.teacherName, action }) });
+    const result = await response.json().catch(() => ({})) as { student?: RemoteStudent; error?: string };
+    if (!response.ok || !result.student) throw new Error(result.error ?? "Não foi possível avançar o progresso do aluno.");
+    setRemoteStudents((items) => items.map((item) => item.id === selected.id ? result.student! : item));
+    return result.student;
+  };
   const registerStudent = async () => { setRegisteringStudent(true); setStudentMessage(""); const error = await controller.registerStudent(newStudentName); if (error) setStudentMessage(error); else { setStudentMessage("Aluno cadastrado. Na primeira entrada, ele fará o teste inicial antes de acessar o jogo."); setNewStudentName(""); } setRegisteringStudent(false); };
   const syncDatabase = async () => { setDatabaseSyncing(true); setDatabaseSyncMessage(""); try { const response = await fetch("/api/teacher/database/sync", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: state.teacherPassword }) }); const result = await response.json().catch(() => ({})) as { message?: string; error?: string }; setDatabaseSyncMessage(result.message ?? result.error ?? "Não foi possível salvar o banco agora."); } catch { setDatabaseSyncMessage("O banco continua salvo neste computador, mas a sincronização não está disponível agora."); } finally { setDatabaseSyncing(false); } };
   const toggleBasicPlacement = async () => {
@@ -1388,22 +1397,71 @@ function PasswordField({ value, setValue, visible, setVisible, placeholder }: { 
   return <div className="password-input-wrap"><input type={visible ? "text" : "password"} value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} /><button type="button" className="password-eye" onClick={() => setVisible(!visible)} aria-label={visible ? "Ocultar senha" : "Mostrar senha"}>{visible ? <EyeOff size={17} /> : <Eye size={17} />}</button></div>;
 }
 
-function RemoteTeacherDashboard({ student, tab, onUpdate, onReset, onEdit, onDelete }: { student: RemoteStudent; tab: TeacherTab; onUpdate: (student: RemoteStudent) => Promise<void>; onReset: () => Promise<void>; onEdit: () => Promise<void>; onDelete: () => Promise<void> }) {
+function RemoteTeacherDashboard({ student, tab, onUpdate, onReset, onEdit, onDelete }: { student: RemoteStudent; tab: TeacherTab; onUpdate: (action: ProgressionAction) => Promise<RemoteStudent>; onReset: () => Promise<void>; onEdit: () => Promise<void>; onDelete: () => Promise<void> }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [answerPage, setAnswerPage] = useState(0);
+  const [progressionAction, setProgressionAction] = useState<ProgressionAction | null>(null);
+  const [progressionMessage, setProgressionMessage] = useState<{ tone: "success" | "error"; text: string } | null>(null);
   const entries = (student.answers as GameState["answers"]).map((answer, index) => ({ answer, index })).reverse();
   const answerPageCount = Math.max(1, Math.ceil(entries.length / 10));
   const safeAnswerPage = Math.min(answerPage, answerPageCount - 1);
   const visible = entries.slice(safeAnswerPage * 10, safeAnswerPage * 10 + 10);
   const selectedEntry = visible.find((entry) => entry.index === selectedIndex) ?? visible[0];
   const completed = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${student.profile.currentWorld}:`)).length;
+  const manuallyAdvanced = Object.entries(student.completions ?? {}).filter(([key, completion]) => key.startsWith(`${student.profile.currentWorld}:`) && completion.teacherAdvanced === true).length;
+  const nextIncompletePhase = Array.from({ length: PHASES_PER_WORLD }, (_, phase) => phase).find((phase) => !student.completions?.[`${student.profile.currentWorld}:${phase}`]);
   const worldAnswers = entries.filter(({ answer }) => answer.worldId === student.profile.currentWorld);
   const accuracy = worldAnswers.length ? Math.round((worldAnswers.filter(({ answer }) => answer.correct).length / worldAnswers.length) * 100) : 0;
   const savedApproval = student.worldApprovals?.[String(student.profile.currentWorld)];
   const approval = savedApproval ?? (completed >= PHASES_PER_WORLD ? { status: "pending" as const, requestedAt: new Date().toISOString() } : undefined);
-  const canAdvance = completed >= PHASES_PER_WORLD && student.profile.currentWorld < WORLDS.length - 1;
-  const approveStudent = () => onUpdate({ ...student, worldApprovals: { ...student.worldApprovals, [String(student.profile.currentWorld)]: { status: "approved", requestedAt: approval?.requestedAt ?? new Date().toISOString(), approvedAt: new Date().toISOString(), approvedBy: "Professor(a)" }, }, profile: { ...student.profile, currentWorld: student.profile.currentWorld + 1, recommendedWorld: student.profile.currentWorld + 1 } });
-  if (tab === "profiles" || tab === "overview") return <><section className="student-profile-card paper-panel">{approval?.status === "pending" && <div className="approval-request"><span className="approval-dot" /><div><strong>Pedido de aprovação recebido</strong><small>{student.profile.name} concluiu o mundo e aguarda sua avaliação.</small></div></div>}<p className="eyebrow">Perfil completo do aluno</p><h2>{student.profile.name}</h2><p>Mundo atual: <strong>{student.profile.currentWorld + 1}</strong> · {student.profile.xp} XP · Pet: <strong>{student.profile.petName}</strong></p><div className="remote-performance-grid"><span><b>{completed}/{PHASES_PER_WORLD}</b> fases no mundo</span><span><b>{accuracy}%</b> desempenho</span><span><b>{student.answers.length}</b> respostas</span></div><div className="profile-actions"><button className="soft-action" onClick={() => void onEdit()}>Editar nome</button><button className="danger-action" onClick={() => void onReset()}>Resetar progresso</button><button className="danger-action" onClick={() => void onDelete()}>Excluir perfil</button></div>{approval?.status === "pending" && canAdvance ? <button className="release-button" onClick={approveStudent}>Aprovar e liberar próximo mundo <ChevronRight size={19} /></button> : approval?.status === "approved" ? <small className="approval-confirmed">Aprovado; o aluno já pode abrir o próximo mundo.</small> : <small className="sync-note">O pedido aparecerá aqui após concluir todas as fases. A liberação depende da sua avaliação e de pelo menos 70% de acerto.</small>}</section><section className="teacher-table paper-panel"><div className="table-head"><div><p className="eyebrow">Desempenho detalhado</p><h2>Atividades concluídas</h2></div><span>{completed} de {PHASES_PER_WORLD}</span></div><div className="world-teacher-grid">{WORLDS.map((world) => { const done = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${world.id}:`)).length; return <div className="remote-world-row" key={world.id}><strong>{world.icon} {world.shortName}</strong><small>{done}/{PHASES_PER_WORLD} fases</small><i style={{ width: `${Math.min(100, done / PHASES_PER_WORLD * 100)}%` }} /></div>; })}</div></section></>;
+  const runAdvance = async (action: ProgressionAction) => {
+    if (action === "world" && !window.confirm(`Promover ${student.profile.name} de ${WORLDS[student.profile.currentWorld]?.name ?? "mundo atual"} para ${WORLDS[student.profile.currentWorld + 1]?.name ?? "o próximo mundo"}? As fases restantes serão marcadas como avançadas pelo professor.`)) return;
+    setProgressionAction(action);
+    setProgressionMessage(null);
+    try {
+      const updated = await onUpdate(action);
+      const nextWorld = WORLDS[updated.profile.currentWorld];
+      const text = action === "world"
+        ? `${student.profile.name} foi promovido para ${nextWorld?.name ?? "o próximo mundo"}.`
+        : nextIncompletePhase === undefined
+          ? "Todas as fases deste mundo já foram liberadas."
+        : nextIncompletePhase === PHASES_PER_WORLD - 1
+          ? "O desafio final foi marcado como avançado pelo professor."
+          : `Fase ${nextIncompletePhase + 1} avançada; a fase ${nextIncompletePhase + 2} foi liberada.`;
+      setProgressionMessage({ tone: "success", text });
+    } catch (error) {
+      setProgressionMessage({ tone: "error", text: error instanceof Error ? error.message : "Não foi possível avançar o aluno." });
+    } finally {
+      setProgressionAction(null);
+    }
+  };
+  const placed = student.profile.placementCompleted === true;
+  const canAdvancePhase = placed && nextIncompletePhase !== undefined;
+  const canAdvanceWorld = placed && student.profile.currentWorld < WORLDS.length - 1;
+  const nextPhaseLabel = nextIncompletePhase === undefined ? "Todas as fases já foram liberadas" : nextIncompletePhase === PHASES_PER_WORLD - 1 ? "Pular desafio final" : `Liberar fase ${nextIncompletePhase + 2}`;
+  const nextWorld = WORLDS[student.profile.currentWorld + 1];
+  const nextWorldLabel = nextWorld ? approval?.status === "pending" ? `Aprovar ${nextWorld.shortName}` : `Avançar para ${nextWorld.shortName}` : "Último mundo";
+  if (tab === "profiles" || tab === "overview") return <>
+    <section className="student-profile-card paper-panel">
+      {approval?.status === "pending" && <div className="approval-request"><span className="approval-dot" /><div><strong>Pedido de aprovação recebido</strong><small>{student.profile.name} concluiu o mundo e aguarda sua avaliação.</small></div></div>}
+      <p className="eyebrow">Perfil completo do aluno</p>
+      <h2>{student.profile.name}</h2>
+      <p>Mundo atual: <strong>{student.profile.currentWorld + 1}</strong> · {student.profile.xp} XP · Pet: <strong>{student.profile.petName}</strong></p>
+      <div className="remote-performance-grid"><span><b>{completed}/{PHASES_PER_WORLD}</b> fases no mundo{manuallyAdvanced > 0 && <small>{manuallyAdvanced} avançada(s) pelo professor</small>}</span><span><b>{accuracy}%</b> desempenho</span><span><b>{student.answers.length}</b> respostas</span></div>
+      <div className="profile-actions"><button className="soft-action" onClick={() => void onEdit()}>Editar nome</button><button className="danger-action" onClick={() => void onReset()}>Resetar progresso</button><button className="danger-action" onClick={() => void onDelete()}>Excluir perfil</button></div>
+    </section>
+    <section className="teacher-progression-card paper-panel" aria-labelledby="teacher-progression-title">
+      <div><p className="eyebrow"><BookOpen size={15} /> Controle do professor</p><h2 id="teacher-progression-title">Avançar aluno</h2><p>Libere a próxima fase ou promova o aluno ao próximo mundo agora, sem esperar que conclua todas as atividades. Ao promover o mundo, as fases restantes são marcadas como avançadas pelo professor. Nenhum avanço manual acrescenta pontos, XP nem acertos.</p></div>
+      <div className="teacher-progression-actions">
+        <button type="button" className="soft-action" disabled={!canAdvancePhase || progressionAction !== null} onClick={() => void runAdvance("phase")}><ChevronRight size={18} /> {progressionAction === "phase" ? "Liberando fase…" : nextPhaseLabel}</button>
+        <button type="button" className="primary-action compact" disabled={!canAdvanceWorld || progressionAction !== null} onClick={() => void runAdvance("world")}><ChevronRight size={18} /> {progressionAction === "world" ? "Promovendo…" : nextWorldLabel}</button>
+      </div>
+      {!placed && <small className="progression-note">O aluno precisa concluir o teste inicial antes de avançar.</small>}
+      {progressionMessage && <small className={progressionMessage.tone === "success" ? "password-success" : "login-error"} role="status" aria-live="polite">{progressionMessage.text}</small>}
+      {approval?.status === "approved" && <small className="approval-confirmed">Mundo anterior aprovado; o próximo mundo já está disponível.</small>}
+    </section>
+    <section className="teacher-table paper-panel"><div className="table-head"><div><p className="eyebrow">Desempenho detalhado</p><h2>Atividades concluídas</h2></div><span>{completed} de {PHASES_PER_WORLD}</span></div><div className="world-teacher-grid">{WORLDS.map((world) => { const done = Object.keys(student.completions ?? {}).filter((key) => key.startsWith(`${world.id}:`)).length; const advanced = Object.entries(student.completions ?? {}).filter(([key, completion]) => key.startsWith(`${world.id}:`) && completion.teacherAdvanced === true).length; return <div className="remote-world-row" key={world.id}><strong>{world.icon} {world.shortName}</strong><small>{done}/{PHASES_PER_WORLD} fases{advanced > 0 ? ` · ${advanced} manual(is)` : ""}</small><i style={{ width: `${Math.min(100, done / PHASES_PER_WORLD * 100)}%` }} /></div>; })}</div></section>
+  </>;
   return <div className="analysis-workspace"><Pagination current={safeAnswerPage} total={answerPageCount} count={entries.length} label="respostas" onChange={setAnswerPage} /><ResponseExplorer entries={visible} selectedIndex={selectedEntry?.index ?? null} onSelectAnswer={setSelectedIndex} tab={tab} />{selectedEntry && <AnswerInspector answer={selectedEntry.answer} />}</div>;
 }
 function TeacherDashboard({ state, controller, tab, onTabChange, selectedAnswer, onSelectAnswer }: Props & { tab: TeacherTab; onTabChange: (tab: TeacherTab) => void; selectedAnswer: number | null; onSelectAnswer: (index: number | null) => void }) {

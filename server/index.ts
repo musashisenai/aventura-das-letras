@@ -21,6 +21,8 @@ async function startServer() {
   const DEFAULT_TEACHER_PASSWORD = "7391846205";
   const LEGACY_TEACHER_PASSWORD = "professor";
   const FINAL_DATABASE_CLEAR_PASSWORD = "Don't forget 3. Oct. 11";
+  const WORLD_COUNT = 7;
+  const PHASES_PER_WORLD = 8;
   const databaseFile = path.resolve(__dirname, "..", "database", "classroom.json");
   const developerAccessFile = path.resolve(__dirname, "..", "database", "sections", "developer", "access.json");
   const repositoryRoot = path.resolve(__dirname, "..");
@@ -137,6 +139,65 @@ async function startServer() {
   app.post("/api/teacher/database/clear", asyncRoute(async (req, res) => { const serverIp = String(req.body?.serverIp ?? "").trim(); const finalPassword = String(req.body?.finalPassword ?? ""); if (!requireTeacher(req)) return res.status(400).json({ error: "A senha do professor não confere." }); if (!serverIpv4Addresses().includes(serverIp)) return res.status(400).json({ error: "O IP informado não corresponde ao computador que está executando o servidor." }); if (finalPassword !== FINAL_DATABASE_CLEAR_PASSWORD) return res.status(400).json({ error: "A senha final não confere. O banco não foi alterado." }); const database = readDatabase(); database.students = {}; writeDatabase(database); return res.json({ ok: true, message: "Todos os alunos, status e saves foram removidos." }); }));
   app.post("/api/students/lookup", asyncRoute(async (req, res) => { const name = normalizeStudentName(String(req.body?.name ?? "")); if (!name) return res.status(400).json({ error: "Informe o nome do aluno." }); const student = Object.values(readDatabase().students).find((item) => normalizeStudentName(item.name) === name); return student ? res.json(toApiStudent(student)) : res.status(404).json({ error: "Aluno não encontrado." }); }));
   app.post("/api/teacher/students", asyncRoute(async (req, res) => { if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." }); return res.json(Object.values(readDatabase().students).map(toApiStudent)); }));
+  app.post("/api/teacher/students/:id/advance", asyncRoute(async (req, res) => {
+    if (!requireTeacher(req)) return res.status(401).json({ error: "Senha não reconhecida." });
+    const action = String(req.body?.action ?? "");
+    if (action !== "phase" && action !== "world") return res.status(400).json({ error: "Escolha se deseja avançar uma fase ou um mundo." });
+    const database = readDatabase();
+    const student = database.students[req.params.id];
+    if (!student) return res.status(404).json({ error: "Aluno não encontrado." });
+    if (student.save.profile.placementCompleted !== true) return res.status(409).json({ error: "O aluno precisa concluir o teste inicial antes de avançar." });
+    const currentWorld = Number(student.save.profile.currentWorld ?? 0);
+    if (!Number.isInteger(currentWorld) || currentWorld < 0 || currentWorld >= WORLD_COUNT) return res.status(409).json({ error: "O mundo atual do aluno é inválido." });
+
+    const timestamp = new Date().toISOString();
+    const profile = { ...student.save.profile };
+    const completions = { ...(student.save.completions as Record<string, { score: number; total: number; date: string; teacherAdvanced?: boolean }>) };
+    const worldApprovals = { ...(student.save.worldApprovals as Record<string, { status: "pending" | "approved"; requestedAt: string; approvedAt?: string; approvedBy?: string }>) };
+    const gameState = { ...(student.save.gameState as Record<string, unknown>) };
+    let targetWorld = currentWorld;
+    let targetPhase = 0;
+
+    if (action === "phase") {
+      const nextPhase = Array.from({ length: PHASES_PER_WORLD }, (_, phase) => phase).find((phase) => !completions[`${currentWorld}:${phase}`]);
+      if (nextPhase === undefined) return res.status(409).json({ error: "Todas as fases deste mundo já foram concluídas ou liberadas." });
+      completions[`${currentWorld}:${nextPhase}`] = { score: 0, total: 0, date: timestamp, teacherAdvanced: true };
+      targetPhase = Math.min(PHASES_PER_WORLD - 1, nextPhase + 1);
+      if (nextPhase === PHASES_PER_WORLD - 1 && currentWorld < WORLD_COUNT - 1) {
+        worldApprovals[String(currentWorld)] = { status: "pending", requestedAt: worldApprovals[String(currentWorld)]?.requestedAt ?? timestamp };
+      }
+    } else {
+      if (currentWorld >= WORLD_COUNT - 1) return res.status(409).json({ error: "O aluno já está no último mundo." });
+      for (let phase = 0; phase < PHASES_PER_WORLD; phase += 1) {
+        const key = `${currentWorld}:${phase}`;
+        if (!completions[key]) completions[key] = { score: 0, total: 0, date: timestamp, teacherAdvanced: true };
+      }
+      const previousApproval = worldApprovals[String(currentWorld)];
+      const approvedBy = String(req.body?.teacherName ?? "").trim().slice(0, 120) || "Professor(a)";
+      worldApprovals[String(currentWorld)] = { status: "approved", requestedAt: previousApproval?.requestedAt ?? timestamp, approvedAt: timestamp, approvedBy };
+      targetWorld = currentWorld + 1;
+      profile.currentWorld = targetWorld;
+      profile.recommendedWorld = targetWorld;
+    }
+
+    gameState.screen = "map";
+    gameState.activeWorld = targetWorld;
+    gameState.selectedWorld = targetWorld;
+    gameState.activePhase = targetPhase;
+    gameState.queue = [];
+    gameState.questionIndex = 0;
+    gameState.attempts = 0;
+    gameState.roundScore = 0;
+    gameState.feedback = null;
+    gameState.reward = null;
+    const currentProgressionVersion = Number(gameState.teacherProgressionVersion ?? 0);
+    gameState.teacherProgressionVersion = (Number.isFinite(currentProgressionVersion) ? currentProgressionVersion : 0) + 1;
+
+    const updatedStudent = fromApiStudent(student.id, { profile, completions, worldApprovals, answers: student.save.answers, gameState }, student);
+    database.students[student.id] = updatedStudent;
+    writeDatabase(database);
+    return res.json({ ok: true, student: toApiStudent(updatedStudent), message: action === "phase" ? "Aluno avançado para a próxima fase." : "Aluno promovido para o próximo mundo." });
+  }));
   app.get("/api/students", (_req, res) => res.status(405).json({ error: "Use a consulta por nome ou o painel autenticado do professor." }));
   app.get("/api/students/:id", asyncRoute(async (req, res) => { const student = readDatabase().students[req.params.id]; return student ? res.json(toApiStudent(student)) : res.status(404).json({ error: "Student not found" }); }));
   app.post("/api/students", asyncRoute(async (req, res) => {
@@ -151,6 +212,11 @@ async function startServer() {
     if (duplicate) return res.status(409).json({ error: "Já existe um aluno com esse nome." });
     const teacherOverride = payload.teacherOverride === true;
     if (teacherOverride && !requireTeacher(req)) return res.status(401).json({ error: "Autorização administrativa necessária." });
+    const incomingGameState = (payload.gameState ?? {}) as Record<string, unknown>;
+    const storedGameState = (existing?.save.gameState ?? {}) as Record<string, unknown>;
+    const incomingProgressionVersion = Number(incomingGameState.teacherProgressionVersion ?? 0);
+    const storedProgressionVersion = Number(storedGameState.teacherProgressionVersion ?? 0);
+    if (existing && !teacherOverride && Number.isFinite(incomingProgressionVersion) && Number.isFinite(storedProgressionVersion) && incomingProgressionVersion < storedProgressionVersion) return res.status(409).json({ error: "O professor atualizou seu progresso. O jogo está sincronizando; tente novamente." });
     if (existing) {
       const ownsSession = Boolean(payload.sessionToken && existing.activeSession?.token === String(payload.sessionToken));
       if (!ownsSession && !teacherOverride) return res.status(409).json({ error: "Sessão do aluno não autorizada para salvar este perfil." });

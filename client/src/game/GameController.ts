@@ -39,6 +39,7 @@ export type Completion = {
   score: number;
   total: number;
   date: string;
+  teacherAdvanced?: boolean;
 };
 
 export type WorldApproval = {
@@ -100,6 +101,7 @@ export type GameState = {
   feedback: Feedback;
   completions: Record<string, Completion>;
   worldApprovals: Record<string, WorldApproval>;
+  teacherProgressionVersion?: number;
   answers: AnswerLog[];
   reward: Reward | null;
   teacherAuthorized: boolean;
@@ -151,6 +153,7 @@ function initialState(): GameState {
     feedback: null,
     completions: {},
     worldApprovals: {},
+    teacherProgressionVersion: 0,
     answers: [],
     reward: null,
     teacherAuthorized: false,
@@ -260,11 +263,32 @@ export class GameController {
       const response = await fetch(`/api/students/${encodeURIComponent(studentId)}`);
       if (response.status === 404) { this.logout(); return; }
       if (!response.ok) return;
-      const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval> };
-      if (!remote.profile || remote.profile.currentWorld <= this.state.profile!.currentWorld) return;
-      this.state.profile = { ...this.state.profile!, currentWorld: remote.profile.currentWorld, recommendedWorld: remote.profile.recommendedWorld ?? remote.profile.currentWorld };
+      const remote = await response.json() as { profile?: Profile; worldApprovals?: Record<string, WorldApproval>; completions?: GameState["completions"]; gameState?: Partial<GameState> };
+      if (!remote.profile) return;
+      const currentWorldAdvanced = remote.profile.currentWorld > this.state.profile!.currentWorld;
+      const remoteProgressionVersion = Number(remote.gameState?.teacherProgressionVersion ?? 0);
+      const localProgressionVersion = Number(this.state.teacherProgressionVersion ?? 0);
+      const teacherProgressionUpdated = Number.isFinite(remoteProgressionVersion) && remoteProgressionVersion > localProgressionVersion;
+      if (!currentWorldAdvanced && !teacherProgressionUpdated) return;
+      if (currentWorldAdvanced) this.state.profile = { ...this.state.profile!, currentWorld: remote.profile.currentWorld, recommendedWorld: remote.profile.recommendedWorld ?? remote.profile.currentWorld };
+      if (teacherProgressionUpdated) {
+        this.state.teacherProgressionVersion = remoteProgressionVersion;
+        this.state.completions = remote.completions ?? this.state.completions;
+        this.state.activeWorld = remote.gameState?.activeWorld ?? this.state.profile!.currentWorld;
+        this.state.selectedWorld = remote.gameState?.selectedWorld ?? this.state.profile!.currentWorld;
+        this.state.activePhase = remote.gameState?.activePhase ?? 0;
+      } else {
+        this.state.activeWorld = this.state.profile!.currentWorld;
+        this.state.selectedWorld = this.state.profile!.currentWorld;
+      }
       this.state.worldApprovals = remote.worldApprovals ?? this.state.worldApprovals;
-      this.state.selectedWorld = this.state.profile.currentWorld;
+      this.state.screen = "map";
+      this.state.queue = [];
+      this.state.questionIndex = 0;
+      this.state.attempts = 0;
+      this.state.roundScore = 0;
+      this.state.feedback = null;
+      this.state.reward = null;
       this.emit();
     } catch {
       // O jogo continua funcionando offline; a decisão será consultada novamente.
@@ -771,7 +795,7 @@ export class GameController {
   worldAccuracy(worldId: number) {
     const entries = Array.from({ length: 8 })
       .map((_, phase) => this.state.completions[this.completionKey(worldId, phase)])
-      .filter((item): item is Completion => Boolean(item));
+      .filter((item): item is Completion => item !== undefined && !item.teacherAdvanced && item.total > 0);
     if (!entries.length) return 0;
     const hits = entries.reduce((total, item) => total + item.score, 0);
     const total = entries.reduce((sum, item) => sum + item.total, 0);
